@@ -1081,18 +1081,14 @@ def GR_FUNCTION():
             academic_details_lst.append(Gr_entry.get())#1
             cur.execute("update academic_detail set name=%s,active1=%s,left1=%s,aai1=%s,inactive_date=%s,add_date=%s,add_year=%s,add_std=%s,curr_date=%s,curr_year=%s,curr_std=%s,divison=%s,roll_no=%s,inactive_reason=%s,left_reason=%s,progress=%s,presence=%s,out_of=%s,lc_book=%s,lc_no=%s,lc_date=%s,lc_remark=%s,lc_copy=%s where gr_no=%s",academic_details_lst)
             
-            # if(aaivalue.get() == 0):
-            #     cur.execute("select * from std_fees")
-            #     fees_data = cur.fetchall()
-            #     for i in fees_data:
-            #         if(i[0] == str(current_standard_ent.get())):
-            #             cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),i[1],i[2],i[3],i[4],i[5],i[6]])
-            # else:
-            #     cur.execute("select * from exmp_fees")
-            #     fees_data = cur.fetchall()
-            #     for i in fees_data:
-            #         if(i[0] == str(current_standard_ent.get())):
-            #             cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),i[1],i[2],i[3],i[4],i[5],i[6]])
+            if(aaivalue.get() == 0):
+                cur.execute("select * from std_fees where std='{}'".format(current_standard_ent.get()))
+                data = cur.fetchall()
+                cur.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ACTIVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],Gr_entry.get()])
+            else:
+                cur.execute("select * from exmp_fees where std='{}'".format(current_standard_ent.get()))
+                data = cur.fetchall()
+                cur.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ACTIVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],Gr_entry.get()])
             mydb.commit()
             other_details1()
         save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=academic_details_save)
