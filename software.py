@@ -411,10 +411,9 @@ def GR_FUNCTION():
                 cur.execute("select * from exmp_fees where std='{}'".format(current_standard_ent.get()))
                 data = cur.fetchall()
                 cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12]])
-            # other_details()
-            cur.execute("insert into fee_details values({},0,0,0,0,0)".format(Gr_entry.get()))
             cur.execute("insert into gr_check values({},0,0,0,0,0)".format(Gr_entry.get()))
             cur.execute("insert into fee_details values({},' ',' ',' ',' ',' ')".foramt(Gr_entry.get()))
+            mydb.commit()
             other_details()
         save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=academic_details_save)
         save_next_button.place(x=1100,y=470)
@@ -1808,23 +1807,52 @@ def FEES_FUNCTION():
         if (CheckVar1.get() == 0):
             cur.execute("update gr_check set c1=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
         else:
-            cur.execute("update gr_check set c1=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+            cur.execute("select c1 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+            data = cur.fetchall()
+            if(int(data[0][0]) == 0):
+                cur.execute("update gr_check set c1=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update fee_tran set c1=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                cur.execute("update fee_details set c1='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+
+
         if(CheckVar2.get() == 0):
             cur.execute("update gr_check set c2=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
         else:
-            cur.execute("update gr_check set c2=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+            cur.execute("select c2 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+            data = cur.fetchall()
+            if(int(data[0][0]) == 0):
+                cur.execute("update gr_check set c2=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update fee_tran set c2=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                cur.execute("update fee_details set c2='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+
         if(CheckVar3.get() == 0):
             cur.execute("update gr_check set c3=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
         else:
-            cur.execute("update gr_check set c3=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+            cur.execute("select c3 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+            data = cur.fetchall()
+            if(int(data[0][0]) == 0):
+                cur.execute("update gr_check set c3=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update fee_tran set c3=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                cur.execute("update fee_details set c3='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+
         if(CheckVar4.get() == 0):
             cur.execute("update gr_check set c4=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
         else:
-            cur.execute("update gr_check set c4=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+            cur.execute("select c4 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+            data = cur.fetchall()
+            if(int(data[0][0]) == 0):
+                cur.execute("update gr_check set c4=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update fee_tran set c4=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                cur.execute("update fee_details set c4='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
         if(CheckVar5.get() == 0):
             cur.execute("update gr_check set c5=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
         else:
-            cur.execute("update gr_check set c5=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+            cur.execute("select c5 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+            data = cur.fetchall()
+            if(int(data[0][0]) == 0):
+                cur.execute("update gr_check set c5=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update fee_tran set c5=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                cur.execute("update fee_details set c5='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
 
         FEES_FUNCTION()
 
