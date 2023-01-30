@@ -411,9 +411,11 @@ def GR_FUNCTION():
                 cur.execute("select * from exmp_fees where std='{}'".format(current_standard_ent.get()))
                 data = cur.fetchall()
                 cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12]])
-            other_details()
+            # other_details()
             cur.execute("insert into fee_details values({},0,0,0,0,0)".format(Gr_entry.get()))
             cur.execute("insert into gr_check values({},0,0,0,0,0)".format(Gr_entry.get()))
+            cur.execute("insert into fee_details values({},' ',' ',' ',' ',' ')".foramt(Gr_entry.get()))
+            other_details()
         save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=academic_details_save)
         save_next_button.place(x=1100,y=470)
 
@@ -1801,7 +1803,8 @@ def FEES_FUNCTION():
         fee_lst.append(CheckVar4.get())
         fee_lst.append(CheckVar5.get())
         cur.execute("insert into tran_details values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",fee_lst)
-        mydb.commit()
+        cur.execute("insert into fee_tran values({},0,0,0,0,0)".format(FEES_RECEIPTNO_ENTRY.get()))
+
         if (CheckVar1.get() == 0):
             cur.execute("update gr_check set c1=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
         else:
@@ -1822,6 +1825,7 @@ def FEES_FUNCTION():
             cur.execute("update gr_check set c5=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
         else:
             cur.execute("update gr_check set c5=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+
         FEES_FUNCTION()
 
 
