@@ -412,7 +412,7 @@ def GR_FUNCTION():
                 data = cur.fetchall()
                 cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12]])
             other_details()
-            pass
+            cur.execute("insert into fee_details values({},0,0,0,0,0)".format(Gr_entry.get()))
         save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=academic_details_save)
         save_next_button.place(x=1100,y=470)
 
