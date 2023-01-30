@@ -403,23 +403,15 @@ def GR_FUNCTION():
             academic_details_lst.append(lc_copy_ent.get())#23
             cur.execute("insert into academic_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",academic_details_lst)
             
-            # if(aaivalue.get() == 0):
-            #     cur.execute("select * from std_fees")
-            #     fees_data = cur.fetchall()
-            #     for i in fees_data:
-            #         if(i[0] == str(current_standard_ent.get())):
-            #             cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),i[1],i[2],i[3],i[4],i[5],i[6]])
-            # else:
-            #     cur.execute("select * from exmp_fees")
-            #     fees_data = cur.fetchall()
-            #     for i in fees_data:
-            #         if(i[0] == str(current_standard_ent.get())):
-            #             cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),i[1],i[2],i[3],i[4],i[5],i[6]])
-            mydb.commit()
+            if(aaivalue.get() == 0):
+                cur.execute("select * from std_fees where std='{}'".format(current_standard_ent.get()))
+                data = cur.fetchall()
+                cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12]])
+            else:
+                cur.execute("select * from exmp_fees where std='{}'".format(current_standard_ent.get()))
+                data = cur.fetchall()
+                cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12]])
             other_details()
-
-
-
             pass
         save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=academic_details_save)
         save_next_button.place(x=1100,y=470)
