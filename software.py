@@ -1886,25 +1886,31 @@ def FEES_FUNCTION():
         gr_checks = cur.fetchall()
         
         if(gr_checks[0][1] == 0):
-            CheckVar1.deselect()
+            C1.deselect()
         else:
-            CheckVar1.select()
+            C1.select()
+            C1.config(state=DISABLED)
+
         if(gr_checks[0][2] == 0):
-            CheckVar2.deselect()
+            C2.deselect()
         else:
-            CheckVar2.select()
+            C2.select()
+            C2.config(state=DISABLED)
         if(gr_checks[0][3] == 0):
-            CheckVar3.deselect()
+            C3.deselect()
         else:
-            CheckVar3.select()
+            C3.select()
+            C3.config(state=DISABLED)
         if(gr_checks[0][4] == 0):
-            CheckVar4.deselect()
+            C4.deselect()
         else:
-            CheckVar4.select()
+            C4.select()
+            C4.config(state=DISABLED)
         if(gr_checks[0][5] == 0):
-            CheckVar5.deselect()
+            C5.deselect()
         else:
-            CheckVar5.select()
+            C5.select()
+            C5.config(state=DISABLED)
             
         SAVE_BTN["state"]=ACTIVE
 
