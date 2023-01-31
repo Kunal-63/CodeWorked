@@ -1911,6 +1911,43 @@ def FEES_FUNCTION():
         else:
             C5.select()
             C5.config(state=DISABLED)
+        
+        cur.execute("select * from gr_checks where gr_no={}".format(GR_VALUE))
+        gr_checks = cur.fetchall()
+        cur.execute("selct * from pending_fee_detail where gr_no={}".format(GR_VALUE))
+        pending_data = cur.fetchall()
+        cur.execute("select * from exmp_fees where std='{}'".format(data1[0][0]))
+        exmp_data = cur.fetchall()
+        if (CheckVar1.get() == 1):
+            if(gr_checks[0][1] == 1):
+                pass
+            else:
+                trv.insert(parent='',index="end",text='',value=("APR_JUN_TUTION",pending_data[0][3],exmp_data[0][3],pending_data[0][3]-exmp_data[0][3]))
+                trv.insert(parent='',index="end",text='',value=("APR_JUN_ACTIVITY",pending_data[0][4],exmp_data[0][4],pending_data[0][4]-exmp_data[0][4]))
+        if (CheckVar2.get() == 1):
+            if(gr_checks[0][2] == 1):
+                pass
+            else:
+                trv.insert(parent='',index="end",text='',value=("JUL_SEP_TUTION",pending_data[0][6],exmp_data[0][6],pending_data[0][6]-exmp_data[0][6]))
+                trv.insert(parent='',index="end",text='',value=("JUL_SEP_ACTIVITY",pending_data[0][7],exmp_data[0][7],pending_data[0][7]-exmp_data[0][7]))
+        if (CheckVar3.get() == 1):
+            if(gr_checks[0][3] == 1):
+                pass
+            else:
+                trv.insert(parent='',index="end",text='',value=("OCT_DEC_TUTION",pending_data[0][8],exmp_data[0][8],pending_data[0][8]-exmp_data[0][8]))
+                trv.insert(parent='',index="end",text='',value=("OCT_DEC_ACTIVITY",pending_data[0][9],exmp_data[0][9],pending_data[0][9]-exmp_data[0][9]))
+        if (CheckVar4.get() == 1):
+            if(gr_checks[0][4] == 1):
+                pass
+            else:
+                trv.insert(parent='',index="end",text='',value=("JAN_MAR_TUTION",pending_data[0][10],exmp_data[0][10],pending_data[0][10]-exmp_data[0][10]))
+                trv.insert(parent='',index="end",text='',value=("JAN_MAR_ACTIVITY",pending_data[0][11],exmp_data[0][11],pending_data[0][11]-exmp_data[0][11]))
+        if (CheckVar5.get() == 1):
+            if(gr_checks[0][5] == 1):
+                pass
+            else:
+                trv.insert(parent='',index="end",text='',value=("OTHERS",pending_data[0][12],exmp_data[0][12],pending_data[0][12]-exmp_data[0][12]))
+        
             
         SAVE_BTN["state"]=ACTIVE
 
