@@ -1882,6 +1882,30 @@ def FEES_FUNCTION():
         FEES_RECEIPTNO_ENTRY.delete(0,END)
         FEES_RECEIPTNO_ENTRY.insert(0,rec[-1][0] + 1)
         
+        cur.execute("select * from gr_check where gr_no={}".format(GR_VALUE))
+        gr_checks = cur.fetchall()
+        
+        if(gr_checks[0][1] == 0):
+            CheckVar1.deselect()
+        else:
+            CheckVar1.select()
+        if(gr_checks[0][2] == 0):
+            CheckVar2.deselect()
+        else:
+            CheckVar2.select()
+        if(gr_checks[0][3] == 0):
+            CheckVar3.deselect()
+        else:
+            CheckVar3.select()
+        if(gr_checks[0][4] == 0):
+            CheckVar4.deselect()
+        else:
+            CheckVar4.select()
+        if(gr_checks[0][5] == 0):
+            CheckVar5.deselect()
+        else:
+            CheckVar5.select()
+            
         SAVE_BTN["state"]=ACTIVE
 
 
