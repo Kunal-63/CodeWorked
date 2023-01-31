@@ -1860,6 +1860,28 @@ def FEES_FUNCTION():
 
 
     def fees_generate():
+        GR_VALUE = FEES_GR_ENTRY.get()
+        cur.execute("select name,father,surname from gr_details where gr_no={}".format(GR_VALUE))
+        data = cur.fetchall()
+        full_name = data[0][0] + data[0][1] + data[0][2]
+        cur.execute("select curr_std,divison from academic_detail where gr_no={}".format(GR_VALUE))
+        data1 = cur.fetchall()
+        FEES_STD_ENTRY.delete(0,END)
+        FEES_STD_ENTRY.insert(0,data1[0][0])
+        FEES_DIV_ENTRY.delete(0,END)
+        FEES_DIV_ENTRY.insert(0,data1[0][1])
+        FEES_NAME_ENTRY.delete(0,END)
+        FEES_NAME_ENTRY.insert(0,full_name)
+
+        FEES_DEPT_ENTRY.delete(0,END)
+        FEES_DEPT_ENTRY.insert(0,"CBSE")
+        FEES_RECEIPTBOOK_ENTRY.delete(0,END)
+        FEES_RECEIPTBOOK_ENTRY.insert(0,"ARPT")
+        cur.execute("select receipt_no from fee_tran")
+        rec = cur.fetchall()
+        FEES_RECEIPTNO_ENTRY.delete(0,END)
+        FEES_RECEIPTNO_ENTRY.insert(0,rec[-1][0] + 1)
+        
         SAVE_BTN["state"]=ACTIVE
 
 
