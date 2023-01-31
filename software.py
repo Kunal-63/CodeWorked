@@ -1739,12 +1739,14 @@ def FEES_FUNCTION():
     FEES_LATEFEES_LABEL.place(x=280,y=460)
     FEES_LATEFEES_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
     FEES_LATEFEES_ENTRY.place(x=250,y=480)
+    FEES_LATEFEES_ENTRY.insert(0,0)
 
 
     EXEMPTION_LABEL=Label(MAIN_FRAME,text="EXEMPTION : ",font=('Arial', 10),bg="lightpink")
     EXEMPTION_LABEL.place(x=480,y=460)
     EXEMPTION_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
     EXEMPTION_ENTRY.place(x=450,y=480)
+    EXEMPTION_ENTRY.insert(0,0)
 
     
     FEES_GRANDTOTAL_LABEL=Label(MAIN_FRAME,text="GRAND TOTAL : ",font=('Arial', 10),bg="lightpink")
@@ -1911,7 +1913,7 @@ def FEES_FUNCTION():
         else:
             C5.select()
             C5.config(state=DISABLED)
-        
+        trv.delete(*trv.get_children())
         cur.execute("select * from gr_checks where gr_no={}".format(GR_VALUE))
         gr_checks = cur.fetchall()
         cur.execute("selct * from pending_fee_detail where gr_no={}".format(GR_VALUE))
@@ -1948,7 +1950,18 @@ def FEES_FUNCTION():
             else:
                 trv.insert(parent='',index="end",text='',value=("OTHERS",pending_data[0][12],exmp_data[0][12],pending_data[0][12]-exmp_data[0][12]))
         
-            
+        if (len(trv.get_children()) != 0):
+            data = trv.get_children()
+            total = 0
+            for i in data:
+                total += i[-1]
+        FEES_TOTALAMOUNT_ENTRY.delete(0,END)
+        FEES_TOTALAMOUNT_ENTRY.insert(0,total)
+        late_fees = int(FEES_LATEFEES_ENTRY.get())
+        exmp_fees = int(EXEMPTION_ENTRY.get())
+        FEES_GRANDTOTAL_ENTRY.delete(0,END)
+        FEES_GRANDTOTAL_ENTRY.insert(0,total-late_fees-exmp_fees)
+        
         SAVE_BTN["state"]=ACTIVE
 
 
