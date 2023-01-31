@@ -412,7 +412,7 @@ def GR_FUNCTION():
                 data = cur.fetchall()
                 cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12]])
             cur.execute("insert into gr_check values({},0,0,0,0,0)".format(Gr_entry.get()))
-            cur.execute("insert into fee_details values({},' ',' ',' ',' ',' ')".foramt(Gr_entry.get()))
+            cur.execute("insert into fee_details values({},' ',' ',' ',' ',' ')".format(Gr_entry.get()))
             mydb.commit()
             other_details()
         save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=academic_details_save)
@@ -1693,6 +1693,8 @@ def FEES_FUNCTION():
     FEES_GR_ENTRY=Entry(MAIN_FRAME,width=20,font=('Arial', 10))
     FEES_GR_ENTRY.place(x=295,y=10)
 
+    
+
     FEES_DATE_LABEL=Label(MAIN_FRAME,text="DATE : ",font=('Arial', 10),bg="lightpink")
     FEES_DATE_LABEL.place(x=460,y=10)
     FEES_DATE_ENTRY=DateEntry(MAIN_FRAME,selectmode="day",date_pattern="dd-mm-y",width=17,font=('Arial', 10))
@@ -1782,28 +1784,28 @@ def FEES_FUNCTION():
     def fees_save():
         root.bell()
         fee_lst=[]
-        fee_lst.append(FEES_RECEIPTNO_ENTRY.get())
-        fee_lst.append(FEES_DEPT_ENTRY.get())
-        fee_lst.append(FEES_GR_ENTRY.get())
-        fee_lst.append(FEES_DATE_ENTRY.get())
-        fee_lst.append(FEES_NAME_ENTRY.get())
-        fee_lst.append(FEES_RECEIPTBOOK_ENTRY.get())
-        fee_lst.append(FEES_STD_ENTRY.get())
-        fee_lst.append(FEES_DIV_ENTRY.get())
-        fee_lst.append(FEES_TOTALAMOUNT_ENTRY.get())
-        fee_lst.append(FEES_LATEFEES_ENTRY.get())
-        fee_lst.append(EXEMPTION_ENTRY.get())
-        fee_lst.append(int(FEES_TOTALAMOUNT_ENTRY.get())-int(FEES_LATEFEES_ENTRY.get())-int(EXEMPTION_ENTRY.get()))
-        fee_lst.append(FEES_PAYMODE_ENTRY.get())
-        fee_lst.append(FEES_BANKNAME_ENTRY.get())
-        fee_lst.append(FEES_CHEQUENUMBER_ENTRY.get())
-        fee_lst.append(FEES_CHEQUEDATE_ENTRY.get())
-        fee_lst.append(CheckVar1.get())
-        fee_lst.append(CheckVar2.get())
-        fee_lst.append(CheckVar3.get())
-        fee_lst.append(CheckVar4.get())
-        fee_lst.append(CheckVar5.get())
-        cur.execute("insert into tran_details values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",fee_lst)
+        fee_lst.append(FEES_RECEIPTNO_ENTRY.get())#1
+        fee_lst.append(FEES_DEPT_ENTRY.get())#2
+        fee_lst.append(FEES_GR_ENTRY.get())#3
+        fee_lst.append(FEES_DATE_ENTRY.get())#4
+        fee_lst.append(FEES_NAME_ENTRY.get())#5
+        fee_lst.append(FEES_RECEIPTBOOK_ENTRY.get())#6
+        fee_lst.append(FEES_STD_ENTRY.get())#7
+        fee_lst.append(FEES_DIV_ENTRY.get())#8
+        fee_lst.append(FEES_TOTALAMOUNT_ENTRY.get())#9
+        fee_lst.append(FEES_LATEFEES_ENTRY.get())#10
+        fee_lst.append(EXEMPTION_ENTRY.get())#11
+        fee_lst.append(int(FEES_TOTALAMOUNT_ENTRY.get())-int(FEES_LATEFEES_ENTRY.get())-int(EXEMPTION_ENTRY.get()))#12
+        fee_lst.append(FEES_PAYMODE_ENTRY.get())#13
+        fee_lst.append(FEES_BANKNAME_ENTRY.get())#14
+        fee_lst.append(FEES_CHEQUENUMBER_ENTRY.get())#15
+        fee_lst.append(FEES_CHEQUEDATE_ENTRY.get())#16
+        fee_lst.append(CheckVar1.get())#17
+        fee_lst.append(CheckVar2.get())#18
+        fee_lst.append(CheckVar3.get())#19
+        fee_lst.append(CheckVar4.get())#20
+        fee_lst.append(CheckVar5.get())#21
+        cur.execute("insert into tran_details values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",fee_lst)
         cur.execute("insert into fee_tran values({},0,0,0,0,0)".format(FEES_RECEIPTNO_ENTRY.get()))
 
         if (CheckVar1.get() == 0):
@@ -1863,60 +1865,12 @@ def FEES_FUNCTION():
 
     def fees_generate():
         GR_VALUE = FEES_GR_ENTRY.get()
-        cur.execute("select name,father,surname from gr_details where gr_no={}".format(GR_VALUE))
-        data = cur.fetchall()
-        full_name = data[0][0] + data[0][1] + data[0][2]
         cur.execute("select curr_std,divison from academic_detail where gr_no={}".format(GR_VALUE))
         data1 = cur.fetchall()
-        FEES_STD_ENTRY.delete(0,END)
-        FEES_STD_ENTRY.insert(0,data1[0][0])
-        FEES_DIV_ENTRY.delete(0,END)
-        FEES_DIV_ENTRY.insert(0,data1[0][1])
-        FEES_NAME_ENTRY.delete(0,END)
-        FEES_NAME_ENTRY.insert(0,full_name)
-
-        FEES_DEPT_ENTRY.delete(0,END)
-        FEES_DEPT_ENTRY.insert(0,"CBSE")
-        FEES_RECEIPTBOOK_ENTRY.delete(0,END)
-        FEES_RECEIPTBOOK_ENTRY.insert(0,"ARPT")
-        cur.execute("select receipt_no from fee_tran")
-        rec = cur.fetchall()
-        FEES_RECEIPTNO_ENTRY.delete(0,END)
-        FEES_RECEIPTNO_ENTRY.insert(0,rec[-1][0] + 1)
-        
+        trv.delete(*trv.get_children())
         cur.execute("select * from gr_check where gr_no={}".format(GR_VALUE))
         gr_checks = cur.fetchall()
-        
-        if(gr_checks[0][1] == 0):
-            C1.deselect()
-        else:
-            C1.select()
-            C1.config(state=DISABLED)
-
-        if(gr_checks[0][2] == 0):
-            C2.deselect()
-        else:
-            C2.select()
-            C2.config(state=DISABLED)
-        if(gr_checks[0][3] == 0):
-            C3.deselect()
-        else:
-            C3.select()
-            C3.config(state=DISABLED)
-        if(gr_checks[0][4] == 0):
-            C4.deselect()
-        else:
-            C4.select()
-            C4.config(state=DISABLED)
-        if(gr_checks[0][5] == 0):
-            C5.deselect()
-        else:
-            C5.select()
-            C5.config(state=DISABLED)
-        trv.delete(*trv.get_children())
-        cur.execute("select * from gr_checks where gr_no={}".format(GR_VALUE))
-        gr_checks = cur.fetchall()
-        cur.execute("selct * from pending_fee_detail where gr_no={}".format(GR_VALUE))
+        cur.execute("select * from pending_fee_detail where gr_no={}".format(GR_VALUE))
         pending_data = cur.fetchall()
         cur.execute("select * from exmp_fees where std='{}'".format(data1[0][0]))
         exmp_data = cur.fetchall()
@@ -1951,10 +1905,12 @@ def FEES_FUNCTION():
                 trv.insert(parent='',index="end",text='',value=("OTHERS",pending_data[0][12],exmp_data[0][12],pending_data[0][12]-exmp_data[0][12]))
         
         if (len(trv.get_children()) != 0):
-            data = trv.get_children()
             total = 0
-            for i in data:
-                total += i[-1]
+            for l in trv.get_children():
+                values1 = []
+                for v in trv.item(l)["values"]:
+                    values1.append(v)
+                total += int(values1[-1])
         FEES_TOTALAMOUNT_ENTRY.delete(0,END)
         FEES_TOTALAMOUNT_ENTRY.insert(0,total)
         late_fees = int(FEES_LATEFEES_ENTRY.get())
@@ -1964,6 +1920,64 @@ def FEES_FUNCTION():
         
         SAVE_BTN["state"]=ACTIVE
 
+    def fees_insert(e):
+        GR_VALUE = FEES_GR_ENTRY.get()
+        cur.execute("select name,father,surname from gr_details where gr_no={}".format(GR_VALUE))
+        data = cur.fetchall()
+        full_name = data[0][0] + data[0][1] + data[0][2]
+        cur.execute("select curr_std,divison from academic_detail where gr_no={}".format(GR_VALUE))
+        data1 = cur.fetchall()
+        FEES_STD_ENTRY.delete(0,END)
+        FEES_STD_ENTRY.insert(0,data1[0][0])
+        FEES_DIV_ENTRY.delete(0,END)
+        FEES_DIV_ENTRY.insert(0,data1[0][1])
+        FEES_NAME_ENTRY.delete(0,END)
+        FEES_NAME_ENTRY.insert(0,full_name)
+
+        FEES_DEPT_ENTRY.delete(0,END)
+        FEES_DEPT_ENTRY.insert(0,"CBSE")
+        FEES_RECEIPTBOOK_ENTRY.delete(0,END)
+        FEES_RECEIPTBOOK_ENTRY.insert(0,"ARPT")
+        cur.execute("select receipt_no from fee_tran")
+        rec = cur.fetchall()
+        FEES_RECEIPTNO_ENTRY.delete(0,END)
+        FEES_RECEIPTNO_ENTRY.insert(0,rec[-1][0] + 1)
+        
+        cur.execute("select * from gr_check where gr_no={}".format(GR_VALUE))
+        gr_checks = cur.fetchall()
+        
+        if(gr_checks[0][1] == 0):
+            C1.deselect()
+            C1 .config(state=ACTIVE)
+        else:
+            C1.select()
+            C1.config(state=DISABLED)
+
+        if(gr_checks[0][2] == 0):
+            C2.deselect()
+            C2.config(state=ACTIVE)
+        else:
+            C2.select()
+            C2.config(state=DISABLED)
+        if(gr_checks[0][3] == 0):
+            C3.deselect()
+            C3.config(state=ACTIVE)
+        else:
+            C3.select()
+            C3.config(state=DISABLED)
+        if(gr_checks[0][4] == 0):
+            C4.deselect()
+            C4.config(state=ACTIVE)
+        else:
+            C4.select()
+            C4.config(state=DISABLED)
+        if(gr_checks[0][5] == 0):
+            C5.deselect()
+            C5.config(state=ACTIVE)
+        else:
+            C5.select()
+            C5.config(state=DISABLED)
+    FEES_GR_ENTRY.bind('<Return>',fees_insert)
 
 
     GENERATE_BTN=Button(MAIN_FRAME,text="GENERATE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=fees_generate)
@@ -2013,7 +2027,7 @@ def FEES_EDIT_FUNCTION():
     standard_select_lbl.place(x=50,y=105)
     standard_select_var=StringVar()
     standard_select_combo = ttk.Combobox(MAIN_FRAME,width=20,textvariable = standard_select_var,font=("Arial",10,"bold"))
-    standard_select_combo['values'] = ('Nursery','1','2','3','4','5','6','7','8','9','10','11 Comm','11 Sci','12 Comm','12 Sci')
+    standard_select_combo['values'] = ('NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI')
  
     standard_select_combo.place(x=200,y=110)
 
