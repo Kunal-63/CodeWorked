@@ -1795,7 +1795,7 @@ def FEES_FUNCTION():
         fee_lst.append(FEES_TOTALAMOUNT_ENTRY.get())#9
         fee_lst.append(FEES_LATEFEES_ENTRY.get())#10
         fee_lst.append(EXEMPTION_ENTRY.get())#11
-        fee_lst.append(int(FEES_TOTALAMOUNT_ENTRY.get())-int(FEES_LATEFEES_ENTRY.get())-int(EXEMPTION_ENTRY.get()))#12
+        fee_lst.append(int(FEES_TOTALAMOUNT_ENTRY.get())+int(FEES_LATEFEES_ENTRY.get())-int(EXEMPTION_ENTRY.get()))#12
         fee_lst.append(FEES_PAYMODE_ENTRY.get())#13
         fee_lst.append(FEES_BANKNAME_ENTRY.get())#14
         fee_lst.append(FEES_CHEQUENUMBER_ENTRY.get())#15
@@ -1916,7 +1916,7 @@ def FEES_FUNCTION():
         late_fees = int(FEES_LATEFEES_ENTRY.get())
         exmp_fees = int(EXEMPTION_ENTRY.get())
         FEES_GRANDTOTAL_ENTRY.delete(0,END)
-        FEES_GRANDTOTAL_ENTRY.insert(0,total-late_fees-exmp_fees)
+        FEES_GRANDTOTAL_ENTRY.insert(0,total+late_fees-exmp_fees)
         
         SAVE_BTN["state"]=ACTIVE
 
