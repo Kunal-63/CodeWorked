@@ -2112,7 +2112,6 @@ def FEES_EDIT_FUNCTION():
                         print("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
                         cur.execute("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
                     mydb.commit()
-
             if(fees_select_combo.get() == 'ACTIVITY'):
                 cur.execute("update std_fees set APR_JUN_ATIVITY={},JUL_SEP_ACTIVITY={},OCT_DEC_ACTIVITY={},JAN_MAR_ACTIVITY={} WHERE STD='{}'".format(a,a,a,a,s))
                 cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
@@ -2129,7 +2128,6 @@ def FEES_EDIT_FUNCTION():
                         # print("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
                         cur.execute("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
                     mydb.commit()
-            
             if(fees_select_combo.get() == 'ADMISSION'):
                 cur.execute("update std_fees set ADMISSION_FEE={} WHERE STD='{}'".format(a,s))
                 cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
