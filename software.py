@@ -1924,7 +1924,7 @@ def FEES_FUNCTION():
         GR_VALUE = FEES_GR_ENTRY.get()
         cur.execute("select name,father,surname from gr_details where gr_no={}".format(GR_VALUE))
         data = cur.fetchall()
-        full_name = data[0][0] + data[0][1] + data[0][2]
+        full_name = data[0][0] +" "+ data[0][1] +" "+ data[0][2]
         cur.execute("select curr_std,divison from academic_detail where gr_no={}".format(GR_VALUE))
         data1 = cur.fetchall()
         FEES_STD_ENTRY.delete(0,END)
@@ -2099,8 +2099,9 @@ def FEES_EDIT_FUNCTION():
                 cur.execute("update std_fees set APR_JUN_TUTION={},JUL_SEP_TUTION={},OCT_DEC_TUTION={},JAN_MAR_TUTION={} WHERE STD='{}'".format(a,a,a,a,s))
                 cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
                 gr_nos = cur.fetchall()
-                for i1  in gr_nos[0]:
-                    cur.execute("select APR_JUN_TUTION,JUL_SEP_TUTION,OCT_DEC_TUTION,JAN_MAR_TUTION from pending_fee_detail where gr_no={}".format(i1))
+                print(gr_nos)
+                for i1  in gr_nos:
+                    cur.execute("select APR_JUN_TUTION,JUL_SEP_TUTION,OCT_DEC_TUTION,JAN_MAR_TUTION from pending_fee_detail where gr_no={}".format(i1[0]))
                     data=cur.fetchall()
                     dict = {'APR_JUN_TUTION':data[0][0],
                             'JUL_SEP_TUTION':data[0][1],
@@ -2108,16 +2109,16 @@ def FEES_EDIT_FUNCTION():
                             'JAN_MAR_TUTION':data[0][3]
                             }
                     for i,j in dict.items():
-                        # print("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1))
-                        cur.execute("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1))
+                        print("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
+                        cur.execute("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
                     mydb.commit()
 
             if(fees_select_combo.get() == 'ACTIVITY'):
                 cur.execute("update std_fees set APR_JUN_ATIVITY={},JUL_SEP_ACTIVITY={},OCT_DEC_ACTIVITY={},JAN_MAR_ACTIVITY={} WHERE STD='{}'".format(a,a,a,a,s))
                 cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
                 gr_nos = cur.fetchall()
-                for i1  in gr_nos[0]:
-                    cur.execute("select APR_JUN_ACTIVITY,JUL_SEP_ACTIVITY,OCT_DEC_ACTIVITY,JAN_MAR_ACTIVITY from pending_fee_detail where gr_no={}".format(i1))
+                for i1  in gr_nos:
+                    cur.execute("select APR_JUN_ACTIVITY,JUL_SEP_ACTIVITY,OCT_DEC_ACTIVITY,JAN_MAR_ACTIVITY from pending_fee_detail where gr_no={}".format(i1[0]))
                     data=cur.fetchall()
                     dict = {'APR_JUN_ACTIVITY':data[0][0],
                             'JUL_SEP_ACTIVITY':data[0][1],
@@ -2125,34 +2126,35 @@ def FEES_EDIT_FUNCTION():
                             'JAN_MAR_ACTIVITY':data[0][3]
                             }
                     for i,j in dict.items():
-                        # print("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1))
-                        cur.execute("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1))
+                        # print("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
+                        cur.execute("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
                     mydb.commit()
             
             if(fees_select_combo.get() == 'ADMISSION'):
                 cur.execute("update std_fees set ADMISSION_FEE={} WHERE STD='{}'".format(a,s))
                 cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
                 gr_nos = cur.fetchall()
-                for i1  in gr_nos[0]:
-                    cur.execute("update pending_fee_detail set ADMISSION_FEE={} where gr_no={}".format(a,i1))
+                for i1  in gr_nos:
+                    cur.execute("update pending_fee_detail set ADMISSION_FEE={} where gr_no={}".format(a,i1[0]))
                     mydb.commit()
                 
             if(fees_select_combo.get() == 'ICARD'):
                 cur.execute("update std_fees set ICARD={} WHERE STD='{}'".format(a,s))
                 cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
                 gr_nos = cur.fetchall()
-                for i1  in gr_nos[0]:
-                    cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(a,i1))
+                for i1  in gr_nos:
+                    cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(a,i1[0]))
                     mydb.commit()
 
             if(fees_select_combo.get() == 'OTHERS'):
                 cur.execute("update std_fees set OTHERS1={} WHERE STD='{}'".format(a,s))
                 cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
                 gr_nos = cur.fetchall()
-                for i1  in gr_nos[0]:
-                    cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(a,i1))
+                for i1  in gr_nos:
+                    cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(a,i1[0]))
                     mydb.commit()
-
+            mydb.commit()
+            FEES_EDIT_FUNCTION()
         fees_select_combo.bind('<<ComboboxSelected>>',selected)
         fees_select_combo.place(x=200,y=20)
 
