@@ -1,0 +1,14 @@
+GR_NO,FORM_NO,ENQUIRY_NO,UID,SURNAME,NAME,FATHER,MOTHER,SEX,BIRTH_DATE,CATEGORY,RELIGION,BIRTH_PLACE,PREVIOUS_SCH,CASTE,BIRTH_TALUKA,SUB_CASTE,STATE1,MINORITY,RTE
+0,,,,,,,,,,,,,,,,,,,
+1,0,0,0,,,,,,,,,25-01-2023,,,,,,0,0
+2,0,0,0,,,,,,,,,25-01-2023,,,,,,0,0
+3,0,0,0,,,,,,,,,25-01-2023,,,,,,0,0
+4,0,0,0,adwani,kunal,abc,cabc,,28-01-2023,,,ahmedabad,apraj,,ahmedabad,,gujarat,0,0
+5,0,0,0,admal,lKMLkmlKMLm,hb,kb,k,30-01-2023,bmb,kh,bkb,kb,khb,hk,bb,kb,0,0
+6,0,0,0,adwani,kunal,kunal,kunal,male,31-01-2023,gen,hindhi,daslk,daksj,adsj,asjld,dsanl,sanld,0,0
+7,0,0,0,dwa,kb,213,321,132,31-01-2023,132,321,132,321,132,321,31,132,0,0
+8,0,0,0,12,123,13,23,2,31-01-2023,31,31,31,321,31,31,321,31,0,0
+9,0,0,0,12,312,132,1,313,01-02-2023,2,13,13,13,13,13,13,1,0,0
+10,0,0,0,desai,oritanshi,arpit,kruti,Female,01-02-2023,GEN,Hindhu,JAMNAGAR,AIROPRT,Hindhu,JAMNAGAR,Hindhu,GUJARAT,0,0
+11,0,0,0,123,213,132,123,321,02-02-2023,231,123,12,231,213,12,231,321,0,0
+12,0,0,0,78,9,897,98,79,02-02-2023,79,7,987,987,987,97,9,78,0,0
