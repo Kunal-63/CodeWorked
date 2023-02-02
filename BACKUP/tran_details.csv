@@ -1,3 +1,4 @@
 RECEIPT_NO,dept,gr_no,date1,name,receipt_book,std,div1,total1,late_fees,exemption_fees,grand_total,paymode,bank,cheque_no,cheque_date,c1,c2,c3,c4,c5,c6,c7
 1,CBSE,9,01-02-2023,31213212,ARPT,NUR,A,900,100,50,950,,,,,1,1,0,0,0,,
 2,CBSE,10,01-02-2023,oritanshi arpit desai,ARPT,1,D,7510,0,0,7510,,,,,1,0,0,0,0,,
+3,CBSE,13,02-02-2023,546 654 1,ARPT,1,,8510,0,0,8510,cash,cash,cash,cash,1,0,0,0,0,1,1

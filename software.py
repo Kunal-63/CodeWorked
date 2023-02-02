@@ -1748,6 +1748,8 @@ def FEES_FUNCTION():
     FEES_DEPT_LABEL.place(x=50,y=10)
     FEES_DEPT_ENTRY=Entry(MAIN_FRAME,width=20)
     FEES_DEPT_ENTRY.place(x=110,y=10)
+    FEES_DEPT_ENTRY.delete(0,END)
+    FEES_DEPT_ENTRY.insert(0,"CBSE")
 
     FEES_GR_LABEL=Label(MAIN_FRAME,text="GR : ",font=('Arial', 10),bg="lightpink")
     FEES_GR_LABEL.place(x=250,y=10)
@@ -1766,6 +1768,10 @@ def FEES_FUNCTION():
     FEES_RECEIPTNO_LABEL.place(x=680,y=10)
     FEES_RECEIPTNO_ENTRY=Entry(MAIN_FRAME,width=20,font=('Arial', 10))
     FEES_RECEIPTNO_ENTRY.place(x=790,y=10)
+    cur.execute("select * from fee_tran")
+    data = cur.fetchall()
+    FEES_RECEIPTBOOK_ENTRY.delete(0,END)
+    FEES_RECEIPTBOOK_ENTRY.insert(0,data[-1][0]+1)
 
 
     FEES_NAME_LABEL=Label(MAIN_FRAME,text="NAME : ",font=('Arial', 10),bg="lightpink")
@@ -1778,6 +1784,8 @@ def FEES_FUNCTION():
     FEES_RECEIPTBOOK_LABEL.place(x=680,y=50)
     FEES_RECEIPTBOOK_ENTRY=Entry(MAIN_FRAME,width=20,font=('Arial', 10))
     FEES_RECEIPTBOOK_ENTRY.place(x=790,y=50)
+    FEES_RECEIPTNO_ENTRY.delete(0,END)
+    FEES_RECEIPTNO_ENTRY.insert(0,"ARPT")
 
 
     FEES_STD_LABEL=Label(MAIN_FRAME,text="STD : ",font=('Arial', 10),bg="lightpink")
