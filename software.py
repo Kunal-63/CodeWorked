@@ -2358,66 +2358,105 @@ def CERTIFICATES_FUNCTION():
     numlbl=Label(MAIN_FRAME,text="No. : ",bg="#dda0dd",font=("ariel", 15, "bold"))
     numlbl.place(x=340,y=150,anchor=E)
 
-    dtlbl=Label(MAIN_FRAME,text="Date : ",bg="#dda0dd",font=("ariel", 15, "bold"))
-    dtlbl.place(x=340,y=200,anchor=E)
+    # dtlbl=Label(MAIN_FRAME,text="Date : ",bg="#dda0dd",font=("ariel", 15, "bold"))
+    # dtlbl.place(x=340,y=200,anchor=E)
 
     grnlbl=Label(MAIN_FRAME,text="Gr No : ",bg="#dda0dd",font=("ariel", 15, "bold"))
-    grnlbl.place(x=340,y=250,anchor=E)
+    grnlbl.place(x=340,y=200,anchor=E)
 
     namelbl=Label(MAIN_FRAME,text="Name : ",bg="#dda0dd",font=("ariel", 15, "bold"))
-    namelbl.place(x=340,y=300,anchor=E)
+    namelbl.place(x=340,y=250,anchor=E)
 
-    remarklbl=Label(MAIN_FRAME,text="Remark : ",bg='#dda0dd',font=("ariel", 15, "bold"))
-    remarklbl.place(x=340,y=350,anchor=E)
+    father_namelbl=Label(MAIN_FRAME,text="Father Name : ",bg="#dda0dd",font=("ariel", 15, "bold"))
+    father_namelbl.place(x=340,y=300,anchor=E)
+
+    # remarklbl=Label(MAIN_FRAME,text="Remark : ",bg='#dda0dd',font=("ariel", 15, "bold"))
+    # remarklbl.place(x=340,y=350,anchor=E)
+
+    Addresslbl=Label(MAIN_FRAME,text="Address : ",bg='#dda0dd',font=("ariel", 15, "bold"))
+    Addresslbl.place(x=340,y=350,anchor=E)
+    Addresslbl=Label(MAIN_FRAME,text=" ",bg='#dda0dd',font=("ariel", 15, "bold"))
+    Addresslbl.place(x=340,y=400,anchor=E)
 
     stdlbl=Label(MAIN_FRAME,text="Standard :",bg="#dda0dd",font=("ariel", 15, "bold"))
-    stdlbl.place(x=780,y=200,anchor=E)
+    stdlbl.place(x=780,y=250,anchor=E)
 
-    divlbl=Label(MAIN_FRAME,text="Division :",bg="#dda0dd",font=("ariel", 15, "bold"))
-    divlbl.place(x=780,y=250,anchor=E)
+    dtlbl=Label(MAIN_FRAME,text="Birth Date : ",bg="#dda0dd",font=("ariel", 15, "bold"))
+    dtlbl.place(x=780,y=300,anchor=E)
+
+    # divlbl=Label(MAIN_FRAME,text="Division :",bg="#dda0dd",font=("ariel", 15, "bold"))
+    # divlbl.place(x=780,y=250,anchor=E)
 
     # #-------------------------------ENTRY TABS----------------------------------
 
     num_entry_tab=Entry(MAIN_FRAME,font=("ariel", 15, "bold"))
     num_entry_tab.place(x=350,y=135)
+    cur.execute("select no from bonafide")
+    all_no_bonafide = cur.fetchall()
+    last_no_bonafide = all_no_bonafide[-1][0]
+    num_entry_tab.insert(0,int(last_no_bonafide)+1)
 
-    #dt_entry_tab=Entry(MAIN_FRAME)
-    #dt_entry_tab.place(x=90,y=70)
-
-    dt_entry_tab=DateEntry(MAIN_FRAME,selectmode="day",date_pattern="dd-mm-y",font=("ariel", 15, "bold"),width=18)
-    dt_entry_tab.place(x=350,y=185)
+    
+    # dt_entry_tab=DateEntry(MAIN_FRAME,selectmode="day",date_pattern="dd-mm-y",font=("ariel", 15, "bold"),width=18)
+    # dt_entry_tab.place(x=350,y=185)
 
     grn_entry_tab=Entry(MAIN_FRAME,font=("ariel", 15, "bold"))
-    grn_entry_tab.place(x=350,y=235)
+    grn_entry_tab.place(x=350,y=185)
 
-    name_entry_tab=Entry(MAIN_FRAME,width=60,font=("ariel", 15, "bold"))
-    name_entry_tab.place(x=350,y=285)
+    name_entry_tab=Entry(MAIN_FRAME,font=("ariel", 15, "bold"))
+    name_entry_tab.place(x=350,y=235)
 
-    remark_entry_tab=Entry(MAIN_FRAME,width=60,font=("ariel", 15, "bold"))
-    remark_entry_tab.place(x=350,y=335)
+    father_name_entry_tab=Entry(MAIN_FRAME,font=("ariel", 15, "bold"))
+    father_name_entry_tab.place(x=350,y=285)
+
+    address_entry_tab1=Entry(MAIN_FRAME,width=60,font=("ariel", 15, "bold"))
+    address_entry_tab1.place(x=350,y=335)
+    address_entry_tab2=Entry(MAIN_FRAME,width=60,font=("ariel", 15, "bold"))
+    address_entry_tab2.place(x=350,y=385)
 
     std_entry_tab=Entry(MAIN_FRAME,font=("ariel", 15, "bold"))
-    std_entry_tab.place(x=790,y=185)
+    std_entry_tab.place(x=790,y=235)
 
-    div_entry_tab=Entry(MAIN_FRAME,font=("ariel", 15, "bold"))
-    div_entry_tab.place(x=790,y=235)
+    dt_entry_tab=DateEntry(MAIN_FRAME,selectmode="day",date_pattern="dd-mm-y",font=("ariel", 15, "bold"),width=18)
+    dt_entry_tab.place(x=790,y=285)
+
+    # div_entry_tab=Entry(MAIN_FRAME,font=("ariel", 15, "bold"))
+    # div_entry_tab.place(x=790,y=235)
+
+    def entry_bonafide(e):
+        gr_no_value = grn_entry_tab.get()
+
+        cur.execute("select NAME,FATHER,SURNAME,BIRTH_DATE from gr_details where gr_no={}".format(gr_no_value))
+        data_gr_bonafide=cur.fetchall()
+
+        cur.execute("select curr_std,curr_year from academic_detail where gr_no={}".format(gr_no_value))
+        data_academic_bonafide=cur.fetchall()
+
+        cur.execute("select address1,address2 from other_detail where gr_no={}".format(gr_no_value))
+        data_other_bonafide=cur.fetchall()
+
+        name_entry_tab.insert(0,data_gr_bonafide[0][0])
+        father_name_entry_tab.insert(0,data_gr_bonafide[0][1])
+        std_entry_tab.insert(0,data_academic_bonafide[0][0])
+        address_entry_tab1.insert(0,data_other_bonafide[0][0])
+        address_entry_tab2.insert(0,data_other_bonafide[0][1])
+        dt_entry_tab.set_date(datetime.datetime.strptime(data_gr_bonafide[0][3],'%d-%m-%Y').date())
+
+
+        
+
+    grn_entry_tab.bind("<Return>",entry_bonafide)
+
     def cert():
         num_value = num_entry_tab.get()
-        date_value = dt_entry_tab.get()
+        # date_value = dt_entry_tab.get()
         gr_no_value = grn_entry_tab.get()
         name_value = name_entry_tab.get()
-        remark_value = remark_entry_tab.get()
+        # remark_value = remark_entry_tab.get()
         std_value = std_entry_tab.get()
-        div_value = div_entry_tab.get()
+        # div_value = div_entry_tab.get()
 
-        # q = "insert into bonafide values('{}','{}','{}','{}','{}','{}','{}')".format(num_value,date_value,gr_no_value,name_value,remark_value,std_value,div_value)
-        # cur.execute(q)
-        # mydb.commit()
-
-
-
-
-        cur.execute("select FATHER,SURNAME,BIRTH_DATE from gr_details where gr_no={}".format(gr_no_value))
+        cur.execute("select NAME,FATHER,SURNAME,BIRTH_DATE from gr_details where gr_no={}".format(gr_no_value))
         data_gr_bonafide=cur.fetchall()
 
         
@@ -2430,7 +2469,114 @@ def CERTIFICATES_FUNCTION():
         print(data_gr_bonafide[0])
         print(data_academic_bonafide[0])
         print(data_other_bonafide[0])
-        
+
+
+        q = "insert into bonafide values('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}')".format(num_value,data_gr_bonafide[0][0],data_gr_bonafide[0][1],data_gr_bonafide[0][2],data_academic_bonafide[0][0],data_academic_bonafide[0][1],gr_no_value,data_gr_bonafide[0][3],data_gr_bonafide[0][3],data_other_bonafide[0][0],data_other_bonafide[0][1])
+        cur.execute(q)
+        mydb.commit()
+
+        from reportlab.pdfgen import canvas
+        from reportlab.lib.units import inch
+
+        from reportlab.lib.pagesizes import letter, A4
+        #------------------------------------------------
+        from reportlab.pdfbase import pdfmetrics
+        from reportlab.pdfbase.ttfonts import TTFont
+        pdfmetrics.registerFont(TTFont('Vera', 'Vera.ttf'))
+        pdfmetrics.registerFont(TTFont('VeraBd', 'VeraBd.ttf'))
+        pdfmetrics.registerFont(TTFont('VeraIt', 'VeraIt.ttf'))
+        pdfmetrics.registerFont(TTFont('VeraBI', 'VeraBI.ttf'))
+
+
+
+        my_path1= r"CERTIFICATES\Taniya1035.pdf" 
+        c1=canvas.Canvas(my_path1,pagesize=A4)
+        c1.translate(inch,inch)
+        c1.setLineWidth(2)
+        c1.setStrokeColorRGB(0,0,0)
+        c1.rect(-0.8*inch,3.7*inch,7.9*inch,6.5*inch,fill=0)
+        c1.drawImage(r"CERTIFICATES\shool_logo.png",-40, 630)
+        c1.setFont("VeraBd",18)
+        c1.drawString(100,700,"AIRPORT SCHOOL - AHMEDABAD") 
+        c1.setFont("Vera",9)
+        c1.drawString(68,680,"AAI RESIDENTIAL QUARTERS, OPP. S.V.P.I. AIRPORT, SARDARNAGAR, AHMEDABAD- 382475")
+        c1.drawString(185,667,"PHONE : 079-22864175, 22869014")
+        c1.setFont("VeraBd",10)
+        c1.drawString(218,650,"C.B.S.E BOARD")
+        c1.drawString(187,630,"CBSE Affiliation No.430133")
+        c1.line(-57,620,510,620)
+        c1.setLineWidth(2)
+        c1.setFont("VeraBI",13)
+        c1.drawString(140,590,"BONAFIDE CERTIFICATE")
+        c1.line(138,588,315,588)
+        c1.setLineWidth(2)
+
+
+        NAME_CERT = name_value
+        total_name = 30
+
+        left_side = 15
+        right_side = 15
+
+        length_name = len(NAME_CERT)
+        lenth_name_remaining = total_name-length_name
+        each_side = lenth_name_remaining//2
+
+        left_side = each_side
+        right_side = each_side
+
+        c1.setFont("VeraIt",10)
+        c1.drawString(30,557," "*left_side+NAME_CERT+" "*right_side)
+
+
+
+        FATHER_CERT = data_gr_bonafide[0][1]
+        total_father = 34
+
+        left_side = 17
+        right_side = 17
+
+        length_father = len(FATHER_CERT)
+        lenth_father_remaining = total_father-length_father
+        each_side = lenth_father_remaining//2
+
+        left_side = each_side
+        right_side = each_side
+
+        c1.setFont("VeraIt",10)
+        c1.drawString(300,557," "*left_side+FATHER_CERT+" "*right_side)
+
+        c1.setFont("VeraIt",10)
+        c1.drawString(-40,555,"Certified that __________________________________ S/O")
+        c1.setFont("VeraBd",20)
+        c1.drawString(221,553,"/")
+        c1.setFont("VeraIt",10)
+        c1.drawString(225,555," D/O __________________________________ is a")
+        c1.setFont("VeraIt",10)
+        c1.drawString(-40,525,"bonafide student of the school studying in Std : __________________ in the year __________________.")
+        c1.drawString(-40,495,"As per the school records his / her details are :")
+        c1.drawString(-40,465,"G.R.No. : ______________________________ ")
+        c1.drawString(-40,435,"Date of Birth (In Figure) : ____________________________")
+        c1.drawString(23,405,"(In Words) : _________________________________________________________________________________ ")
+        c1.drawString(-40,375,"Residential address : ____________________________________________________________________________________ ")
+        c1.drawString(-40,345,"                                   ____________________________________________________________________________________ ")
+        c1.line(-57,320,510,320)
+        c1.setLineWidth(2)
+
+        c1.setFont("VeraBd",10)
+        c1.drawString(-40,303,"Date:")
+        c1.drawString(-40,275,"Place: Ahmedabad")
+        c1.line(380,283,470,283)
+        c1.setLineWidth(2)
+        c1.drawString(400,273,"Principal")
+
+        c1.showPage()
+        c1.save()
+
+
+
+
+
 
 
 
