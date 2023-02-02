@@ -15,6 +15,7 @@ from playsound import playsound
 from gtts import gTTS
 # import os
 # import sys
+import csv
 # import msvcrt
 import time
 from tkhtmlview import HTMLLabel
@@ -2337,14 +2338,115 @@ def CERTIFICATES_FUNCTION():
 
 
 def BACKUP_FUNCTION():
-    pass
-    # text_Q1="backed up succesfully"
-    # myobj = gTTS(text=text_Q1, slow=False)
-    # myobj.save(r"AUDIOS\backup.mp3")
-    #pygame.mixer.init()
-    #pygame.mixer.music.load(r"AUDIOS\backup.mp3")
-    #pygame.mixer.music.play(loops=0)
+    f1 = open(r"BACKUP\academic_detail.csv","a", newline="\n")
+    writer1 = csv.writer(f1)
+    cur.execute("select * from academic_detail")
+    headings = cur.column_names
+    data = cur.fetchall()
+    # print(headings)
+    # print(data)
+    writer1.writerow(headings)
+    writer1.writerows(data)
+    f1.close()
 
+    f2 = open(r"BACKUP\exmp_fees.csv","a", newline="\n")
+    writer1 = csv.writer(f2)
+    cur.execute("select * from exmp_fees")
+    headings = cur.column_names
+    data = cur.fetchall()
+    # print(headings)
+    # print(data)
+    writer1.writerow(headings)
+    writer1.writerows(data)
+    f2.close()
+    
+    f3 = open(r"BACKUP\fee_details.csv","a", newline="\n")
+    writer1 = csv.writer(f3)
+    cur.execute("select * from fee_details")
+    headings = cur.column_names
+    data = cur.fetchall()
+    # print(headings)
+    # print(data)
+    writer1.writerow(headings)
+    writer1.writerows(data)
+    f3.close()
+
+    f4 = open(r"BACKUP\fee_tran.csv","a", newline="\n")
+    writer1 = csv.writer(f4)
+    cur.execute("select * from fee_tran")
+    headings = cur.column_names
+    data = cur.fetchall()
+    # print(headings)
+    # print(data)
+    writer1.writerow(headings)
+    writer1.writerows(data)
+    f4.close()
+
+    f5 = open(r"BACKUP\gr_check.csv","a", newline="\n")
+    writer1 = csv.writer(f5)
+    cur.execute("select * from gr_check")
+    headings = cur.column_names
+    data = cur.fetchall()
+    # print(headings)
+    # print(data)
+    writer1.writerow(headings)
+    writer1.writerows(data)
+    f5.close()
+
+    f6 = open(r"BACKUP\gr_details.csv","a", newline="\n")
+    writer1 = csv.writer(f6)
+    cur.execute("select * from gr_details")
+    headings = cur.column_names
+    data = cur.fetchall()
+    # print(headings)
+    # print(data)
+    writer1.writerow(headings)
+    writer1.writerows(data)
+    f6.close()
+
+    f7 = open(r"BACKUP\other_detail.csv","a", newline="\n")
+    writer1 = csv.writer(f7)
+    cur.execute("select * from other_detail")
+    headings = cur.column_names
+    data = cur.fetchall()
+    # print(headings)
+    # print(data)
+    writer1.writerow(headings)
+    writer1.writerows(data)
+    f7.close()
+
+    f8 = open(r"BACKUP\pending_fee_detail.csv","a", newline="\n")
+    writer1 = csv.writer(f8)
+    cur.execute("select * from pending_fee_detail")
+    headings = cur.column_names
+    data = cur.fetchall()
+    # print(headings)
+    # print(data)
+    writer1.writerow(headings)
+    writer1.writerows(data)
+    f8.close()
+
+    f9 = open(r"BACKUP\std_fees.csv","a", newline="\n")
+    writer1 = csv.writer(f9)
+    cur.execute("select * from std_fees")
+    headings = cur.column_names
+    data = cur.fetchall()
+    # print(headings)
+    # print(data)
+    writer1.writerow(headings)
+    writer1.writerows(data)
+    f9.close()
+
+    f10 = open(r"BACKUP\tran_details.csv","a", newline="\n")
+    writer1 = csv.writer(f10)
+    cur.execute("select * from tran_details")
+    headings = cur.column_names
+    data = cur.fetchall()
+    # print(headings)
+    # print(data)
+    writer1.writerow(headings)
+    writer1.writerows(data)
+    f10.close()
 def ABOUTUS_FUNCTION():
     # text_Q1="School Details"
     # myobj = gTTS(text=text_Q1, slow=False)
