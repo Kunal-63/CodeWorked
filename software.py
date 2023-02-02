@@ -1770,8 +1770,8 @@ def FEES_FUNCTION():
     FEES_RECEIPTNO_ENTRY.place(x=790,y=10)
     cur.execute("select * from fee_tran")
     data = cur.fetchall()
-    FEES_RECEIPTBOOK_ENTRY.delete(0,END)
-    FEES_RECEIPTBOOK_ENTRY.insert(0,data[-1][0]+1)
+    FEES_RECEIPTNO_ENTRY.delete(0,END)
+    FEES_RECEIPTNO_ENTRY.insert(0,data[-1][0]+1)
 
 
     FEES_NAME_LABEL=Label(MAIN_FRAME,text="NAME : ",font=('Arial', 10),bg="lightpink")
@@ -1784,8 +1784,8 @@ def FEES_FUNCTION():
     FEES_RECEIPTBOOK_LABEL.place(x=680,y=50)
     FEES_RECEIPTBOOK_ENTRY=Entry(MAIN_FRAME,width=20,font=('Arial', 10))
     FEES_RECEIPTBOOK_ENTRY.place(x=790,y=50)
-    FEES_RECEIPTNO_ENTRY.delete(0,END)
-    FEES_RECEIPTNO_ENTRY.insert(0,"ARPT")
+    FEES_RECEIPTBOOK_ENTRY.delete(0,END)
+    FEES_RECEIPTBOOK_ENTRY.insert(0,"ARPT")
 
 
     FEES_STD_LABEL=Label(MAIN_FRAME,text="STD : ",font=('Arial', 10),bg="lightpink")
@@ -1947,6 +1947,7 @@ def FEES_FUNCTION():
                 cur.execute("update gr_check set c7=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_tran set c7=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
                 cur.execute("update fee_details set c7='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+        mydb.commit()
         FEES_FUNCTION()
 
 
@@ -2015,6 +2016,7 @@ def FEES_FUNCTION():
         exmp_fees = int(EXEMPTION_ENTRY.get())
         FEES_GRANDTOTAL_ENTRY.delete(0,END)
         FEES_GRANDTOTAL_ENTRY.insert(0,total+late_fees-exmp_fees)
+        mydb.commit()
         
         SAVE_BTN["state"]=ACTIVE
 
@@ -2087,6 +2089,7 @@ def FEES_FUNCTION():
         else:
             C5.select()
             C5.config(state=DISABLED)
+        mydb.commit()
     FEES_GR_ENTRY.bind('<Return>',fees_insert)
 
 
