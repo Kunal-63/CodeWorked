@@ -2401,6 +2401,41 @@ def CERTIFICATES_FUNCTION():
 
     div_entry_tab=Entry(MAIN_FRAME,font=("ariel", 15, "bold"))
     div_entry_tab.place(x=790,y=235)
+    def cert():
+        num_value = num_entry_tab.get()
+        date_value = dt_entry_tab.get()
+        gr_no_value = grn_entry_tab.get()
+        name_value = name_entry_tab.get()
+        remark_value = remark_entry_tab.get()
+        std_value = std_entry_tab.get()
+        div_value = div_entry_tab.get()
+
+        # q = "insert into bonafide values('{}','{}','{}','{}','{}','{}','{}')".format(num_value,date_value,gr_no_value,name_value,remark_value,std_value,div_value)
+        # cur.execute(q)
+        # mydb.commit()
+
+
+
+
+        cur.execute("select FATHER,SURNAME,BIRTH_DATE from gr_details where gr_no={}".format(gr_no_value))
+        data_gr_bonafide=cur.fetchall()
+
+        
+        cur.execute("select curr_std,curr_year from academic_detail where gr_no={}".format(gr_no_value))
+        data_academic_bonafide=cur.fetchall()
+
+        cur.execute("select address1,address2 from other_detail where gr_no={}".format(gr_no_value))
+        data_other_bonafide=cur.fetchall()
+
+        print(data_gr_bonafide[0])
+        print(data_academic_bonafide[0])
+        print(data_other_bonafide[0])
+        
+
+
+
+    SAVE_BTN=Button(MAIN_FRAME,text="SAVE",height=3,width=20,bg="lightgrey",activebackground='lightgrey', command = cert,font=('Arial', 10))
+    SAVE_BTN.place(x=1100,y=500)
 
 
 def BACKUP_FUNCTION():
@@ -2513,6 +2548,7 @@ def BACKUP_FUNCTION():
     writer1.writerow(headings)
     writer1.writerows(data)
     f10.close()
+
 def ABOUTUS_FUNCTION():
     # text_Q1="School Details"
     # myobj = gTTS(text=text_Q1, slow=False)
