@@ -2350,16 +2350,13 @@ def CERTIFICATES_FUNCTION():
 
     MAIN_FRAME.configure(bg="#dda0dd")
 
-    # bonafied_frame=Frame(MAIN_FRAME,height=350,width=650,background="#dda0dd")
-    # bonafied_frame.place(x=335,y=125)
+
 
     #-------------------------LABELS---------------------------------
 
     numlbl=Label(MAIN_FRAME,text="No. : ",bg="#dda0dd",font=("ariel", 15, "bold"))
     numlbl.place(x=340,y=150,anchor=E)
 
-    # dtlbl=Label(MAIN_FRAME,text="Date : ",bg="#dda0dd",font=("ariel", 15, "bold"))
-    # dtlbl.place(x=340,y=200,anchor=E)
 
     grnlbl=Label(MAIN_FRAME,text="Gr No : ",bg="#dda0dd",font=("ariel", 15, "bold"))
     grnlbl.place(x=340,y=200,anchor=E)
@@ -2370,35 +2367,32 @@ def CERTIFICATES_FUNCTION():
     father_namelbl=Label(MAIN_FRAME,text="Father Name : ",bg="#dda0dd",font=("ariel", 15, "bold"))
     father_namelbl.place(x=340,y=300,anchor=E)
 
-    # remarklbl=Label(MAIN_FRAME,text="Remark : ",bg='#dda0dd',font=("ariel", 15, "bold"))
-    # remarklbl.place(x=340,y=350,anchor=E)
 
     Addresslbl=Label(MAIN_FRAME,text="Address : ",bg='#dda0dd',font=("ariel", 15, "bold"))
     Addresslbl.place(x=340,y=350,anchor=E)
     Addresslbl=Label(MAIN_FRAME,text=" ",bg='#dda0dd',font=("ariel", 15, "bold"))
     Addresslbl.place(x=340,y=400,anchor=E)
 
+    dtlbl=Label(MAIN_FRAME,text="Date : ",bg="#dda0dd",font=("ariel", 15, "bold"))
+    dtlbl.place(x=780,y=200,anchor=E)
+
     stdlbl=Label(MAIN_FRAME,text="Standard :",bg="#dda0dd",font=("ariel", 15, "bold"))
     stdlbl.place(x=780,y=250,anchor=E)
 
-    dtlbl=Label(MAIN_FRAME,text="Birth Date : ",bg="#dda0dd",font=("ariel", 15, "bold"))
-    dtlbl.place(x=780,y=300,anchor=E)
+    dtbirthlbl=Label(MAIN_FRAME,text="Birth Date : ",bg="#dda0dd",font=("ariel", 15, "bold"))
+    dtbirthlbl.place(x=780,y=300,anchor=E)
 
-    # divlbl=Label(MAIN_FRAME,text="Division :",bg="#dda0dd",font=("ariel", 15, "bold"))
-    # divlbl.place(x=780,y=250,anchor=E)
+
 
     # #-------------------------------ENTRY TABS----------------------------------
 
     num_entry_tab=Entry(MAIN_FRAME,font=("ariel", 15, "bold"))
     num_entry_tab.place(x=350,y=135)
-    cur.execute("select no from bonafide")
-    all_no_bonafide = cur.fetchall()
-    last_no_bonafide = all_no_bonafide[-1][0]
-    num_entry_tab.insert(0,int(last_no_bonafide)+1)
+    cur.execute("select max(no) from bonafide")
+    last_no_bonafide = cur.fetchall()[0][0]
+    # print(last_no_bonafide)
+    num_entry_tab.insert(0,last_no_bonafide+1)
 
-    
-    # dt_entry_tab=DateEntry(MAIN_FRAME,selectmode="day",date_pattern="dd-mm-y",font=("ariel", 15, "bold"),width=18)
-    # dt_entry_tab.place(x=350,y=185)
 
     grn_entry_tab=Entry(MAIN_FRAME,font=("ariel", 15, "bold"))
     grn_entry_tab.place(x=350,y=185)
@@ -2414,14 +2408,16 @@ def CERTIFICATES_FUNCTION():
     address_entry_tab2=Entry(MAIN_FRAME,width=60,font=("ariel", 15, "bold"))
     address_entry_tab2.place(x=350,y=385)
 
+        
+    dt_entry_tab=DateEntry(MAIN_FRAME,selectmode="day",date_pattern="dd-mm-y",font=("ariel", 15, "bold"),width=18)
+    dt_entry_tab.place(x=790,y=185)
+
     std_entry_tab=Entry(MAIN_FRAME,font=("ariel", 15, "bold"))
     std_entry_tab.place(x=790,y=235)
 
-    dt_entry_tab=DateEntry(MAIN_FRAME,selectmode="day",date_pattern="dd-mm-y",font=("ariel", 15, "bold"),width=18)
-    dt_entry_tab.place(x=790,y=285)
+    dt_birth_entry_tab=DateEntry(MAIN_FRAME,selectmode="day",date_pattern="dd-mm-y",font=("ariel", 15, "bold"),width=18)
+    dt_birth_entry_tab.place(x=790,y=285)
 
-    # div_entry_tab=Entry(MAIN_FRAME,font=("ariel", 15, "bold"))
-    # div_entry_tab.place(x=790,y=235)
 
     def entry_bonafide(e):
         gr_no_value = grn_entry_tab.get()
@@ -2440,7 +2436,7 @@ def CERTIFICATES_FUNCTION():
         std_entry_tab.insert(0,data_academic_bonafide[0][0])
         address_entry_tab1.insert(0,data_other_bonafide[0][0])
         address_entry_tab2.insert(0,data_other_bonafide[0][1])
-        dt_entry_tab.set_date(datetime.datetime.strptime(data_gr_bonafide[0][3],'%d-%m-%Y').date())
+        dt_birth_entry_tab.set_date(datetime.datetime.strptime(data_gr_bonafide[0][3],'%d-%m-%Y').date())
 
 
         
@@ -2449,12 +2445,46 @@ def CERTIFICATES_FUNCTION():
 
     def cert():
         num_value = num_entry_tab.get()
-        # date_value = dt_entry_tab.get()
         gr_no_value = grn_entry_tab.get()
         name_value = name_entry_tab.get()
-        # remark_value = remark_entry_tab.get()
+        date_value = dt_entry_tab.get()
+        date_birth_value = dt_birth_entry_tab.get()
         std_value = std_entry_tab.get()
-        # div_value = div_entry_tab.get()
+
+
+
+        from datetime import date
+        from num2words import num2words
+        
+        date1 = date_birth_value
+        date1 = date1.split("-")
+        a = date(day=int(date1[0]), month=int(date1[1]), year=int(date1[2])).strftime('%A %d %B %Y')
+        a = a.split(" ")
+        a = a[1:]
+        a[0] = num2words(int(a[0]))
+        a[2] = num2words(int(a[2]))
+        # print(a[0][0])
+        date = a[0]
+        month = a[1]
+        year = a[2]
+        year_list = year.split(" ")
+        a = []
+        for i in range(len(year_list)):
+            year_list[i] = year_list[i].title()
+            if(year_list[i] == "And"):
+                pass
+            else:
+                a.append(year_list[i])
+        date = date.title()
+        words = date + " "+month+" "+" ".join(a)
+        date_birth_in_words_value = words
+    
+
+
+
+
+
+
 
         cur.execute("select NAME,FATHER,SURNAME,BIRTH_DATE from gr_details where gr_no={}".format(gr_no_value))
         data_gr_bonafide=cur.fetchall()
@@ -2489,7 +2519,7 @@ def CERTIFICATES_FUNCTION():
 
 
 
-        my_path1= "CERTIFICATES\\{}".format(data_gr_bonafide[0][0]+" "+gr_no_value)
+        my_path1= "CERTIFICATES\\ll.pdf"
         c1=canvas.Canvas(my_path1,pagesize=A4)
         c1.translate(inch,inch)
         c1.setLineWidth(2)
@@ -2529,7 +2559,12 @@ def CERTIFICATES_FUNCTION():
         c1.drawString(30,557," "*left_side+NAME_CERT+" "*right_side)
 
 
+        c1.setFont("VeraIt",10)
+        c1.drawString(-40,555,"Certified that __________________________________ S/O")
+        c1.setFont("VeraBd",20)
+        c1.drawString(221,553,"/")
 
+        
         FATHER_CERT = data_gr_bonafide[0][1]
         total_father = 34
 
@@ -2544,27 +2579,140 @@ def CERTIFICATES_FUNCTION():
         right_side = each_side
 
         c1.setFont("VeraIt",10)
-        c1.drawString(300,557," "*left_side+FATHER_CERT+" "*right_side)
+        c1.drawString(252,557," "*left_side+FATHER_CERT+" "*right_side)
+
 
         c1.setFont("VeraIt",10)
-        c1.drawString(-40,555,"Certified that __________________________________ S/O")
-        c1.setFont("VeraBd",20)
-        c1.drawString(221,553,"/")
-        c1.setFont("VeraIt",10)
         c1.drawString(225,555," D/O __________________________________ is a")
+
+        
+        STD_CERT = data_academic_bonafide[0][0]
+        total_std = 18
+
+        left_side = 9
+        right_side = 9
+
+        length_std = len(STD_CERT)
+        lenth_std_remaining = total_std-length_std
+        each_side = lenth_std_remaining//2
+
+        left_side = each_side
+        right_side = each_side
+
+        c1.setFont("VeraIt",10)
+        c1.drawString(200,527," "*left_side+STD_CERT+" "*right_side)
+
+
+
+        YEAR_CERT = data_academic_bonafide[0][1]
+        total_year = 18
+
+        left_side = 9
+        right_side = 9
+
+        length_year = len(str(YEAR_CERT))
+        lenth_year_remaining = total_year-length_year
+        each_side = lenth_year_remaining//2
+
+        left_side = each_side
+        right_side = each_side
+
+        c1.setFont("VeraIt",10)
+        c1.drawString(350,527," "*left_side+str(YEAR_CERT)+" "*right_side)
+
+
         c1.setFont("VeraIt",10)
         c1.drawString(-40,525,"bonafide student of the school studying in Std : __________________ in the year __________________.")
         c1.drawString(-40,495,"As per the school records his / her details are :")
+
+        GR_CERT = gr_no_value
+        total_gr = 30
+
+        left_side = 15
+        right_side = 15
+
+        length_gr = len(str(GR_CERT))
+        lenth_gr_remaining = total_gr-length_gr
+        each_side = lenth_gr_remaining//2
+
+        left_side = each_side
+        right_side = each_side
+
+        c1.setFont("VeraIt",10)
+        c1.drawString(10,465," "*left_side+str(GR_CERT)+" "*right_side)
+        
+
         c1.drawString(-40,465,"G.R.No. : ______________________________ ")
+
+
+
+        DOB_CERT = data_gr_bonafide[0][3]
+        total_dob = 28
+
+        left_side = 14
+        right_side = 14
+
+        length_dob = len(str(DOB_CERT))
+        lenth_dob_remaining = total_dob-length_dob
+        each_side = lenth_dob_remaining//2
+
+        left_side = each_side
+        right_side = each_side
+
+        c1.setFont("VeraIt",10)
+        c1.drawString(90,435," "*left_side+str(DOB_CERT)+" "*right_side)
+
+
         c1.drawString(-40,435,"Date of Birth (In Figure) : ____________________________")
+        c1.drawString(90,405,date_birth_in_words_value)
         c1.drawString(23,405,"(In Words) : _________________________________________________________________________________ ")
+
+        ADDRESS_1_CERT = data_other_bonafide[0][0]
+        total_address1 = 84
+
+        left_side = 42
+        right_side = 42
+
+        length_address1 = len(str(ADDRESS_1_CERT))
+        lenth_address1_remaining = total_address1-length_address1
+        each_side = lenth_address1_remaining//2
+
+        left_side = each_side
+        right_side = each_side
+
+        c1.setFont("VeraIt",10)
+        c1.drawString(70,375," "*left_side+str(ADDRESS_1_CERT)+" "*right_side)
+
+
+
         c1.drawString(-40,375,"Residential address : ____________________________________________________________________________________ ")
+
+
+        ADDRESS_2_CERT = data_other_bonafide[0][1]
+        total_address1 = 84
+
+        left_side = 42
+        right_side = 42
+
+        length_address1 = len(str(ADDRESS_2_CERT))
+        lenth_address1_remaining = total_address1-length_address1
+        each_side = lenth_address1_remaining//2
+
+        left_side = each_side
+        right_side = each_side
+
+        c1.setFont("VeraIt",10)
+        c1.drawString(70,345," "*left_side+str(ADDRESS_2_CERT)+" "*right_side)
+
+
         c1.drawString(-40,345,"                                   ____________________________________________________________________________________ ")
         c1.line(-57,320,510,320)
         c1.setLineWidth(2)
 
         c1.setFont("VeraBd",10)
+        c1.drawString(0,303,date_value)
         c1.drawString(-40,303,"Date:")
+
         c1.drawString(-40,275,"Place: Ahmedabad")
         c1.line(380,283,470,283)
         c1.setLineWidth(2)
