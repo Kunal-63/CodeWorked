@@ -843,23 +843,23 @@ def GR_FUNCTION():
                 mother_ent.delete(0,END)
                 mother_ent.insert(0,data[0][7])
                 sex_combo.delete(0,END)
-                sex_combo.insert(0,data[0][8])
+                sex_combo.set(data[0][8])
                 birth_date_ent.delete(0,END)
                 birth_date_ent.insert(0,data[0][9])
                 category_combo.delete(0,END)
-                category_combo.insert(0,data[0][10])
+                category_combo.set(data[0][10])
                 religion_combo.delete(0,END)
-                religion_combo.insert(0,data[0][11])
+                religion_combo.set(data[0][11])
                 birth_place_ent.delete(0,END)
                 birth_place_ent.insert(0,data[0][12])
                 previous_school_ent.delete(0,END)
                 previous_school_ent.insert(0,data[0][13])
                 caste_combo.delete(0,END)
-                caste_combo.insert(0,data[0][14])
+                caste_combo.set(data[0][14])
                 birth_taluka_ent.delete(0,END)
                 birth_taluka_ent.insert(0,data[0][15])
                 subcaste_combo.delete(0,END)
-                subcaste_combo.insert(0,data[0][16])
+                subcaste_combo.set(data[0][16])
                 state_ent.delete(0,END)
                 state_ent.insert(0,data[0][17])
                 if (data[0][18]==0):
@@ -1000,7 +1000,7 @@ def GR_FUNCTION():
         addmission_standard_ent['values']=['NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI']
         addmission_standard_ent.place(x=370,y=205) 
         addmission_standard_ent.delete(0,END)
-        addmission_standard_ent.insert(0,data[0][8])
+        addmission_standard_ent.set(data[0][8])
 
         current_lbl=Label(academic_frame1,text="Current :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
         current_lbl.place(x=75,y=240)
@@ -1018,7 +1018,7 @@ def GR_FUNCTION():
         current_standard_ent['values']=['NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI']
         current_standard_ent.place(x=370,y=245) 
         current_standard_ent.delete(0,END)
-        current_standard_ent.insert(0,data[0][11])
+        current_standard_ent.set(data[0][11])
 
         division_lbl=Label(academic_frame1,text="Division :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
         division_lbl.place(x=75,y=340)
@@ -1027,7 +1027,7 @@ def GR_FUNCTION():
         division_ent['values']=['A','B','C','D','E']
         division_ent.place(x=150,y=345)
         division_ent.delete(0,END)
-        division_ent.insert(0,data[0][12])
+        division_ent.set(data[0][12])
 
         roll_no_lbl=Label(academic_frame1,text="Roll No :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
         roll_no_lbl.place(x=250,y=340)
