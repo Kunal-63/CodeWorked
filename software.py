@@ -662,6 +662,7 @@ def GR_FUNCTION():
         global edit_gr_details
         edit_gr_details = data[0][0]
 
+        
 
         form_no_lbl=Label(details_frame,text="Form No :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         form_no_lbl.place(x=240,y=20)
@@ -824,6 +825,60 @@ def GR_FUNCTION():
             rte_check.deselect()
         else:
             rte_check.select()
+
+        def edit_keybinding(e):
+            def edit_insert():
+                form_no_ent.delete(0,END)
+                form_no_ent.insert(0,data[0][1])  
+                enquiry_no_ent.delete(0,END)
+                enquiry_no_ent.insert(0,data[0][2]) 
+                uid_ent.delete(0,END)
+                uid_ent.insert(0,data[0][3])
+                surname_ent.delete(0,END)
+                surname_ent.insert(0,data[0][4])
+                name_ent.delete(0,END)
+                name_ent.insert(0,data[0][5])
+                father_ent.delete(0,END)
+                father_ent.insert(0,data[0][6])
+                mother_ent.delete(0,END)
+                mother_ent.insert(0,data[0][7])
+                sex_combo.delete(0,END)
+                sex_combo.insert(0,data[0][8])
+                birth_date_ent.delete(0,END)
+                birth_date_ent.insert(0,data[0][9])
+                category_combo.delete(0,END)
+                category_combo.insert(0,data[0][10])
+                religion_combo.delete(0,END)
+                religion_combo.insert(0,data[0][11])
+                birth_place_ent.delete(0,END)
+                birth_place_ent.insert(0,data[0][12])
+                previous_school_ent.delete(0,END)
+                previous_school_ent.insert(0,data[0][13])
+                caste_combo.delete(0,END)
+                caste_combo.insert(0,data[0][14])
+                birth_taluka_ent.delete(0,END)
+                birth_taluka_ent.insert(0,data[0][15])
+                subcaste_combo.delete(0,END)
+                subcaste_combo.insert(0,data[0][16])
+                state_ent.delete(0,END)
+                state_ent.insert(0,data[0][17])
+                if (data[0][18]==0):
+                    minority_check.deselect()
+                else:
+                    minority_check.select()
+                if(data[0][19] == 0):
+                    rte_check.deselect()
+                else:
+                    rte_check.select()
+
+
+            data = cur.execute("select * from gr_details where gr_no={}".format(gr_ent.get()))
+            data = cur.fetchall()
+            global edit_gr_details
+            edit_gr_details = data[0][0]
+            edit_insert()
+        gr_ent.bind('<Return>',edit_keybinding)
+
 
         def grsave():
             grlst=[]
