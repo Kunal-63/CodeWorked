@@ -411,8 +411,8 @@ def GR_FUNCTION():
                 cur.execute("select * from exmp_fees where std='{}'".format(current_standard_ent.get()))
                 data = cur.fetchall()
                 cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12]])
-            cur.execute("insert into gr_check values({},0,0,0,0,0)".format(Gr_entry.get()))
-            cur.execute("insert into fee_details values({},' ',' ',' ',' ',' ')".format(Gr_entry.get()))
+            cur.execute("insert into gr_check values({},0,0,0,0,0,0,0)".format(Gr_entry.get()))
+            cur.execute("insert into fee_details values({},' ',' ',' ',' ',' ',' ',' ')".format(Gr_entry.get()))
             mydb.commit()
             other_details()
         save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=academic_details_save)
@@ -1488,8 +1488,8 @@ def FEES_FUNCTION():
 
 
 
-    wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=250,width=270,relief=RIDGE,borderwidth=2)
-    wrapper2.place(x=1000,y=100)
+    wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=335,width=270,relief=RIDGE,borderwidth=2)
+    wrapper2.place(x=1000,y=60)
 
 
     CheckVar1 = IntVar()
@@ -1497,20 +1497,25 @@ def FEES_FUNCTION():
     CheckVar3 = IntVar()
     CheckVar4 = IntVar()
     CheckVar5 = IntVar()
-    # CheckVar6 = IntVar()
+    CheckVar6 = IntVar()
+    CheckVar7 = IntVar()
 
     C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
     C2 = Checkbutton(wrapper2, text = "JUL SEP FEES", variable = CheckVar2,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
     C3 = Checkbutton(wrapper2, text = "OCT DEC FEES", variable = CheckVar3,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
     C4 = Checkbutton(wrapper2, text = "JAN MAR FEES", variable = CheckVar4,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
     C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    # C6 = Checkbutton(wrapper2, text = "6", variable = CheckVar6,onvalue = 1, offvalue = 0, height=1,)
+    C6 = Checkbutton(wrapper2, text = "ADMISSION", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+    C7 = Checkbutton(wrapper2, text = "I CARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+
     C1.place(x=0,y=0)
     C2.place(x=0,y=45)
     C3.place(x=0,y=90)
     C4.place(x=0,y=135)
     C5.place(x=0,y=180)
-    # C6.place(x=0,y=150)
+    C6.place(x=0,y=225)
+    C7.place(x=0,y=270)
+    
 
 
 
@@ -1805,8 +1810,10 @@ def FEES_FUNCTION():
         fee_lst.append(CheckVar3.get())#19
         fee_lst.append(CheckVar4.get())#20
         fee_lst.append(CheckVar5.get())#21
-        cur.execute("insert into tran_details values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",fee_lst)
-        cur.execute("insert into fee_tran values({},0,0,0,0,0)".format(FEES_RECEIPTNO_ENTRY.get()))
+        fee_lst.append(CheckVar6.get())#22
+        fee_lst.append(CheckVar7.get())#23
+        cur.execute("insert into tran_details values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",fee_lst)
+        cur.execute("insert into fee_tran values({},0,0,0,0,0,0,0)".format(FEES_RECEIPTNO_ENTRY.get()))
 
         if (CheckVar1.get() == 0):
             cur.execute("update gr_check set c1=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
@@ -1858,6 +1865,24 @@ def FEES_FUNCTION():
                 cur.execute("update fee_tran set c5=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
                 cur.execute("update fee_details set c5='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
 
+        if(CheckVar6.get() == 0):
+            cur.execute("update gr_check set c6=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+        else:
+            cur.execute("select c6 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+            data = cur.fetchall()
+            if(int(data[0][0]) == 0):
+                cur.execute("update gr_check set c6=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update fee_tran set c6=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                cur.execute("update fee_details set c6='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+        if(CheckVar7.get() == 0):
+            cur.execute("update gr_check set c7=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+        else:
+            cur.execute("select c7 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+            data = cur.fetchall()
+            if(int(data[0][0]) == 0):
+                cur.execute("update gr_check set c7=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update fee_tran set c7=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                cur.execute("update fee_details set c7='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
         FEES_FUNCTION()
 
 
@@ -1903,7 +1928,16 @@ def FEES_FUNCTION():
                 pass
             else:
                 trv.insert(parent='',index="end",text='',value=("OTHERS",pending_data[0][12],exmp_data[0][12],pending_data[0][12]-exmp_data[0][12]))
-        
+        if (CheckVar6.get() == 1):
+            if(gr_checks[0][5] == 1):
+                pass
+            else:
+                trv.insert(parent='',index="end",text='',value=("ADMISSION_FEE",pending_data[0][1],exmp_data[0][1],pending_data[0][1]-exmp_data[0][1]))
+        if (CheckVar7.get() == 1):
+            if(gr_checks[0][5] == 1):
+                pass
+            else:
+                trv.insert(parent='',index="end",text='',value=("ICARD",pending_data[0][2],exmp_data[0][2],pending_data[0][2]-exmp_data[0][2]))
         if (len(trv.get_children()) != 0):
             total = 0
             for l in trv.get_children():
@@ -1972,6 +2006,18 @@ def FEES_FUNCTION():
             C4.select()
             C4.config(state=DISABLED)
         if(gr_checks[0][5] == 0):
+            C5.deselect()
+            C5.config(state=ACTIVE)
+        else:
+            C5.select()
+            C5.config(state=DISABLED)
+        if(gr_checks[0][6] == 0):
+            C5.deselect()
+            C5.config(state=ACTIVE)
+        else:
+            C5.select()
+            C5.config(state=DISABLED)
+        if(gr_checks[0][7] == 0):
             C5.deselect()
             C5.config(state=ACTIVE)
         else:
