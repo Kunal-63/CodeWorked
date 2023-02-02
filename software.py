@@ -2489,7 +2489,7 @@ def CERTIFICATES_FUNCTION():
 
 
 
-        my_path1= r"CERTIFICATES\Taniya1035.pdf" 
+        my_path1= "CERTIFICATES\\{}".format(data_gr_bonafide[0][0]+" "+gr_no_value)
         c1=canvas.Canvas(my_path1,pagesize=A4)
         c1.translate(inch,inch)
         c1.setLineWidth(2)
