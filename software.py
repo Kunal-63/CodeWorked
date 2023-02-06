@@ -1576,133 +1576,59 @@ def FEES_FUNCTION():
 
 
     def fees_search():
-
+    
         root.bell()
         top = Toplevel()
         # top.attributes('-fullscreen', True)
         top.geometry("1400x700")
         top.title("ZETA CORE")
+        top.configure(bg="lightpink")
         photo = PhotoImage(file = r"ICONS\Zeta.png")
         top.iconphoto(False, photo)
 
-        def search():
-            name=name_entry.get()
-            name = name.capitalize()
-            surname=surname_entry.get()
-            surname = surname.capitalize()
-            gr_end = gr_num_var2.get()
-            gr_start = gr_num_var.get()
-
-            for record in treeview.get_children():
-                treeview.delete(record)
-
-            for i in range(len(values)):
-                # print(values[i])
-                for j in range(len(values[i])):
-                    # print(values[i][j])
-                    id=0
-                    name_in_data=values[i][1]
-                    # print(name_in_data)
-                    surname_in_data=values[i][2]
-                    # print(surname_in_data)
-                    for p in range(gr_start, gr_end):
-                        if values[i][0]==p:
-                            if name == name_in_data[:len(name)] and surname==surname_in_data[:len(surname)]:
-                                try:
-                                    treeview.insert(parent='', iid=id, index='end',text='', values=values[i])  
-                                    id+=1 
-                                    break
-                                except:
-                                    pass
-
-        def add_data():
-            for record in treeview.get_children():
-                treeview.delete(record)
-
-            for i in range(len(values)):
-                treeview.insert(parent='', iid=i, index='end',text='', values=values[i])
-
-            
-        global treeview
-        global name_entry
-        global surname_entry
-        global values
-        main_frame=Frame(top,bg='lightpink', width=1400, height=700, borderwidth=3, relief=RIDGE)
-        main_frame.place(x=0, y=0)
-
-        search_label=Label(main_frame, text='Search : ', font=('Orator Std',16), fg='white', bg='lightpink')
+        search_label=Label(top, text='Search : ', font=('Orator Std',16), fg='white', bg='lightpink')
         search_label.place(x=100, y=20)
 
 
-        gr_num_label=Label(main_frame, text="Gr no :  >=",font=('Orator Std',12, 'bold'), bg='lightpink')
-        gr_num_label.place(x=150, y=80)
-        gr_num_var=IntVar()
-        gr_num_entry=Entry(main_frame, textvariable=gr_num_var, width=10)
-        gr_num_entry.place(x=240, y=83)
-
-
-        gr_num_label2=Label(main_frame, text="<=",font=('Orator Std',12, 'bold'), bg='lightpink')
-        gr_num_label2.place(x=315, y=80)
-        gr_num_var2=IntVar()
-        gr_num_entry2=Entry(main_frame, font=('Orator Std',10, 'bold'), textvariable=gr_num_var2, width=10)
-        gr_num_entry2.place(x=350, y=83)
-
-
-        surname_label=Label(main_frame,text="Surname :", font=('Orator Std',12, 'bold'), bg='lightpink')
-        surname_label.place(x=500, y=80)
+        surname_label=Label(top,text="Surname :", font=('Orator Std',12, 'bold'), bg='lightpink')
+        surname_label.place(x=250, y=100)
         surname_var=StringVar()
-        surname_entry=Entry(main_frame, font=('Orator Std',10, 'bold'),textvariable=surname_var, width=18)
-        surname_entry.place(x=600, y=83)
+        surname_entry=Entry(top, font=('Orator Std',10, 'bold'),textvariable=surname_var, width=18)
+        surname_entry.place(x=350, y=100)
 
 
-        name_label=Label(main_frame,text="Name :", font=('Orator Std',12, 'bold'), bg='lightpink')
-        name_label.place(x=800, y=80)
+        name_label=Label(top,text="Name :", font=('Orator Std',12, 'bold'), bg='lightpink')
+        name_label.place(x=550, y=100)
         name_var=StringVar()
-        name_entry=Entry(main_frame, font=('Orator Std',10, 'bold'),textvariable=name_var, width=18)
-        name_entry.place(x=900, y=83)
+        name_entry=Entry(top, font=('Orator Std',10, 'bold'),textvariable=name_var, width=18)
+        name_entry.place(x=630, y=100)
 
 
-        rte_var=StringVar()
-        rte_label=Label(main_frame,text="RTE", font=("Orator STD", 8, 'bold'), bg='lightpink')
-        rte_label.place(x=1075, y=87)
-        rte_check=Checkbutton(main_frame,bg='lightpink',textvariable=rte_var)
-        rte_check.place(x=1100 , y=83)
+        gr_num_label=Label(top, text="GR no :",font=('Orator Std',12, 'bold'), bg='lightpink')
+        gr_num_label.place(x=200, y=150)
+        gr_num_label=Label(top, text=">=",font=('Orator Std',12, 'bold'), bg='lightpink')
+        gr_num_label.place(x=300, y=150)
+        gr_num_var=IntVar()
+        gr_num_entry=Entry(top,font=('Orator Std',10, 'bold'), textvariable=gr_num_var, width=15)
+        gr_num_entry.place(x=350, y=150)
 
 
-        std_label=Label(main_frame,text="STD :", font=('Orator Std',12, 'bold'), bg='lightpink')
-        std_label.place(x=170, y=130)
-        std_var=StringVar()
-        std_entry=Entry(main_frame, font=('Orator Std',10, 'bold'),textvariable=std_var, width=18)
-        std_entry.place(x=230, y=130)
+        gr_num_label2=Label(top, text="<=",font=('Orator Std',12, 'bold'), bg='lightpink')
+        gr_num_label2.place(x=580, y=150)
+        gr_num_var2=IntVar()
+        gr_num_entry2=Entry(top,font=('Orator Std',10, 'bold'), textvariable=gr_num_var2, width=15)
+        gr_num_entry2.place(x=630, y=150)
 
 
-        Div_label=Label(main_frame,text="Div :", font=('Orator STD',12, 'bold'), bg='lightpink')
-        Div_label.place(x=400, y=130)
-        Div_var=StringVar()
-        Div_entry=Entry(main_frame, font=('Orator STD',10, 'bold'),textvariable=Div_var, width=10)
-        Div_entry.place(x=500, y=130)
 
 
-        Roll_no_label=Label(main_frame,text="Roll no :", font=('Orator STD',12, 'bold'), bg='lightpink')
-        Roll_no_label.place(x=600, y=130)
-        Roll_no_var=StringVar()
-        Roll_no_entry=Entry(main_frame, font=('Orator STD',10, 'bold'),textvariable=Roll_no_var, width=10)
-        Roll_no_entry.place(x=700, y=130)
 
 
-        Active_label=Label(main_frame,text="Active :", font=('Orator STD',12, 'bold'), bg='lightpink')
-        Active_label.place(x=800, y=130)
-        Active_var=StringVar()
-        Active_entry=Checkbutton(main_frame,textvariable=Active_var, bg='lightpink')
-        Active_entry.place(x=900, y=130)
+        search_btn=Button(top, text="Search",font=('Orator STD',10, 'bold'), width=10)
+        search_btn.place(x=1000, y=150)
 
-        search_btn=Button(main_frame, text="Search",font=('Orator STD',10, 'bold'),command=search, width=10)
-        search_btn.place(x=1000, y=130)
 
-        reset_btn=Button(main_frame, text="Reset Data",font=('Orator STD',10, 'bold'), command=add_data, width=10)
-        reset_btn.place(x=1100, y=130)
-
-        tree_frame=Frame(main_frame, width=1000)
+        tree_frame=Frame(top, width=1000)
         tree_frame.place(x=100, y=200)
 
         scrollbary = Scrollbar(tree_frame, orient=VERTICAL)    
@@ -2093,10 +2019,90 @@ def FEES_FUNCTION():
     FEES_GR_ENTRY.bind('<Return>',fees_insert)
 
 
+
+
+
+
+    def show_fee_details_func():
+        grval = FEES_GR_ENTRY.get()
+        win=Toplevel()
+        win.geometry("1500x900")
+        win.configure(background="lightpink")
+
+        GR_NO_SEARCH_lbl=Label(win,text="GR NO :",bg="lightpink",font=('Arial', 10,"bold"))
+        GR_NO_SEARCH_lbl.place(x=200,y=150)
+        GR_NO_SEARCH_entry=Entry(win,font=('Arial', 10,"bold"),width=20)
+        GR_NO_SEARCH_entry.place(x=270,y=150)
+        GR_NO_SEARCH_entry.insert(0,grval)
+
+        cur.execute("select name,surname from gr_details where gr_no={}".format(grval))
+        data = cur.fetchall()
+        NAME_SEARCH_lbl=Label(win,text="NAME :",bg="lightpink",font=('Arial', 10,"bold"))
+        NAME_SEARCH_lbl.place(x=490,y=150)        
+        NAME_SEARCH_ENTRY=Entry(win,font=('Arial', 10,"bold"),width=20)
+        NAME_SEARCH_ENTRY.place(x=550,y=150)
+        NAME_SEARCH_ENTRY.insert(0,data[0][0])
+
+
+
+        SUR_NAME_SEARCH_lbl=Label(win,text="SUR NAME :",bg="lightpink",font=('Arial', 10, "bold"))
+        SUR_NAME_SEARCH_lbl.place(x=790,y=150)
+        SUR_NAME_SEARCH_ENTRY=Entry(win,font=('Arial', 10, "bold"),width=20)
+        SUR_NAME_SEARCH_ENTRY.place(x=890,y=150)
+        SUR_NAME_SEARCH_ENTRY.insert(0,data[0][1])
+    
+
+
+        style = ttk.Style()
+        style.theme_use('clam')
+        # Add a Treeview widget
+        tree = ttk.Treeview(win, column=("c1", "c2","c3","c4","c5","c6","c7"), show='headings', height=15)
+        #tree.column("# 1", anchor=CENTER)
+        tree.heading("# 1", text="Fee Name")
+        tree.heading("# 2", text="Amount")
+        tree.heading("# 3", text="Exemption") 
+        tree.heading("# 4", text="Paid")
+        tree.heading("# 5", text="Paid details")
+        tree.heading("# 6", text="Remain")
+        tree.heading("#7",text="Receipt Book")
+        # tree.insert()
+        cur.execute("select * from pending_fee_detail where gr_no={}".format(grval))
+        pending_data = cur.fetchall()[0]
+        cur.execute("select receipt_no from tran_details where gr_no={}".format(grval))
+        receipt_no = cur.fetchall()[0]
+        for i in receipt_no:
+            print(i)
+            cur.execute("select * from fee_tran where receipt_no={}".format(i))
+            fee_tran_data = cur.fetchall()[0]
+            cur.execute("select * from tran_details where RECEIPT_NO={}".format(i))
+            tran_details = cur.fetchall()[0]
+            cur.execute("select * from std_fees where std={}".format(tran_details[6]))
+            std_fees_data  = cur.fetchall()[0]
+            cur.execute("select * from exmp_fees where std={}".format(tran_details[6]))
+            exmp_data = cur.fetchall()[0]
+            print(fee_tran_data[1])
+            if(fee_tran_data[1] == 1):
+                tree.insert(parent='',index="end",text='',value=("APR_JUN_TUTION",std_fees_data[3],pending_data[3]-exmp_data[3],pending_data[3]-exmp_data[3],tran_details[14],std_fees_data[3]-pending_data[3]-exmp_data[3]))
+                tree.insert(parent='',index="end",text='',value=("APR_JUN_ACTIVITY",std_fees_data[4],pending_data[4]-exmp_data[4],pending_data[4]-exmp_data[4],tran_details[14],std_fees_data[4]-pending_data[4]-exmp_data[4]))
+            else:
+                tree.insert(parent='',index="end",text='',value=("APR_JUN_TUTION",std_fees_data[3],pending_data[3]-exmp_data[3],pending_data[3]-exmp_data[3],' ',std_fees_data[3]-pending_data[3]-exmp_data[3]))
+                tree.insert(parent='',index="end",text='',value=("APR_JUN_ACTIVITY",std_fees_data[4],pending_data[4]-exmp_data[4],pending_data[4]-exmp_data[4],' ',std_fees_data[4]-pending_data[4]-exmp_data[4]))
+            
+            if(fee_tran_data[2] == 1):
+                tree.insert(parent='',index="end",text='',value=("SEP_JUL_TUTION",std_fees_data[5],pending_data[5]-exmp_data[5],pending_data[5]-exmp_data[5],tran_details[14],std_fees_data[5]-pending_data[5]-exmp_data[5]))
+                tree.insert(parent='',index="end",text='',value=("SEP_JUL_ACTIVITY",std_fees_data[6],pending_data[6]-exmp_data[6],pending_data[6]-exmp_data[6],tran_details[14],std_fees_data[6]-pending_data[6]-exmp_data[6]))
+            else:
+                tree.insert(parent='',index="end",text='',value=("SEP_JUL_TUTION",std_fees_data[5],pending_data[5]-exmp_data[5],pending_data[5]-exmp_data[5],' ',std_fees_data[5]-pending_data[5]-exmp_data[5]))
+                tree.insert(parent='',index="end",text='',value=("SEP_JUL_ACTIVITY",std_fees_data[6],pending_data[6]-exmp_data[6],pending_data[6]-exmp_data[6],' ',std_fees_data[6]-pending_data[6]-exmp_data[6]))
+
+        tree.place(x=50,y=300)
+        win.mainloop()
+
+
     GENERATE_BTN=Button(MAIN_FRAME,text="GENERATE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=fees_generate)
     GENERATE_BTN.place(x=900,y=500)
     
-    SHOW_BTN=Button(MAIN_FRAME,text="SHOW\nFEE DETAIL",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=fees_generate)
+    SHOW_BTN=Button(MAIN_FRAME,text="SHOW\nFEE DETAIL",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=show_fee_details_func)
     SHOW_BTN.place(x=900,y=420)
 
 
