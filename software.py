@@ -1814,6 +1814,8 @@ def FEES_FUNCTION():
                 cur.execute("update gr_check set c1=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_tran set c1=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
                 cur.execute("update fee_details set c1='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set APR_JUN_TUTION=0,APR_JUN_ACTIVITY=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
+
 
 
         if(CheckVar2.get() == 0):
@@ -1825,7 +1827,7 @@ def FEES_FUNCTION():
                 cur.execute("update gr_check set c2=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_tran set c2=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
                 cur.execute("update fee_details set c2='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-
+                cur.execute("update pending_fee_detail set JUL_SEP_TUTION=0,JUL_SEP_ACTIVITY=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
         if(CheckVar3.get() == 0):
             cur.execute("update gr_check set c3=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
         else:
@@ -1835,7 +1837,7 @@ def FEES_FUNCTION():
                 cur.execute("update gr_check set c3=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_tran set c3=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
                 cur.execute("update fee_details set c3='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-
+                cur.execute("update pending_fee_detail set OCT_DEC_TUTION=0,OCT_DEC_ACTIVITY=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
         if(CheckVar4.get() == 0):
             cur.execute("update gr_check set c4=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
         else:
@@ -1845,6 +1847,8 @@ def FEES_FUNCTION():
                 cur.execute("update gr_check set c4=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_tran set c4=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
                 cur.execute("update fee_details set c4='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set JAN_MAR_TUTION=0,JAN_MAR_ACTIVITY=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
+
         if(CheckVar5.get() == 0):
             cur.execute("update gr_check set c5=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
         else:
@@ -1854,7 +1858,7 @@ def FEES_FUNCTION():
                 cur.execute("update gr_check set c5=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_tran set c5=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
                 cur.execute("update fee_details set c5='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-
+                cur.execute("update pending_fee_detail set OTHERS=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
         if(CheckVar6.get() == 0):
             cur.execute("update gr_check set c6=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
         else:
@@ -1863,6 +1867,7 @@ def FEES_FUNCTION():
             if(int(data[0][0]) == 0):
                 cur.execute("update gr_check set c6=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_tran set c6=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                cur.execute("update pending_fee_detail set ADMISSION=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_details set c6='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
         if(CheckVar7.get() == 0):
             cur.execute("update gr_check set c7=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
@@ -1872,6 +1877,7 @@ def FEES_FUNCTION():
             if(int(data[0][0]) == 0):
                 cur.execute("update gr_check set c7=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_tran set c7=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                cur.execute("update pending_fee_detail set ICARD=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_details set c7='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
         mydb.commit()
         FEES_FUNCTION()
@@ -2082,18 +2088,32 @@ def FEES_FUNCTION():
             exmp_data = cur.fetchall()[0]
             print(fee_tran_data[1])
             if(fee_tran_data[1] == 1):
-                tree.insert(parent='',index="end",text='',value=("APR_JUN_TUTION",std_fees_data[3],pending_data[3]-exmp_data[3],pending_data[3]-exmp_data[3],tran_details[14],std_fees_data[3]-pending_data[3]-exmp_data[3]))
-                tree.insert(parent='',index="end",text='',value=("APR_JUN_ACTIVITY",std_fees_data[4],pending_data[4]-exmp_data[4],pending_data[4]-exmp_data[4],tran_details[14],std_fees_data[4]-pending_data[4]-exmp_data[4]))
+                tree.insert(parent='',index="end",text='',value=("APR_JUN_TUTION",std_fees_data[3],std_fees_data[3]-exmp_data[3],pending_data[3]-exmp_data[3],tran_details[14],std_fees_data[3]-pending_data[3]-exmp_data[3]))
+                tree.insert(parent='',index="end",text='',value=("APR_JUN_ACTIVITY",std_fees_data[4],std_fees_data[4]-exmp_data[4],pending_data[4]-exmp_data[4],tran_details[14],std_fees_data[4]-pending_data[4]-exmp_data[4]))
             else:
-                tree.insert(parent='',index="end",text='',value=("APR_JUN_TUTION",std_fees_data[3],pending_data[3]-exmp_data[3],pending_data[3]-exmp_data[3],' ',std_fees_data[3]-pending_data[3]-exmp_data[3]))
-                tree.insert(parent='',index="end",text='',value=("APR_JUN_ACTIVITY",std_fees_data[4],pending_data[4]-exmp_data[4],pending_data[4]-exmp_data[4],' ',std_fees_data[4]-pending_data[4]-exmp_data[4]))
+                tree.insert(parent='',index="end",text='',value=("APR_JUN_TUTION",std_fees_data[3],std_fees_data[3]-exmp_data[3],pending_data[3]-exmp_data[3],' ',std_fees_data[3]-pending_data[3]-exmp_data[3]))
+                tree.insert(parent='',index="end",text='',value=("APR_JUN_ACTIVITY",std_fees_data[4],std_fees_data[4]-exmp_data[4],pending_data[4]-exmp_data[4],' ',std_fees_data[4]-pending_data[4]-exmp_data[4]))
             
             if(fee_tran_data[2] == 1):
-                tree.insert(parent='',index="end",text='',value=("SEP_JUL_TUTION",std_fees_data[5],pending_data[5]-exmp_data[5],pending_data[5]-exmp_data[5],tran_details[14],std_fees_data[5]-pending_data[5]-exmp_data[5]))
-                tree.insert(parent='',index="end",text='',value=("SEP_JUL_ACTIVITY",std_fees_data[6],pending_data[6]-exmp_data[6],pending_data[6]-exmp_data[6],tran_details[14],std_fees_data[6]-pending_data[6]-exmp_data[6]))
+                tree.insert(parent='',index="end",text='',value=("SEP_JUL_TUTION",std_fees_data[6],std_fees_data[6]-exmp_data[6],pending_data[6]-exmp_data[6],tran_details[14],std_fees_data[6]-pending_data[6]-exmp_data[6]))
+                tree.insert(parent='',index="end",text='',value=("SEP_JUL_ACTIVITY",std_fees_data[7],std_fees_data[7]-exmp_data[7],pending_data[7]-exmp_data[7],tran_details[14],std_fees_data[7]-pending_data[7]-exmp_data[7]))
             else:
-                tree.insert(parent='',index="end",text='',value=("SEP_JUL_TUTION",std_fees_data[5],pending_data[5]-exmp_data[5],pending_data[5]-exmp_data[5],' ',std_fees_data[5]-pending_data[5]-exmp_data[5]))
-                tree.insert(parent='',index="end",text='',value=("SEP_JUL_ACTIVITY",std_fees_data[6],pending_data[6]-exmp_data[6],pending_data[6]-exmp_data[6],' ',std_fees_data[6]-pending_data[6]-exmp_data[6]))
+                tree.insert(parent='',index="end",text='',value=("SEP_JUL_TUTION",std_fees_data[6],std_fees_data[6]-exmp_data[6],pending_data[6]-exmp_data[6],' ',std_fees_data[6]-pending_data[6]-exmp_data[6]))
+                tree.insert(parent='',index="end",text='',value=("SEP_JUL_ACTIVITY",std_fees_data[7],std_fees_data[7]-exmp_data[7],pending_data[7]-exmp_data[7],' ',std_fees_data[7]-pending_data[7]-exmp_data[7]))
+
+            if(fee_tran_data[2] == 1):
+                tree.insert(parent='',index="end",text='',value=("OCT_DEC_TUTION",std_fees_data[8],std_fees_data[8]-exmp_data[8],pending_data[8]-exmp_data[8],tran_details[14],std_fees_data[8]-pending_data[8]-exmp_data[8]))
+                tree.insert(parent='',index="end",text='',value=("OCT_DEC_ACTIVITY",std_fees_data[9],std_fees_data[9]-exmp_data[9],pending_data[9]-exmp_data[9],tran_details[14],std_fees_data[9]-pending_data[9]-exmp_data[9]))
+            else:
+                tree.insert(parent='',index="end",text='',value=("OCT_DEC_TUTION",std_fees_data[8],std_fees_data[8]-exmp_data[8],pending_data[8]-exmp_data[8],' ',std_fees_data[8]-pending_data[8]-exmp_data[8]))
+                tree.insert(parent='',index="end",text='',value=("OCT_DEC_ACTIVITY",std_fees_data[9],std_fees_data[9]-exmp_data[9],pending_data[9]-exmp_data[9],' ',std_fees_data[9]-pending_data[9]-exmp_data[9]))
+            
+            if(fee_tran_data[2] == 1):
+                tree.insert(parent='',index="end",text='',value=("JAN_MAR_TUTION",std_fees_data[10],std_fees_data[10]-exmp_data[10],pending_data[10]-exmp_data[10],tran_details[14],std_fees_data[10]-pending_data[10]-exmp_data[10]))
+                tree.insert(parent='',index="end",text='',value=("JAN_MAR_ACTIVITY",std_fees_data[11],std_fees_data[11]-exmp_data[11],pending_data[11]-exmp_data[11],tran_details[14],std_fees_data[11]-pending_data[11]-exmp_data[11]))
+            else:
+                tree.insert(parent='',index="end",text='',value=("JAN_MAR_TUTION",std_fees_data[10],std_fees_data[10]-exmp_data[10],pending_data[10]-exmp_data[10],' ',std_fees_data[10]-pending_data[10]-exmp_data[10]))
+                tree.insert(parent='',index="end",text='',value=("JAN_MAR_ACTIVITY",std_fees_data[11],std_fees_data[11]-exmp_data[11],pending_data[11]-exmp_data[11],' ',std_fees_data[11]-pending_data[11]-exmp_data[11]))
 
         tree.place(x=50,y=300)
         win.mainloop()
@@ -2147,6 +2167,9 @@ def FEES_EDIT_FUNCTION():
     standard_select_var=StringVar()
     standard_select_combo = ttk.Combobox(MAIN_FRAME,width=20,textvariable = standard_select_var,font=("Arial",10,"bold"))
     standard_select_combo['values'] = ('NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI')
+    AAI1 = IntVar()
+    aai_combo = Checkbutton(MAIN_FRAME,text="AAI",variable=AAI1,onvalue=1,offvalue=0,bg="#dda0dd")
+    aai_combo.place(x=450,y=105)
  
     standard_select_combo.place(x=200,y=110)
 
@@ -2166,52 +2189,91 @@ def FEES_EDIT_FUNCTION():
 
 
         def selected(event):
-            SAVE_BTN["state"]=ACTIVE
-            cur.execute("select * from std_fees where std='{}'".format(s))
-            data = cur.fetchall()
-            if fees_select_combo.get() == 'TUTION':
-                old_fees_amount_entry.configure(state = "normal")
-                old_fees_amount_entry.delete(0,END)
-                old_fees_amount_entry.insert(0,data[0][3])
-                old_fees_amount_entry.configure(state = "disabled")
-                new_fees_amount_entry.delete(0,END)
-                new_fees_amount_entry.insert(0,data[0][3])
-            if fees_select_combo.get() == 'ACTIVITY':
-                old_fees_amount_entry.configure(state = "normal")
-                old_fees_amount_entry.delete(0,END)
-                old_fees_amount_entry.insert(0,data[0][4])
-                old_fees_amount_entry.configure(state = "disabled")
-                new_fees_amount_entry.delete(0,END)
-                new_fees_amount_entry.insert(0,data[0][4])
-            if fees_select_combo.get() == 'ICARD':
-                old_fees_amount_entry.configure(state = "normal")
-                old_fees_amount_entry.delete(0,END)
-                old_fees_amount_entry.insert(0,data[0][2])
-                old_fees_amount_entry.configure(state = "disabled")
-                new_fees_amount_entry.delete(0,END)
-                new_fees_amount_entry.insert(0,data[0][2])
-            if fees_select_combo.get() == 'ADMISSION':
-                old_fees_amount_entry.configure(state = "normal")
-                old_fees_amount_entry.delete(0,END)
-                old_fees_amount_entry.insert(0,data[0][1])
-                old_fees_amount_entry.configure(state = "disabled")
-                new_fees_amount_entry.delete(0,END)
-                new_fees_amount_entry.insert(0,data[0][1])
-            if fees_select_combo.get() == 'OTHERS':
-                old_fees_amount_entry.configure(state = "normal")
-                old_fees_amount_entry.delete(0,END)
-                old_fees_amount_entry.insert(0,data[0][-1])
-                old_fees_amount_entry.configure(state = "disabled")
-                new_fees_amount_entry.delete(0,END)
-                new_fees_amount_entry.insert(0,data[0][-1])
-            
+            # SAVE_BTN["state"]=ACTIVE
+            if AAI1.get() == 0:
+        
+                cur.execute("select * from std_fees where std='{}'".format(s))
+                data = cur.fetchall()
+                if fees_select_combo.get() == 'TUTION':
+                    old_fees_amount_entry.configure(state = "normal")
+                    old_fees_amount_entry.delete(0,END)
+                    old_fees_amount_entry.insert(0,data[0][3])
+                    old_fees_amount_entry.configure(state = "disabled")
+                    new_fees_amount_entry.delete(0,END)
+                    new_fees_amount_entry.insert(0,data[0][3])
+                if fees_select_combo.get() == 'ACTIVITY':
+                    old_fees_amount_entry.configure(state = "normal")
+                    old_fees_amount_entry.delete(0,END)
+                    old_fees_amount_entry.insert(0,data[0][4])
+                    old_fees_amount_entry.configure(state = "disabled")
+                    new_fees_amount_entry.delete(0,END)
+                    new_fees_amount_entry.insert(0,data[0][4])
+                if fees_select_combo.get() == 'ICARD':
+                    old_fees_amount_entry.configure(state = "normal")
+                    old_fees_amount_entry.delete(0,END)
+                    old_fees_amount_entry.insert(0,data[0][2])
+                    old_fees_amount_entry.configure(state = "disabled")
+                    new_fees_amount_entry.delete(0,END)
+                    new_fees_amount_entry.insert(0,data[0][2])
+                if fees_select_combo.get() == 'ADMISSION':
+                    old_fees_amount_entry.configure(state = "normal")
+                    old_fees_amount_entry.delete(0,END)
+                    old_fees_amount_entry.insert(0,data[0][1])
+                    old_fees_amount_entry.configure(state = "disabled")
+                    new_fees_amount_entry.delete(0,END)
+                    new_fees_amount_entry.insert(0,data[0][1])
+                if fees_select_combo.get() == 'OTHERS':
+                    old_fees_amount_entry.configure(state = "normal")
+                    old_fees_amount_entry.delete(0,END)
+                    old_fees_amount_entry.insert(0,data[0][-1])
+                    old_fees_amount_entry.configure(state = "disabled")
+                    new_fees_amount_entry.delete(0,END)
+                    new_fees_amount_entry.insert(0,data[0][-1])
+            else:
+                cur.execute("select * from exmp_fees where std='{}'".format(s))
+                data = cur.fetchall()
+                if fees_select_combo.get() == 'TUTION':
+                    old_fees_amount_entry.configure(state = "normal")
+                    old_fees_amount_entry.delete(0,END)
+                    old_fees_amount_entry.insert(0,data[0][3])
+                    old_fees_amount_entry.configure(state = "disabled")
+                    new_fees_amount_entry.delete(0,END)
+                    new_fees_amount_entry.insert(0,data[0][3])
+                if fees_select_combo.get() == 'ACTIVITY':
+                    old_fees_amount_entry.configure(state = "normal")
+                    old_fees_amount_entry.delete(0,END)
+                    old_fees_amount_entry.insert(0,data[0][4])
+                    old_fees_amount_entry.configure(state = "disabled")
+                    new_fees_amount_entry.delete(0,END)
+                    new_fees_amount_entry.insert(0,data[0][4])
+                if fees_select_combo.get() == 'ICARD':
+                    old_fees_amount_entry.configure(state = "normal")
+                    old_fees_amount_entry.delete(0,END)
+                    old_fees_amount_entry.insert(0,data[0][2])
+                    old_fees_amount_entry.configure(state = "disabled")
+                    new_fees_amount_entry.delete(0,END)
+                    new_fees_amount_entry.insert(0,data[0][2])
+                if fees_select_combo.get() == 'ADMISSION':
+                    old_fees_amount_entry.configure(state = "normal")
+                    old_fees_amount_entry.delete(0,END)
+                    old_fees_amount_entry.insert(0,data[0][1])
+                    old_fees_amount_entry.configure(state = "disabled")
+                    new_fees_amount_entry.delete(0,END)
+                    new_fees_amount_entry.insert(0,data[0][1])
+                if fees_select_combo.get() == 'OTHERS':
+                    old_fees_amount_entry.configure(state = "normal")
+                    old_fees_amount_entry.delete(0,END)
+                    old_fees_amount_entry.insert(0,data[0][-1])
+                    old_fees_amount_entry.configure(state = "disabled")
+                    new_fees_amount_entry.delete(0,END)
+                    new_fees_amount_entry.insert(0,data[0][-1])
             
             
             # elif:
 
 
-        global fees_edit_save
-        def fees_edit_save():
+        global fees_edit_save1
+        def fees_edit_save1():
             a = new_fees_amount_entry.get()
             b = old_fees_amount_entry.get()
             if(fees_select_combo.get() == 'TUTION'):
@@ -2244,36 +2306,131 @@ def FEES_EDIT_FUNCTION():
                             'JAN_MAR_ACTIVITY':data[0][3]
                             }
                     for i,j in dict.items():
-                        # print("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
-                        cur.execute("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
+                        cur.execute("select {} from pending_fee_detail where gr_no={}".format(i,i1[0]))
+                        data = cur.fetchall()[0]
+                        if(data[0] == 0):
+                            pass
+                        else:
+                            cur.execute("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
                     mydb.commit()
+                mydb.commit()
             if(fees_select_combo.get() == 'ADMISSION'):
                 cur.execute("update std_fees set ADMISSION_FEE={} WHERE STD='{}'".format(a,s))
                 cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
                 gr_nos = cur.fetchall()
                 for i1  in gr_nos:
-                    cur.execute("update pending_fee_detail set ADMISSION_FEE={} where gr_no={}".format(a,i1[0]))
+                    cur.execute("select admission_fee from pending_fee_detail where gr_no={}".format(i1))
+                    data = cur.fetchall()[0]
+                    if (data[0] == 0):
+                        pass
+                    else:
+                        cur.execute("update pending_fee_detail set ADMISSION_FEE={} where gr_no={}".format(a,i1[0]))
                     mydb.commit()
+                mydb.commit()
                 
             if(fees_select_combo.get() == 'ICARD'):
                 cur.execute("update std_fees set ICARD={} WHERE STD='{}'".format(a,s))
                 cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
                 gr_nos = cur.fetchall()
                 for i1  in gr_nos:
-                    cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(a,i1[0]))
+                    cur.execute("select icard from pending_fee_detail where gr_no={}".format(i1))
+                    data = cur.fetchall()[0]
+                    if (data[0] == 0):
+                        pass
+                    else:
+                        cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(a,i1[0]))
                     mydb.commit()
+                mydb.commit()
 
             if(fees_select_combo.get() == 'OTHERS'):
                 cur.execute("update std_fees set OTHERS1={} WHERE STD='{}'".format(a,s))
                 cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
                 gr_nos = cur.fetchall()
                 for i1  in gr_nos:
-                    cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(a,i1[0]))
+                    cur.execute("select others from pending_fee_detail where gr_no={}".format(i1))
+                    data = cur.fetchall()[0]
+                    if (data[0] == 0):
+                        pass
+                    else:
+                        cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(a,i1[0]))
                     mydb.commit()
             mydb.commit()
             FEES_EDIT_FUNCTION()
         fees_select_combo.bind('<<ComboboxSelected>>',selected)
         fees_select_combo.place(x=200,y=20)
+        mydb.commit()
+        
+    
+    
+        global fees_edit_save
+        def fees_edit_save():
+            a = new_fees_amount_entry.get()
+            b = old_fees_amount_entry.get()
+            if(fees_select_combo.get() == 'TUTION'):
+                cur.execute("update exmp_fees set APR_JUN_TUTION={},JUL_SEP_TUTION={},OCT_DEC_TUTION={},JAN_MAR_TUTION={} WHERE STD='{}'".format(a,a,a,a,s))
+                print("update exmp_fees set APR_JUN_TUTION={},JUL_SEP_TUTION={},OCT_DEC_TUTION={},JAN_MAR_TUTION={} WHERE STD='{}'".format(a,a,a,a,s))
+                cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
+                gr_nos = cur.fetchall()
+                print(gr_nos)
+                for i1  in gr_nos:
+                    cur.execute("select APR_JUN_TUTION,JUL_SEP_TUTION,OCT_DEC_TUTION,JAN_MAR_TUTION from pending_fee_detail where gr_no={}".format(i1[0]))
+                    data=cur.fetchall()
+                    dict = {'APR_JUN_TUTION':data[0][0],
+                            'JUL_SEP_TUTION':data[0][1],
+                            'OCT_DEC_TUTION':data[0][2],
+                            'JAN_MAR_TUTION':data[0][3]
+                            }
+                    for i,j in dict.items():
+                        print("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
+                        cur.execute("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
+                    mydb.commit()
+                mydb.commit()
+            if(fees_select_combo.get() == 'ACTIVITY'):
+                cur.execute("update exmp_fees set APR_JUN_ATIVITY={},JUL_SEP_ACTIVITY={},OCT_DEC_ACTIVITY={},JAN_MAR_ACTIVITY={} WHERE STD='{}'".format(a,a,a,a,s))
+                cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
+                gr_nos = cur.fetchall()
+                for i1  in gr_nos:
+                    cur.execute("select APR_JUN_ACTIVITY,JUL_SEP_ACTIVITY,OCT_DEC_ACTIVITY,JAN_MAR_ACTIVITY from pending_fee_detail where gr_no={}".format(i1[0]))
+                    data=cur.fetchall()
+                    dict = {'APR_JUN_ACTIVITY':data[0][0],
+                            'JUL_SEP_ACTIVITY':data[0][1],
+                            'OCT_DEC_ACTIVITY':data[0][2],
+                            'JAN_MAR_ACTIVITY':data[0][3]
+                            }
+                    for i,j in dict.items():
+                        # print("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
+                        cur.execute("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
+                    mydb.commit()
+                mydb.commit()
+            if(fees_select_combo.get() == 'ADMISSION'):
+                cur.execute("update exmp_fees set ADMISSION_FEE={} WHERE STD='{}'".format(a,s))
+                cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
+                gr_nos = cur.fetchall()
+                for i1  in gr_nos:
+                    cur.execute("update pending_fee_detail set ADMISSION_FEE={} where gr_no={}".format(a,i1[0]))
+                    mydb.commit()
+                mydb.commit()
+                
+            if(fees_select_combo.get() == 'ICARD'):
+                cur.execute("update exmp_fees set ICARD={} WHERE STD='{}'".format(a,s))
+                cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
+                gr_nos = cur.fetchall()
+                for i1  in gr_nos:
+                    cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(a,i1[0]))
+                    mydb.commit()
+                mydb.commit()
+
+            if(fees_select_combo.get() == 'OTHERS'):
+                cur.execute("update exmp_fees set OTHERS1={} WHERE STD='{}'".format(a,s))
+                cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
+                gr_nos = cur.fetchall()
+                for i1  in gr_nos:
+                    cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(a,i1[0]))
+                    mydb.commit()
+                mydb.commit()
+            FEES_EDIT_FUNCTION()
+            fees_select_combo.bind('<<ComboboxSelected>>',selected)
+            fees_select_combo.place(x=200,y=20)
 
 
         old_fees_amount_label = Label(fees_frame,text="Old Amount :",padx=5,pady=5,bg="#dda0dd",font=("Arial",10,"bold"))
@@ -2281,12 +2438,20 @@ def FEES_EDIT_FUNCTION():
         old_fees_amount_entry = Entry(fees_frame,width=22,font=("Arial",10,"bold"),state='disabled')
         old_fees_amount_entry.place(x=200,y=100)
 
+
+
         new_fees_amount_label = Label(fees_frame,text="New Amount :",padx=5,pady=5,bg="#dda0dd",font=("Arial",10,"bold"))
         new_fees_amount_label.place(x=94,y=150)
         new_fees_amount_entry = Entry(fees_frame,width=22,font=("Arial",10,"bold"))
         new_fees_amount_entry.place(x=200,y=150)
-        SAVE_BTN=Button(MAIN_FRAME,text="SAVE",height=3,width=20,bg="lightgrey",command=fees_edit_save,activebackground='lightgrey',font=('Arial', 10))
-        SAVE_BTN.place(x=1100,y=500)
+        if AAI1.get() == 1:
+        
+            SAVE_BTN=Button(MAIN_FRAME,text="SAVE",height=3,width=20,bg="lightgrey",command=fees_edit_save,activebackground='lightgrey',font=('Arial', 10))
+            SAVE_BTN.place(x=1100,y=500)
+        else:
+            SAVE_BTN=Button(MAIN_FRAME,text="SAVE",height=3,width=20,bg="lightgrey",command=fees_edit_save1,activebackground='lightgrey',font=('Arial', 10))
+            SAVE_BTN.place(x=1100,y=500)
+        mydb.commit()
         # SAVE_BTN["state"]=DISABLED
 
     
