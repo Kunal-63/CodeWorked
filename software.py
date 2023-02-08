@@ -2088,7 +2088,7 @@ def FEES_FUNCTION():
             exmp_data = cur.fetchall()[0]
             print(fee_tran_data[1])
             if(fee_tran_data[1] == 1):
-                tree.insert(parent='',index="end",text='',value=("APR_JUN_TUTION",std_fees_data[3],std_fees_data[3]-exmp_data[3],pending_data[3]-exmp_data[3],tran_details[14],std_fees_data[3]-pending_data[3]-exmp_data[3]))
+                tree.insert(parent='',index="end",text='',value=("APR_JUN_TUTION",std_fees_data[3],std_fees_data[3]-exmp_data[3],std_fees_data[3]-exmp_data[3],tran_details[14],std_fees_data[3]-pending_data[3]-exmp_data[3]))
                 tree.insert(parent='',index="end",text='',value=("APR_JUN_ACTIVITY",std_fees_data[4],std_fees_data[4]-exmp_data[4],pending_data[4]-exmp_data[4],tran_details[14],std_fees_data[4]-pending_data[4]-exmp_data[4]))
             else:
                 tree.insert(parent='',index="end",text='',value=("APR_JUN_TUTION",std_fees_data[3],std_fees_data[3]-exmp_data[3],pending_data[3]-exmp_data[3],' ',std_fees_data[3]-pending_data[3]-exmp_data[3]))
@@ -2475,6 +2475,20 @@ def FEES_REPORT_FUNCTION():
     for widget in MAIN_FRAME.winfo_children():
         widget.destroy() 
 
+    import csv
+    current_date=datetime.datetime.today().strftime('%d-%m-%Y')
+    f1=open("report_{}.csv".format(current_date),"w",newline="\n")
+    wrt=csv.writer(f1)
+    wrt.writerow(["RECIEPT NO","DATE","GR_NO","NAME","PAY TYPE","CHEQUE_NO","BANK NAME","TOTAL"])
+    print(current_date)
+
+    cur.execute("select RECEIPT_NO,date1,gr_no,name,paymode,cheque_no,bank,grand_total from tran_details where date1='{}'".format(current_date))
+    
+
+    data_report = cur.fetchall()
+    for i in data_report:
+        wrt.writerow(i)
+
     # text_Q1="FEES REPORT"
     # myobj = gTTS(text=text_Q1, slow=False)
     # myobj.save(r"AUDIOS\fees_report.mp3")
@@ -2482,7 +2496,7 @@ def FEES_REPORT_FUNCTION():
     #pygame.mixer.music.load(r"AUDIOS\fees_report.mp3")
     #pygame.mixer.music.play(loops=0)
 
-    MAIN_FRAME.configure(bg="#dda0dd")
+    # MAIN_FRAME.configure(bg="#dda0dd")
 
 
 
