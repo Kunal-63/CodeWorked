@@ -1415,6 +1415,59 @@ def GR_FUNCTION():
     def edit1():
         gr_details1()
 
+    def gr_delete1():
+        for widget in MAIN_FRAME_0.winfo_children():
+            widget.destroy()
+        gr_details_BTN["state"]="disable"
+        academic_details_BTN["state"]="disable"
+        other_details_BTN["state"]="disable"
+
+        Gr_label_delete = Label(MAIN_FRAME_0, text="GR NO : ", font=('Monteserrat', 20, 'bold'), fg="black", bg="lightblue")
+        Gr_label_delete.place(x=400, y=200)
+        Gr_var_delete=StringVar()
+        Gr_entry_delete= Entry(MAIN_FRAME_0, textvariable=Gr_var_delete, width=10, font=('Monteserrat', 20, 'bold'))
+        Gr_entry_delete.place(x=520, y=200)
+
+        def delete_main():
+            gr_deleting = Gr_var_delete.get()
+            cur.execute("select gr_no from gr_details")
+            data = cur.fetchall()
+
+            found = False
+            for i in data:
+                if(i[0] == int(gr_deleting)):
+                    found = True
+            if found==False:
+                messagebox.showerror("ERROR","GR not found")
+            else:
+                try:
+                    cur.execute("delete from gr_details where GR_NO={}".format(int(gr_deleting)))
+                except:
+                    pass
+                try:
+                    cur.execute("delete from academic_detail where GR_NO={}".format(int(gr_deleting)))
+                except:
+                    pass
+                try:
+                    cur.execute("delete from other_detail where GR_NO={}".format(int(gr_deleting)))
+                except:
+                    pass
+                try:
+                    cur.execute("delete from gr_check where GR_NO={}".format(int(gr_deleting)))
+                except:
+                    pass
+                try:
+                    cur.execute("delete from pending_fee_detail where GR_NO={}".format(int(gr_deleting)))
+                except:
+                    pass
+                mydb.commit()
+                messagebox.showinfo("Info","GR deleted successfully")
+            Gr_entry_delete.delete(0,END)
+            
+
+        save_delete_button = Button(MAIN_FRAME_0,text="Delete",font=("Arial",20), command=delete_main)
+        save_delete_button.place(x=1100,y=470)
+
 
 
     gr_details_BTN=Button(MAIN_FRAME,text="GR DETAILS",width=15,command=gr_details)
@@ -1457,7 +1510,7 @@ def GR_FUNCTION():
     img1_delete = Image.open(r"ICONS\delete.png")
     resized1_delete= img1_delete.resize((50,50))
     img_delete = ImageTk.PhotoImage(resized1_delete)
-    GR_DELETE_BTN=Button(MENU_FRAME2,text=r"DELETE",image=img_delete,compound=TOP, bg="lightgrey", relief=FLAT)
+    GR_DELETE_BTN=Button(MENU_FRAME2,text=r"DELETE",image=img_delete,compound=TOP,command=gr_delete1, bg="lightgrey", relief=FLAT)
     GR_DELETE_BTN.place(x=20,y=260)
     GR_DELETE_BTN["state"]="disabled"
   
@@ -1624,8 +1677,7 @@ def FEES_FUNCTION():
 
 
 
-        search_btn=Button(top, text="Search",font=('Orator STD',10, 'bold'), width=10)
-        search_btn.place(x=1000, y=150)
+        
 
 
         tree_frame=Frame(top, width=1000)
@@ -1647,12 +1699,40 @@ def FEES_FUNCTION():
         treeview.heading("Division", text="Division")
         treeview.heading("Roll No", text="Roll No")
 
+        cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.divison,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no")
+        data = cur.fetchall()
+        
+        for i in range(len(data)):
+            treeview.insert(parent='', iid=i, index='end',text='', values=data[i])
+        
+        
+        
+        # def treeview_insert():
+        #     cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.divison,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.name like {}% and gr_details.surname like {}% and academic_detail.curr_std like {}%".format(name_var.get(),surname_var.get(),gr_num_var.get()))
+        #     data = cur.fetchall()
+            
+        #     for i in range(len(data)):
+        #         treeview.insert(parent='', iid=i, index='end',text='', values=data[i])
 
-        values=[(2154, 'Prat','Chellani', 12, 'B', 24),(1616,'Kunal','Adwani', 12,'B',19),(2901, 'Yash', 'Mehta', 12, 'A', 22)]
-        for i in range(len(values)):
-            treeview.insert(parent='', iid=i, index='end',text='', values=values[i])
-    
+        def fees_search1():
+            # print(gr_num_entry.get())
+            # print(gr_num_entry2.get())
+            if(name_entry.get() == '' or surname_entry.get() == ''):
+                cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.divison,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no >= {} and gr_details.gr_no <= {}".format(gr_num_entry.get(),gr_num_entry2.get()))
+                treeview.delete(*treeview.get_children())
+                data = cur.fetchall()
+            else:
+                cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.divison,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no >= {} and gr_details.gr_no <= {} and gr_details.name like '{}%' and gr_details.surname like '{}%'".format(gr_num_entry.get(),gr_num_entry2.get(),name_entry.get(),surname_entry.get()))
 
+                treeview.delete(*treeview.get_children())
+                data = cur.fetchall()
+        
+            for i in range(len(data)):
+                treeview.insert(parent='', iid=i, index='end',text='', values=data[i])
+        
+
+        search_btn=Button(top, text="Search",font=('Orator STD',10, 'bold'), width=10,command=fees_search1)
+        search_btn.place(x=1000, y=150)
         top.mainloop()
 
     
@@ -2029,7 +2109,7 @@ def FEES_FUNCTION():
 
 
 
-    def show_fee_details_func():
+    def show_fee_details_func(e):
         grval = FEES_GR_ENTRY.get()
         win=Toplevel()
         win.geometry("1500x900")
@@ -2117,7 +2197,7 @@ def FEES_FUNCTION():
 
         tree.place(x=50,y=300)
         win.mainloop()
-
+    FEES_GR_ENTRY.bind('<F3>',show_fee_details_func)
 
     GENERATE_BTN=Button(MAIN_FRAME,text="GENERATE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=fees_generate)
     GENERATE_BTN.place(x=900,y=500)
