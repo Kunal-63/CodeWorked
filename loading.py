@@ -8,7 +8,7 @@ def video_ended():
     print("endded")
 
 videoplayer = TkinterVideo(master=root, scaled=True)
-videoplayer.load(r"VIDEOS\ZETACORE.mp4")
+videoplayer.load(r"C:\Users\yashm\OneDrive\Desktop\MAJOORI 2.0\ICONS\MAJOORI 2.0\ICONS\zeta_animation.mp4")
 videoplayer.set_size(size=(1000, 600), keep_aspect=False)
 videoplayer.pack(expand=True, fill="both")
 videoplayer.play()
