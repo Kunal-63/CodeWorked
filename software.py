@@ -41,11 +41,27 @@ def video_ended(event):
 videoplayer.bind("<<Ended>>", video_ended )
 video.mainloop()
 
-#=================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 mydb = con.connect(host="localhost",user="root",password="Mouse@2010",database="airport_school")
 cur = mydb.cursor()
-
 root=Tk()
 root.state('zoomed')
 # root.geometry("1500x800")
@@ -2562,7 +2578,8 @@ def FEES_EDIT_FUNCTION():
     SUBMIT_BTN=Button(MAIN_FRAME,text="Submit",height=1,width=19,bg="lightgrey",activebackground='lightgrey',font=('Arial', 10),command=next)
     SUBMIT_BTN.place(x=200,y=160)
 
-    
+
+
 
 
 
@@ -2620,6 +2637,13 @@ def LIBRARY_FUNCTION():
     #pygame.mixer.init()
     #pygame.mixer.music.load(r"AUDIOS\library.mp3")
     #pygame.mixer.music.play(loops=0)
+
+
+
+
+
+
+
 
 
 
@@ -3019,6 +3043,14 @@ def CERTIFICATES_FUNCTION():
     SAVE_BTN.place(x=1100,y=500)
 
 
+
+
+
+
+
+
+
+
 def BACKUP_FUNCTION():
     f1 = open(r"BACKUP\academic_detail.csv","w", newline="\n")
     writer1 = csv.writer(f1)
@@ -3130,6 +3162,15 @@ def BACKUP_FUNCTION():
     writer1.writerows(data)
     f10.close()
 
+
+
+
+
+
+
+
+
+
 def ABOUTUS_FUNCTION():
     # text_Q1="School Details"
     # myobj = gTTS(text=text_Q1, slow=False)
@@ -3234,6 +3275,15 @@ def ABOUTUS_FUNCTION():
 
     root1.mainloop()
 
+
+
+
+
+
+
+
+
+
 def SCHL_FUNCTION():
     # text_Q1="AIRPORT SCHOOL AHMEDABAD"
     # myobj = gTTS(text=text_Q1, slow=False)
@@ -3245,6 +3295,14 @@ def SCHL_FUNCTION():
     webbrowser.open_new_tab(url)
 
 
+
+
+
+
+
+
+
+
 def BANK_FUNCTION():
     top=Toplevel()
     top.geometry("1400x600")
@@ -3252,6 +3310,14 @@ def BANK_FUNCTION():
     photo = PhotoImage(file = r"ICONS\Zeta.png")
     top.iconphoto(False, photo)
     top.mainloop()
+
+
+
+
+
+
+
+
 
 
 def EXIT_FUNCTION():
@@ -3271,6 +3337,14 @@ def EXIT_FUNCTION():
     time.sleep(3)
 
     root.destroy()
+
+
+
+
+
+
+
+
 
 
 #---------------------------------------------------------------------------------------------------------
