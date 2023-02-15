@@ -39,8 +39,9 @@ def video_ended(event):
     if(duration_video == 14.833333333333334):
         video.destroy()
 videoplayer.bind("<<Ended>>", video_ended )
-
 video.mainloop()
+
+#=================================================================================================================================================
 
 mydb = con.connect(host="localhost",user="root",password="Mouse@2010",database="airport_school")
 cur = mydb.cursor()
