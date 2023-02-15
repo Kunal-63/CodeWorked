@@ -2258,14 +2258,6 @@ def FEES_FUNCTION():
 
 
 
-
-
-
-
-
-
-
-
 def FEES_EDIT_FUNCTION():
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
