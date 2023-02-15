@@ -34,7 +34,6 @@ videoplayer.play()
 
 def video_ended(event):
     # print("video ended")
-    
     duration_video = videoplayer.current_duration()
     # print(f"video duration: {duration_video}")
     if(duration_video == 14.833333333333334):
