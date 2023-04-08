@@ -2915,22 +2915,38 @@ def FEES_REPORT_FUNCTION():
     wrt=csv.writer(f1)
     wrt.writerow(["RECIEPT NO","DATE","GR_NO","NAME","PAY TYPE","CHEQUE_NO","BANK NAME","TOTAL"])
     print(current_date)
-
     cur.execute("select RECEIPT_NO,date1,gr_no,name,paymode,cheque_no,bank,grand_total from tran_details where date1='{}'".format(current_date))
-    
-
     data_report = cur.fetchall()
     for i in data_report:
         wrt.writerow(i)
 
-    # text_Q1="FEES REPORT"
-    # myobj = gTTS(text=text_Q1, slow=False)
-    # myobj.save(r"AUDIOS\fees_report.mp3")
-    #pygame.mixer.init()
-    #pygame.mixer.music.load(r"AUDIOS\fees_report.mp3")
-    #pygame.mixer.music.play(loops=0)
 
-    # MAIN_FRAME.configure(bg="#dda0dd")
+    f2 = open(r"REPORTS\gr_report.csv",'w')
+    wrt = csv.writer(f2)
+    wrt.writerow(["CLASS","DIVISION","TOTAL"])
+    cur.execute("select curr_std,divison,count(gr_no) as total from academic_detail group by curr_std,divison order by curr_std")
+    data_report = cur.fetchall()
+    for i in data_report:
+        wrt.writerow(i)
+    f2.close()
+
+    f3 = open(r"REPORTS\male_female.csv",'w')
+    wrt = csv.writer(f3)
+    wrt.writerow("CLASS","DIVISION","SEX","TOTAL")
+    cur.execute("select academic_detail.curr_std,academic_detail.divison,gr_details.sex,count(gr_details.sex) as total from gr_details,academic_detail group by academic_detail.curr_std,academic_detail.divison,gr_details.sex order by academic_detail.curr_std,academic_detail.divison")
+    data_report = cur.fetchall()
+    for i in data_report:
+        wrt.writerow(i)
+    f3.close()
+
+    f4 = open(r"REPORTS\caste_report.csv",'w')
+    wrt = csv.writer(f4)
+    wrt.writerow("CLASS","DIVISION","CASTE","TOTAL")
+    cur.execute("select academic_detail.curr_std,academic_detail.divison,gr_details.caste,count(gr_details.caste) as total from gr_details,academic_detail group by academic_detail.curr_std,academic_detail.divison,gr_details.caste order by academic_detail.curr_std,academic_detail.divison")
+    data_report = cur.fetchall()    
+    for i in data_report:
+        wrt.writerow(i)
+    f4.close()
 
 
 
