@@ -24,14 +24,11 @@ video.title("ZETA CORE")
 photo = PhotoImage(file = r"ICONS\Zeta.png")
 video.iconphoto(False, photo)
 video.resizable(False, False)
-
 videoplayer = TkinterVideo(master=video, scaled=True)
 videoplayer.load(r"VIDEOS\ZETACORE.mp4")
 videoplayer.set_size(size=(1000, 600), keep_aspect=False)
 videoplayer.pack(expand=True, fill="both")
 videoplayer.play()
-
-
 def video_ended(event):
     # print("video ended")
     duration_video = videoplayer.current_duration()
@@ -68,6 +65,14 @@ root.state('zoomed')
 root.title("ZETA CORE")
 photo = PhotoImage(file = r"ICONS\Zeta.png")
 root.iconphoto(False, photo)
+
+
+
+
+
+
+
+
 
 
 def GR_FUNCTION():
@@ -1653,7 +1658,7 @@ def FEES_FUNCTION():
     C4 = Checkbutton(wrapper2, text = "JAN MAR FEES", variable = CheckVar4,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
     C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
     C6 = Checkbutton(wrapper2, text = "ADMISSION", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C7 = Checkbutton(wrapper2, text = "I CARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+    C7 = Checkbutton(wrapper2, text = "ICARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
 
     C1.place(x=0,y=0)
     C2.place(x=0,y=45)
@@ -1686,6 +1691,7 @@ def FEES_FUNCTION():
         surname_var=StringVar()
         surname_entry=Entry(top, font=('Orator Std',10, 'bold'),textvariable=surname_var, width=18)
         surname_entry.place(x=350, y=100)
+        
 
 
         name_label=Label(top,text="Name :", font=('Orator Std',12, 'bold'), bg='lightpink')
@@ -1726,6 +1732,10 @@ def FEES_FUNCTION():
 
         style = ttk.Style()
         style.configure("Treeview", foreground="black")
+
+
+
+
         treeview = ttk.Treeview(tree_frame, yscrollcommand=scrollbary.set,columns=("GR No", "Name", "Surname","Standard", "Division", "Roll No"), show='headings', height=22)  
         treeview.pack(fill=X)
         scrollbary.config(command=treeview.yview())
@@ -1752,7 +1762,7 @@ def FEES_FUNCTION():
         #     for i in range(len(data)):
         #         treeview.insert(parent='', iid=i, index='end',text='', values=data[i])
 
-        def fees_search1():
+        def fees_search1(e):
             # print(gr_num_entry.get())
             # print(gr_num_entry2.get())
             if(name_entry.get() == '' or surname_entry.get() == ''):
@@ -1767,6 +1777,10 @@ def FEES_FUNCTION():
         
             for i in range(len(data)):
                 treeview.insert(parent='', iid=i, index='end',text='', values=data[i])
+        surname_entry.bind("<Return>",fees_search1)
+        name_entry.bind("<Return>",fees_search1)
+        gr_num_entry.bind("<Return>",fees_search1)
+        gr_num_entry2.bind("<Return>",fees_search1)
         
 
         search_btn=Button(top, text="Search",font=('Orator STD',10, 'bold'), width=10,command=fees_search1)
@@ -1985,7 +1999,7 @@ def FEES_FUNCTION():
             if(int(data[0][0]) == 0):
                 cur.execute("update gr_check set c6=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_tran set c6=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
-                cur.execute("update pending_fee_detail set ADMISSION=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set ADMISSION_FEE=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_details set c6='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
         if(CheckVar7.get() == 0):
             cur.execute("update gr_check set c7=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
@@ -1998,6 +2012,315 @@ def FEES_FUNCTION():
                 cur.execute("update pending_fee_detail set ICARD=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_details set c7='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
         mydb.commit()
+
+
+
+
+        def number_to_word(number):
+            def get_word(n):
+                words={ 0:"", 1:"One", 2:"Two", 3:"Three", 4:"Four", 5:"Five", 6:"Six", 7:"Seven", 8:"Eight", 9:"Nine", 10:"Ten", 11:"Eleven", 12:"Twelve", 13:"Thirteen", 14:"Fourteen", 15:"Fifteen", 16:"Sixteen", 17:"Seventeen", 18:"Eighteen", 19:"Nineteen", 20:"Twenty", 30:"Thirty", 40:"Forty", 50:"Fifty", 60:"Sixty", 70:"Seventy", 80:"Eighty", 90:"Ninty" }
+                if n<=20:
+                    return words[n]
+                else:
+                    ones=n%10
+                    tens=n-ones
+                    return words[tens]+" "+words[ones]
+                    
+            def get_all_word(n):
+                d=[100,10,100,100]
+                v=["","Hundred And","Thousand","lakh"]
+                w=[]
+                for i,x in zip(d,v):
+                    t=get_word(n%i)
+                    if t!="":
+                        t+=" "+x
+                    w.append(t.rstrip(" "))
+                    n=n//i
+                w.reverse()
+                w=' '.join(w).strip()
+                if w.endswith("And"):
+                    w=w[:-3]
+                return w
+
+            arr=str(number).split(".")
+            number=int(arr[0])
+            crore=number//10000000
+            number=number%10000000
+            word=""
+            if crore>0:
+                word+=get_all_word(crore)
+                word+=" crore "
+            word+=get_all_word(number).strip()+" Rupees"
+            if len(arr)>1:
+                if len(arr[1])==1:
+                    arr[1]+="0"
+                word+=" and "+get_all_word(int(arr[1]))+" paisa"
+            return word
+
+        def fees_print():
+            Grvalue=FEES_GR_ENTRY.get()
+            RECEIPT_VAR=FEES_RECEIPTBOOK_ENTRY.get()
+            DATE_VAR=FEES_DATE_ENTRY.get()
+            TOTAL_AMOUNT_VAR=FEES_GRANDTOTAL_ENTRY.get()
+            PAY_TYPE=FEES_PAYMODE_ENTRY.get()
+            CHEQUE_VAR=FEES_CHEQUENUMBER_ENTRY.get()
+            t=(number_to_word(int(TOTAL_AMOUNT_VAR)))
+            BANK_VAR=FEES_BANKNAME_ENTRY.get()
+
+            cur.execute("select SURNAME,NAME,FATHER from gr_details WHERE GR_NO=%s",[Grvalue])
+            fee_wee=cur.fetchall()
+
+            cur.execute("select curr_std from academic_detail WHERE GR_NO=%s",[Grvalue])
+            fee_wee_1=cur.fetchall()
+
+
+            NAME_VAR=fee_wee[0][1]
+            SURNAME_VAR=fee_wee[0][0]
+            FATHERS_NAME_VAR=fee_wee[0][2]
+            STD_VAR=fee_wee_1[0][0]
+
+            
+
+
+            print(Grvalue,RECEIPT_VAR,DATE_VAR,TOTAL_AMOUNT_VAR,PAY_TYPE,CHEQUE_VAR,BANK_VAR,NAME_VAR,SURNAME_VAR,FATHERS_NAME_VAR,STD_VAR)
+
+
+            FEES_NAME_PAID=[]
+            FEES_AMT_PAID=[]
+            for child in trv.get_children():
+                # print(trv.item(child)["values"])
+                FEES_NAME_PAID.append(trv.item(child)["values"][0])
+                FEES_AMT_PAID.append(trv.item(child)["values"][3])
+
+            
+
+
+            from reportlab.pdfgen import canvas
+            from reportlab.lib.units import inch
+            from reportlab.lib.pagesizes import letter, A4
+
+            my_path = "RECIEPTS\\{}  - {}.pdf".format(str(NAME_VAR)+" "+str(SURNAME_VAR),str(RECEIPT_VAR))
+
+            c=canvas.Canvas(my_path,pagesize=A4)
+            c.translate(inch,inch)
+            c.setStrokeColorRGB(0,0,0) 
+            c.setLineWidth(2)
+            c.line(-15,580,475,580)
+
+            c.setFont('Helvetica-Bold',17)
+            c.drawString(130,690,"AIRPORT SCHOOL - AHMEDABAD")
+            c.setFont('Helvetica',15)
+
+            c.drawString(145,670,"CBSE AFFILIATION NO 430133")
+            c.drawString(108,650,"AIRPORT COLONY, SARDARNAGAR, AHMEDABAD")
+            c.drawString(173,630,"PHONE : 079-22864175")
+            
+            c.setFont('Helvetica-Bold',17)
+            c.drawString(193,610,"C.B.S.E BOARD")
+            c.setFont('Helvetica',12)
+            
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,557,"Receipt No :")
+            c.setFont('Helvetica',12)
+            c.drawString(80,557,str(RECEIPT_VAR))
+            
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(350,557,"Date :")
+            c.setFont('Helvetica',12)
+            c.drawString(390,557,str(DATE_VAR))
+
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,540,"Student's Name :")
+            c.setFont('Helvetica',12)
+            c.drawString(100,542,str(NAME_VAR)+" "+str(SURNAME_VAR))
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(350,540,"Std :")
+            c.setFont('Helvetica',12)
+            c.drawString(390,540,str(STD_VAR))
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,523,"Father's Name :")
+            c.setFont('Helvetica',12)
+            c.drawString(95,523,str(FATHERS_NAME_VAR)+" "+str(SURNAME_VAR))
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(350,523,"G.R.No :")
+            c.setFont('Helvetica',12)
+            c.drawString(410,523,str(Grvalue))
+            c.setLineWidth(2)
+            c.line(-15,7.2*inch,6.6*inch,7.2*inch)
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(140,498,"Fee Detail")
+            c.drawString(380,498,"Fee Amount")
+            c.setFont('Helvetica',12)
+
+            x=25
+            y=460
+
+            p=435
+            q=460
+            c.drawString(x,y,str(FEES_NAME_PAID[0]))
+            c.drawString(p,q,str(FEES_AMT_PAID[0]))
+            for a in range(1,len(FEES_NAME_PAID)):
+                y=y-20
+                c.drawString(x,y,str(FEES_NAME_PAID[a]))
+
+            for b in range(1,len(FEES_AMT_PAID)):
+                q=q-20
+                c.drawString(p,q,str(FEES_AMT_PAID[b]))             
+
+
+            c.setLineWidth(2)
+            c.line(-15,6.8*inch,6.6*inch,6.8*inch)
+
+            c.setLineWidth(2)
+            c.line(-15,0.7*inch,6.6*inch,0.7*inch)
+
+            c.setLineWidth(2)
+            c.line(-15,0.4*inch,6.6*inch,0.4*inch)
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,5,"Pay By :")
+            c.setFont('Helvetica',12)
+            
+            c.drawString(50,5,str(PAY_TYPE)+' '+str(CHEQUE_VAR)+' '+str(BANK_VAR))
+            
+
+
+            c.drawString(0,34,str(t))
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(400,34,str(TOTAL_AMOUNT_VAR)+str('/-'))
+            c.setFont('Helvetica',12)
+
+            
+
+            c.drawString(370,-10,"RAMESH")
+            c.setLineWidth(2)
+            c.line(350,-14,440,-14)
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(360,-25,"Receiver Sign")
+            c.setFont('Helvetica',12)
+
+            c.drawImage(r"C:\Users\Kunal Adwani\OneDrive\Desktop\CREATIONS!!\CodeWorked\ICONS\schl logo1.png",-0.3*inch,8.5*inch)
+
+            c.setLineWidth(2)
+            c.setStrokeColorRGB(0,0,0)
+            c.rect(-0.2*inch,-0.5*inch,6.8*inch,10.8*inch,fill=0)
+            c.showPage()
+            
+            c.translate(inch,inch)
+            c.setStrokeColorRGB(0,0,0) 
+            c.setLineWidth(2)
+            c.line(-15,580,475,580)
+
+            c.setFont('Helvetica-Bold',17)
+            c.drawString(130,690,"AIRPORT SCHOOL - AHMEDABAD")
+            c.setFont('Helvetica',15)
+
+            c.drawString(145,670,"CBSE AFFILIATION NO 430133")
+            c.drawString(108,650,"AIRPORT COLONY, SARDARNAGAR, AHMEDABAD")
+            c.drawString(173,630,"PHONE : 079-22864175")
+            
+            c.setFont('Helvetica-Bold',17)
+            c.drawString(193,610,"C.B.S.E BOARD")
+            c.setFont('Helvetica',12)
+            
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,557,"Receipt No :")
+            c.setFont('Helvetica',12)
+            c.drawString(80,557,str(RECEIPT_VAR))
+            
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(350,557,"Date :")
+            c.setFont('Helvetica',12)
+            c.drawString(390,557,str(DATE_VAR))
+
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,540,"Student's Name :")
+            c.setFont('Helvetica',12)
+            c.drawString(100,542,str(NAME_VAR)+" "+str(SURNAME_VAR))
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(350,540,"Std :")
+            c.setFont('Helvetica',12)
+            c.drawString(390,540,str(STD_VAR))
+            
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,523,"Father's Name :")
+            c.setFont('Helvetica',12)
+            c.drawString(95,523,str(FATHERS_NAME_VAR)+" "+str(SURNAME_VAR))
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(350,523,"G.R.No :")
+            c.setFont('Helvetica',12)
+            c.drawString(410,523,str(Grvalue))
+            
+            c.setLineWidth(2)
+            c.line(-15,7.2*inch,6.6*inch,7.2*inch)
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(140,498,"Fee Detail")
+            c.drawString(380,498,"Fee Amount")
+            c.setFont('Helvetica',12)
+            x=25
+            y=460
+
+            p=435
+            q=460
+            c.drawString(x,y,str(FEES_NAME_PAID[0]))
+            c.drawString(p,q,str(FEES_AMT_PAID[0]))
+            for a in range(1,len(FEES_NAME_PAID)):
+                y=y-20
+                c.drawString(x,y,str(FEES_NAME_PAID[a]))
+
+            for b in range(1,len(FEES_AMT_PAID)):
+                q=q-20
+                c.drawString(p,q,str(FEES_AMT_PAID[b]))             
+
+
+            c.setLineWidth(2)
+            c.line(-15,6.8*inch,6.6*inch,6.8*inch)
+
+            c.setLineWidth(2)
+            c.line(-15,0.7*inch,6.6*inch,0.7*inch)
+
+            c.setLineWidth(2)
+            c.line(-15,0.4*inch,6.6*inch,0.4*inch)
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,5,"Pay By :")
+            c.setFont('Helvetica',12)
+
+            c.drawString(50,5,str(PAY_TYPE)+' '+str(CHEQUE_VAR)+' '+str(BANK_VAR))
+
+            c.drawString(0,34,str(t))
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(400,34,str(TOTAL_AMOUNT_VAR)+str('/-'))
+            c.setFont('Helvetica',12)
+
+
+            c.drawString(370,-10,"RAMESH")
+            c.setLineWidth(2)
+            c.line(350,-14,440,-14)
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(360,-25,"Receiver Sign")
+            c.setFont('Helvetica',12)
+
+            c.drawImage(r"C:\Users\Kunal Adwani\OneDrive\Desktop\CREATIONS!!\CodeWorked\ICONS\schl logo1.png",-0.3*inch,8.5*inch)
+
+            c.setLineWidth(2)
+            c.setStrokeColorRGB(0,0,0)
+            c.rect(-0.2*inch,-0.5*inch,6.8*inch,10.8*inch,fill=0)
+
+            c.showPage()
+            
+            c.save()
+
+        fees_print()
         FEES_FUNCTION()
 
 

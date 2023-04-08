@@ -1,3 +1,19 @@
 RECEIPT_NO,dept,gr_no,date1,name,receipt_book,std,div1,total1,late_fees,exemption_fees,grand_total,paymode,bank,cheque_no,cheque_date,c1,c2,c3,c4,c5,c6,c7
 1,CBSE,9,01-02-2023,31213212,ARPT,NUR,A,900,100,50,950,,,,,1,1,0,0,0,,
 2,CBSE,10,01-02-2023,oritanshi arpit desai,ARPT,1,D,7510,0,0,7510,,,,,1,0,0,0,0,,
+3,CBSE,13,06-02-2023,546 654 1,ARPT,1,1,8750,0,0,8750,cash,cash,cashc=,cash,1,0,0,0,0,0,0
+4,CBSE,13,07-02-2023,546 654 1,ARPT,1,,8750,0,0,8750,cASH,CASH,CASH,CASH,1,1,0,0,0,0,0
+5,CBSE,13,08-02-2023,546 654 1,ARPT,1,,1500,0,0,1500,cash,cash,cash,cash,1,1,1,0,0,0,0
+6,CBSE,13,08-02-2023,546 654 1,ARPT,1,,1500,0,0,1500,cash,cash,cash,cash,1,1,1,1,0,0,0
+7,CBSE,16,15-02-2023,ebebebee evbevevevev ebrbrbrbe,ARPT,1,,9000,0,0,9000,,,,,1,1,0,0,0,0,0
+8,CBSE,16,15-02-2023,ebebebee evbevevevev ebrbrbrbe,ARPT,1,,9000,0,0,9000,,,,,1,1,1,1,0,0,0
+9,CBSE,17,15-02-2023,kkkkkk kkkkkk kkkkkkkk,ARPT,1,,4500,0,0,4500,,,,,1,0,0,0,0,0,0
+10,CBSE,17,15-02-2023,kkkkkk kkkkkk kkkkkkkk,ARPT,1,,4500,0,0,4500,,,,,1,1,0,0,0,0,0
+11,CBSE,17,15-02-2023,kkkkkk kkkkkk kkkkkkkk,ARPT,1,,4500,0,0,4500,,,,,1,1,1,0,0,0,0
+12,CBSE,17,15-02-2023,kkkkkk kkkkkk kkkkkkkk,ARPT,1,,4500,0,0,4500,,,,,1,1,1,1,0,0,0
+13,CBSE,17,15-02-2023,kkkkkk kkkkkk kkkkkkkk,ARPT,1,,1000,0,0,1000,felfka,dlakms,caslkcm,lsackm,1,1,1,1,1,0,0
+14,CBSE,22,15-02-2023,fmmmfmfdm  gmgmfmfdm,ARPT,1,,4500,0,0,4500,,,,,1,0,0,0,0,0,0
+15,CBSE,22,15-02-2023,fmmmfmfdm  gmgmfmfdm,ARPT,1,,4500,0,0,4500,,,,,1,1,0,0,0,0,0
+16,CBSE,22,15-02-2023,fmmmfmfdm  gmgmfmfdm,ARPT,1,,4500,0,0,4500,das,dsa,das,adw,1,1,1,0,0,0,0
+17,CBSE,23,09-03-2023,  ,ARPT,1,A,9000,0,0,9000,,,,,1,1,0,0,0,0,0
+18,CBSE,23,09-03-2023,  ,ARPT,1,A,4500,0,0,4500,,,,,1,1,1,0,0,0,0
