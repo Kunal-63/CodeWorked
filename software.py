@@ -1611,8 +1611,202 @@ def FEES_FUNCTION():
         widget.destroy()
     MAIN_FRAME.configure(bg="lightpink")
 
-    FEES_1=Button(MENU_FRAME2,text="FEES 1")
+    def receipt_delete_function():
+        for widget in MAIN_FRAME.winfo_children():
+            widget.destroy()
+
+        def receipt_searching(event):
+            rec_no = FEES_RECEIPTNO_ENTRY1.get()
+            cur.execute("select * from tran_details where RECEIPT_NO={}".format(int(rec_no)))
+            data = cur.fetchall()[0]
+            FEES_GR_ENTRY.delete(0,END)
+            FEES_GR_ENTRY.insert(0,data[2])
+            FEES_NAME_ENTRY.delete(0,END)
+            FEES_NAME_ENTRY.insert(0,data[4])
+            FEES_RECEIPTBOOK_ENTRY.delete(0,END)
+            FEES_RECEIPTBOOK_ENTRY.insert(0,data[5])
+            FEES_STD_ENTRY.delete(0,END)
+            FEES_STD_ENTRY.insert(0,data[6])
+            FEES_DIV_ENTRY.delete(0,END)
+            FEES_DIV_ENTRY.insert(0,data[7])
+            FEES_LATEFEES_ENTRY.delete(0,END)
+            FEES_LATEFEES_ENTRY.insert(0,data[9])
+            FEES_TOTALAMOUNT_ENTRY.delete(0,END)
+            FEES_TOTALAMOUNT_ENTRY.insert(0,data[8])
+            EXEMPTION_ENTRY.delete(0,END)
+            EXEMPTION_ENTRY.insert(0,data[10])
+            FEES_GRANDTOTAL_ENTRY.delete(0,END)
+            FEES_GRANDTOTAL_ENTRY.insert(0,data[11])
+            FEES_PAYMODE_ENTRY.delete(0,END)
+            FEES_PAYMODE_ENTRY.insert(0,data[12])
+            FEES_BANKNAME_ENTRY.delete(0,END)
+            FEES_BANKNAME_ENTRY.insert(0,data[13])
+            FEES_CHEQUEDATE_ENTRY.delete(0,END)
+            FEES_CHEQUEDATE_ENTRY.insert(0,data[15])
+            FEES_CHEQUENUMBER_ENTRY.delete(0,END)
+            FEES_CHEQUENUMBER_ENTRY.insert(0,data[14])
+            if(int(data[16])==1):
+                C1.select()
+            else:
+                C1.deselect()
+            if(int(data[17])==1):
+                C2.select()
+            else:
+                C2.deselect()
+            if(int(data[18])==1):
+                C3.select()
+            else:
+                C3.deselect()
+            if(int(data[19])==1):
+                C4.select()
+            else:
+                C4.deselect()
+            if(int(data[20])==1):
+                C5.select()
+            else:
+                C5.deselect()
+            if(int(data[21])==1):
+                C6.select()
+            else:
+                C6.deselect()
+            if(int(data[22])==1):
+                C7.select()
+            else:
+                C7.deselect()
+            
+
+
+
+        FEES_RECEIPTNO_LABEL1=Label(MAIN_FRAME,text="RECEIPT NO. : ",font=('Arial', 13),bg="lightpink")
+        FEES_RECEIPTNO_LABEL1.place(x=70,y=30)
+        FEES_RECEIPTNO_ENTRY1=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_RECEIPTNO_ENTRY1.place(x=220,y=30)
+        FEES_RECEIPTNO_ENTRY1.bind("<Return>",receipt_searching)
+
+
+        FEES_GR_LABEL=Label(MAIN_FRAME,text="GR : ",font=('Arial', 13),bg="lightpink")
+        FEES_GR_LABEL.place(x=70,y=80)
+        FEES_GR_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_GR_ENTRY.place(x=220,y=80)
+
+        FEES_NAME_LABEL=Label(MAIN_FRAME,text="NAME : ",font=('Arial', 13),bg="lightpink")
+        FEES_NAME_LABEL.place(x=70,y=130)
+        FEES_NAME_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_NAME_ENTRY.place(x=220,y=130)
+
+
+        FEES_RECEIPTBOOK_LABEL=Label(MAIN_FRAME,text="RECEIPT BOOK : ",font=('Arial', 13),bg="lightpink")
+        FEES_RECEIPTBOOK_LABEL.place(x=70,y=180)
+        FEES_RECEIPTBOOK_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_RECEIPTBOOK_ENTRY.place(x=220,y=180)
+
+
+        FEES_STD_LABEL=Label(MAIN_FRAME,text="STD : ",font=('Arial', 13),bg="lightpink")
+        FEES_STD_LABEL.place(x=70,y=230)
+        FEES_STD_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_STD_ENTRY.place(x=220,y=230)
+
+
+        FEES_DIV_LABEL=Label(MAIN_FRAME,text="DIV : ",font=('Arial', 13),bg="lightpink")
+        FEES_DIV_LABEL.place(x=70,y=280)
+        FEES_DIV_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_DIV_ENTRY.place(x=220,y=280)
+
+
+        FEES_LATEFEES_LABEL=Label(MAIN_FRAME,text="LATE FEES : ",font=('Arial', 13),bg="lightpink")
+        FEES_LATEFEES_LABEL.place(x=70,y=330)
+        FEES_LATEFEES_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_LATEFEES_ENTRY.place(x=220,y=330)
+
+
+
+
+
+
+        FEES_TOTALAMOUNT_LABEL=Label(MAIN_FRAME,text="TOTAL : ",font=('Arial', 13),bg="lightpink")
+        FEES_TOTALAMOUNT_LABEL.place(x=400,y=30)
+        FEES_TOTALAMOUNT_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_TOTALAMOUNT_ENTRY.place(x=550,y=30)
+
+
+
+        EXEMPTION_LABEL=Label(MAIN_FRAME,text="EXEMPTION : ",font=('Arial', 13),bg="lightpink")
+        EXEMPTION_LABEL.place(x=400,y=80)
+        EXEMPTION_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        EXEMPTION_ENTRY.place(x=550,y=80)
+        
+
+        FEES_GRANDTOTAL_LABEL=Label(MAIN_FRAME,text="GRAND TOTAL : ",font=('Arial', 13),bg="lightpink")
+        FEES_GRANDTOTAL_LABEL.place(x=400,y=130)
+        FEES_GRANDTOTAL_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_GRANDTOTAL_ENTRY.place(x=550,y=130)
+
+
+
+
+        FEES_PAYMODE_LABEL=Label(MAIN_FRAME,text="PAYMODE : ",font=('Arial', 13),bg="lightpink")
+        FEES_PAYMODE_LABEL.place(x=400,y=180)
+        FEES_PAYMODE_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_PAYMODE_ENTRY.place(x=550,y=180)
+
+        FEES_BANKNAME_LABEL=Label(MAIN_FRAME,text="BANK : ",font=('Arial', 13),bg="lightpink")
+        FEES_BANKNAME_LABEL.place(x=400,y=230)
+        FEES_BANKNAME_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_BANKNAME_ENTRY.place(x=550,y=230)
+
+        FEES_CHEQUENUMBER_LABEL=Label(MAIN_FRAME,text="CHEQUENO : ",font=('Arial', 13),bg="lightpink")
+        FEES_CHEQUENUMBER_LABEL.place(x=400,y=280)
+        FEES_CHEQUENUMBER_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_CHEQUENUMBER_ENTRY.place(x=550,y=280)
+
+        FEES_CHEQUEDATE_LABEL=Label(MAIN_FRAME,text="CHEQUEDATE : ",font=('Arial', 13),bg="lightpink")
+        FEES_CHEQUEDATE_LABEL.place(x=400,y=330)
+        FEES_CHEQUEDATE_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_CHEQUEDATE_ENTRY.place(x=550,y=330)
+
+
+
+        wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=250,width=270,relief=RIDGE,borderwidth=2)
+        wrapper2.place(x=1000,y=100)
+
+
+        CheckVar1 = IntVar()
+        CheckVar2 = IntVar()
+        CheckVar3 = IntVar()
+        CheckVar4 = IntVar()
+        CheckVar5 = IntVar()
+        CheckVar6 = IntVar()
+        CheckVar7 = IntVar()
+        
+
+        C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C2 = Checkbutton(wrapper2, text = "JUL SEP FEES", variable = CheckVar2,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C3 = Checkbutton(wrapper2, text = "OCT DEC FEES", variable = CheckVar3,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C4 = Checkbutton(wrapper2, text = "JAN MAR FEES", variable = CheckVar4,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C6 = Checkbutton(wrapper2, text = "ADMISSION FEE", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C7 = Checkbutton(wrapper2, text = "ICARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        
+        C1.place(x=0,y=0)
+        C2.place(x=0,y=45)
+        C3.place(x=0,y=90)
+        C4.place(x=0,y=135)
+        C5.place(x=0,y=180)
+        C6.place(x=0,y=225)
+        C7.place(x=0,y=270)
+
+        def receipt_delete():
+            pass
+        delete_button=Button(MAIN_FRAME,text="DELETE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=receipt_delete)
+        delete_button.place(x=1050,y=500)
+
+
+
+    FEES_1=Button(MENU_FRAME2,text="FEES DELETE",command = receipt_delete_function)
     FEES_1.place(x=20,y=20)
+
+    # FEES_1=Button(MENU_FRAME2,text="DELETE")
+    # FEES_1.place(x=20,y=20)
 
 
     wrapper1=Frame(MAIN_FRAME,height=250,width=620)
@@ -2947,6 +3141,8 @@ def FEES_REPORT_FUNCTION():
     for i in data_report:
         wrt.writerow(i)
     f4.close()
+
+    
 
 
 
