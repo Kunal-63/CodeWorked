@@ -1800,39 +1800,35 @@ def FEES_FUNCTION():
             fees_data = cur.fetchall()[0]
 
             if(CheckVar1.get() == 1):
-                cur.execute("update gr_checks set c1=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set apr_jun_tution={},APR_JUN_ATITVITY={} where gr_no={}".format(fees_data[3],fees_data[4],FEES_GR_ENTRY))
-            else:
                 cur.execute("update gr_checks set c1=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set apr_jun_tution={},APR_JUN_ATITVITY={} where gr_no={}".format(fees_data[3],fees_data[4],FEES_GR_ENTRY))
+                cur.execute("update fee_details set c1=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
             if(CheckVar2.get() == 1):
-                cur.execute("update gr_checks set c2=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set JUL_SEP_TUTION={},JUL_SEP_ACTIVITY={} where gr_no={}".format(fees_data[6],fees_data[7],FEES_GR_ENTRY))
-            else:
                 cur.execute("update gr_checks set c2=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set JUL_SEP_TUTION={},JUL_SEP_ACTIVITY={} where gr_no={}".format(fees_data[6],fees_data[7],FEES_GR_ENTRY))
+                cur.execute("update fee_details set c2=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
             if(CheckVar3.get() == 1):
-                cur.execute("update gr_checks set c3=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set OCT_DEC_TUTION={},OCT_DEC_ACTIVITY={} where gr_no={}".format(fees_data[8],fees_data[9],FEES_GR_ENTRY))
-            else:
                 cur.execute("update gr_checks set c3=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set OCT_DEC_TUTION={},OCT_DEC_ACTIVITY={} where gr_no={}".format(fees_data[8],fees_data[9],FEES_GR_ENTRY))
+                cur.execute("update fee_details set c3=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
             if(CheckVar4.get() == 1):
-                cur.execute("update gr_checks set c4=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-            else:
                 cur.execute("update gr_checks set c4=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set JAN_MAR_TUTION={},JAN_MAR_ACTIVITY={} where gr_no={}".format(fees_data[10],fees_data[11],FEES_GR_ENTRY))
+                cur.execute("update fee_details set c4=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
             if(CheckVar5.get() == 1):
-                cur.execute("update gr_checks set c5=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-            else:
                 cur.execute("update gr_checks set c5=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(fees_data[12],FEES_GR_ENTRY))
+                cur.execute("update fee_details set c5=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
             if(CheckVar6.get() == 1):
-                cur.execute("update gr_checks set c6=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-            else:
                 cur.execute("update gr_checks set c6=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set ADMISSION_FEE={} where gr_no={}".format(fees_data[1],FEES_GR_ENTRY))
+                cur.execute("update fee_details set c6=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
             if(CheckVar7.get() == 1):
-                cur.execute("update gr_checks set c7=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-            else:
                 cur.execute("update gr_checks set c7=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-            
+                cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(fees_data[2],FEES_GR_ENTRY))
+                cur.execute("update fee_details set c7=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
             cur.execute("delete from tran_details where receipt_no={}".format(FEES_RECEIPTNO_ENTRY1.get()))
-
+            cur.execute("delete from fee_tran where receipt_no={}".format(FEES_RECEIPTNO_ENTRY1.get()))
         delete_button=Button(MAIN_FRAME,text="DELETE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=receipt_delete)
         delete_button.place(x=1050,y=500)
 
