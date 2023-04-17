@@ -21,11 +21,11 @@ import webbrowser
 video =Tk()
 video.geometry("1000x600")
 video.title("ZETA CORE")
-photo = PhotoImage(file = r"D:\ZETA CORE DB\CodeWorked (3)\CodeWorked\ICONS\Zeta.png")
+photo = PhotoImage(file = r"ICONS\Zeta.png")
 video.iconphoto(False, photo)
 video.resizable(False, False)
 videoplayer = TkinterVideo(master=video, scaled=True)
-videoplayer.load(r"D:\ZETA CORE DB\CodeWorked (3)\CodeWorked\VIDEOS\ZETACORE.mp4")
+videoplayer.load(r"VIDEOS\ZETACORE.mp4")
 videoplayer.set_size(size=(1000, 600), keep_aspect=False)
 videoplayer.pack(expand=True, fill="both")
 videoplayer.play()
@@ -57,14 +57,14 @@ video.mainloop()
 
 
 
-mydb = con.connect(host="localhost",user="root",password="Mouse@2010",database="airport_school1")
+mydb = con.connect(host="localhost",user="root",password="Mouse@2010",database="airport_school")
 cur = mydb.cursor()
 root=Tk()
 root.state('zoomed')
 root.geometry("1000x500")
 # root.attributes('-fullscreen', True)
 root.title("ZETA CORE")
-photo = PhotoImage(file = r"D:\ZETA CORE DB\CodeWorked (3)\CodeWorked\ICONS\Zeta.png")
+photo = PhotoImage(file = r"ICONS\Zeta.png")
 root.iconphoto(False, photo)
 
 
@@ -1622,6 +1622,238 @@ def FEES_FUNCTION():
 
     FEES_1=Button(MENU_FRAME2,text="FEES 1")
     FEES_1.place(x=20,y=20)
+    def receipt_delete_function():
+        for widget in MAIN_FRAME.winfo_children():
+            widget.destroy()
+
+        def receipt_searching(event):
+            rec_no = FEES_RECEIPTNO_ENTRY1.get()
+            cur.execute("select * from tran_details where RECEIPT_NO={}".format(int(rec_no)))
+            data = cur.fetchall()[0]
+            FEES_GR_ENTRY.delete(0,END)
+            FEES_GR_ENTRY.insert(0,data[2])
+            FEES_NAME_ENTRY.delete(0,END)
+            FEES_NAME_ENTRY.insert(0,data[4])
+            FEES_RECEIPTBOOK_ENTRY.delete(0,END)
+            FEES_RECEIPTBOOK_ENTRY.insert(0,data[5])
+            FEES_STD_ENTRY.delete(0,END)
+            FEES_STD_ENTRY.insert(0,data[6])
+            FEES_DIV_ENTRY.delete(0,END)
+            FEES_DIV_ENTRY.insert(0,data[7])
+            FEES_LATEFEES_ENTRY.delete(0,END)
+            FEES_LATEFEES_ENTRY.insert(0,data[9])
+            FEES_TOTALAMOUNT_ENTRY.delete(0,END)
+            FEES_TOTALAMOUNT_ENTRY.insert(0,data[8])
+            EXEMPTION_ENTRY.delete(0,END)
+            EXEMPTION_ENTRY.insert(0,data[10])
+            FEES_GRANDTOTAL_ENTRY.delete(0,END)
+            FEES_GRANDTOTAL_ENTRY.insert(0,data[11])
+            FEES_PAYMODE_ENTRY.delete(0,END)
+            FEES_PAYMODE_ENTRY.insert(0,data[12])
+            FEES_BANKNAME_ENTRY.delete(0,END)
+            FEES_BANKNAME_ENTRY.insert(0,data[13])
+            FEES_CHEQUEDATE_ENTRY.delete(0,END)
+            FEES_CHEQUEDATE_ENTRY.insert(0,data[15])
+            FEES_CHEQUENUMBER_ENTRY.delete(0,END)
+            FEES_CHEQUENUMBER_ENTRY.insert(0,data[14])
+            if(int(data[16])==1):
+                C1.select()
+            else:
+                C1.deselect()
+            if(int(data[17])==1):
+                C2.select()
+            else:
+                C2.deselect()
+            if(int(data[18])==1):
+                C3.select()
+            else:
+                C3.deselect()
+            if(int(data[19])==1):
+                C4.select()
+            else:
+                C4.deselect()
+            if(int(data[20])==1):
+                C5.select()
+            else:
+                C5.deselect()
+            if(int(data[21])==1):
+                C6.select()
+            else:
+                C6.deselect()
+            if(int(data[22])==1):
+                C7.select()
+            else:
+                C7.deselect()
+            
+
+
+
+        FEES_RECEIPTNO_LABEL1=Label(MAIN_FRAME,text="RECEIPT NO. : ",font=('Arial', 13),bg="lightpink")
+        FEES_RECEIPTNO_LABEL1.place(x=70,y=30)
+        FEES_RECEIPTNO_ENTRY1=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_RECEIPTNO_ENTRY1.place(x=220,y=30)
+        FEES_RECEIPTNO_ENTRY1.bind("<Return>",receipt_searching)
+
+
+        FEES_GR_LABEL=Label(MAIN_FRAME,text="GR : ",font=('Arial', 13),bg="lightpink")
+        FEES_GR_LABEL.place(x=70,y=80)
+        FEES_GR_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_GR_ENTRY.place(x=220,y=80)
+
+        FEES_NAME_LABEL=Label(MAIN_FRAME,text="NAME : ",font=('Arial', 13),bg="lightpink")
+        FEES_NAME_LABEL.place(x=70,y=130)
+        FEES_NAME_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_NAME_ENTRY.place(x=220,y=130)
+
+
+        FEES_RECEIPTBOOK_LABEL=Label(MAIN_FRAME,text="RECEIPT BOOK : ",font=('Arial', 13),bg="lightpink")
+        FEES_RECEIPTBOOK_LABEL.place(x=70,y=180)
+        FEES_RECEIPTBOOK_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_RECEIPTBOOK_ENTRY.place(x=220,y=180)
+
+
+        FEES_STD_LABEL=Label(MAIN_FRAME,text="STD : ",font=('Arial', 13),bg="lightpink")
+        FEES_STD_LABEL.place(x=70,y=230)
+        FEES_STD_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_STD_ENTRY.place(x=220,y=230)
+
+
+        FEES_DIV_LABEL=Label(MAIN_FRAME,text="DIV : ",font=('Arial', 13),bg="lightpink")
+        FEES_DIV_LABEL.place(x=70,y=280)
+        FEES_DIV_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_DIV_ENTRY.place(x=220,y=280)
+
+
+        FEES_LATEFEES_LABEL=Label(MAIN_FRAME,text="LATE FEES : ",font=('Arial', 13),bg="lightpink")
+        FEES_LATEFEES_LABEL.place(x=70,y=330)
+        FEES_LATEFEES_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_LATEFEES_ENTRY.place(x=220,y=330)
+
+
+
+
+
+
+        FEES_TOTALAMOUNT_LABEL=Label(MAIN_FRAME,text="TOTAL : ",font=('Arial', 13),bg="lightpink")
+        FEES_TOTALAMOUNT_LABEL.place(x=400,y=30)
+        FEES_TOTALAMOUNT_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_TOTALAMOUNT_ENTRY.place(x=550,y=30)
+
+
+
+        EXEMPTION_LABEL=Label(MAIN_FRAME,text="EXEMPTION : ",font=('Arial', 13),bg="lightpink")
+        EXEMPTION_LABEL.place(x=400,y=80)
+        EXEMPTION_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        EXEMPTION_ENTRY.place(x=550,y=80)
+        
+
+        FEES_GRANDTOTAL_LABEL=Label(MAIN_FRAME,text="GRAND TOTAL : ",font=('Arial', 13),bg="lightpink")
+        FEES_GRANDTOTAL_LABEL.place(x=400,y=130)
+        FEES_GRANDTOTAL_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_GRANDTOTAL_ENTRY.place(x=550,y=130)
+
+
+
+
+        FEES_PAYMODE_LABEL=Label(MAIN_FRAME,text="PAYMODE : ",font=('Arial', 13),bg="lightpink")
+        FEES_PAYMODE_LABEL.place(x=400,y=180)
+        FEES_PAYMODE_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_PAYMODE_ENTRY.place(x=550,y=180)
+
+        FEES_BANKNAME_LABEL=Label(MAIN_FRAME,text="BANK : ",font=('Arial', 13),bg="lightpink")
+        FEES_BANKNAME_LABEL.place(x=400,y=230)
+        FEES_BANKNAME_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_BANKNAME_ENTRY.place(x=550,y=230)
+
+        FEES_CHEQUENUMBER_LABEL=Label(MAIN_FRAME,text="CHEQUENO : ",font=('Arial', 13),bg="lightpink")
+        FEES_CHEQUENUMBER_LABEL.place(x=400,y=280)
+        FEES_CHEQUENUMBER_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_CHEQUENUMBER_ENTRY.place(x=550,y=280)
+
+        FEES_CHEQUEDATE_LABEL=Label(MAIN_FRAME,text="CHEQUEDATE : ",font=('Arial', 13),bg="lightpink")
+        FEES_CHEQUEDATE_LABEL.place(x=400,y=330)
+        FEES_CHEQUEDATE_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_CHEQUEDATE_ENTRY.place(x=550,y=330)
+
+
+
+        wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=380 ,width=270,relief=RIDGE,borderwidth=2)
+        wrapper2.place(x=800,y=30)
+
+
+        CheckVar1 = IntVar()
+        CheckVar2 = IntVar()
+        CheckVar3 = IntVar()
+        CheckVar4 = IntVar()
+        CheckVar5 = IntVar()
+        CheckVar6 = IntVar()
+        CheckVar7 = IntVar()
+        # CheckVar8 = IntVar()
+        
+
+        C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C2 = Checkbutton(wrapper2, text = "JUL SEP FEES", variable = CheckVar2,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C3 = Checkbutton(wrapper2, text = "OCT DEC FEES", variable = CheckVar3,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C4 = Checkbutton(wrapper2, text = "JAN MAR FEES", variable = CheckVar4,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C6 = Checkbutton(wrapper2, text = "ADMISSION FEE", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C7 = Checkbutton(wrapper2, text = "ICARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        # C8 = Checkbutton(wrapper2, text = "LATE FEE", variable = CheckVar8,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        
+        C1.place(x=0,y=0)
+        C2.place(x=0,y=45)
+        C3.place(x=0,y=90)
+        C4.place(x=0,y=135)
+        C5.place(x=0,y=180)
+        C6.place(x=0,y=225)
+        C7.place(x=0,y=270)
+        # C8.place(x=0,y=315)
+
+        def receipt_delete():
+            cur.execute("select * from std_fees where std={}".format(FEES_STD_ENTRY.get()))
+            fees_data = cur.fetchall()[0]
+
+            if(CheckVar1.get() == 1):
+                cur.execute("update gr_checks set c1=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set apr_jun_tution={},APR_JUN_ATITVITY={} where gr_no={}".format(fees_data[3],fees_data[4],FEES_GR_ENTRY))
+                cur.execute("update fee_details set c1=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+            if(CheckVar2.get() == 1):
+                cur.execute("update gr_checks set c2=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set JUL_SEP_TUTION={},JUL_SEP_ACTIVITY={} where gr_no={}".format(fees_data[6],fees_data[7],FEES_GR_ENTRY))
+                cur.execute("update fee_details set c2=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+            if(CheckVar3.get() == 1):
+                cur.execute("update gr_checks set c3=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set OCT_DEC_TUTION={},OCT_DEC_ACTIVITY={} where gr_no={}".format(fees_data[8],fees_data[9],FEES_GR_ENTRY))
+                cur.execute("update fee_details set c3=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+            if(CheckVar4.get() == 1):
+                cur.execute("update gr_checks set c4=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set JAN_MAR_TUTION={},JAN_MAR_ACTIVITY={} where gr_no={}".format(fees_data[10],fees_data[11],FEES_GR_ENTRY))
+                cur.execute("update fee_details set c4=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+            if(CheckVar5.get() == 1):
+                cur.execute("update gr_checks set c5=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(fees_data[12],FEES_GR_ENTRY))
+                cur.execute("update fee_details set c5=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+            if(CheckVar6.get() == 1):
+                cur.execute("update gr_checks set c6=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set ADMISSION_FEE={} where gr_no={}".format(fees_data[1],FEES_GR_ENTRY))
+                cur.execute("update fee_details set c6=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+            if(CheckVar7.get() == 1):
+                cur.execute("update gr_checks set c7=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(fees_data[2],FEES_GR_ENTRY))
+                cur.execute("update fee_details set c7=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+            # if(CheckVar8.get() == 1):
+            #     cur.execute("update gr_checks set c8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+            #     cur.execute("update pending_fee_detail set LATE_FEES={} where gr_no={}".format(0,FEES_GR_ENTRY))
+            #     cur.execute("update fee_details set c8=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+            cur.execute("delete from tran_details where receipt_no={}".format(FEES_RECEIPTNO_ENTRY1.get()))
+            cur.execute("delete from fee_tran where receipt_no={}".format(FEES_RECEIPTNO_ENTRY1.get()))
+        delete_button=Button(MAIN_FRAME,text="DELETE",height=3,width=15,bg="lightgrey",activebackground='lightgrey',font=('Arial', 7),command=receipt_delete)
+        delete_button.place(x=980,y=440)
+
+
+
+    FEES_1=Button(MENU_FRAME2,text="FEES DELETE",command = receipt_delete_function)
+    FEES_1.place(x=20,y=20)
 
 
     wrapper1=Frame(MAIN_FRAME,height=250,width=620)
@@ -1660,6 +1892,7 @@ def FEES_FUNCTION():
     CheckVar5 = IntVar()
     CheckVar6 = IntVar()
     CheckVar7 = IntVar()
+    # CheckVar8 = IntVar()
 
     C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
     C2 = Checkbutton(wrapper2, text = "JUL SEP FEES", variable = CheckVar2,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
@@ -1668,6 +1901,7 @@ def FEES_FUNCTION():
     C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
     C6 = Checkbutton(wrapper2, text = "ADMISSION", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
     C7 = Checkbutton(wrapper2, text = "ICARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
+    # C8 = Checkbutton(wrapper2, text="LATE FEES",variable=CheckVar8,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
 
     C1.place(x=0,y=0)
     C2.place(x=0,y=40)
@@ -1676,6 +1910,7 @@ def FEES_FUNCTION():
     C5.place(x=0,y=160)
     C6.place(x=0,y=200)
     C7.place(x=0,y=240)
+    # C8.place(x=0,y=280)
     
 
 
@@ -1945,8 +2180,9 @@ def FEES_FUNCTION():
         fee_lst.append(CheckVar5.get())#21
         fee_lst.append(CheckVar6.get())#22
         fee_lst.append(CheckVar7.get())#23
+        # fee_lst.append(CheckVar8.get())#24
         cur.execute("insert into tran_details values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",fee_lst)
-        cur.execute("insert into fee_tran values({},0,0,0,0,0,0,0)".format(FEES_RECEIPTNO_ENTRY.get()))
+        cur.execute("insert into fee_tran values({},0,0,0,0,0,0,0,0)".format(FEES_RECEIPTNO_ENTRY.get()))
 
         if (CheckVar1.get() == 0):
             cur.execute("update gr_check set c1=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
@@ -2022,7 +2258,18 @@ def FEES_FUNCTION():
                 cur.execute("update fee_tran set c7=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
                 cur.execute("update pending_fee_detail set ICARD=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_details set c7='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-        mydb.commit()
+        
+        # if(CheckVar7.get() == 0):
+        #     cur.execute("update gr_check set C8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+        # else:
+        #     cur.execute("select C8 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+        #     data = cur.fetchall()
+        #     if(int(data[0][0]) == 0):
+        #         cur.execute("update gr_check set C8=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+        #         cur.execute("update fee_tran set C8=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+        #         cur.execute("update pending_fee_detail set LATE_FEES=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
+        #         cur.execute("update fee_details set C8='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+        # mydb.commit()
 
 
 
@@ -2234,7 +2481,7 @@ def FEES_FUNCTION():
             c.drawString(360,-25,"Receiver Sign")
             c.setFont('Helvetica',12)
 
-            c.drawImage(r"D:\ZETA CORE DB\CodeWorked (3)\CodeWorked\ICONS\schl logo1.png",-0.3*inch,8.5*inch)
+            c.drawImage(r"ICONS\schl logo1.png",-0.3*inch,8.5*inch)
 
             c.setLineWidth(2)
             c.setStrokeColorRGB(0,0,0)
@@ -2340,7 +2587,7 @@ def FEES_FUNCTION():
             c.drawString(360,-25,"Receiver Sign")
             c.setFont('Helvetica',12)
 
-            c.drawImage(r"D:\ZETA CORE DB\CodeWorked (3)\CodeWorked\ICONS\schl logo1.png",-0.3*inch,8.5*inch)
+            c.drawImage(r"ICONS\schl logo1.png",-0.3*inch,8.5*inch)
 
             c.setLineWidth(2)
             c.setStrokeColorRGB(0,0,0)
@@ -2416,6 +2663,12 @@ def FEES_FUNCTION():
                 pass
             else:
                 trv.insert(parent='',index="end",text='',value=("ICARD",pending_data[0][2],exmp_data[0][2],pending_data[0][2]-exmp_data[0][2]))
+        # if (CheckVar8.get() == 1):
+        #     if(gr_checks[0][5] == 1):
+        #         pass
+        #     else:
+        #         trv.insert(parent='',index="end",text='',value=("LATE_FEES",pending_data[0][5],exmp_data[0][5],pending_data[0][5]-exmp_data[0][5]))
+            
         if (len(trv.get_children()) != 0):
             total = 0
             for l in trv.get_children():
@@ -2502,6 +2755,12 @@ def FEES_FUNCTION():
         else:
             C7.select()
             C7.config(state=DISABLED)
+        # if(gr_checks[0][8] == 0):
+        #     C8.deselect()
+        #     C8.config(state=ACTIVE)
+        # else:
+        #     C8.select()
+        #     C8.config(state=DISABLED)
         mydb.commit()
     FEES_GR_ENTRY.bind('<Return>',fees_insert)
 
@@ -3751,21 +4010,21 @@ MAIN_FRAME.place(x=150,y=150)
 
 
 
-image_gr= Image.open(r"D:\ZETA CORE DB\CodeWorked (3)\CodeWorked\ICONS\gr.png")
+image_gr= Image.open(r"ICONS\gr.png")
 image_gr= image_gr.resize((55,55))
 img_gr= ImageTk.PhotoImage(image_gr)
 GR_BTN=Button(MENU_FRAME,image = img_gr,bg='lightgrey',compound=TOP,text="GR",command=GR_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
 GR_BTN.place(x=160,y=0)
 
 
-image_fees= Image.open(r"D:\ZETA CORE DB\CodeWorked (3)\CodeWorked\ICONS\fees.png")
+image_fees= Image.open(r"ICONS\fees.png")
 image_fees= image_fees.resize((55,55))
 img_fees= ImageTk.PhotoImage(image_fees)
 FEES_BTN=Button(MENU_FRAME,image = img_fees,bg='lightgrey',compound=TOP,text="FEES",command=FEES_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
 FEES_BTN.place(x=260,y=0) 
 
 
-image_fees_edit= Image.open(r"D:\ZETA CORE DB\CodeWorked (3)\CodeWorked\ICONS\edity1.png")
+image_fees_edit= Image.open(r"ICONS\edity1.png")
 image_fees_edit= image_fees_edit.resize((55,55))
 img_fees_edit= ImageTk.PhotoImage(image_fees_edit)
 FEES_EDIT_BTN=Button(MENU_FRAME,image = img_fees_edit,bg='lightgrey',compound=TOP,text="FEES EDIT",command=FEES_EDIT_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
@@ -3773,7 +4032,7 @@ FEES_EDIT_BTN.place(x=360,y=0)
 
 
 
-image_fees_report= Image.open(r"D:\ZETA CORE DB\CodeWorked (3)\CodeWorked\ICONS\fee_report.png")
+image_fees_report= Image.open(r"ICONS\fee_report.png")
 image_fees_report= image_fees_report.resize((55,55))
 img_fees_report= ImageTk.PhotoImage(image_fees_report)
 FEES_REPORT_BTN=Button(MENU_FRAME,image = img_fees_report,bg='lightgrey',compound=TOP,text="FEES REPORT",command=FEES_REPORT_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
@@ -3781,7 +4040,7 @@ FEES_REPORT_BTN.place(x=450,y=0)
 
 
 
-image_library= Image.open(r"D:\ZETA CORE DB\CodeWorked (3)\CodeWorked\ICONS\Library.png")
+image_library= Image.open(r"ICONS\Library.png")
 image_library= image_library.resize((55,55))
 img_library= ImageTk.PhotoImage(image_library)
 LIBRARY_BTN=Button(MENU_FRAME,image = img_library,bg='lightgrey',compound=TOP,text="LIBRARY",command=LIBRARY_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
@@ -3789,7 +4048,7 @@ LIBRARY_BTN.place(x=550,y=0)
 
 
 
-image_certificate= Image.open(r"D:\ZETA CORE DB\CodeWorked (3)\CodeWorked\ICONS\certificate.png")
+image_certificate= Image.open(r"ICONS\certificate.png")
 image_certificate= image_certificate.resize((55,55))
 img_certificate= ImageTk.PhotoImage(image_certificate)
 CERTIFICATES_BTN=Button(MENU_FRAME,image = img_certificate,bg='lightgrey',compound=TOP,text="CERTIFICATES",command=CERTIFICATES_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
@@ -3797,7 +4056,7 @@ CERTIFICATES_BTN.place(x=640,y=0)
 
 
 
-image_backup= Image.open(r"D:\ZETA CORE DB\CodeWorked (3)\CodeWorked\ICONS\backup.png")
+image_backup= Image.open(r"ICONS\backup.png")
 image_backup= image_backup.resize((55,55))
 img_backup= ImageTk.PhotoImage(image_backup)
 BACKUP_BTN=Button(MENU_FRAME,image = img_backup,bg='lightgrey',compound=TOP,text="BACKUP",command=BACKUP_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
@@ -3805,7 +4064,7 @@ BACKUP_BTN.place(x=740,y=0)
 
 
 
-image_aboutus= Image.open(r"D:\ZETA CORE DB\CodeWorked (3)\CodeWorked\ICONS\about us.png")
+image_aboutus= Image.open(r"ICONS\about us.png")
 image_aboutus= image_aboutus.resize((50,55))
 img_aboutus= ImageTk.PhotoImage(image_aboutus)
 ABOUTUS_BTN=Button(MENU_FRAME,image = img_aboutus,bg='lightgrey',compound=TOP,text="DETAILS",command=ABOUTUS_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
@@ -3813,7 +4072,7 @@ ABOUTUS_BTN.place(x=830,y=0)
 
 
 
-image_exit= Image.open(r"D:\ZETA CORE DB\CodeWorked (3)\CodeWorked\ICONS\EXIT_menu.png")
+image_exit= Image.open(r"ICONS\EXIT_menu.png")
 image_exit= image_exit.resize((55,55))
 img_exit= ImageTk.PhotoImage(image_exit)
 EXIT_BTN=Button(MENU_FRAME,image = img_exit,bg='lightgrey',compound=TOP,text="EXIT",command=EXIT_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
@@ -3821,7 +4080,7 @@ EXIT_BTN.place(x=920,y=0)
 
 
 
-image_schl_logo= Image.open(r"D:\ZETA CORE DB\CodeWorked (3)\CodeWorked\ICONS\school_logo.png")
+image_schl_logo= Image.open(r"ICONS\school_logo.png")
 img_schl_logo=image_schl_logo.resize((85,85))
 photo_schl_logo= ImageTk.PhotoImage(img_schl_logo)
 SCHL_BTN=Button(MENU_FRAME,image = photo_schl_logo,bg='lightgrey',compound=TOP,command=SCHL_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
