@@ -1808,54 +1808,505 @@ def FEES_FUNCTION():
         # C8.place(x=0,y=315)
 
         def receipt_delete():
-            # print("select * from std_fees where STD={}".format(FEES_STD_ENTRY.get()))
-            cur.execute("select * from std_fees where STD='{}'".format(FEES_STD_ENTRY.get()))
-            
-            fees_data = cur.fetchall()[0]
+            passroot = Tk()
+            passroot.title("PASSWORD")
+            passroot.geometry("300x200")
+            passroot.resizable(0,0)
+            Label(passroot,text="ENTER PASSWORD",font=('Arial', 13)).place(x=80,y=20)
+            pass_entry=Entry(passroot,width=14,show="*",font=('Arial', 13))
+            pass_entry.place(x=80,y=60)
+            def pass_check():
+                val = pass_entry.get()
+                if(val == "Admin@321"):
+                    abc1()
+                else:
+                    messagebox.showerror("ERROR","WRONG PASSWORD")
+            submit_button=Button(passroot,text="SUBMIT",font=('Arial', 13),command=pass_check)
+            submit_button.place(x=120,y=100)
 
-            if(CheckVar1.get() == 1):
-                cur.execute("update gr_check set c1=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set apr_jun_tution={},APR_JUN_ATITVITY={} where gr_no={}".format(fees_data[3],fees_data[4],FEES_GR_ENTRY.get()))
-                cur.execute("update fee_details set c1=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar2.get() == 1):
-                cur.execute("update gr_check set c2=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set JUL_SEP_TUTION={},JUL_SEP_ACTIVITY={} where gr_no={}".format(fees_data[6],fees_data[7],FEES_GR_ENTRY.get()))
-                cur.execute("update fee_details set c2=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar3.get() == 1):
-                cur.execute("update gr_check set c3=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set OCT_DEC_TUTION={},OCT_DEC_ACTIVITY={} where gr_no={}".format(fees_data[8],fees_data[9],FEES_GR_ENTRY.get()))
-                cur.execute("update fee_details set c3=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar4.get() == 1):
-                cur.execute("update gr_check set c4=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set JAN_MAR_TUTION={},JAN_MAR_ACTIVITY={} where gr_no={}".format(fees_data[10],fees_data[11],FEES_GR_ENTRY.get()))
-                cur.execute("update fee_details set c4=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar5.get() == 1):
-                cur.execute("update gr_check set c5=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(fees_data[12],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c5=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar6.get() == 1):
-                cur.execute("update gr_check set c6=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set ADMISSION_FEE={} where gr_no={}".format(fees_data[1],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c6=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar7.get() == 1):
-                cur.execute("update gr_check set c7=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(fees_data[2],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c7=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            # if(CheckVar8.get() == 1):
-            #     cur.execute("update gr_check set c8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-            #     cur.execute("update pending_fee_detail set LATE_FEES={} where gr_no={}".format(0,FEES_GR_ENTRY))
-            #     cur.execute("update fee_details set c8=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            cur.execute("delete from tran_details where receipt_no={}".format(FEES_RECEIPTNO_ENTRY1.get()))
-            cur.execute("delete from fee_tran where receipt_no={}".format(FEES_RECEIPTNO_ENTRY1.get()))
-            for widget in MAIN_FRAME.winfo_children():
-                widget.destroy()
+            global abc1
+            def abc1():
+                passroot.destroy()
+                cur.execute("select * from std_fees where STD='{}'".format(FEES_STD_ENTRY.get()))
+                
+                fees_data = cur.fetchall()[0]
+
+                if(CheckVar1.get() == 1):
+                    cur.execute("update gr_check set c1=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set apr_jun_tution={},APR_JUN_ATITVITY={} where gr_no={}".format(fees_data[3],fees_data[4],FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_details set c1=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                if(CheckVar2.get() == 1):
+                    cur.execute("update gr_check set c2=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set JUL_SEP_TUTION={},JUL_SEP_ACTIVITY={} where gr_no={}".format(fees_data[6],fees_data[7],FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_details set c2=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                if(CheckVar3.get() == 1):
+                    cur.execute("update gr_check set c3=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set OCT_DEC_TUTION={},OCT_DEC_ACTIVITY={} where gr_no={}".format(fees_data[8],fees_data[9],FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_details set c3=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                if(CheckVar4.get() == 1):
+                    cur.execute("update gr_check set c4=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set JAN_MAR_TUTION={},JAN_MAR_ACTIVITY={} where gr_no={}".format(fees_data[10],fees_data[11],FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_details set c4=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                if(CheckVar5.get() == 1):
+                    cur.execute("update gr_check set c5=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(fees_data[12],FEES_GR_ENTRY))
+                    cur.execute("update fee_details set c5=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                if(CheckVar6.get() == 1):
+                    cur.execute("update gr_check set c6=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set ADMISSION_FEE={} where gr_no={}".format(fees_data[1],FEES_GR_ENTRY))
+                    cur.execute("update fee_details set c6=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                if(CheckVar7.get() == 1):
+                    cur.execute("update gr_check set c7=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(fees_data[2],FEES_GR_ENTRY))
+                    cur.execute("update fee_details set c7=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                # if(CheckVar8.get() == 1):
+                #     cur.execute("update gr_check set c8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                #     cur.execute("update pending_fee_detail set LATE_FEES={} where gr_no={}".format(0,FEES_GR_ENTRY))
+                #     cur.execute("update fee_details set c8=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("delete from tran_details where receipt_no={}".format(FEES_RECEIPTNO_ENTRY1.get()))
+                cur.execute("delete from fee_tran where receipt_no={}".format(FEES_RECEIPTNO_ENTRY1.get()))
+                mydb.commit()
+                for widget in MAIN_FRAME.winfo_children():
+                    widget.destroy()
         delete_button=Button(MAIN_FRAME,text="DELETE",height=3,width=15,bg="lightgrey",activebackground='lightgrey',font=('Arial', 7),command=receipt_delete)
         delete_button.place(x=980,y=440)
 
+    
 
 
-    FEES_1=Button(MENU_FRAME2,text="FEES DELETE",command = receipt_delete_function)
-    FEES_1.place(x=20,y=20)
+    FEES_1=Button(MENU_FRAME2,text="RECEIPT DELETE",command = receipt_delete_function)
+    FEES_1.place(x=10,y=20)
+
+
+    def pending_paid_report():
+        for widget in MAIN_FRAME.winfo_children():
+            widget.destroy()
+        RadioVar2 = IntVar()
+
+        Pending = Radiobutton(MAIN_FRAME, text = "Pending", variable = RadioVar2, value=1, height=2,font=('Arial', 30),bg="lightpink",activebackground='lightpink')
+        Paid = Radiobutton(MAIN_FRAME, text = "Paid", variable = RadioVar2, value=2, height=2,font=('Arial', 30),bg="lightpink",activebackground='lightpink')
+
+
+        Pending.place(x=100,y=150)
+        Paid.place(x=100,y=250)
+
+
+
+        wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=500,width=350,relief=RIDGE,borderwidth=2)
+        wrapper2.place(x=500,y=7)
+
+
+        CheckVar1 = IntVar()
+        CheckVar2 = IntVar()
+        CheckVar3 = IntVar()
+        CheckVar4 = IntVar()
+        CheckVar5 = IntVar()
+        CheckVar6 = IntVar()
+        CheckVar7 = IntVar()
+
+        C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 20),bg="lightpink",activebackground='lightpink')
+        C2 = Checkbutton(wrapper2, text = "JUL SEP FEES", variable = CheckVar2,onvalue = 1, offvalue = 0, height=2,font=('Arial', 20),bg="lightpink",activebackground='lightpink')
+        C3 = Checkbutton(wrapper2, text = "OCT DEC FEES", variable = CheckVar3,onvalue = 1, offvalue = 0, height=2,font=('Arial', 20),bg="lightpink",activebackground='lightpink')
+        C4 = Checkbutton(wrapper2, text = "JAN MAR FEES", variable = CheckVar4,onvalue = 1, offvalue = 0, height=2,font=('Arial', 20),bg="lightpink",activebackground='lightpink')
+        C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 20),bg="lightpink",activebackground='lightpink')
+        C6 = Checkbutton(wrapper2, text = "ADMISSION", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 20),bg="lightpink",activebackground='lightpink')
+        C7 = Checkbutton(wrapper2, text = "ICARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 20),bg="lightpink",activebackground='lightpink')
+
+        C1.place(x=0,y=0)
+        C2.place(x=0,y=70)
+        C3.place(x=0,y=140)
+        C4.place(x=0,y=210)
+        C5.place(x=0,y=280)
+        C6.place(x=0,y=350)
+        C7.place(x=0,y=420)
+
+        def pending_paid_report_submit():
+            
+            pending_lst = []
+            paid_lst = []
+            cur.execute("select * from gr_check")
+            gr_check = cur.fetchall()
+            
+                
+            if(RadioVar2.get() == 1):
+                file = open("pending_report.csv","w")
+                writer2 = csv.writer(file)
+                data_heading=[CheckVar1.get(),CheckVar2.get(),CheckVar3.get(),CheckVar4.get(),CheckVar5.get(),CheckVar6.get(),CheckVar7.get()]
+                a = []
+                a.append("GR NO")
+                a.append("NAME")
+                a.append("STD")
+                if data_heading[0] == 1:
+                    a.append("APR JUN TUTION FEES")
+                    a.append("APR JUN ACTIVITY FEES")
+                if data_heading[1] == 1:
+                    a.append("JUL SEP TUTION FEES")
+                    a.append("JUL SEP ACTIVITY FEES")
+                if data_heading[2] == 1:
+                    a.append("OCT DEC TUTION FEES")
+                    a.append("OCT DEC ACTIVITY FEES")
+                if data_heading[3] == 1:
+                    a.append("JAN MAR TUTION FEES")
+                    a.append("JAN MAR ACTIVITY FEES")
+                if data_heading[4] == 1:
+                    a.append("OTHERS")
+                if data_heading[5] == 1:
+                    a.append("ADMISSION")
+                if data_heading[6] == 1:
+                    a.append("ICARD")
+                writer2.writerow(a)
+                file.close()
+                pending_lst.append(CheckVar1.get())
+                pending_lst.append(CheckVar2.get())
+                pending_lst.append(CheckVar3.get())
+                pending_lst.append(CheckVar4.get())
+                pending_lst.append(CheckVar5.get())
+                pending_lst.append(CheckVar6.get())
+                pending_lst.append(CheckVar7.get())
+                f1 = open("pending_report.csv", "a",newline="\n")
+                writer1 = csv.writer(f1)
+                for i in gr_check:
+                    cur.execute("select aai1 from academic_detail where gr_no={}".format(i[0]))
+                    aai1 = cur.fetchall()[0][0]
+                    if(aai1 == 0):
+                        print(i)
+                        data = []
+                        cur.execute("select gr_details.name,gr_Details.surname,academic_detail.curr_std,academic_detail.division from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no={}".format(i[0]))
+                        student_details = cur.fetchall()[0]
+                        data.append(i[0])
+                        data.append(student_details[0] + " " + student_details[1])
+                        data.append(student_details[2] + "-" + student_details[3])
+                        cur.execute("select * from pending_fee_detail where gr_no={}".format(i[0]))
+                        amt = cur.fetchall()[0]
+                        if(pending_lst[0] == 1):
+                            if(i[1] == 0):
+                                data.append(amt[3])
+                                data.append(amt[4])
+                        if(pending_lst[1] == 1):
+                            if(i[2] == 0):
+                                data.append(amt[6])
+                                data.append(amt[7])
+                        if(pending_lst[2] == 1):
+                            if(i[3] == 0):
+                                data.append(amt[8])
+                                data.append(amt[9])
+                        if(pending_lst[3] == 1):
+                            if(i[4] == 0):
+                                data.append(amt[10])
+                                data.append(amt[11])
+                        if(pending_lst[4] == 1):
+                            if(i[5] == 0):
+                                data.append(amt[12])
+                        if(pending_lst[5] == 1):
+                            if(i[6] == 0):
+                                data.append(amt[1])
+                        if(pending_lst[6] == 1):
+                            if(i[7] == 0):
+                                data.append(amt[2])
+                        writer1.writerow(data)
+                    else:
+                        # print(i)
+                        data = []
+                        cur.execute("select gr_details.name,gr_Details.surname,academic_detail.curr_std,academic_detail.division from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no={}".format(i[0]))
+                        student_details = cur.fetchall()[0]
+                        data.append(i[0])
+                        data.append(student_details[0] + " " + student_details[1])
+                        data.append(student_details[2] + "-" + student_details[3])
+                        cur.execute("select * from pending_fee_detail where gr_no={}".format(i[0]))
+                        amt = cur.fetchall()[0]
+                        cur.execute("select * from exmp_fees where std={}".format(student_details[2]))
+                        exmp_amt = cur.fetchall()[0]
+                        if(pending_lst[0] == 1):
+                            if(i[1] == 0):
+                                data.append(amt[3] - exmp_amt[3])
+                                data.append(amt[4] - exmp_amt[4])
+                        if(pending_lst[1] == 1):
+                            if(i[2] == 0):
+                                data.append(amt[6] - exmp_amt[6])
+                                data.append(amt[7] - exmp_amt[7])
+                        if(pending_lst[2] == 1):
+                            if(i[3] == 0):
+                                data.append(amt[8] - exmp_amt[8])
+                                data.append(amt[9] - exmp_amt[9])
+                        if(pending_lst[3] == 1):
+                            if(i[4] == 0):
+                                data.append(amt[10] - exmp_amt[10])
+                                data.append(amt[11] - exmp_amt[11])
+                        if(pending_lst[4] == 1):
+                            if(i[5] == 0):
+                                data.append(amt[12] - exmp_amt[12])
+                        if(pending_lst[5] == 1):
+                            if(i[6] == 0):
+                                data.append(amt[1] - exmp_amt[1])
+                        if(pending_lst[6] == 1):
+                            if(i[7] == 0):
+                                data.append(amt[2] - exmp_amt[2])
+                        writer1.writerow(data)
+                f1.close()
+                    
+            if(RadioVar2.get() == 2):
+                file = open("paid_report.csv","w")
+                writer2 = csv.writer(file)
+                data_heading=[CheckVar1.get(),CheckVar2.get(),CheckVar3.get(),CheckVar4.get(),CheckVar5.get(),CheckVar6.get(),CheckVar7.get()]
+                a = []
+                a.append("GR NO")
+                a.append("NAME")
+                a.append("STD")
+                if data_heading[0] == 1:
+                    a.append("APR JUN TUTION FEES")
+                    a.append("APR JUN ACTIVITY FEES")
+                if data_heading[1] == 1:
+                    a.append("JUL SEP TUTION FEES")
+                    a.append("JUL SEP ACTIVITY FEES")
+                if data_heading[2] == 1:
+                    a.append("OCT DEC TUTION FEES")
+                    a.append("OCT DEC ACTIVITY FEES")
+                if data_heading[3] == 1:
+                    a.append("JAN MAR TUTION FEES")
+                    a.append("JAN MAR ACTIVITY FEES")
+                if data_heading[4] == 1:
+                    a.append("OTHERS")
+                if data_heading[5] == 1:
+                    a.append("ADMISSION")
+                if data_heading[6] == 1:
+                    a.append("ICARD")
+                writer2.writerow(a)
+                file.close()
+                paid_lst.append(CheckVar1.get())
+                paid_lst.append(CheckVar2.get())
+                paid_lst.append(CheckVar3.get())
+                paid_lst.append(CheckVar4.get())
+                paid_lst.append(CheckVar5.get())
+                paid_lst.append(CheckVar6.get())
+                paid_lst.append(CheckVar7.get())
+                f1 = open("paid_report.csv", "a",newline="\n")
+                writer1 = csv.writer(f1)
+                for i in gr_check:
+
+                    print(i)
+                    data = []
+                    cur.execute("select gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.division from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no={}".format(i[0]))
+                    student_details = cur.fetchall()[0]
+                    data.append(i[0])
+                    data.append(student_details[0] + " " + student_details[1])
+                    data.append(student_details[2] + "-" + student_details[3])
+                    cur.execute("select * from pending_fee_detail where gr_no={}".format(i[0]))
+                    amt = cur.fetchall()[0]
+                    if(paid_lst[0] == 1):
+                        if(i[1] == 1):
+                            data.append(amt[3])
+                            data.append(amt[4])
+                    if(paid_lst[1] == 1):
+                        if(i[2] == 1):
+                            data.append(amt[6])
+                            data.append(amt[6])
+                    if(paid_lst[2] == 1):
+                        if(i[3] == 1):
+                            data.append(amt[7])
+                            data.append(amt[8])
+                    if(paid_lst[3] == 1):
+                        if(i[4] == 1):
+                            data.append(amt[9])
+                            data.append(amt[10])
+                    if(paid_lst[4] == 1):
+                        if(i[5] == 1):
+                            data.append(amt[11])
+                    if(paid_lst[5] == 1):
+                        if(i[6] == 1):
+                            data.append(amt[1])
+                    if(paid_lst[6] == 1):
+                        if(i[7] == 1):
+                            data.append(amt[2])
+                    writer1.writerow(data)
+                f1.close()
+        SAVE_BTN=Button(MAIN_FRAME,text="SUBMIT",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=pending_paid_report_submit)
+        SAVE_BTN.place(x=950,y=350)
+
+    FEES_2=Button(MENU_FRAME2,text="FEES REPORT",command=pending_paid_report)
+    FEES_2.place(x=10,y=80)
+
+    def gr_fees_change():
+        for widget in MAIN_FRAME.winfo_children():
+            widget.destroy()
+        def gr_fees_change_submit(e):
+            cur.execute("select * from pending_fee_detail where gr_no={}".format(FEES_GR_ENTRY.get()))
+            pending_data = cur.fetchall()[0]
+            cur.execute("select name,surname from gr_details where gr_no={}".format(FEES_GR_ENTRY.get()))
+            gr_data = cur.fetchall()[0]
+            cur.execute("select curr_std,division,aai1 from academic_detail where gr_no={}".format(FEES_GR_ENTRY.get()))
+            std_data = cur.fetchall()[0]
+            cur.execute("select * from exmp_fees where std='{}'".format(std_data[0]))
+            exmp_data = cur.fetchall()[0]
+            FEES_NAME_ENTRY.delete(0,END)
+            FEES_STD_ENTRY.delete(0,END)
+            FEES_DIV_ENTRY.delete(0,END)
+            OLD_ENT.delete(0,END)
+            OLD_ENT1.delete(0,END)
+            NEW_ENT.delete(0,END)
+            NEW_ENT1.delete(0,END)
+            FEES_NAME_ENTRY.insert(0,gr_data[0] + " " + gr_data[1])
+            FEES_STD_ENTRY.insert(0,std_data[0])
+            FEES_DIV_ENTRY.insert(0,std_data[1])
+            val = RadioVar.get()
+            if std_data[2] == 0:
+                if (val == 1):
+                    OLD_ENT.insert(0,pending_data[3])
+                    OLD_ENT1.insert(0,pending_data[4])
+                if (val == 2):
+                    OLD_ENT.insert(0,pending_data[6])
+                    OLD_ENT1.insert(0,pending_data[7])
+                if(val == 3):
+                    OLD_ENT.insert(0,pending_data[8])
+                    OLD_ENT1.insert(0,pending_data[9])
+                if(val == 4):
+                    OLD_ENT.insert(0,pending_data[10])
+                    OLD_ENT1.insert(0,pending_data[11])
+                if (val == 5):
+                    OLD_ENT.insert(0,pending_data[12])
+                if (val == 6):
+                    OLD_ENT.insert(0,pending_data[2])
+                if (val == 7):
+                    OLD_ENT.insert(0,pending_data[1])
+            else:
+                if (val == 1):
+                    OLD_ENT.insert(0,pending_data[3] - exmp_data[3])
+                    OLD_ENT1.insert(0,pending_data[4] - exmp_data[4])
+                if (val == 2):
+                    OLD_ENT.insert(0,pending_data[6] - exmp_data[6])
+                    OLD_ENT1.insert(0,pending_data[7] - exmp_data[7])
+                if(val == 3):
+                    OLD_ENT.insert(0,pending_data[8] - exmp_data[8])
+                    OLD_ENT1.insert(0,pending_data[9] - exmp_data[9])
+                if(val == 4):
+                    OLD_ENT.insert(0,pending_data[10] - exmp_data[10])
+                    OLD_ENT1.insert(0,pending_data[11] - exmp_data[11])
+                if (val == 5):
+                    OLD_ENT.insert(0,pending_data[12] - exmp_data[12])
+                if (val == 6):
+                    OLD_ENT.insert(0,pending_data[2] - exmp_data[2])
+                if (val == 7):
+                    OLD_ENT.insert(0,pending_data[1] - exmp_data[1])
+        FEES_GR_LABEL=Label(MAIN_FRAME,text="GR : ",font=('Arial', 13),bg="lightpink")
+        FEES_GR_LABEL.place(x=70,y=80)
+        FEES_GR_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 13))
+        FEES_GR_ENTRY.place(x=220,y=80)
+        FEES_GR_ENTRY.bind("<Return>",gr_fees_change_submit)
+
+        FEES_NAME_LABEL=Label(MAIN_FRAME,text="NAME : ",font=('Arial', 13),bg="lightpink")
+        FEES_NAME_LABEL.place(x=70,y=130)
+        FEES_NAME_ENTRY=Entry(MAIN_FRAME,width=30,font=('Arial', 13))
+        FEES_NAME_ENTRY.place(x=220,y=130)
+
+
+        FEES_STD_LABEL=Label(MAIN_FRAME,text="STD : ",font=('Arial', 13),bg="lightpink")
+        FEES_STD_LABEL.place(x=70,y=180)
+        FEES_STD_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 13))
+        FEES_STD_ENTRY.place(x=220,y=180)
+
+
+        FEES_DIV_LABEL=Label(MAIN_FRAME,text="DIV : ",font=('Arial', 13),bg="lightpink")
+        FEES_DIV_LABEL.place(x=70,y=230)
+        FEES_DIV_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 13))
+        FEES_DIV_ENTRY.place(x=220,y=230)
+
+
+
+        wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=350,width=270,relief=RIDGE,borderwidth=2)
+        wrapper2.place(x=850,y=30)
+
+        RadioVar = IntVar()
+
+        C1 = Radiobutton(wrapper2, text = "APR JUN FEES", variable = RadioVar, value=1, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C2 = Radiobutton(wrapper2, text = "JUL SEP FEES", variable = RadioVar, value=2,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C3 = Radiobutton(wrapper2, text = "OCT DEC FEES", variable = RadioVar, value=3,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C4 = Radiobutton(wrapper2, text = "JAN MAR FEES", variable = RadioVar, value=4,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C5 = Radiobutton(wrapper2, text = "OTHERS", variable = RadioVar, value=5,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C6 = Radiobutton(wrapper2, text = "ICARD", variable = RadioVar, value=6,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C7 = Radiobutton(wrapper2, text = "ADMISSION", variable = RadioVar, value=7,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C1.place(x=0,y=0)
+        C2.place(x=0,y=45)
+        C3.place(x=0,y=90)
+        C4.place(x=0,y=135)
+        C5.place(x=0,y=180)
+        C6.place(x=0,y=225)
+        C7.place(x=0,y=270)
+
+
+
+        Label(MAIN_FRAME,text="TUTION",font=('Arial', 13),bg="lightpink").place(x=220,y=350)
+        Label(MAIN_FRAME,text="ACTIVITY",font=('Arial', 13),bg="lightpink").place(x=400,y=350)
+        OLD_LABEL = Label(MAIN_FRAME,text="OLD FEES : ",font=('Arial', 13),bg="lightpink")
+        OLD_LABEL.place(x=70,y=400)
+        OLD_ENT = Entry(MAIN_FRAME,width=17,font=('Arial', 13))
+        OLD_ENT.place(x=220,y=400)
+        OLD_ENT1 = Entry(MAIN_FRAME,width=17,font=('Arial', 13))
+        OLD_ENT1.place(x=400,y=400)
+
+
+        NEW_LABEL = Label(MAIN_FRAME,text="NEW FEES : ",font=('Arial', 13),bg="lightpink")
+        NEW_LABEL.place(x=70,y=450)
+        NEW_ENT = Entry(MAIN_FRAME,width=17,font=('Arial', 13))
+        NEW_ENT.place(x=220,y=450)
+        NEW_ENT1 = Entry(MAIN_FRAME,width=17,font=('Arial', 13))
+        NEW_ENT1.place(x=400,y=450)
+
+
+        def gr_fees_change_save():
+            cur.execute("select * from pending_fee_detail where gr_no={}".format(FEES_GR_ENTRY.get()))
+            pending_data = cur.fetchall()[0]
+            cur.execute("select name,surname from gr_details where gr_no={}".format(FEES_GR_ENTRY.get()))
+            gr_data = cur.fetchall()[0]
+            cur.execute("select curr_std,division,aai1 from academic_detail where gr_no={}".format(FEES_GR_ENTRY.get()))
+            std_data = cur.fetchall()[0]
+            cur.execute("select * from exmp_fees where std='{}'".format(std_data[0]))
+            exmp_data = cur.fetchall()[0]
+            val = RadioVar.get()
+            gr = FEES_GR_ENTRY.get()
+            newfee = NEW_ENT.get()
+            newfee1 = NEW_ENT1.get()
+            cur.execute("select aai1 from academic_detail where gr_no={}".format(gr))
+            aai1 = cur.fetchall()[0]
+            if aai1[0] == 0:
+                if (val == 1):
+                    cur.execute("update pending_fee_detail set apr_jun_tution={},apr_jun_atitvity={} where gr_no={}".format(newfee,newfee1,gr))
+                if (val == 2):
+                    cur.execute("update pending_fee_detail set jul_sep_tution={},jul_sep_activity={} where gr_no={}".format(newfee,newfee1,gr))
+                if(val == 3):
+                    cur.execute("update pending_fee_detail set oct_dec_tution={},oct_dec_activity={} where gr_no={}".format(newfee,newfee1,gr))
+                if(val == 4):
+                    cur.execute("update pending_fee_detail set jan_mar_tution={},jan_mar_activity={} where gr_no={}".format(newfee,newfee1,gr))
+                if (val == 5):
+                    cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(newfee,gr))
+                if (val == 6):
+                    cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(newfee,gr))
+                if (val == 7):
+                    cur.execute("update pending_fee_detail set admission_fee={} where gr_no={}".format(newfee,gr))
+            else:
+                if (val == 1):
+                    cur.execute("update pending_fee_detail set apr_jun_tution={},apr_jun_atitvity={} where gr_no={}".format(int(newfee) + exmp_data[3],int(newfee1) + exmp_data[4],gr))
+                if (val == 2):
+                    cur.execute("update pending_fee_detail set jul_sep_tution={},jul_sep_activity={} where gr_no={}".format(int(newfee) + exmp_data[6],int(newfee1) + exmp_data[7],gr))
+                if(val == 3):
+                    cur.execute("update pending_fee_detail set oct_dec_tution={},oct_dec_activity={} where gr_no={}".format(int(newfee) + exmp_data[8],int(newfee1) + exmp_data[9],gr))
+                if(val == 4):
+                    cur.execute("update pending_fee_detail set jan_mar_tution={},jan_mar_activity={} where gr_no={}".format(int(newfee) + exmp_data[10],int(newfee1) + exmp_data[11],gr))
+                if (val == 5):
+                    cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(int(newfee) + exmp_data[12],gr))
+                if (val == 6):
+                    cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(int(newfee) + exmp_data[2],gr))
+                if (val == 7):
+                    cur.execute("update pending_fee_detail set admission_fee={} where gr_no={}".format(int(newfee) + exmp_data[1],gr))
+            mydb.commit()
+            for widget in MAIN_FRAME.winfo_children():
+                widget.destroy()
+        SAVE_BTN=Button(MAIN_FRAME,text="SAVE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=gr_fees_change_save)
+        SAVE_BTN.place(x=850,y=400)
+
+
+    FEES_3=Button(MENU_FRAME2,text="GR FEES CHANGE",command=gr_fees_change)
+    FEES_3.place(x=10,y=140)
+
+
 
 
     wrapper1=Frame(MAIN_FRAME,height=250,width=620)
