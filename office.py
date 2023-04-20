@@ -1890,235 +1890,91 @@ def FEES_FUNCTION():
         Pending.place(x=100,y=150)
         Paid.place(x=100,y=250)
 
-
-
-        wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=500,width=350,relief=RIDGE,borderwidth=2)
-        wrapper2.place(x=500,y=7)
-
-
-        CheckVar1 = IntVar()
-        CheckVar2 = IntVar()
-        CheckVar3 = IntVar()
-        CheckVar4 = IntVar()
-        CheckVar5 = IntVar()
-        CheckVar6 = IntVar()
-        CheckVar7 = IntVar()
-
-        C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 20),bg="lightpink",activebackground='lightpink')
-        C2 = Checkbutton(wrapper2, text = "JUL SEP FEES", variable = CheckVar2,onvalue = 1, offvalue = 0, height=2,font=('Arial', 20),bg="lightpink",activebackground='lightpink')
-        C3 = Checkbutton(wrapper2, text = "OCT DEC FEES", variable = CheckVar3,onvalue = 1, offvalue = 0, height=2,font=('Arial', 20),bg="lightpink",activebackground='lightpink')
-        C4 = Checkbutton(wrapper2, text = "JAN MAR FEES", variable = CheckVar4,onvalue = 1, offvalue = 0, height=2,font=('Arial', 20),bg="lightpink",activebackground='lightpink')
-        C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 20),bg="lightpink",activebackground='lightpink')
-        C6 = Checkbutton(wrapper2, text = "ADMISSION", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 20),bg="lightpink",activebackground='lightpink')
-        C7 = Checkbutton(wrapper2, text = "ICARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 20),bg="lightpink",activebackground='lightpink')
-
-        C1.place(x=0,y=0)
-        C2.place(x=0,y=70)
-        C3.place(x=0,y=140)
-        C4.place(x=0,y=210)
-        C5.place(x=0,y=280)
-        C6.place(x=0,y=350)
-        C7.place(x=0,y=420)
-
         def pending_paid_report_submit():
-            
-            pending_lst = []
-            paid_lst = []
-            cur.execute("select * from gr_check")
-            gr_check = cur.fetchall()
-            
-                
             if(RadioVar2.get() == 1):
-                file = open("pending_report.csv","w")
+                file = open("pending_report.csv","w",newline="\n")
                 writer2 = csv.writer(file)
-                data_heading=[CheckVar1.get(),CheckVar2.get(),CheckVar3.get(),CheckVar4.get(),CheckVar5.get(),CheckVar6.get(),CheckVar7.get()]
-                a = []
-                a.append("GR NO")
-                a.append("NAME")
-                a.append("STD")
-                if data_heading[0] == 1:
-                    a.append("APR JUN TUTION FEES")
-                    a.append("APR JUN ACTIVITY FEES")
-                if data_heading[1] == 1:
-                    a.append("JUL SEP TUTION FEES")
-                    a.append("JUL SEP ACTIVITY FEES")
-                if data_heading[2] == 1:
-                    a.append("OCT DEC TUTION FEES")
-                    a.append("OCT DEC ACTIVITY FEES")
-                if data_heading[3] == 1:
-                    a.append("JAN MAR TUTION FEES")
-                    a.append("JAN MAR ACTIVITY FEES")
-                if data_heading[4] == 1:
-                    a.append("OTHERS")
-                if data_heading[5] == 1:
-                    a.append("ADMISSION")
-                if data_heading[6] == 1:
-                    a.append("ICARD")
-                writer2.writerow(a)
-                file.close()
-                pending_lst.append(CheckVar1.get())
-                pending_lst.append(CheckVar2.get())
-                pending_lst.append(CheckVar3.get())
-                pending_lst.append(CheckVar4.get())
-                pending_lst.append(CheckVar5.get())
-                pending_lst.append(CheckVar6.get())
-                pending_lst.append(CheckVar7.get())
-                f1 = open("pending_report.csv", "a",newline="\n")
-                writer1 = csv.writer(f1)
-                for i in gr_check:
-                    cur.execute("select aai1 from academic_detail where gr_no={}".format(i[0]))
-                    aai1 = cur.fetchall()[0][0]
-                    if(aai1 == 0):
-                        print(i)
-                        data = []
-                        cur.execute("select gr_details.name,gr_Details.surname,academic_detail.curr_std,academic_detail.division from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no={}".format(i[0]))
-                        student_details = cur.fetchall()[0]
-                        data.append(i[0])
-                        data.append(student_details[0] + " " + student_details[1])
-                        data.append(student_details[2] + "-" + student_details[3])
-                        cur.execute("select * from pending_fee_detail where gr_no={}".format(i[0]))
-                        amt = cur.fetchall()[0]
-                        if(pending_lst[0] == 1):
-                            if(i[1] == 0):
-                                data.append(amt[3])
-                                data.append(amt[4])
-                        if(pending_lst[1] == 1):
-                            if(i[2] == 0):
-                                data.append(amt[6])
-                                data.append(amt[7])
-                        if(pending_lst[2] == 1):
-                            if(i[3] == 0):
-                                data.append(amt[8])
-                                data.append(amt[9])
-                        if(pending_lst[3] == 1):
-                            if(i[4] == 0):
-                                data.append(amt[10])
-                                data.append(amt[11])
-                        if(pending_lst[4] == 1):
-                            if(i[5] == 0):
-                                data.append(amt[12])
-                        if(pending_lst[5] == 1):
-                            if(i[6] == 0):
-                                data.append(amt[1])
-                        if(pending_lst[6] == 1):
-                            if(i[7] == 0):
-                                data.append(amt[2])
-                        writer1.writerow(data)
+                data_heading=['GR NO','NAME','CLASS','FEES','APR-JUN TUTION','APR-JUN ACTIVTIY','JUL-SEP TUTION','JUL-SEP ACTIVITY','OCT-DEC TUTION','OCT-DEC ACTIVITY','JAN-MAR TUTION','JAN-MAR ACTIVITY','OTHERS','ADMISSION','ICARD']
+                writer2.writerow(data_heading)
+                cur.execute("select * from GR_CHECK order by gr_no")
+                data1 = cur.fetchall()
+                for i in data1:
+                    data=[]
+                    cur.execute("select * from pending_fee_detail where gr_no={}".format(i[0]))
+                    data2 = cur.fetchall()[0]
+                    data.append(i[0])
+                    if (data1[1] == 1):
+                        data.append(data2[3])
+                        data.append(data2[4])
                     else:
-                        # print(i)
-                        data = []
-                        cur.execute("select gr_details.name,gr_Details.surname,academic_detail.curr_std,academic_detail.division from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no={}".format(i[0]))
-                        student_details = cur.fetchall()[0]
-                        data.append(i[0])
-                        data.append(student_details[0] + " " + student_details[1])
-                        data.append(student_details[2] + "-" + student_details[3])
-                        cur.execute("select * from pending_fee_detail where gr_no={}".format(i[0]))
-                        amt = cur.fetchall()[0]
-                        cur.execute("select * from exmp_fees where std={}".format(student_details[2]))
-                        exmp_amt = cur.fetchall()[0]
-                        if(pending_lst[0] == 1):
-                            if(i[1] == 0):
-                                data.append(amt[3] - exmp_amt[3])
-                                data.append(amt[4] - exmp_amt[4])
-                        if(pending_lst[1] == 1):
-                            if(i[2] == 0):
-                                data.append(amt[6] - exmp_amt[6])
-                                data.append(amt[7] - exmp_amt[7])
-                        if(pending_lst[2] == 1):
-                            if(i[3] == 0):
-                                data.append(amt[8] - exmp_amt[8])
-                                data.append(amt[9] - exmp_amt[9])
-                        if(pending_lst[3] == 1):
-                            if(i[4] == 0):
-                                data.append(amt[10] - exmp_amt[10])
-                                data.append(amt[11] - exmp_amt[11])
-                        if(pending_lst[4] == 1):
-                            if(i[5] == 0):
-                                data.append(amt[12] - exmp_amt[12])
-                        if(pending_lst[5] == 1):
-                            if(i[6] == 0):
-                                data.append(amt[1] - exmp_amt[1])
-                        if(pending_lst[6] == 1):
-                            if(i[7] == 0):
-                                data.append(amt[2] - exmp_amt[2])
-                        writer1.writerow(data)
-                f1.close()
+                        data.append(0)
+                        data.append(0)
+                    if data1[2] == 1:
+                        data.append(data2[6])
+                        data.append(data2[7])
+                    else:
+                        data.append(0)
+                        data.append(0)
+                    if data1[3] == 1:
+                        data.append(data2[8])
+                        data.append(data2[9])
+                    else:
+                        data.append(0)
+                        data.append(0)
+                    if data1[4] == 1:
+                        data.append(data2[10])
+                        data.append(data2[11])
+                    else:
+                        data.append(0)
+                        data.append(0)
+                    if data1[5] == 1:
+                        data.append(data2[12])
+                    else:
+                        data.append(0)
+                    if data1[6] == 1:
+                        data.append(data2[1])
+                    else:
+                        data.append(0)
+                    if data1[7] == 1:
+                        data.append(data2[2])
+                    else:
+                        data.append(0)
+                file.close()
                     
             if(RadioVar2.get() == 2):
-                file = open("paid_report.csv","w")
+                file = open("paid_report.csv","w",newline="\n")
                 writer2 = csv.writer(file)
-                data_heading=[CheckVar1.get(),CheckVar2.get(),CheckVar3.get(),CheckVar4.get(),CheckVar5.get(),CheckVar6.get(),CheckVar7.get()]
-                a = []
-                a.append("GR NO")
-                a.append("NAME")
-                a.append("STD")
-                if data_heading[0] == 1:
-                    a.append("APR JUN TUTION FEES")
-                    a.append("APR JUN ACTIVITY FEES")
-                if data_heading[1] == 1:
-                    a.append("JUL SEP TUTION FEES")
-                    a.append("JUL SEP ACTIVITY FEES")
-                if data_heading[2] == 1:
-                    a.append("OCT DEC TUTION FEES")
-                    a.append("OCT DEC ACTIVITY FEES")
-                if data_heading[3] == 1:
-                    a.append("JAN MAR TUTION FEES")
-                    a.append("JAN MAR ACTIVITY FEES")
-                if data_heading[4] == 1:
-                    a.append("OTHERS")
-                if data_heading[5] == 1:
-                    a.append("ADMISSION")
-                if data_heading[6] == 1:
-                    a.append("ICARD")
-                writer2.writerow(a)
+                data_heading=['GR NO','NAME','CLASS','FEES','LATE FEES','AMOUNT PAID','DATE']
+                writer2.writerow(data_heading)
+                cur.execute("select * from tran_details order by gr_no")
+                data1 = cur.fetchall()
+                for i in data1:
+                    data=[]
+                    data.append(i[2])
+                    data.append(i[4])
+                    data.append(str(i[6]) + "-" + str(i[7]))
+                    xyz = [i[16],i[17],i[18],i[19],i[20],i[21],i[22]]
+                    a = ""
+                    if xyz[0] == 1:
+                        a = a + "APR-JUN,"
+                    if xyz[1] == 1:
+                        a = a + "JUL-SEP,"
+                    if xyz[2] == 1:
+                        a = a + "OCT-DEC,"
+                    if xyz[3] == 1:
+                        a = a + "JAN-MAR,"
+                    if xyz[4] == 1:
+                        a = a + "OTHER,"
+                    if xyz[6] == 1:
+                        a = a + "ICARD,"
+                    if xyz[5] == 1:
+                        a = a + "ADMISSION,"
+                    data.append(a)
+                    data.append(i[9])
+                    data.append(i[11])
+                    data.append(i[3])
+                    writer2.writerow(data)
                 file.close()
-                paid_lst.append(CheckVar1.get())
-                paid_lst.append(CheckVar2.get())
-                paid_lst.append(CheckVar3.get())
-                paid_lst.append(CheckVar4.get())
-                paid_lst.append(CheckVar5.get())
-                paid_lst.append(CheckVar6.get())
-                paid_lst.append(CheckVar7.get())
-                f1 = open("paid_report.csv", "a",newline="\n")
-                writer1 = csv.writer(f1)
-                for i in gr_check:
-
-                    print(i)
-                    data = []
-                    cur.execute("select gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.division from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no={}".format(i[0]))
-                    student_details = cur.fetchall()[0]
-                    data.append(i[0])
-                    data.append(student_details[0] + " " + student_details[1])
-                    data.append(student_details[2] + "-" + student_details[3])
-                    cur.execute("select * from pending_fee_detail where gr_no={}".format(i[0]))
-                    amt = cur.fetchall()[0]
-                    if(paid_lst[0] == 1):
-                        if(i[1] == 1):
-                            data.append(amt[3])
-                            data.append(amt[4])
-                    if(paid_lst[1] == 1):
-                        if(i[2] == 1):
-                            data.append(amt[6])
-                            data.append(amt[6])
-                    if(paid_lst[2] == 1):
-                        if(i[3] == 1):
-                            data.append(amt[7])
-                            data.append(amt[8])
-                    if(paid_lst[3] == 1):
-                        if(i[4] == 1):
-                            data.append(amt[9])
-                            data.append(amt[10])
-                    if(paid_lst[4] == 1):
-                        if(i[5] == 1):
-                            data.append(amt[11])
-                    if(paid_lst[5] == 1):
-                        if(i[6] == 1):
-                            data.append(amt[1])
-                    if(paid_lst[6] == 1):
-                        if(i[7] == 1):
-                            data.append(amt[2])
-                    writer1.writerow(data)
-                f1.close()
         SAVE_BTN=Button(MAIN_FRAME,text="SUBMIT",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=pending_paid_report_submit)
         SAVE_BTN.place(x=950,y=350)
 
