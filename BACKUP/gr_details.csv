@@ -1,3 +1,5 @@
 GR_NO,FORM_NO,ENQUIRY_NO,UID,SURNAME,NAME,FATHER,MOTHER,SEX,BIRTH_DATE,CATEGORY,RELIGION,BIRTH_PLACE,PREVIOUS_SCH,CASTE,BIRTH_TALUKA,SUB_CASTE,STATE1,MINORITY,RTE
 0,,,,,,,,,,,,,,,,,,,
-1,0,0,0,dalnk,dasnl,dasln,dsal,,17-04-2023,,,,,,,,,0,0
+1,0,0,0,a,a,a,a,a,21-04-2023,a,a,a,a,a,a,a,a,0,0
+2,0,0,0,b,b,b,b,b,21-04-2023,b,b,b,b,b,b,b,b,0,0
+3,0,0,0,c,c,c,c,,21-04-2023,SC,,c,c,,c,,c,0,0
