@@ -1,3 +1,5 @@
 RECEIPT_NO,DEPT,GR_NO,DATE1,NAME,RECEIPT_BOOK,STD,div1,total1,late_fees,exemption_fees,grand_total,paymode,bank,cheque_no,cheque_date,c1,c2,c3,c4,c5,c6,c7
 1,CBSE,1,21-04-2023,a a a,ARPT,NUR,a,1600,5,0,1605,BANK,BANK,000001,21/04/2023,1,0,0,0,0,0,0
 2,CBSE,1,21-04-2023,a a a,ARPT,NUR,a,1200,0,0,1200,BANK,SBI,000125,21/04/2023,1,1,0,0,0,0,0
+3,CBSE,4,24-04-2023,asd das ads,ARPT,NUR,,0,0,0,0,bank,bank,bank,24/04/2023,1,1,0,0,0,0,0
+4,CBSE,5,24-04-2023,dsa dsasd das,ARPT,NUR,A,1000,0,0,1000,bank,bank,bank,24/04/2023,1,0,0,0,0,0,0

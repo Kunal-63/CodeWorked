@@ -1,3 +1,5 @@
 gr_no,name,active1,left1,aai1,inactive_date,add_date,add_year,add_std,curr_date,curr_year,curr_std,division,roll_no,inactive_reason,left_reason,progress,presence,out_of,lc_book,lc_no,lc_date,lc_remark,lc_copy
 1,a,0,0,0,21-04-2023,21-04-2023,0,NUR,21-04-2023,0,NUR,a,0,a,a,a,0,0,a,0,21-04-2023,aa,a
 3,c,0,0,0,21-04-2023,21-04-2023,0,NUR,21-04-2023,0,1,,0,c,c,c,0,0,c,0,21-04-2023,c,c
+4,das,0,0,0,24-04-2023,24-04-2023,0,NUR,24-04-2023,0,NUR,,0,,,,0,0,,0,24-04-2023,,
+5,das,1,0,0,24-04-2023,24-04-2023,0,NUR,24-04-2023,0,NUR,A,0,,das,,0,0,,0,24-04-2023,,
