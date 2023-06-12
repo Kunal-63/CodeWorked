@@ -3548,16 +3548,555 @@ def FEES_REPORT_FUNCTION():
 
 
 def LIBRARY_FUNCTION():
+
+        # text_Q1="LIBRARY"
+        # myobj = gTTS(text=text_Q1, slow=False)
+        # myobj.save(r"AUDIOS\library.mp3")
+        #pygame.mixer.init()
+        #pygame.mixer.music.load(r"AUDIOS\library.mp3")
+        #pygame.mixer.music.play(loops=0)
+
+
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
     for widget in MAIN_FRAME.winfo_children():
         widget.destroy()  
-    # text_Q1="LIBRARY"
-    # myobj = gTTS(text=text_Q1, slow=False)
-    # myobj.save(r"AUDIOS\library.mp3")
-    #pygame.mixer.init()
-    #pygame.mixer.music.load(r"AUDIOS\library.mp3")
-    #pygame.mixer.music.play(loops=0)
+
+    def LIB_1():
+        for widget in MAIN_FRAME.winfo_children():
+            widget.destroy()
+
+        MAIN_FRAME.configure(bg="#c1e0b7")
+
+        organisation_lbl=Label(MAIN_FRAME,text="Organisation :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        organisation_lbl.place(x=55,y=40)
+        organisation_var=StringVar()
+        organisation_combo = ttk.Combobox(MAIN_FRAME,width=27,textvariable = organisation_var)
+        organisation_combo['values'] = ('SEBC','ST','GEN','SC')
+        organisation_combo.place(x=160,y=45)
+
+
+        GR_label = Label(MAIN_FRAME,text="GR :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        GR_label.place(x=115,y=80)
+        GR_entry = Entry(MAIN_FRAME,width=15,font=("Arial",10,"bold"))
+        GR_entry.place(x=160,y=85)
+
+
+        mobile_no_label = Label(MAIN_FRAME,text="Mobile :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        mobile_no_label.place(x=295,y=80)
+        mobile_no_entry = Entry(MAIN_FRAME,width=15,font=("Arial",10,"bold"))
+        mobile_no_entry.place(x=365,y=85)
+
+
+        
+        standard_label = Label(MAIN_FRAME,text="Std :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        standard_label.place(x=510,y=80)
+        standard_entry = Entry(MAIN_FRAME,width=15,font=("Arial",10,"bold"))
+        standard_entry.place(x=555,y=85)
+
+
+        
+        roll_no_label = Label(MAIN_FRAME,text="Roll No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        roll_no_label.place(x=705,y=80)
+        roll_no_entry = Entry(MAIN_FRAME,width=15,font=("Arial",10,"bold"))
+        roll_no_entry.place(x=775,y=85)
+
+        
+        Name_label = Label(MAIN_FRAME,text="Name :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Name_label.place(x=95,y=120)
+        Name_entry = Entry(MAIN_FRAME,width=25,font=("Arial",10,"bold"))
+        Name_entry.place(x=160,y=125)
+
+
+
+
+
+
+        book_issue_frame=Frame(MAIN_FRAME,height=220,width=500,bg="#c1e0b7",borderwidth=4,relief=RIDGE)
+        book_issue_frame.place(x=50,y=170)
+
+
+        accession_no_label = Label(book_issue_frame,text="Accession No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",9,"bold"))
+        accession_no_label.place(x=15,y=15)
+        accession_no_entry = Entry(book_issue_frame,width=20,font=("Arial",9,"bold"))
+        accession_no_entry.place(x=125,y=20)
+        
+        Book_name_label = Label(book_issue_frame,text="Book Name :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",9,"bold"))
+        Book_name_label.place(x=25,y=55)
+        Book_name_entry = Entry(book_issue_frame,width=45,font=("Arial",9,"bold"))
+        Book_name_entry.place(x=125,y=60)
+
+
+        issue_dt_lbl=Label(book_issue_frame,text="Issue Date : ",bg="#c1e0b7",font=("Arial",9,"bold"))
+        issue_dt_lbl.place(x=35,y=95)
+        issue_dt_entry_tab=DateEntry(book_issue_frame,selectmode="day",date_pattern="dd-mm-y",font=("Arial",9,"bold"),width=10)
+        issue_dt_entry_tab.place(x=125,y=95)
+
+        # to_date_lbl=Label(book_issue_frame,text="Issue Date : ",bg="#c1e0b7",font=("Arial",9,"bold"))
+        # to_date_lbl.place(x=252,y=95)
+        # to_date_entry_tab=DateEntry(book_issue_frame,selectmode="day",date_pattern="dd-mm-y",font=("Arial",9,"bold"),width=10)
+        # to_date_entry_tab.place(x=345,y=95)
+
+            
+        Issue_remark_label = Label(book_issue_frame,text="Issue Remark :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",9,"bold"))
+        Issue_remark_label.place(x=10,y=130)
+        Issue_remark_entry = Entry(book_issue_frame,width=45,font=("Arial",9,"bold"))
+        Issue_remark_entry.place(x=125,y=135)
+
+        
+
+
+
+
+
+
+
+
+        book_return_frame=Frame(MAIN_FRAME,height=220,width=500,bg="#c1e0b7",borderwidth=4,relief=RIDGE)
+        book_return_frame.place(x=700,y=170)
+
+        return_dt_lbl=Label(book_return_frame,text="Return Date : ",bg="#c1e0b7",font=("Arial",9,"bold"))
+        return_dt_lbl.place(x=25,y=15)
+        return_dt_entry_tab=DateEntry(book_return_frame,selectmode="day",date_pattern="dd-mm-y",font=("Arial",9,"bold"),width=10)
+        return_dt_entry_tab.place(x=125,y=15)
+
+        penalty_days_label = Label(book_return_frame,text="Penalty Days :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",9,"bold"))
+        penalty_days_label.place(x=20,y=45)
+        penalty_days_entry = Entry(book_return_frame,width=20,font=("Arial",9,"bold"))
+        penalty_days_entry.place(x=125,y=50)
+
+        penalty_days_label = Label(book_return_frame,text="Penalty Rate :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",9,"bold"))
+        penalty_days_label.place(x=300,y=25)
+        penalty_rate_entry = Entry(book_return_frame,width=20,font=("Arial",9,"bold"))
+        penalty_rate_entry.place(x=305,y=50)
+
+        penalty_amount_label = Label(book_return_frame,text="Penalty Amount :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",9,"bold"))
+        penalty_amount_label.place(x=5,y=80)
+        penalty_amount_entry = Entry(book_return_frame,width=20,font=("Arial",9,"bold"))
+        penalty_amount_entry.place(x=125,y=85)
+
+        return_remark_label = Label(book_return_frame,text="Return Remark :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",9,"bold"))
+        return_remark_label.place(x=5,y=115)
+        return_remark_entry = Entry(book_return_frame,width=45,font=("Arial",9,"bold"))
+        return_remark_entry.place(x=125,y=120)
+            
+        RETURN_BTN=Button(book_return_frame,text="Return",height=1,width=12,bg="lightgrey",activebackground='lightgrey',font=('Arial',9,"bold"))
+        RETURN_BTN.place(x=180,y=170)
+
+        RETURN_DELETE_BTN=Button(book_return_frame,text="Return Delete",height=1,width=12,bg="lightgrey",activebackground='lightgrey',font=('Arial',9,"bold"))
+        RETURN_DELETE_BTN.place(x=320,y=170)
+
+
+        
+        wrapper1=Frame(MAIN_FRAME,height=150,width=1170)
+        wrapper1.place(x=50,y=415)
+        style = ttk.Style()
+        style.theme_use('clam')
+        trv=ttk.Treeview(wrapper1,columns=(1,2,3,4,5),show="headings",height="5")
+
+        trv.pack(side=LEFT)
+
+        trv.heading("#1",text="Accession No")
+        trv.heading("#2",text="Book Name")
+        trv.heading("#3",text="Issue Date")
+        trv.heading("#4",text="Issue Upto")
+        trv.heading("#5",text="Return Date")
+
+        trv.column("#1",width=230)
+        trv.column("#2",width=350)
+        trv.column("#3",width=180)
+        trv.column("#4",width=180)
+        trv.column("#5",width=180)
+        
+
+
+        y_scroll=Scrollbar(wrapper1,orient="vertical",command=trv.yview)
+        y_scroll.pack(side=RIGHT,fill='y')
+        trv.configure(yscrollcommand=y_scroll.set)
+
+        def data_entry_func(e):
+            grval = GR_entry.get()
+            mobileval = 0
+            cur.execute("select name,roll_no")
+        GR_entry.bind("<Return>",data_entry_func)
+
+        def issue_book():
+            lib_records = []
+            lib_records.append(organisation_combo.get())#1
+            lib_records.append(GR_entry.get())#2
+            lib_records.append(mobile_no_entry.get())#3
+            lib_records.append(standard_entry.get())#4
+            lib_records.append(roll_no_entry.get())#5
+            lib_records.append(Name_entry.get())#6
+            lib_records.append(accession_no_entry.get())#7
+            lib_records.append(Book_name_entry.get())#8
+            lib_records.append(issue_dt_entry_tab.get())#9
+            lib_records.append(Issue_remark_entry.get())#10
+            lib_records.append(return_dt_entry_tab.get())#11
+            lib_records.append(penalty_days_entry.get())#12
+            lib_records.append(penalty_rate_entry.get())#13
+            lib_records.append(penalty_amount_entry.get())#14
+            lib_records.append(return_remark_entry.get())#15
+            cur.execute("insert into lib_values values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",lib_records)
+            cur.execute("insert into issued values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",lib_records)
+            mydb.commit()
+            LIB_1()
+        
+        def issue_delete():
+            cur.execute("delete from issued where gr_no=%s",(GR_entry.get()))
+            mydb.commit()
+            LIB_1()
+        
+        ISSUE_BTN=Button(book_issue_frame,text="Issue",height=1,width=12,bg="lightgrey",activebackground='lightgrey',font=('Arial',9,"bold"),command=issue_book)
+        ISSUE_BTN.place(x=180,y=170)
+
+        ISSUE_DELETE_BTN=Button(book_issue_frame,text="Issue Delete",height=1,width=12,bg="lightgrey",activebackground='lightgrey',font=('Arial',9,"bold"),command=issue_delete)
+        ISSUE_DELETE_BTN.place(x=320,y=170)
+
+
+
+
+    LIBRARY_1=Button(MENU_FRAME2,text="LIBRARY 1",command = LIB_1)
+    LIBRARY_1.place(x=20,y=20)
+
+
+
+
+
+    def LIB_2():
+        for widget in MAIN_FRAME.winfo_children():
+            widget.destroy()
+
+        MAIN_FRAME.configure(bg="#c1e0b7")
+
+        Accession_No_label = Label(MAIN_FRAME,text="Accession No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Accession_No_label.place(x=100,y=40)
+        Accession_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Accession_No_entry.place(x=220,y=45)
+
+
+
+        Book_No_label = Label(MAIN_FRAME,text="Book No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Book_No_label.place(x=130,y=80)
+        Book_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Book_No_entry.place(x=220,y=85)
+
+
+        Class_No_label = Label(MAIN_FRAME,text="Class No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Class_No_label.place(x=463,y=80)
+        Class_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Class_No_entry.place(x=550,y=85)
+
+
+        ISBN_No_label = Label(MAIN_FRAME,text="ISBN No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        ISBN_No_label.place(x=800,y=80)
+        ISBN_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        ISBN_No_entry.place(x=890,y=85)
+
+
+        
+        Book_Name_label = Label(MAIN_FRAME,text="Book Name :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Book_Name_label.place(x=110,y=120)
+        Book_Name_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Book_Name_entry.place(x=220,y=125)
+
+
+
+        Author_label = Label(MAIN_FRAME,text="Author :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Author_label.place(x=140,y=160)
+        Author_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Author_entry.place(x=220,y=165)
+
+
+        
+
+        Rec_No_label = Label(MAIN_FRAME,text="Rec No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Rec_No_label.place(x=807,y=160)
+        Rec_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Rec_No_entry.place(x=890,y=165)
+
+
+        
+        Publisher_label = Label(MAIN_FRAME,text="Publisher :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Publisher_label.place(x=122,y=200)
+        Publisher_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Publisher_entry.place(x=220,y=205)
+
+
+        
+        Sub_Rec_No_label = Label(MAIN_FRAME,text="Sub Rec No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Sub_Rec_No_label.place(x=777,y=200)
+        Sub_Rec_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Sub_Rec_No_entry.place(x=890,y=205)
+
+
+        
+        Book_Category_label = Label(MAIN_FRAME,text="Book Category :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Book_Category_label.place(x=88,y=240)
+        Book_Category_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Book_Category_entry.place(x=220,y=245)
+
+
+
+        Price_label = Label(MAIN_FRAME,text="Price :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Price_label.place(x=816,y=240)
+        Price_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Price_entry.place(x=890,y=245)
+
+
+                
+        Subject_label = Label(MAIN_FRAME,text="Subject :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Subject_label.place(x=133,y=280)
+        Subject_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Subject_entry.place(x=220,y=285)
+
+
+        
+        Stock_label = Label(MAIN_FRAME,text="Stock :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Stock_label.place(x=815,y=280)
+        Stock_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Stock_entry.place(x=890,y=285)
+
+                
+
+        Book_Language_label = Label(MAIN_FRAME,text="Book Language :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Book_Language_label.place(x=81,y=320)
+        Book_Language_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Book_Language_entry.place(x=220,y=325)
+
+
+        Currency_label = Label(MAIN_FRAME,text="Currency :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Currency_label.place(x=792,y=320)
+        Currency_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Currency_entry.place(x=890,y=325)
+
+
+
+        PUR_DON_label = Label(MAIN_FRAME,text="Purchased/Donated :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        PUR_DON_label.place(x=58,y=360)
+        PUR_DON_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        PUR_DON_entry.place(x=220,y=365)
+
+
+        
+        Date_label = Label(MAIN_FRAME,text="Date :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Date_label.place(x=819,y=360)
+        Date_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Date_entry.place(x=890,y=365)
+
+
+        
+        Book_Cancelvalue=IntVar()
+        Book_Cancel_check=Checkbutton(MAIN_FRAME,text="Book Cancel",onvalue=1,offvalue=0,bg="#c1e0b7",activebackground="#c1e0b7")
+        Book_Cancel_check.place(x=1100,y=365)
+
+
+
+        Edition_label = Label(MAIN_FRAME,text="Edition :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Edition_label.place(x=138,y=400)
+        Edition_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Edition_entry.place(x=220,y=405)
+
+
+        Bill_No_Date_label = Label(MAIN_FRAME,text="Bill No / Date :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Bill_No_Date_label.place(x=764,y=400)
+        Bill_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Bill_No_entry.place(x=890,y=405)
+        Bill_Date_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Bill_Date_entry.place(x=1100,y=405)
+
+
+        
+        Authority_label = Label(MAIN_FRAME,text="Authority :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Authority_label.place(x=125,y=440)
+        Authority_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Authority_entry.place(x=220,y=445)
+
+
+        Voucher_No_Date_label = Label(MAIN_FRAME,text="Voucher No / Date :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Voucher_No_Date_label.place(x=734,y=440)
+        Voucher_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Voucher_No_entry.place(x=890,y=445)
+        Voucher_Date_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Voucher_Date_entry.place(x=1100,y=445)
+
+
+        Issueablevalue=IntVar()
+        Issueable_check=Checkbutton(MAIN_FRAME,text="Issueable",onvalue=1,offvalue=0,bg="#c1e0b7",activebackground="#c1e0b7")
+        Issueable_check.place(x=220,y=485)
+
+
+        Remark_label = Label(MAIN_FRAME,text="Remark :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Remark_label.place(x=125,y=520)
+        Remark_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Remark_entry.place(x=220,y=525)
+
+
+
+
+    LIBRARY_2=Button(MENU_FRAME2,text="LIBRARY 2",command = LIB_2)
+    LIBRARY_2.place(x=20,y=100)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def LIB_3():
+        for widget in MAIN_FRAME.winfo_children():
+            widget.destroy()
+
+        MAIN_FRAME.configure(bg="#c1e0b7")
+
+
+        
+        Select_report_label = Label(MAIN_FRAME,text="Select Report :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Select_report_label.place(x=335,y=55)
+        Select_report_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Select_report_entry.place(x=450,y=60)
+
+
+
+        Author_label = Label(MAIN_FRAME,text="Author :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Author_label.place(x=335,y=90)
+        Author_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Author_entry.place(x=450,y=95)
+
+
+        
+        Category_label = Label(MAIN_FRAME,text="Category :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Category_label.place(x=335,y=125)
+        Category_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Category_entry.place(x=450,y=130)
+
+
+                
+        Language_label = Label(MAIN_FRAME,text="Language :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Language_label.place(x=335,y=160)
+        Language_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Language_entry.place(x=450,y=165)
+
+
+                        
+        Book_label = Label(MAIN_FRAME,text="Book :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Book_label.place(x=335,y=195)
+        Book_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Book_entry.place(x=450,y=200)
+
+
+                                
+        Issueable_label = Label(MAIN_FRAME,text="Issueable :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Issueable_label.place(x=335,y=230)
+        Issueable_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Issueable_entry.place(x=450,y=235)
+
+
+                
+
+        Rec_No_label = Label(MAIN_FRAME,text="Rec No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Rec_No_label.place(x=335,y=265)
+        Rec_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Rec_No_entry.place(x=450,y=270)
+
+
+        Sub_Rec_No_label = Label(MAIN_FRAME,text="Sub Rec No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Sub_Rec_No_label.place(x=678,y=265)
+        Sub_Rec_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Sub_Rec_No_entry.place(x=778,y=270)
+
+
+
+        Price_from_label = Label(MAIN_FRAME,text="Price From:",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Price_from_label.place(x=335,y=300)
+        Price_from_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Price_from_entry.place(x=450,y=305)
+
+
+        Price_to_label = Label(MAIN_FRAME,text="Price To :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Price_to_label.place(x=678,y=300)
+        Price_to_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Price_to_entry.place(x=778,y=305)
+
+
+
+        Quantity_from_label = Label(MAIN_FRAME,text="Quantity From:",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Quantity_from_label.place(x=335,y=335)
+        Quantity_from_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Quantity_from_entry.place(x=450,y=340)
+
+
+        Quantity_to_label = Label(MAIN_FRAME,text="Quantity To :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Quantity_to_label.place(x=678,y=335)
+        Quantity_to_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Quantity_to_entry.place(x=778,y=340)
+
+
+
+        No_label = Label(MAIN_FRAME,text="No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        No_label.place(x=335,y=370)
+        No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        No_entry.place(x=450,y=375)
+
+
+
+        
+        Date_from_label = Label(MAIN_FRAME,text="Date From:",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Date_from_label.place(x=335,y=405)
+        Date_from_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Date_from_entry.place(x=450,y=410)
+
+
+        Date_to_label = Label(MAIN_FRAME,text="Date To :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Date_to_label.place(x=678,y=405)
+        Date_to_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Date_to_entry.place(x=778,y=410)
+
+
+        
+        Reader_Type_label = Label(MAIN_FRAME,text="Reader Type :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Reader_Type_label.place(x=335,y=440)
+        Reader_Type_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Reader_Type_entry.place(x=450,y=445)
+
+
+
+        Standard_label = Label(MAIN_FRAME,text="Standard :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Standard_label.place(x=335,y=475)
+        Standard_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Standard_entry.place(x=450,y=480)
+
+
+        Division_label = Label(MAIN_FRAME,text="Division :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Division_label.place(x=678,y=475)
+        Division_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Division_entry.place(x=778,y=480)
+
+
+
+        Reader_label = Label(MAIN_FRAME,text="Reader :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Reader_label.place(x=335,y=505)
+        Reader_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Reader_entry.place(x=450,y=510)
+
+
+
+
+
+
+
+    LIBRARY_3=Button(MENU_FRAME2,text="LIBRARY 3",command = LIB_3)
+    LIBRARY_3.place(x=20,y=180)
 
 
 
