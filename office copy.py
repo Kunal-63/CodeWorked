@@ -3680,11 +3680,10 @@ def LIBRARY_FUNCTION():
         return_remark_entry = Entry(book_return_frame,width=45,font=("Arial",9,"bold"))
         return_remark_entry.place(x=125,y=120)
             
-        RETURN_BTN=Button(book_return_frame,text="Return",height=1,width=12,bg="lightgrey",activebackground='lightgrey',font=('Arial',9,"bold"))
-        RETURN_BTN.place(x=180,y=170)
+        
 
-        RETURN_DELETE_BTN=Button(book_return_frame,text="Return Delete",height=1,width=12,bg="lightgrey",activebackground='lightgrey',font=('Arial',9,"bold"))
-        RETURN_DELETE_BTN.place(x=320,y=170)
+        # RETURN_DELETE_BTN=Button(book_return_frame,text="Return Delete",height=1,width=12,bg="lightgrey",activebackground='lightgrey',font=('Arial',9,"bold"))
+        # RETURN_DELETE_BTN.place(x=320,y=170)
 
 
         
@@ -3746,12 +3745,18 @@ def LIBRARY_FUNCTION():
             cur.execute("delete from issued where gr_no=%s",(GR_entry.get()))
             mydb.commit()
             LIB_1()
+
+        def return_book():
+            issue_delete()
         
         ISSUE_BTN=Button(book_issue_frame,text="Issue",height=1,width=12,bg="lightgrey",activebackground='lightgrey',font=('Arial',9,"bold"),command=issue_book)
         ISSUE_BTN.place(x=180,y=170)
 
         ISSUE_DELETE_BTN=Button(book_issue_frame,text="Issue Delete",height=1,width=12,bg="lightgrey",activebackground='lightgrey',font=('Arial',9,"bold"),command=issue_delete)
         ISSUE_DELETE_BTN.place(x=320,y=170)
+
+        RETURN_BTN=Button(book_return_frame,text="Return",height=1,width=12,bg="lightgrey",activebackground='lightgrey',font=('Arial',9,"bold"),command=return_book)
+        RETURN_BTN.place(x=180,y=170)
 
 
 
