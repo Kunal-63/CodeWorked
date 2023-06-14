@@ -84,7 +84,7 @@ def GR_FUNCTION():
         widget.destroy()
     # text_Q1="GENERAL REGISTER"
     # myobj = gTTS(text=text_Q1, slow=False)
-    # myobj.save(r"AUDIOS\general register.mp3")
+    # myobj.save(r"AUDIOS\general register.mp3")fs
     #pygame.mixer.init()
     #pygame.mixer.music.load(r"AUDIOS\general register.mp3")
     #pygame.mixer.music.play(loops=0)
