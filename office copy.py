@@ -3716,7 +3716,7 @@ def LIBRARY_FUNCTION():
         def data_entry_func(e):
             grval = GR_entry.get()
             mobileval = 0
-            cur.execute("select name,roll_no")
+            cur.execute("select name,roll_no,curr_std from academic_detail where gr_no={}".format(grval))
         GR_entry.bind("<Return>",data_entry_func)
 
         def issue_book():
