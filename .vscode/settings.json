@@ -1,0 +1,5 @@
+{
+    "editor.cursorSmoothCaretAnimation": "on",
+    "diffEditor.codeLens": true,
+    "diffEditor.experimental.useVersion2": true
+}
