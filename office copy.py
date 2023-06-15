@@ -3717,6 +3717,7 @@ def LIBRARY_FUNCTION():
             grval = GR_entry.get()
             mobileval = 0
             cur.execute("select name,roll_no,curr_std from academic_detail where gr_no={}".format(grval))
+            data = cur.fetchall()[0]
         GR_entry.bind("<Return>",data_entry_func)
 
         def issue_book():
