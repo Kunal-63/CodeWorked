@@ -17,6 +17,7 @@ import csv
 import time
 from tkhtmlview import HTMLLabel
 import webbrowser
+from datetime import date
 
 video =Tk()
 video.geometry("1000x600")
@@ -37,6 +38,7 @@ def video_ended(event):
         video.destroy()
 videoplayer.bind("<<Ended>>", video_ended )
 video.mainloop()
+
 
 
 
@@ -1447,6 +1449,7 @@ def GR_FUNCTION():
 
         save_next_button = Button(MAIN_FRAME_0,text="SAVE",font=("Arial",20),command=others_details1)
         save_next_button.place(x=1100,y=470)
+        
 
     def add1():
         GR_EDIT_BTN["state"]="active"
@@ -3629,12 +3632,12 @@ def LIBRARY_FUNCTION():
 
         issue_dt_lbl=Label(book_issue_frame,text="Issue Date : ",bg="#c1e0b7",font=("Arial",9,"bold"))
         issue_dt_lbl.place(x=35,y=95)
-        issue_dt_entry_tab=DateEntry(book_issue_frame,selectmode="day",date_pattern="dd-mm-y",font=("Arial",9,"bold"),width=10)
+        issue_dt_entry_tab=DateEntry(book_issue_frame,selectmode="day",date_pattern="y-mm-dd",font=("Arial",9,"bold"),width=10)
         issue_dt_entry_tab.place(x=125,y=95)
 
         # to_date_lbl=Label(book_issue_frame,text="Issue Date : ",bg="#c1e0b7",font=("Arial",9,"bold"))
         # to_date_lbl.place(x=252,y=95)
-        # to_date_entry_tab=DateEntry(book_issue_frame,selectmode="day",date_pattern="dd-mm-y",font=("Arial",9,"bold"),width=10)
+        # to_date_entry_tab=DateEntry(book_issue_frame,selectmode="day",date_pattern="y-mm-dd",font=("Arial",9,"bold"),width=10)
         # to_date_entry_tab.place(x=345,y=95)
 
             
@@ -3657,8 +3660,9 @@ def LIBRARY_FUNCTION():
 
         return_dt_lbl=Label(book_return_frame,text="Return Date : ",bg="#c1e0b7",font=("Arial",9,"bold"))
         return_dt_lbl.place(x=25,y=15)
-        return_dt_entry_tab=DateEntry(book_return_frame,selectmode="day",date_pattern="dd-mm-y",font=("Arial",9,"bold"),width=10)
+        return_dt_entry_tab=DateEntry(book_return_frame,selectmode="day",date_pattern="y-mm-dd",font=("Arial",9,"bold"),width=10)
         return_dt_entry_tab.place(x=125,y=15)
+        
 
         penalty_days_label = Label(book_return_frame,text="Penalty Days :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",9,"bold"))
         penalty_days_label.place(x=20,y=45)
@@ -3715,10 +3719,74 @@ def LIBRARY_FUNCTION():
 
         def data_entry_func(e):
             grval = GR_entry.get()
+            Name_entry.delete(0,END)
+            roll_no_entry.delete(0,END)
+            standard_entry.delete(0,END)
+            mobile_no_entry.delete(0,END)
+            accession_no_entry.delete(0,END)
+            Book_name_entry.delete(0,END)
+            issue_dt_entry_tab.delete(0,END)
+            return_dt_entry_tab.delete(0,END)
+            Issue_remark_entry.delete(0,END)
+            penalty_days_entry.delete(0,END)
+            penalty_rate_entry.delete(0,END)
+            penalty_amount_entry.delete(0,END)
+            return_remark_entry.delete(0,END)
+
             mobileval = 0
             cur.execute("select name,roll_no,curr_std from academic_detail where gr_no={}".format(grval))
             data = cur.fetchall()[0]
+            Name_entry.insert(0,data[0])
+            roll_no_entry.insert(0,data[1])
+            standard_entry.insert(0,data[2])
+            mobile_no_entry.insert(0,mobileval)
+            # print(data)
+            cur.execute("select * from issued")
+            data = cur.fetchall()
+            print(data)
+            # print(data[0][1] == grval)
+            for i in data:
+                if(int(grval) == i[1]):
+                    print("hi")
+                    accession_no_entry.insert(0,i[6])
+                    Book_name_entry.insert(0,i[7])
+                    issue_dt_entry_tab.insert(0,i[8])
+                    return_dt_entry_tab.insert(0,i[10])
+                    Issue_remark_entry.insert(0,i[9])
+                    return_remark_entry.insert(0,i[-1])
+                    date12 = i[10].split("-")
+                    trv.insert("",'end',values=(i[6],i[7],i[8],i[10],i[10]))
+                    # print(datetime.date(int(date12[0]),int(date12[1]),int(date12[2])))
+                    if(datetime.date.today() > datetime.date(int(date12[0]),int(date12[1]),int(date12[2]))):
+                        penalty_days_entry.insert(0,(datetime.date.today()-datetime.date(int(date12[0]),int(date12[1]),int(date12[2]))).days)
+                        penalty_rate_entry.insert(0,5)
+                        penalty_amount_entry.insert(0,(datetime.date.today()-datetime.date(int(date12[0]),int(date12[1]),int(date12[2]))).days*5)
+                    break
+                
+            
+
+            
         GR_entry.bind("<Return>",data_entry_func)
+
+        def issusing_accession(e):
+            accession_val = accession_no_entry.get()
+            return_dt_entry_tab.delete(0,END)
+            Book_name_entry.delete(0,END)
+            issue_dt_entry_tab.delete(0,END)
+            Issue_remark_entry.delete(0,END)
+            return_remark_entry.delete(0,END)
+            penalty_amount_entry.delete(0,END)
+            penalty_days_entry.delete(0,END)
+            penalty_rate_entry.delete(0,END)
+            issue_dt_entry_tab.insert(0,datetime.date.today())
+            return_dt_entry_tab.insert(0,datetime.date.today()+datetime.timedelta(days=7))
+            for i in trv.get_children():
+                trv.delete(i)
+            cur.execute("SELECT * from book_accession where accession_no={}".format(accession_val))
+            book_data = cur.fetchall()[0]
+            Book_name_entry.insert(0,book_data[1])
+            trv.insert('','end',values=(book_data[0],book_data[1],issue_dt_entry_tab.get(),return_dt_entry_tab.get(),return_dt_entry_tab.get()))
+        accession_no_entry.bind("<Return>",issusing_accession)
 
         def issue_book():
             lib_records = []
@@ -3737,13 +3805,13 @@ def LIBRARY_FUNCTION():
             lib_records.append(penalty_rate_entry.get())#13
             lib_records.append(penalty_amount_entry.get())#14
             lib_records.append(return_remark_entry.get())#15
-            cur.execute("insert into lib_values values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",lib_records)
+            cur.execute("insert into lib_records values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",lib_records)
             cur.execute("insert into issued values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",lib_records)
             mydb.commit()
             LIB_1()
         
         def issue_delete():
-            cur.execute("delete from issued where gr_no=%s",(GR_entry.get()))
+            cur.execute("delete from issued where gr_no=%s",([GR_entry.get()]))
             mydb.commit()
             LIB_1()
 
