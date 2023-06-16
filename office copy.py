@@ -3743,11 +3743,11 @@ def LIBRARY_FUNCTION():
             # print(data)
             cur.execute("select * from issued")
             data = cur.fetchall()
-            print(data)
+            # print(data)
             # print(data[0][1] == grval)
             for i in data:
                 if(int(grval) == i[1]):
-                    print("hi")
+                    # print("hi")
                     accession_no_entry.insert(0,i[6])
                     Book_name_entry.insert(0,i[7])
                     issue_dt_entry_tab.insert(0,i[8])
