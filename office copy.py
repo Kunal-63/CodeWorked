@@ -3570,6 +3570,16 @@ def LIBRARY_FUNCTION():
             widget.destroy()
 
         MAIN_FRAME.configure(bg="#c1e0b7")
+        f6 = open(r"LIBRARY\lib_report.csv",'w',newline="\n")
+        writer1 = csv.writer(f6)
+        cur.execute("select * from issued")
+        headings = cur.column_names
+        data = cur.fetchall()
+        # print(headings)
+        # print(data)
+        writer1.writerow(headings)
+        writer1.writerows(data)
+        f6.close()
 
         organisation_lbl=Label(MAIN_FRAME,text="Organisation :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
         organisation_lbl.place(x=55,y=40)
@@ -3732,7 +3742,8 @@ def LIBRARY_FUNCTION():
             penalty_rate_entry.delete(0,END)
             penalty_amount_entry.delete(0,END)
             return_remark_entry.delete(0,END)
-
+            for i in trv.get_children():
+                trv.delete(i)
             mobileval = 0
             cur.execute("select name,roll_no,curr_std from academic_detail where gr_no={}".format(grval))
             data = cur.fetchall()[0]
