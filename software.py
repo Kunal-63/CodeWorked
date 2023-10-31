@@ -1,5 +1,5 @@
 from ast import Delete
-from distutils.cmd import Command
+# from distutils.cmd import Command
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter, A4
@@ -18,7 +18,6 @@ import time
 from tkhtmlview import HTMLLabel
 import webbrowser
 
-<<<<<<< HEAD
 # video =Tk()
 # video.geometry("1000x600")
 # video.title("ZETA CORE")
@@ -38,27 +37,6 @@ import webbrowser
 #         video.destroy()
 # videoplayer.bind("<<Ended>>", video_ended )
 # video.mainloop()
-=======
-video =Tk()
-video.geometry("1000x600")
-video.title("ZETA CORE")
-photo = PhotoImage(file = r"ICONS\Zeta.png")
-video.iconphoto(False, photo)
-video.resizable(False, False)
-videoplayer = TkinterVideo(master=video, scaled=True)
-videoplayer.load(r"VIDEOS\ZETACORE.mp4")
-videoplayer.set_size(size=(1000, 600), keep_aspect=False)
-videoplayer.pack(expand=True, fill="both")
-videoplayer.play()
-def video_ended(event):
-    # print("video ended")
-    duration_video = videoplayer.current_duration()
-    # print(f"video duration: {duration_video}")
-    if(duration_video == 14.833333333333334):
-        video.destroy()
-videoplayer.bind("<<Ended>>", video_ended )
-video.mainloop()
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
 
 
@@ -1797,13 +1775,8 @@ def FEES_FUNCTION():
 
 
 
-<<<<<<< HEAD
         wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=380 ,width=270,relief=RIDGE,borderwidth=2)
         wrapper2.place(x=800,y=30)
-=======
-        wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=350 ,width=270,relief=RIDGE,borderwidth=2)
-        wrapper2.place(x=1000,y=75)
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
 
         CheckVar1 = IntVar()
@@ -1813,11 +1786,7 @@ def FEES_FUNCTION():
         CheckVar5 = IntVar()
         CheckVar6 = IntVar()
         CheckVar7 = IntVar()
-<<<<<<< HEAD
         # CheckVar8 = IntVar()
-=======
-        CheckVar8 = IntVar()
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
         
 
         C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
@@ -1827,11 +1796,7 @@ def FEES_FUNCTION():
         C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
         C6 = Checkbutton(wrapper2, text = "ADMISSION FEE", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
         C7 = Checkbutton(wrapper2, text = "ICARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-<<<<<<< HEAD
         # C8 = Checkbutton(wrapper2, text = "LATE FEE", variable = CheckVar8,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-=======
-        C8 = Checkbutton(wrapper2, text = "LATE FEE", variable = CheckVar8,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
         
         C1.place(x=0,y=0)
         C2.place(x=0,y=45)
@@ -1840,7 +1805,6 @@ def FEES_FUNCTION():
         C5.place(x=0,y=180)
         C6.place(x=0,y=225)
         C7.place(x=0,y=270)
-<<<<<<< HEAD
         # C8.place(x=0,y=315)
 
         def receipt_delete():
@@ -2225,55 +2189,6 @@ def FEES_FUNCTION():
     FEES_3.place(x=10,y=140)
 
 
-=======
-        C8.place(x=0,y=315)
-
-        def receipt_delete():
-            cur.execute("select * from std_fees where std={}".format(FEES_STD_ENTRY.get()))
-            fees_data = cur.fetchall()[0]
-
-            if(CheckVar1.get() == 1):
-                cur.execute("update gr_checks set c1=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set apr_jun_tution={},APR_JUN_ATITVITY={} where gr_no={}".format(fees_data[3],fees_data[4],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c1=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar2.get() == 1):
-                cur.execute("update gr_checks set c2=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set JUL_SEP_TUTION={},JUL_SEP_ACTIVITY={} where gr_no={}".format(fees_data[6],fees_data[7],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c2=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar3.get() == 1):
-                cur.execute("update gr_checks set c3=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set OCT_DEC_TUTION={},OCT_DEC_ACTIVITY={} where gr_no={}".format(fees_data[8],fees_data[9],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c3=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar4.get() == 1):
-                cur.execute("update gr_checks set c4=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set JAN_MAR_TUTION={},JAN_MAR_ACTIVITY={} where gr_no={}".format(fees_data[10],fees_data[11],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c4=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar5.get() == 1):
-                cur.execute("update gr_checks set c5=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(fees_data[12],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c5=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar6.get() == 1):
-                cur.execute("update gr_checks set c6=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set ADMISSION_FEE={} where gr_no={}".format(fees_data[1],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c6=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar7.get() == 1):
-                cur.execute("update gr_checks set c7=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(fees_data[2],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c7=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar8.get() == 1):
-                cur.execute("update gr_checks set c8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set LATE_FEES={} where gr_no={}".format(0,FEES_GR_ENTRY))
-                cur.execute("update fee_details set c8=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            cur.execute("delete from tran_details where receipt_no={}".format(FEES_RECEIPTNO_ENTRY1.get()))
-            cur.execute("delete from fee_tran where receipt_no={}".format(FEES_RECEIPTNO_ENTRY1.get()))
-        delete_button=Button(MAIN_FRAME,text="DELETE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=receipt_delete)
-        delete_button.place(x=1050,y=500)
-
-
-
-    FEES_1=Button(MENU_FRAME2,text="FEES DELETE",command = receipt_delete_function)
-    FEES_1.place(x=20,y=20)
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
     # FEES_1=Button(MENU_FRAME2,text="DELETE")
     # FEES_1.place(x=20,y=20)
@@ -2317,7 +2232,6 @@ def FEES_FUNCTION():
     CheckVar7 = IntVar()
     CheckVar8 = IntVar()
 
-<<<<<<< HEAD
     C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
     C2 = Checkbutton(wrapper2, text = "JUL SEP FEES", variable = CheckVar2,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
     C3 = Checkbutton(wrapper2, text = "OCT DEC FEES", variable = CheckVar3,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
@@ -2333,25 +2247,6 @@ def FEES_FUNCTION():
     C5.place(x=0,y=160)
     C6.place(x=0,y=200)
     C7.place(x=0,y=240)
-=======
-    C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C2 = Checkbutton(wrapper2, text = "JUL SEP FEES", variable = CheckVar2,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C3 = Checkbutton(wrapper2, text = "OCT DEC FEES", variable = CheckVar3,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C4 = Checkbutton(wrapper2, text = "JAN MAR FEES", variable = CheckVar4,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C6 = Checkbutton(wrapper2, text = "ADMISSION", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C7 = Checkbutton(wrapper2, text = "ICARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    # C8 = Checkbutton(wrapper2,text = "LATE FEES",variable = CheckVar8,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-
-    C1.place(x=0,y=0)
-    C2.place(x=0,y=45)
-    C3.place(x=0,y=90)
-    C4.place(x=0,y=135)
-    C5.place(x=0,y=180)
-    C6.place(x=0,y=225)
-    C7.place(x=0,y=270)
-    # C8.place(x=0,y=315)
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
     
 
 
@@ -2756,11 +2651,7 @@ def FEES_FUNCTION():
 
         def fees_print():
             Grvalue=FEES_GR_ENTRY.get()
-<<<<<<< HEAD
             RECEIPT_VAR=FEES_RECEIPTNO_ENTRY.get()
-=======
-            RECEIPT_VAR=FEES_RECEIPTBOOK_ENTRY.get()
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
             DATE_VAR=FEES_DATE_ENTRY.get()
             TOTAL_AMOUNT_VAR=FEES_GRANDTOTAL_ENTRY.get()
             PAY_TYPE=FEES_PAYMODE_ENTRY.get()
@@ -2771,32 +2662,21 @@ def FEES_FUNCTION():
             cur.execute("select SURNAME,NAME,FATHER from gr_details WHERE GR_NO=%s",[Grvalue])
             fee_wee=cur.fetchall()
 
-<<<<<<< HEAD
             cur.execute("select curr_std,division from academic_detail WHERE GR_NO=%s",[Grvalue])
-=======
-            cur.execute("select curr_std from academic_detail WHERE GR_NO=%s",[Grvalue])
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
             fee_wee_1=cur.fetchall()
 
 
             NAME_VAR=fee_wee[0][1]
             SURNAME_VAR=fee_wee[0][0]
             FATHERS_NAME_VAR=fee_wee[0][2]
-<<<<<<< HEAD
             STD_VAR=fee_wee_1[0][0]+"-"+fee_wee_1[0][1]
-=======
-            STD_VAR=fee_wee_1[0][0]
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
             
 
 
             print(Grvalue,RECEIPT_VAR,DATE_VAR,TOTAL_AMOUNT_VAR,PAY_TYPE,CHEQUE_VAR,BANK_VAR,NAME_VAR,SURNAME_VAR,FATHERS_NAME_VAR,STD_VAR)
-<<<<<<< HEAD
             cur.execute("select aai1 from academic_detail where gr_no={}".format(Grvalue))
             aai_data=cur.fetchall()[0]
-=======
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
 
             FEES_NAME_PAID=[]
@@ -2877,7 +2757,6 @@ def FEES_FUNCTION():
             q=460
             c.drawString(x,y,str(FEES_NAME_PAID[0]))
             c.drawString(p,q,str(FEES_AMT_PAID[0]))
-<<<<<<< HEAD
             print(FEES_NAME_PAID)
             if(aai_data[0] == 0):
                 for i in range(len(FEES_NAME_PAID)):
@@ -2895,19 +2774,13 @@ def FEES_FUNCTION():
                         FEES_NAME_PAID[i]="ICARD, ALMANAC & CLASS GROUP PHOTO"
             print(FEES_NAME_PAID)
 
-=======
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
             for a in range(1,len(FEES_NAME_PAID)):
                 y=y-20
                 c.drawString(x,y,str(FEES_NAME_PAID[a]))
 
             for b in range(1,len(FEES_AMT_PAID)):
                 q=q-20
-<<<<<<< HEAD
                 c.drawString(p,q,str(FEES_AMT_PAID[b]))
-=======
-                c.drawString(p,q,str(FEES_AMT_PAID[b]))             
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
 
             c.setLineWidth(2)
@@ -2942,11 +2815,7 @@ def FEES_FUNCTION():
             c.drawString(360,-25,"Receiver Sign")
             c.setFont('Helvetica',12)
 
-<<<<<<< HEAD
             c.drawImage(r"ICONS\schl logo1.png",-0.3*inch,8.5*inch)
-=======
-            c.drawImage(r"C:\Users\Kunal Adwani\OneDrive\Desktop\CREATIONS!!\CodeWorked\ICONS\schl logo1.png",-0.3*inch,8.5*inch)
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
             c.setLineWidth(2)
             c.setStrokeColorRGB(0,0,0)
@@ -3052,11 +2921,7 @@ def FEES_FUNCTION():
             c.drawString(360,-25,"Receiver Sign")
             c.setFont('Helvetica',12)
 
-<<<<<<< HEAD
             c.drawImage(r"ICONS\schl logo1.png",-0.3*inch,8.5*inch)
-=======
-            c.drawImage(r"C:\Users\Kunal Adwani\OneDrive\Desktop\CREATIONS!!\CodeWorked\ICONS\schl logo1.png",-0.3*inch,8.5*inch)
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
             c.setLineWidth(2)
             c.setStrokeColorRGB(0,0,0)
@@ -3065,7 +2930,6 @@ def FEES_FUNCTION():
             c.showPage()
             
             c.save()
-<<<<<<< HEAD
             
             import os
             os.startfile(my_path)
@@ -3073,10 +2937,6 @@ def FEES_FUNCTION():
         fees_print()
         FEES_REPORT_FUNCTION()
         BACKUP_FUNCTION()
-=======
-
-        fees_print()
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
         FEES_FUNCTION()
 
 
@@ -3688,23 +3548,15 @@ def FEES_REPORT_FUNCTION():
         wrt.writerow(i)
 
 
-<<<<<<< HEAD
     f2 = open(r"REPORTS\gr_report.csv",'w',newline="\n")
     wrt = csv.writer(f2)
     wrt.writerow(["CLASS","DIVISION","TOTAL"])
     cur.execute("select curr_std,division,count(gr_no) as total from academic_detail where active1=1 group by curr_std,division order by curr_std")
-=======
-    f2 = open(r"REPORTS\gr_report.csv",'w')
-    wrt = csv.writer(f2)
-    wrt.writerow(["CLASS","DIVISION","TOTAL"])
-    cur.execute("select curr_std,divison,count(gr_no) as total from academic_detail group by curr_std,divison order by curr_std")
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
     data_report = cur.fetchall()
     for i in data_report:
         wrt.writerow(i)
     f2.close()
 
-<<<<<<< HEAD
     f3 = open(r"REPORTS\male_female.csv",'w',newline="\n")
     wrt = csv.writer(f3)
     wrt.writerow(["CLASS","DIVISION","SEX","TOTAL"])
@@ -3716,34 +3568,20 @@ JOIN gr_details AS gd ON ad.gr_no = gd.GR_NO
 GROUP BY ad.division, ad.curr_std
 ORDER BY ad.division, ad.curr_std;
 ''')
-=======
-    f3 = open(r"REPORTS\male_female.csv",'w')
-    wrt = csv.writer(f3)
-    wrt.writerow("CLASS","DIVISION","SEX","TOTAL")
-    cur.execute("select academic_detail.curr_std,academic_detail.divison,gr_details.sex,count(gr_details.sex) as total from gr_details,academic_detail group by academic_detail.curr_std,academic_detail.divison,gr_details.sex order by academic_detail.curr_std,academic_detail.divison")
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
     data_report = cur.fetchall()
     for i in data_report:
         wrt.writerow(i)
     f3.close()
 
-<<<<<<< HEAD
     f4 = open(r"REPORTS\caste_report.csv",'w',newline="\n")
     wrt = csv.writer(f4)
     wrt.writerow(["CLASS","DIVISION","CASTE","TOTAL"])
     cur.execute("select academic_detail.curr_std,academic_detail.division,gr_details.caste,count(gr_details.caste) as total from gr_details,academic_detail where academic_detail.active1=1 group by academic_detail.curr_std,academic_detail.division,gr_details.caste order by academic_detail.curr_std,academic_detail.division")
-=======
-    f4 = open(r"REPORTS\caste_report.csv",'w')
-    wrt = csv.writer(f4)
-    wrt.writerow("CLASS","DIVISION","CASTE","TOTAL")
-    cur.execute("select academic_detail.curr_std,academic_detail.divison,gr_details.caste,count(gr_details.caste) as total from gr_details,academic_detail group by academic_detail.curr_std,academic_detail.divison,gr_details.caste order by academic_detail.curr_std,academic_detail.divison")
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
     data_report = cur.fetchall()    
     for i in data_report:
         wrt.writerow(i)
     f4.close()
 
-<<<<<<< HEAD
     f5 = open(r"REPORTS\new_admission.csv",'w',newline="\n")
     wrt = csv.writer(f5)
     wrt.writerow(["GR NO","NAME","FATHER","SURNAME","CURR STD","DIVISION"])
@@ -3752,9 +3590,6 @@ ORDER BY ad.division, ad.curr_std;
     for i in data_report:
         wrt.writerow(i)
     f5.close()
-=======
-    
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
 
 

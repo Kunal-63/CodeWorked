@@ -1,5 +1,4 @@
 gr_no,name,bnk_ac_holder,scholar_cat,transport,bnk_name,presch_type,blood_grp,bnk_ac_name,remark,bnk_branch,student_email,ifsc_code,mobile_no,suid,adhar_cardno,address1,address2,area,city,district,pincode,phone_no
-<<<<<<< HEAD
 1248,TANISHQ,000,Aarthik Pachhat,     ,,BALMANDIR,A-,0,0,0,0,0,0,0,0,0,0,0,0,AHMEDABAD,0,9426036270
 1249,MANASVI,000,Aarthik Pachhat,     ,,BALMANDIR,A-,0,0,0,0,0,0,0,0,0,0,0,0,AHMEDABAD,0,9879123472
 1250,MAHEK,000,Aarthik Pachhat,     ,,BALMANDIR,A-,0,0,0,0,0,0,0,0,0,0,0,0,AHMEDABAD,0,9428593243
@@ -2430,8 +2429,3 @@ gr_no,name,bnk_ac_holder,scholar_cat,transport,bnk_name,presch_type,blood_grp,bn
 4793,AADVIK,  ,   ,  ,   ,   ,AB+,  ,   ,   ,nidhi.kunalbansal@gmail.com,  ,8080145047,  ,   ,"B-1004, AAVALI SIGNATURE, MOTERA ROAD, GIDC BHAT, MOTERA, AHMEDABAD-380005.","B-1004, AAVALI SIGNATURE, MOTERA ROAD, GIDC BHAT, MOTERA, AHMEDABAD-380005.",MOTERA,AHMEDABAD,AHMEDABAD,380005,9022551191
 4794,JISHA,  ,   ,   ,   ,   ,   ,   ,   ,   ,ravikanunga2547@gmail.com,  ,9428043237,  ,  ,"D/301, MALLINATH APPARTMENT, OPP. JAIN COLONY, SHAHIBAUG, AHMEDABAD-380004.","D/301, MALLINATH APPARTMENT, OPP. JAIN COLONY, SHAHIBAUG, AHMEDABAD-380004.",SHAHIBAUG,AHMEDABAD,AHMEDABAD,380004,0
 4795,MISTHI,  ,   ,   ,   ,  ,  ,   ,  ,   ,   ,   ,9428043237,  ,   ,"D-301, MALLINATH APPARTMENT, OPP. JAIN COLONY, SHAHIBAUG, AHMEDABAD-380004.","D-301, MALLINATH APPARTMENT, OPP. JAIN COLONY, SHAHIBAUG, AHMEDABAD-380004.",SHAHIBAUG,AHMEDABAD,GUJARAT,380004,0
-=======
-3,,,,,,,,,,,,,,,,,,,,,0,0
-4,,,,,,,,,,,,,,,,,,,,,213,231
-5,,,,,,,,,,,,,,,,,,,,,3,231
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
