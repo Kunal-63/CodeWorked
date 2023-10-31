@@ -10,35 +10,15 @@ import datetime
 from tkinter import messagebox
 import mysql.connector as con
 from PIL import Image,ImageTk
-# from playsound import playsound
-# from gtts import gTTS
-# from tkVideoPlayer import TkinterVideo
+from playsound import playsound
+from gtts import gTTS
+from tkVideoPlayer import TkinterVideo
 import csv
 import time
 from tkhtmlview import HTMLLabel
 import webbrowser
+from datetime import date
 
-<<<<<<< HEAD
-# video =Tk()
-# video.geometry("1000x600")
-# video.title("ZETA CORE")
-# photo = PhotoImage(file = r"ICONS\Zeta.png")
-# video.iconphoto(False, photo)
-# video.resizable(False, False)
-# videoplayer = TkinterVideo(master=video, scaled=True)
-# videoplayer.load(r"VIDEOS\ZETACORE.mp4")
-# videoplayer.set_size(size=(1000, 600), keep_aspect=False)
-# videoplayer.pack(expand=True, fill="both")
-# videoplayer.play()
-# def video_ended(event):
-#     # print("video ended")
-#     duration_video = videoplayer.current_duration()
-#     # print(f"video duration: {duration_video}")
-#     if(duration_video == 14.833333333333334):
-#         video.destroy()
-# videoplayer.bind("<<Ended>>", video_ended )
-# video.mainloop()
-=======
 video =Tk()
 video.geometry("1000x600")
 video.title("ZETA CORE")
@@ -58,7 +38,6 @@ def video_ended(event):
         video.destroy()
 videoplayer.bind("<<Ended>>", video_ended )
 video.mainloop()
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
 
 
@@ -79,7 +58,8 @@ video.mainloop()
 
 
 
-mydb = con.connect(host="localhost",user="root",password="root",database="airport_school")
+
+mydb = con.connect(host="localhost",user="root",password="Mouse@2010",database="airport_school1")
 cur = mydb.cursor()
 root=Tk()
 root.state('zoomed')
@@ -106,12 +86,12 @@ def GR_FUNCTION():
         widget.destroy()
     # text_Q1="GENERAL REGISTER"
     # myobj = gTTS(text=text_Q1, slow=False)
-    # myobj.save(r"AUDIOS\general register.mp3")
+    # myobj.save(r"AUDIOS\general register.mp3")fs
     #pygame.mixer.init()
     #pygame.mixer.music.load(r"AUDIOS\general register.mp3")
     #pygame.mixer.music.play(loops=0)
 
-    MAIN_FRAME_0=Frame(MAIN_FRAME,relief=RIDGE,bg="lightblue",height=470,width=1160,borderwidth=4)
+    MAIN_FRAME_0=Frame(MAIN_FRAME,relief=RIDGE,bg="lightblue",height=550,width=1300,borderwidth=4)
     MAIN_FRAME_0.place(x=5,y=30)
 
 
@@ -125,15 +105,15 @@ def GR_FUNCTION():
 
         MAIN_FRAME_0.configure(bg="lightblue")
 
-        photo_frame = Frame(MAIN_FRAME_0,height=125,width=125,borderwidth=4,relief=RIDGE)
+        photo_frame = Frame(MAIN_FRAME_0,height=155,width=155,borderwidth=4,relief=RIDGE)
         photo_frame.place(x=30,y=20)
         
-        details_frame=Frame(MAIN_FRAME_0,height=150,width=920,bg="lightblue",borderwidth=4,relief=RIDGE)
-        details_frame.place(x=170,y=20)
+        details_frame=Frame(MAIN_FRAME_0,height=150,width=1000,bg="lightblue",borderwidth=4,relief=RIDGE)
+        details_frame.place(x=220,y=20)
 
         
-        general_details_frame=Frame(MAIN_FRAME_0,height=280,width=820,bg="lightblue",borderwidth=4,relief=RIDGE)
-        general_details_frame.place(x=170,y=175)
+        general_details_frame=Frame(MAIN_FRAME_0,height=360,width=800,bg="lightblue",borderwidth=4,relief=RIDGE)
+        general_details_frame.place(x=220,y=175)
 
         gr_lbl=Label(details_frame,text="GR no :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         gr_lbl.place(x=23,y=20)
@@ -193,77 +173,78 @@ def GR_FUNCTION():
 
 
         sex_lbl=Label(general_details_frame,text="Sex :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        sex_lbl.place(x=50,y=20)
+        sex_lbl.place(x=50,y=40)
         sex_var= StringVar()
         sex_combo = ttk.Combobox(general_details_frame,width=20,textvariable = sex_var)
         sex_combo['values'] = ('Male','Female')
-        sex_combo.place(x=100,y=25)
+        sex_combo.place(x=100,y=45)
 
         birth_date_lbl=Label(general_details_frame,text="Birth Date :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        birth_date_lbl.place(x=280,y=20)
+        birth_date_lbl.place(x=280,y=40)
         birth_date_ent=DateEntry(general_details_frame,selectmode="day",date_pattern="dd-mm-y",width=17)
-        birth_date_ent.place(x=370,y=25)
+        birth_date_ent.place(x=370,y=45)
 
         category_lbl=Label(general_details_frame,text="Category :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        category_lbl.place(x=575,y=20)
+        category_lbl.place(x=575,y=40)
         category_var=StringVar()
         category_combo = ttk.Combobox(general_details_frame,width=17,textvariable = category_var)
         category_combo['values'] = ('SEBC','ST','GEN','SC')
-        category_combo.place(x=655,y=25)
+        category_combo.place(x=655,y=45)
 
         religion_lbl=Label(general_details_frame,text="Religion :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        religion_lbl.place(x=24,y=65)
+        religion_lbl.place(x=24,y=105)
         religion_var=StringVar()
         religion_combo = ttk.Combobox(general_details_frame,width=20,textvariable = religion_var)
         religion_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
-        religion_combo.place(x=100,y=70)
+        religion_combo.place(x=100,y=110)
 
         birth_place_lbl=Label(general_details_frame,text="Birth Place :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        birth_place_lbl.place(x=274,y=65)
+        birth_place_lbl.place(x=274,y=105)
         birth_place_var=StringVar()
         birth_place_ent=Entry(general_details_frame,text=birth_place_var)
-        birth_place_ent.place(x=370,y=70)
+        birth_place_ent.place(x=370,y=110)
 
         
         previous_school_lbl=Label(general_details_frame,text="Previous School :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        previous_school_lbl.place(x=530,y=65)
+        previous_school_lbl.place(x=530,y=105)
         previous_school_var=StringVar()
         previous_school_ent=Entry(general_details_frame,text=previous_school_var)
-        previous_school_ent.place(x=655,y=70)
+        previous_school_ent.place(x=655,y=110)
 
         caste_lbl=Label(general_details_frame,text="Caste :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        caste_lbl.place(x=42,y=110)
+        caste_lbl.place(x=42,y=170)
         caste_var=StringVar()
         caste_combo = ttk.Combobox(general_details_frame,textvariable = caste_var)
         caste_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
-        caste_combo.place(x=100,y=115)
+        caste_combo.place(x=100,y=175)
 
         birth_taluka_lbl=Label(general_details_frame,text="Birth Taluka :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        birth_taluka_lbl.place(x=268,y=110)
+        birth_taluka_lbl.place(x=268,y=170)
         birth_taluka_var=StringVar()
         birth_taluka_ent=Entry(general_details_frame,text=birth_taluka_var)
-        birth_taluka_ent.place(x=370,y=115)
+        birth_taluka_ent.place(x=370,y=175)
 
         subcaste_lbl=Label(general_details_frame,text="Subcaste :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        subcaste_lbl.place(x=21,y=160)
+        subcaste_lbl.place(x=21,y=240)
         subcaste_var=StringVar()
         subcaste_combo = ttk.Combobox(general_details_frame,width=20,textvariable = subcaste_var)
         subcaste_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
-        subcaste_combo.place(x=100,y=165)
+        subcaste_combo.place(x=100,y=245)
 
         state_lbl=Label(general_details_frame,text="State :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        state_lbl.place(x=310,y=160)
+        state_lbl.place(x=310,y=240)
         state_var=StringVar()
         state_ent=Entry(general_details_frame,text=state_var)
-        state_ent.place(x=370,y=165)
+        state_ent.place(x=370,y=245)
 
         minorityvalue=IntVar()
         minority_check=Checkbutton(general_details_frame,text="Minority",onvalue=1,offvalue=0,bg="lightblue",activebackground="black")
-        minority_check.place(x=100,y=225)
+        minority_check.place(x=100,y=315)
 
         rtevalue=IntVar()
         rte_check=Checkbutton(general_details_frame,text="RTE",variable=rtevalue,onvalue=1,offvalue=0,bg="lightblue",activebackground="black")
-        rte_check.place(x=250,y=225)
+        rte_check.place(x=250,y=315)
+
 
         def grsave():
             grlst=[]
@@ -290,8 +271,8 @@ def GR_FUNCTION():
             cur.execute("insert into gr_details values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",grlst)
             mydb.commit()
             academic_details()
-        save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",15),command=grsave)
-        save_next_button.place(x=1050,y=370)
+        save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=grsave)
+        save_next_button.place(x=1100,y=470)
 
     global academic_details
     def academic_details():
@@ -304,100 +285,98 @@ def GR_FUNCTION():
 
 
 
-        academic_frame1=Frame(MAIN_FRAME_0,height=461,width=560,bg="lightblue",borderwidth=4,relief=RIDGE)
+        academic_frame1=Frame(MAIN_FRAME_0,height=541,width=645,bg="lightblue",borderwidth=4,relief=RIDGE)
         academic_frame1.place(x=0,y=0)
 
         #
         Gr_label = Label(academic_frame1, text="GR NO : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Gr_label.place(x=80, y=40)
+        Gr_label.place(x=90, y=10)
         Gr_var=StringVar()
         Gr_entry= Entry(academic_frame1, textvariable=Gr_var, width=20)
-        Gr_entry.place(x=140, y=40)
+        Gr_entry.place(x=150, y=10)
         cur.execute("select gr_no from gr_details")
         data = cur.fetchall()
         Gr_entry.insert(0,data[-1][0]) 
 
         #
         Name_label = Label(academic_frame1, text="Name : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Name_label.place(x=300, y=40)
+        Name_label.place(x=310, y=10)
         Name_var=StringVar()
         Name_entry=Entry(academic_frame1, textvariable=Name_var, width=20)
-        Name_entry.place(x=360,y=40)
+        Name_entry.place(x=370,y=10)
   
         activevalue=IntVar()
         active_check=Checkbutton(academic_frame1,text="Active",variable=activevalue,offvalue=0,onvalue=1,activebackground="lightblue",font=("Arieal",10,"bold"),bg="lightblue")
-        active_check.place(x=65,y=80)
+        active_check.place(x=75,y=50)
 
         leftvalue=IntVar()
         left_check=Checkbutton(academic_frame1,text="Left",variable=leftvalue,offvalue=0,onvalue=1,activebackground="lightblue",font=("Arieal",10,"bold"),bg="lightblue")
-        left_check.place(x=190,y=80)
+        left_check.place(x=200,y=50)
 
         aaivalue=IntVar()
         aai_check=Checkbutton(academic_frame1,text="AAI",variable=aaivalue,offvalue=0,onvalue=1,activebackground="lightblue",font=("Arieal",10,"bold"),bg="lightblue")
-        aai_check.place(x=315,y=80)
+        aai_check.place(x=325,y=50)
         #
         in_active_date_lbl=Label(academic_frame1,text="InActive Date :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        in_active_date_lbl.place(x=40,y=120)
+        in_active_date_lbl.place(x=50,y=100)
         in_active_date_ent=DateEntry(academic_frame1,selectmode="day",date_pattern="dd-mm-y")
-        in_active_date_ent.place(x=150,y=125)
+        in_active_date_ent.place(x=160,y=105)
  
         date_lbl=Label(academic_frame1,text="Date",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        date_lbl.place(x=170,y=160)
+        date_lbl.place(x=180,y=160)
 
         year_lbl=Label(academic_frame1,text="Year",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        year_lbl.place(x=270,y=160)
+        year_lbl.place(x=280,y=160)
 
         standard=Label(academic_frame1,text="Standard",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        standard.place(x=360,y=160)
+        standard.place(x=370,y=160)
 
         #
         addmission_lbl=Label(academic_frame1,text="Addmission :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        addmission_lbl.place(x=40,y=200)
+        addmission_lbl.place(x=50,y=200)
         addmission_date_ent=DateEntry(academic_frame1,selectmode="day",date_pattern="dd-mm-y")
-        addmission_date_ent.place(x=140,y=205)
+        addmission_date_ent.place(x=150,y=205)
         addmission_year_var=IntVar()
         addmission_year_ent=Entry(academic_frame1,textvariable=addmission_year_var,width=10)
-        addmission_year_ent.place(x=265,y=205)
+        addmission_year_ent.place(x=275,y=205)
         addmission_standard_var=StringVar()
         addmission_standard_ent=ttk.Combobox(academic_frame1,textvariable=addmission_standard_var,width=10)
         addmission_standard_ent['values']=['NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI']
-        # addmission_standard_ent.set('NUR')
-        addmission_standard_ent.place(x=360,y=205) 
+        addmission_standard_ent.place(x=370,y=205) 
 
         current_lbl=Label(academic_frame1,text="Current :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        current_lbl.place(x=65,y=240)
+        current_lbl.place(x=75,y=240)
         current_date_ent=DateEntry(academic_frame1,selectmode="day",date_pattern="dd-mm-y")
-        current_date_ent.place(x=140,y=245)
+        current_date_ent.place(x=150,y=245)
         current_year_var=IntVar()
         current_year_ent=Entry(academic_frame1,textvariable=current_year_var,width=10)
-        current_year_ent.place(x=265,y=245)
+        current_year_ent.place(x=275,y=245)
         current_standard_var=StringVar()
         current_standard_ent=ttk.Combobox(academic_frame1,textvariable=current_standard_var,width=10)
         current_standard_ent['values']=['NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI']
-        # current_standard_ent.set('NUR')
-        current_standard_ent.place(x=360,y=245) 
+        current_standard_ent.place(x=370,y=245) 
 
         division_lbl=Label(academic_frame1,text="Division :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        division_lbl.place(x=65,y=310)
+        division_lbl.place(x=75,y=340)
         division_var=StringVar()
         division_ent=ttk.Combobox(academic_frame1,textvariable=division_var,width=8)
         division_ent['values']=['A','B','C','D','E']
-        division_ent.place(x=140,y=315)
+        division_ent.place(x=150,y=345)
 
         roll_no_lbl=Label(academic_frame1,text="Roll No :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        roll_no_lbl.place(x=240,y=310)
+        roll_no_lbl.place(x=250,y=340)
         roll_no_var=IntVar()
         roll_no_ent=Entry(academic_frame1 ,textvariable=roll_no_var,width=10)
-        roll_no_ent.place(x=310,y=315)
+        roll_no_ent.place(x=320,y=345)
 
         inactive_reason_lbl=Label(academic_frame1,text="InActive Reason :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        inactive_reason_lbl.place(x=12,y=360)
+        inactive_reason_lbl.place(x=22,y=400)
         inactive_reason_var=StringVar()
         inactive_reason_ent=Entry(academic_frame1,textvariable=inactive_reason_var,width=35)
-        inactive_reason_ent.place(x=140,y=365)
+        inactive_reason_ent.place(x=150,y=405)
 
-        academic_frame2=Frame(MAIN_FRAME_0,height=461,width=560,bg="lightblue",borderwidth=4,relief=RIDGE)
-        academic_frame2.place(x=561,y=0)
+        academic_frame2=Frame(MAIN_FRAME_0,height=541,width=645,bg="lightblue",borderwidth=4,relief=RIDGE)
+        academic_frame2.place(x=646,y=0)
         left_reason_lbl=Label(academic_frame2,text="Left Reason :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
         left_reason_lbl.place(x=50,y=50)
         left_reason_var=StringVar()
@@ -481,11 +460,11 @@ def GR_FUNCTION():
                 data = cur.fetchall()
                 cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12]])
             cur.execute("insert into gr_check values({},0,0,0,0,0,0,0)".format(Gr_entry.get()))
-            cur.execute("insert into fee_details values({},' ',' ',' ',' ',' ',' ',' ',' ')".format(Gr_entry.get()))
+            cur.execute("insert into fee_details values({},' ',' ',' ',' ',' ',' ',' ')".format(Gr_entry.get()))
             mydb.commit()
             other_details()
-        save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",15),command=academic_details_save)
-        save_next_button.place(x=1050,y=370)
+        save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=academic_details_save)
+        save_next_button.place(x=1100,y=470)
 
 
 
@@ -501,7 +480,7 @@ def GR_FUNCTION():
         Gr_label = Label(MAIN_FRAME_0, text="GR NO : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Gr_label.place(x=90, y=10)
         Gr_var=StringVar()
-        Gr_entry= Entry(MAIN_FRAME_0, textvariable=Gr_var, width=30)
+        Gr_entry= Entry(MAIN_FRAME_0, textvariable=Gr_var, width=40)
         Gr_entry.place(x=150, y=10)
         cur.execute("select gr_no from gr_details")
         data = cur.fetchall()
@@ -509,156 +488,156 @@ def GR_FUNCTION():
 
         #
         Name_label = Label(MAIN_FRAME_0, text="Name : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Name_label.place(x=430, y=10)
+        Name_label.place(x=490, y=10)
         Name_var=StringVar()
-        Name_entry=Entry(MAIN_FRAME_0, textvariable=Name_var, width=30)
-        Name_entry.place(x=490,y=10)
+        Name_entry=Entry(MAIN_FRAME_0, textvariable=Name_var, width=40)
+        Name_entry.place(x=550,y=10)
 
         #
         Bank_holder=Label(MAIN_FRAME_0, text="Bank Acc. Holder : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Bank_holder.place(x=770,y=10)
+        Bank_holder.place(x=870,y=10)
         Bank_holder_var=StringVar()
-        Bank_holder_entry = Entry(MAIN_FRAME_0, textvariable=Bank_holder_var, width=30)
-        Bank_holder_entry.place(x=900, y=10)
+        Bank_holder_entry = Entry(MAIN_FRAME_0, textvariable=Bank_holder_var, width=40)
+        Bank_holder_entry.place(x=1000, y=10)
 
         #
         Scholarship_label = Label(MAIN_FRAME_0, text="Scholarship Category : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Scholarship_label.place(x=0, y=50)
         Scholarship_var=StringVar()
-        Scholarship_entry = Entry(MAIN_FRAME_0, textvariable=Scholarship_var, width=30)
+        Scholarship_entry = Entry(MAIN_FRAME_0, textvariable=Scholarship_var, width=40)
         Scholarship_entry.place(x=150, y=50)
 
         #
         Transport_label = Label(MAIN_FRAME_0, text="Transport : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue" )
-        Transport_label.place(x=410, y=50)
+        Transport_label.place(x=470, y=50)
         Transport_var=StringVar()
-        Transport_entry=Entry(MAIN_FRAME_0, textvariable=Transport_var, width=30)
-        Transport_entry.place(x=490, y=50)
+        Transport_entry=Entry(MAIN_FRAME_0, textvariable=Transport_var, width=40)
+        Transport_entry.place(x=550, y=50)
 
         #
         bnk_name_label = Label(MAIN_FRAME_0, text="Bank Name : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        bnk_name_label.place(x=805, y=50)
+        bnk_name_label.place(x=905, y=50)
         bnk_name_var=StringVar()
-        bnk_name_entry=Entry(MAIN_FRAME_0, textvariable=bnk_name_label, width=30)
-        bnk_name_entry.place(x=900,y=50)
+        bnk_name_entry=Entry(MAIN_FRAME_0, textvariable=bnk_name_label, width=40)
+        bnk_name_entry.place(x=1000,y=50)
 
         #
         preschool_label=Label(MAIN_FRAME_0,text='PreSchool Type : ',font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         preschool_label.place(x=30, y=90)
         preschool_var=StringVar()
-        preschool_entry=Entry(MAIN_FRAME_0, textvariable=preschool_var, width=30)
+        preschool_entry=Entry(MAIN_FRAME_0, textvariable=preschool_var, width=40)
         preschool_entry.place(x=150, y=90)
 
         #
         blood_label = Label(MAIN_FRAME_0, text="Blood Group : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        blood_label.place(x=390, y=90)
+        blood_label.place(x=450, y=90)
         blood_var=StringVar()
-        blood_entry= Entry(MAIN_FRAME_0, textvariable=blood_var,width=30)
-        blood_entry.place(x=490, y=90)
+        blood_entry= Entry(MAIN_FRAME_0, textvariable=blood_var,width=40)
+        blood_entry.place(x=550, y=90)
 
         #
         bank_acc_no_label = Label(MAIN_FRAME_0, text="Bank Account No : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        bank_acc_no_label.place(x=770, y=90)
+        bank_acc_no_label.place(x=870, y=90)
         bank_ac_no_var=StringVar()
-        bank_ac_no_entry = Entry(MAIN_FRAME_0, textvariable=bank_ac_no_var,width=30)
-        bank_ac_no_entry.place(x=900, y=90)
+        bank_ac_no_entry = Entry(MAIN_FRAME_0, textvariable=bank_ac_no_var,width=40)
+        bank_ac_no_entry.place(x=1000, y=90)
 
         #
         Remark_label = Label(MAIN_FRAME_0, text="Remark : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Remark_label.place(x=80, y=130)
         Remark_var=StringVar()
-        Remark_entry= Entry(MAIN_FRAME_0, textvariable=Remark_var,width=87)
+        Remark_entry= Entry(MAIN_FRAME_0, textvariable=Remark_var,width=107)
         Remark_entry.place(x=150, y=130)
 
         #
         bank_branch_label = Label(MAIN_FRAME_0, text="Bank Branch : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        bank_branch_label.place(x=800, y=130)
+        bank_branch_label.place(x=900, y=130)
         bank_branch_var=StringVar()
-        bank_branch_entry= Entry(MAIN_FRAME_0, textvariable=bank_branch_var,width=30)
-        bank_branch_entry.place(x=900, y=130)
+        bank_branch_entry= Entry(MAIN_FRAME_0, textvariable=bank_branch_var,width=40)
+        bank_branch_entry.place(x=1000, y=130)
 
         #
         student_email_label = Label(MAIN_FRAME_0, text="Student Email : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         student_email_label.place(x=40, y=170)
         student_email_var=StringVar()
-        student_email_entry= Entry(MAIN_FRAME_0, textvariable=student_email_var,width=87)
+        student_email_entry= Entry(MAIN_FRAME_0, textvariable=student_email_var,width=107)
         student_email_entry.place(x=150, y=170)
 
         #
         IFSC_label = Label(MAIN_FRAME_0, text="IFSC Code : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        IFSC_label.place(x=810, y=170)
+        IFSC_label.place(x=910, y=170)
         IFSC_var=StringVar()
-        IFSC_entry= Entry(MAIN_FRAME_0, textvariable=IFSC_var,width=30)
-        IFSC_entry.place(x=900, y=170)
+        IFSC_entry= Entry(MAIN_FRAME_0, textvariable=IFSC_var,width=40)
+        IFSC_entry.place(x=1000, y=170)
 
         #
         Mobile_No_label = Label(MAIN_FRAME_0, text="Mobile No. : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Mobile_No_label.place(x=60, y=210)
         Mobile_No_var=StringVar()
-        Mobile_No_entry= Entry(MAIN_FRAME_0, textvariable=Mobile_No_var,width=30)
+        Mobile_No_entry= Entry(MAIN_FRAME_0, textvariable=Mobile_No_var,width=40)
         Mobile_No_entry.place(x=150, y=210)
 
         #
         SUID_label = Label(MAIN_FRAME_0, text="SUID : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        SUID_label.place(x=435, y=210)
+        SUID_label.place(x=495, y=210)
         SUID_var=StringVar()
-        SUID_entry= Entry(MAIN_FRAME_0, textvariable=SUID_var,width=30)
-        SUID_entry.place(x=490, y=210)
+        SUID_entry= Entry(MAIN_FRAME_0, textvariable=SUID_var,width=40)
+        SUID_entry.place(x=550, y=210)
 
         #
         Adhar_no_label = Label(MAIN_FRAME_0, text="Adhar Card No : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Adhar_no_label.place(x=785, y=210)
+        Adhar_no_label.place(x=885, y=210)
         Adhar_no_var=StringVar()
-        Adhar_no_entry= Entry(MAIN_FRAME_0, textvariable=Adhar_no_var,width=30)
-        Adhar_no_entry.place(x=900, y=210)
+        Adhar_no_entry= Entry(MAIN_FRAME_0, textvariable=Adhar_no_var,width=40)
+        Adhar_no_entry.place(x=1000, y=210)
 
 
 
-        present_address_frame = LabelFrame(MAIN_FRAME_0, bg="lightblue", text="Present Address", width=980, height=220,relief=RIDGE)
-        present_address_frame.place(x=10, y=235)
+        present_address_frame = LabelFrame(MAIN_FRAME_0, bg="lightblue", text="Present Address", width=1280, height=240,relief=RIDGE)
+        present_address_frame.place(x=10, y=300)
 
         #
         Address_label = Label(present_address_frame, text="Address : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Address_label.place(x=70, y=10)
         Address_var=StringVar()
-        Address_entry1= Entry(present_address_frame, textvariable=Address_var, width=87)
+        Address_entry1= Entry(present_address_frame, textvariable=Address_var, width=107)
         Address_entry1.place(x=140, y=10)
-        Address_entry2= Entry(present_address_frame, textvariable=Address_var, width=87)
+        Address_entry2= Entry(present_address_frame, textvariable=Address_var, width=107)
         Address_entry2.place(x=140, y=50)
 
         #
         Area_label = Label(present_address_frame, text="Area : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Area_label.place(x=90, y=90)
         Area_var=StringVar()
-        Area_entry= Entry(present_address_frame, textvariable=Area_var,width=30)
+        Area_entry= Entry(present_address_frame, textvariable=Area_var,width=40)
         Area_entry.place(x=140, y=90)
 
         #
         City_label = Label(present_address_frame, text="City : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        City_label.place(x=433, y=90)
+        City_label.place(x=493, y=90)
         City_var=StringVar()
-        City_entry= Entry(present_address_frame, textvariable=City_var,width=30)
-        City_entry.place(x=480, y=90)
+        City_entry= Entry(present_address_frame, textvariable=City_var,width=40)
+        City_entry.place(x=540, y=90)
 
         #
         District_label = Label(present_address_frame, text="District : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         District_label.place(x=78, y=130)
         District_var=StringVar()
-        District_entry= Entry(present_address_frame, textvariable=District_var,width=30)
+        District_entry= Entry(present_address_frame, textvariable=District_var,width=40)
         District_entry.place(x=140, y=130)
 
 
         Pincode_label = Label(present_address_frame, text="Pincode : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Pincode_label.place(x=405, y=130)
+        Pincode_label.place(x=465, y=130)
         Pincode_var=StringVar()
-        Pincode_entry= Entry(present_address_frame, textvariable=Pincode_var,width=30)
-        Pincode_entry.place(x=480, y=130)
+        Pincode_entry= Entry(present_address_frame, textvariable=Pincode_var,width=40)
+        Pincode_entry.place(x=540, y=130)
 
 
         Phone_label = Label(present_address_frame, text="Phone No : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Phone_label.place(x=60, y=170)
         Phone_var=StringVar()
-        Phone_entry= Entry(present_address_frame, textvariable=Phone_var,width=30)
+        Phone_entry= Entry(present_address_frame, textvariable=Phone_var,width=40)
         Phone_entry.place(x=140, y=170)
 
         def others_details1():
@@ -694,7 +673,7 @@ def GR_FUNCTION():
             gr_details()
 
         save_next_button = Button(MAIN_FRAME_0,text="SAVE",font=("Arial",20),command=others_details1)
-        save_next_button.place(x=1050,y=370)
+        save_next_button.place(x=1100,y=470)
 
     def gr_details1():
         for widget in MAIN_FRAME_0.winfo_children():
@@ -706,15 +685,15 @@ def GR_FUNCTION():
 
         MAIN_FRAME_0.configure(bg="lightblue")
 
-        photo_frame = Frame(MAIN_FRAME_0,height=125,width=125,borderwidth=4,relief=RIDGE)
+        photo_frame = Frame(MAIN_FRAME_0,height=155,width=155,borderwidth=4,relief=RIDGE)
         photo_frame.place(x=30,y=20)
         
-        details_frame=Frame(MAIN_FRAME_0,height=150,width=920,bg="lightblue",borderwidth=4,relief=RIDGE)
-        details_frame.place(x=170,y=20)
+        details_frame=Frame(MAIN_FRAME_0,height=150,width=1000,bg="lightblue",borderwidth=4,relief=RIDGE)
+        details_frame.place(x=220,y=20)
 
         
-        general_details_frame=Frame(MAIN_FRAME_0,height=280,width=820,bg="lightblue",borderwidth=4,relief=RIDGE)
-        general_details_frame.place(x=170,y=175)
+        general_details_frame=Frame(MAIN_FRAME_0,height=360,width=800,bg="lightblue",borderwidth=4,relief=RIDGE)
+        general_details_frame.place(x=220,y=175)
 
         gr_lbl=Label(details_frame,text="GR no :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         gr_lbl.place(x=23,y=20)
@@ -731,35 +710,33 @@ def GR_FUNCTION():
         edit_gr_details = data[0][0]
 
         
+
         form_no_lbl=Label(details_frame,text="Form No :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         form_no_lbl.place(x=240,y=20)
         form_no_var=IntVar()
         form_no_ent=Entry(details_frame,textvariable=form_no_var)
-        form_no_ent.place(x=316,y=25)  
         form_no_ent.delete(0,END)
+        form_no_ent.place(x=316,y=25)
         form_no_ent.insert(0,data[0][1])          
  
         enquiry_no_lbl=Label(details_frame,text="Enquiry No :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         enquiry_no_lbl.place(x=470,y=20)
         enquiry_no_var=IntVar()
         enquiry_no_ent=Entry(details_frame,textvariable=enquiry_no_var)
-        enquiry_no_ent.place(x=559,y=25) 
         enquiry_no_ent.delete(0,END)
+        enquiry_no_ent.place(x=559,y=25) 
         enquiry_no_ent.insert(0,data[0][2])
-
 
         uid_lbl=Label(details_frame,text="UID :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         uid_lbl.place(x=720,y=20)
         uid_var=IntVar()
         uid_ent=Entry(details_frame,textvariable=uid_var)
-        uid_ent.place(x=771,y=25)
         uid_ent.delete(0,END)
+        uid_ent.place(x=771,y=25) 
         uid_ent.insert(0,data[0][3])
-
 
         name1_lbl=Label(details_frame,text="Name :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         name1_lbl.place(x=25,y=100)
-
 
         surname_lbl=Label(details_frame,text="Surname:",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         surname_lbl.place(x=114,y=68)
@@ -768,8 +745,6 @@ def GR_FUNCTION():
         surname_ent.place(x=84,y=105)
         surname_ent.delete
         surname_ent.insert(0,data[0][4])
-
-      
 
         name_lbl=Label(details_frame,text="Name:",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         name_lbl.place(x=350,y=68)
@@ -797,95 +772,94 @@ def GR_FUNCTION():
 
 
         sex_lbl=Label(general_details_frame,text="Sex :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        sex_lbl.place(x=50,y=20)
+        sex_lbl.place(x=50,y=40)
         sex_var= StringVar()
-        sex_combo = Entry(general_details_frame,width=20,textvariable= sex_var)
-        # sex_combo['values'] = ('Male','Female')
-        sex_combo.place(x=100,y=25)
+        sex_combo = ttk.Combobox(general_details_frame,width=20,textvariable= sex_var)
+        sex_combo['values'] = ('Male','Female')
+        sex_combo.place(x=100,y=45)
         sex_combo.delete(0,END)
         sex_combo.insert(0,data[0][8])
 
         birth_date_lbl=Label(general_details_frame,text="Birth Date :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        birth_date_lbl.place(x=280,y=20)
+        birth_date_lbl.place(x=280,y=40)
         birth_date_ent=DateEntry(general_details_frame,selectmode="day",date_pattern="dd-mm-y",width=17)
-        birth_date_ent.place(x=370,y=25)
+        birth_date_ent.place(x=370,y=45)
         birth_date_ent.delete(0,END)
         birth_date_ent.insert(0,data[0][9])
 
         category_lbl=Label(general_details_frame,text="Category :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        category_lbl.place(x=575,y=20)
+        category_lbl.place(x=575,y=40)
         category_var=StringVar()
-        category_combo = Entry(general_details_frame,width=17,textvariable = category_var)
-        # category_combo['values'] = ('SEBC','ST','GEN','SC')
-        category_combo.place(x=655,y=25)
+        category_combo = ttk.Combobox(general_details_frame,width=17,textvariable = category_var)
+        category_combo['values'] = ('SEBC','ST','GEN','SC')
+        category_combo.place(x=655,y=45)
         category_combo.delete(0,END)
         category_combo.insert(0,data[0][10])
 
         religion_lbl=Label(general_details_frame,text="Religion :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        religion_lbl.place(x=24,y=65)
+        religion_lbl.place(x=24,y=105)
         religion_var=StringVar()
-        religion_combo = Entry(general_details_frame,width=20,textvariable = religion_var)
-        # religion_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
-        religion_combo.place(x=100,y=70)
+        religion_combo = ttk.Combobox(general_details_frame,width=20,textvariable = religion_var)
+        religion_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
+        religion_combo.place(x=100,y=110)
         religion_combo.delete(0,END)
         religion_combo.insert(0,data[0][11])
 
         
         birth_place_lbl=Label(general_details_frame,text="Birth Place :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        birth_place_lbl.place(x=274,y=65)
+        birth_place_lbl.place(x=274,y=105)
         birth_place_var=StringVar()
         birth_place_ent=Entry(general_details_frame,text=birth_place_var)
-        birth_place_ent.place(x=370,y=70)
+        birth_place_ent.place(x=370,y=110)
         birth_place_ent.delete(0,END)
         birth_place_ent.insert(0,data[0][12])
 
         previous_school_lbl=Label(general_details_frame,text="Previous School :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        previous_school_lbl.place(x=530,y=65)
+        previous_school_lbl.place(x=530,y=105)
         previous_school_var=StringVar()
         previous_school_ent=Entry(general_details_frame,text=previous_school_var)
-        previous_school_ent.place(x=655,y=70)
+        previous_school_ent.place(x=655,y=110)
         previous_school_ent.delete(0,END)
         previous_school_ent.insert(0,data[0][13])
 
         caste_lbl=Label(general_details_frame,text="Caste :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        caste_lbl.place(x=42,y=110)
+        caste_lbl.place(x=42,y=170)
         caste_var=StringVar()
-        caste_combo = Entry(general_details_frame,textvariable = caste_var)
-        caste_combo.place(x=100,y=115)
+        caste_combo = ttk.Combobox(general_details_frame,textvariable = caste_var)
+        caste_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
+        caste_combo.place(x=100,y=175)
         caste_combo.delete(0,END)
         caste_combo.insert(0,data[0][14])
-        print(data[0][14])
 
         
         birth_taluka_lbl=Label(general_details_frame,text="Birth Taluka :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        birth_taluka_lbl.place(x=268,y=110)
+        birth_taluka_lbl.place(x=268,y=170)
         birth_taluka_var=StringVar()
         birth_taluka_ent=Entry(general_details_frame,text=birth_taluka_var)
-        birth_taluka_ent.place(x=370,y=115)
+        birth_taluka_ent.place(x=370,y=175)
         birth_taluka_ent.delete(0,END)
         birth_taluka_ent.insert(0,data[0][15])
 
         subcaste_lbl=Label(general_details_frame,text="Subcaste :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        subcaste_lbl.place(x=21,y=160)
+        subcaste_lbl.place(x=21,y=240)
         subcaste_var=StringVar()
-        subcaste_combo = Entry(general_details_frame,width=20,textvariable = subcaste_var)
-        # subcaste_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
-        subcaste_combo.place(x=100,y=165)
+        subcaste_combo = ttk.Combobox(general_details_frame,width=20,textvariable = subcaste_var)
+        subcaste_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
+        subcaste_combo.place(x=100,y=245)
         subcaste_combo.delete(0,END)
         subcaste_combo.insert(0,data[0][16])
 
         state_lbl=Label(general_details_frame,text="State :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        state_lbl.place(x=310,y=160)
+        state_lbl.place(x=310,y=240)
         state_var=StringVar()
         state_ent=Entry(general_details_frame,text=state_var)
-        state_ent.place(x=370,y=165)
+        state_ent.place(x=370,y=245)
         state_ent.delete(0,END)
         state_ent.insert(0,data[0][17])
 
         minorityvalue=IntVar()
         minority_check=Checkbutton(general_details_frame,text="Minority",onvalue=1,offvalue=0,bg="lightblue",activebackground="black")
-        minority_check.place(x=100,y=225)
-
+        minority_check.place(x=100,y=315)
         if (data[0][18]==0):
             minority_check.deselect()
         else:
@@ -893,7 +867,7 @@ def GR_FUNCTION():
 
         rtevalue=IntVar()
         rte_check=Checkbutton(general_details_frame,text="RTE",variable=rtevalue,onvalue=1,offvalue=0,bg="lightblue",activebackground="black")
-        rte_check.place(x=250,y=225)
+        rte_check.place(x=250,y=315)
         if(data[0][19] == 0):
             rte_check.deselect()
         else:
@@ -992,15 +966,15 @@ def GR_FUNCTION():
 
 
 
-        academic_frame1=Frame(MAIN_FRAME_0,height=461,width=560,bg="lightblue",borderwidth=4,relief=RIDGE)
+        academic_frame1=Frame(MAIN_FRAME_0,height=541,width=645,bg="lightblue",borderwidth=4,relief=RIDGE)
         academic_frame1.place(x=0,y=0)
 
         #
         Gr_label = Label(academic_frame1, text="GR NO : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Gr_label.place(x=90, y=40)
+        Gr_label.place(x=90, y=10)
         Gr_var=StringVar()
         Gr_entry= Entry(academic_frame1, textvariable=Gr_var, width=20)
-        Gr_entry.place(x=150, y=40)
+        Gr_entry.place(x=150, y=10)
         Gr_entry.delete(0,END)
         Gr_entry.insert(0,edit_gr_details)
         cur.execute("select * from academic_detail where gr_no=%s",[edit_gr_details])
@@ -1009,16 +983,16 @@ def GR_FUNCTION():
 
         #
         Name_label = Label(academic_frame1, text="Name : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Name_label.place(x=310, y=40)
+        Name_label.place(x=310, y=10)
         Name_var=StringVar()
         Name_entry=Entry(academic_frame1, textvariable=Name_var, width=20)
-        Name_entry.place(x=370,y=40)
+        Name_entry.place(x=370,y=10)
         Name_entry.delete(0,END)
         Name_entry.insert(0,data[0][1])
   
         activevalue=IntVar()
         active_check=Checkbutton(academic_frame1,text="Active",variable=activevalue,offvalue=0,onvalue=1,activebackground="lightblue",font=("Arieal",10,"bold"),bg="lightblue")
-        active_check.place(x=75,y=80)
+        active_check.place(x=75,y=50)
         if(data[0][2] == 1):
             active_check.select()
         else:
@@ -1026,7 +1000,7 @@ def GR_FUNCTION():
 
         leftvalue=IntVar()
         left_check=Checkbutton(academic_frame1,text="Left",variable=leftvalue,offvalue=0,onvalue=1,activebackground="lightblue",font=("Arieal",10,"bold"),bg="lightblue")
-        left_check.place(x=200,y=80)
+        left_check.place(x=200,y=50)
         if(data[0][3] == 1):
             left_check.select()
         else:
@@ -1034,16 +1008,16 @@ def GR_FUNCTION():
 
         aaivalue=IntVar()
         aai_check=Checkbutton(academic_frame1,text="AAI",variable=aaivalue,offvalue=0,onvalue=1,activebackground="lightblue",font=("Arieal",10,"bold"),bg="lightblue")
-        aai_check.place(x=325,y=80)
+        aai_check.place(x=325,y=50)
         if(data[0][4] == 1):
             aai_check.select()
         else:
             aai_check.deselect()
         #
         in_active_date_lbl=Label(academic_frame1,text="InActive Date :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        in_active_date_lbl.place(x=50,y=120)
+        in_active_date_lbl.place(x=50,y=100)
         in_active_date_ent=DateEntry(academic_frame1,selectmode="day",date_pattern="dd-mm-y")
-        in_active_date_ent.place(x=160,y=125)
+        in_active_date_ent.place(x=160,y=105)
         in_active_date_ent.delete(0,END)
         in_active_date_ent.insert(0,data[0][5])
  
@@ -1069,11 +1043,11 @@ def GR_FUNCTION():
         addmission_year_ent.delete(0,END)
         addmission_year_ent.insert(0,data[0][7])
         addmission_standard_var=StringVar()
-        addmission_standard_ent=Entry(academic_frame1,textvariable=addmission_standard_var,width=10)
-        # addmission_standard_ent['values']=['NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI']
+        addmission_standard_ent=ttk.Combobox(academic_frame1,textvariable=addmission_standard_var,width=10)
+        addmission_standard_ent['values']=['NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI']
         addmission_standard_ent.place(x=370,y=205) 
         addmission_standard_ent.delete(0,END)
-        addmission_standard_ent.insert(0,data[0][8])
+        addmission_standard_ent.set(data[0][8])
 
         current_lbl=Label(academic_frame1,text="Current :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
         current_lbl.place(x=75,y=240)
@@ -1087,40 +1061,39 @@ def GR_FUNCTION():
         current_year_ent.delete(0,END)
         current_year_ent.insert(0,data[0][10])
         current_standard_var=StringVar()
-        current_standard_ent=Entry(academic_frame1,textvariable=current_standard_var,width=10)
-        # current_standard_ent['values']=['NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI']
+        current_standard_ent=ttk.Combobox(academic_frame1,textvariable=current_standard_var,width=10)
+        current_standard_ent['values']=['NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI']
         current_standard_ent.place(x=370,y=245) 
         current_standard_ent.delete(0,END)
-        current_standard_ent.insert(0,data[0][11])
+        current_standard_ent.set(data[0][11])
 
         division_lbl=Label(academic_frame1,text="Division :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        division_lbl.place(x=75,y=310)
+        division_lbl.place(x=75,y=340)
         division_var=StringVar()
-        division_ent=Entry(academic_frame1,textvariable=division_var,width=8)
-        # division_ent['values']=['A','B','C','D','E']
-        division_ent.place(x=150,y=315)
+        division_ent=ttk.Combobox(academic_frame1,textvariable=division_var,width=8)
+        division_ent['values']=['A','B','C','D','E']
+        division_ent.place(x=150,y=345)
         division_ent.delete(0,END)
-        division_ent.insert(0,data[0][12])
+        division_ent.set(data[0][12])
 
         roll_no_lbl=Label(academic_frame1,text="Roll No :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        roll_no_lbl.place(x=250,y=310)
+        roll_no_lbl.place(x=250,y=340)
         roll_no_var=IntVar()
         roll_no_ent=Entry(academic_frame1 ,textvariable=roll_no_var,width=10)
-        roll_no_ent.place(x=320,y=315)
+        roll_no_ent.place(x=320,y=345)
         roll_no_ent.delete(0,END)
         roll_no_ent.insert(0,data[0][13])
 
         inactive_reason_lbl=Label(academic_frame1,text="InActive Reason :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        inactive_reason_lbl.place(x=22,y=360)
+        inactive_reason_lbl.place(x=22,y=400)
         inactive_reason_var=StringVar()
         inactive_reason_ent=Entry(academic_frame1,textvariable=inactive_reason_var,width=35)
-        inactive_reason_ent.place(x=150,y=365)
+        inactive_reason_ent.place(x=150,y=405)
         inactive_reason_ent.delete(0,END)
         inactive_reason_ent.insert(0,data[0][14])
 
-        academic_frame2=Frame(MAIN_FRAME_0,height=461,width=560,bg="lightblue",borderwidth=4,relief=RIDGE)
-        academic_frame2.place(x=561,y=0)
-
+        academic_frame2=Frame(MAIN_FRAME_0,height=541,width=645,bg="lightblue",borderwidth=4,relief=RIDGE)
+        academic_frame2.place(x=646,y=0)
         left_reason_lbl=Label(academic_frame2,text="Left Reason :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
         left_reason_lbl.place(x=50,y=50)
         left_reason_var=StringVar()
@@ -1224,7 +1197,7 @@ def GR_FUNCTION():
             mydb.commit()
             other_details1()
         save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=academic_details_save)
-        save_next_button.place(x=1050,y=370)
+        save_next_button.place(x=1100,y=470)
 
 
 
@@ -1240,7 +1213,7 @@ def GR_FUNCTION():
         Gr_label = Label(MAIN_FRAME_0, text="GR NO : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Gr_label.place(x=90, y=10)
         Gr_var=StringVar()
-        Gr_entry= Entry(MAIN_FRAME_0, textvariable=Gr_var, width=30)
+        Gr_entry= Entry(MAIN_FRAME_0, textvariable=Gr_var, width=40)
         Gr_entry.place(x=150, y=10)
         Gr_entry.delete(0,END)
         Gr_entry.insert(0,edit_gr_details)
@@ -1249,19 +1222,19 @@ def GR_FUNCTION():
         
         #
         Name_label = Label(MAIN_FRAME_0, text="Name : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Name_label.place(x=430, y=10)
+        Name_label.place(x=490, y=10)
         Name_var=StringVar()
-        Name_entry=Entry(MAIN_FRAME_0, textvariable=Name_var, width=30)
-        Name_entry.place(x=490,y=10)
+        Name_entry=Entry(MAIN_FRAME_0, textvariable=Name_var, width=40)
+        Name_entry.place(x=550,y=10)
         Name_entry.delete(0,END)
         Name_entry.insert(0,data[0][1])
 
         #
         Bank_holder=Label(MAIN_FRAME_0, text="Bank Acc. Holder : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Bank_holder.place(x=770,y=10)
+        Bank_holder.place(x=870,y=10)
         Bank_holder_var=StringVar()
-        Bank_holder_entry = Entry(MAIN_FRAME_0, textvariable=Bank_holder_var, width=30)
-        Bank_holder_entry.place(x=900, y=10)
+        Bank_holder_entry = Entry(MAIN_FRAME_0, textvariable=Bank_holder_var, width=40)
+        Bank_holder_entry.place(x=1000, y=10)
         Bank_holder_entry.delete(0,END)
         Bank_holder_entry.insert(0,data[0][2])
 
@@ -1269,26 +1242,26 @@ def GR_FUNCTION():
         Scholarship_label = Label(MAIN_FRAME_0, text="Scholarship Category : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Scholarship_label.place(x=0, y=50)
         Scholarship_var=StringVar()
-        Scholarship_entry = Entry(MAIN_FRAME_0, textvariable=Scholarship_var, width=30)
+        Scholarship_entry = Entry(MAIN_FRAME_0, textvariable=Scholarship_var, width=40)
         Scholarship_entry.place(x=150, y=50)
         Scholarship_entry.delete(0,END)
         Scholarship_entry.insert(0,data[0][3])
 
         #
         Transport_label = Label(MAIN_FRAME_0, text="Transport : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue" )
-        Transport_label.place(x=410, y=50)
+        Transport_label.place(x=470, y=50)
         Transport_var=StringVar()
-        Transport_entry=Entry(MAIN_FRAME_0, textvariable=Transport_var, width=30)
-        Transport_entry.place(x=490, y=50)
+        Transport_entry=Entry(MAIN_FRAME_0, textvariable=Transport_var, width=40)
+        Transport_entry.place(x=550, y=50)
         Transport_entry.delete(0,END)
         Transport_entry.insert(0,data[0][4])
 
         #
         bnk_name_label = Label(MAIN_FRAME_0, text="Bank Name : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        bnk_name_label.place(x=805, y=50)
+        bnk_name_label.place(x=905, y=50)
         bnk_name_var=StringVar()
-        bnk_name_entry=Entry(MAIN_FRAME_0, textvariable=bnk_name_label, width=30)
-        bnk_name_entry.place(x=900,y=50)
+        bnk_name_entry=Entry(MAIN_FRAME_0, textvariable=bnk_name_label, width=40)
+        bnk_name_entry.place(x=1000,y=50)
         bnk_name_entry.delete(0,END)
         bnk_name_entry.insert(0,data[0][5])
 
@@ -1296,26 +1269,26 @@ def GR_FUNCTION():
         preschool_label=Label(MAIN_FRAME_0,text='PreSchool Type : ',font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         preschool_label.place(x=30, y=90)
         preschool_var=StringVar()
-        preschool_entry=Entry(MAIN_FRAME_0, textvariable=preschool_var, width=30)
+        preschool_entry=Entry(MAIN_FRAME_0, textvariable=preschool_var, width=40)
         preschool_entry.place(x=150, y=90)
         preschool_entry.delete(0,END)
         preschool_entry.insert(0,data[0][6])
 
         #
         blood_label = Label(MAIN_FRAME_0, text="Blood Group : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        blood_label.place(x=390, y=90)
+        blood_label.place(x=450, y=90)
         blood_var=StringVar()
-        blood_entry= Entry(MAIN_FRAME_0, textvariable=blood_var,width=30)
-        blood_entry.place(x=490, y=90)
+        blood_entry= Entry(MAIN_FRAME_0, textvariable=blood_var,width=40)
+        blood_entry.place(x=550, y=90)
         blood_entry.delete(0,END)
         blood_entry.insert(0,data[0][7])
 
         #
         bank_acc_no_label = Label(MAIN_FRAME_0, text="Bank Account No : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        bank_acc_no_label.place(x=770, y=90)
+        bank_acc_no_label.place(x=870, y=90)
         bank_ac_no_var=StringVar()
-        bank_ac_no_entry = Entry(MAIN_FRAME_0, textvariable=bank_ac_no_var,width=30)
-        bank_ac_no_entry.place(x=900, y=90)
+        bank_ac_no_entry = Entry(MAIN_FRAME_0, textvariable=bank_ac_no_var,width=40)
+        bank_ac_no_entry.place(x=1000, y=90)
         bank_ac_no_entry.delete(0,END)
         bank_ac_no_entry.insert(0,data[0][8])
 
@@ -1323,17 +1296,17 @@ def GR_FUNCTION():
         Remark_label = Label(MAIN_FRAME_0, text="Remark : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Remark_label.place(x=80, y=130)
         Remark_var=StringVar()
-        Remark_entry= Entry(MAIN_FRAME_0, textvariable=Remark_var,width=87)
+        Remark_entry= Entry(MAIN_FRAME_0, textvariable=Remark_var,width=107)
         Remark_entry.place(x=150, y=130)
         Remark_entry.delete(0,END)
         Remark_entry.insert(0,data[0][9])
 
         #
         bank_branch_label = Label(MAIN_FRAME_0, text="Bank Branch : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        bank_branch_label.place(x=800, y=130)
+        bank_branch_label.place(x=900, y=130)
         bank_branch_var=StringVar()
-        bank_branch_entry= Entry(MAIN_FRAME_0, textvariable=bank_branch_var,width=30)
-        bank_branch_entry.place(x=900, y=130)
+        bank_branch_entry= Entry(MAIN_FRAME_0, textvariable=bank_branch_var,width=40)
+        bank_branch_entry.place(x=1000, y=130)
         bank_branch_entry.delete(0,END)
         bank_branch_entry.insert(0,data[0][10])
 
@@ -1341,17 +1314,17 @@ def GR_FUNCTION():
         student_email_label = Label(MAIN_FRAME_0, text="Student Email : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         student_email_label.place(x=40, y=170)
         student_email_var=StringVar()
-        student_email_entry= Entry(MAIN_FRAME_0, textvariable=student_email_var,width=87)
+        student_email_entry= Entry(MAIN_FRAME_0, textvariable=student_email_var,width=107)
         student_email_entry.place(x=150, y=170)
         student_email_entry.delete(0,END)
         student_email_entry.insert(0,data[0][11])
 
         #
         IFSC_label = Label(MAIN_FRAME_0, text="IFSC Code : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        IFSC_label.place(x=810, y=170)
+        IFSC_label.place(x=910, y=170)
         IFSC_var=StringVar()
-        IFSC_entry= Entry(MAIN_FRAME_0, textvariable=IFSC_var,width=30)
-        IFSC_entry.place(x=900, y=170)
+        IFSC_entry= Entry(MAIN_FRAME_0, textvariable=IFSC_var,width=40)
+        IFSC_entry.place(x=1000, y=170)
         IFSC_entry.delete(0,END)
         IFSC_entry.insert(0,data[0][12])
 
@@ -1359,43 +1332,43 @@ def GR_FUNCTION():
         Mobile_No_label = Label(MAIN_FRAME_0, text="Mobile No. : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Mobile_No_label.place(x=60, y=210)
         Mobile_No_var=StringVar()
-        Mobile_No_entry= Entry(MAIN_FRAME_0, textvariable=Mobile_No_var,width=30)
+        Mobile_No_entry= Entry(MAIN_FRAME_0, textvariable=Mobile_No_var,width=40)
         Mobile_No_entry.place(x=150, y=210)
         Mobile_No_entry.delete(0,END)
         Mobile_No_entry.insert(0,data[0][13])
 
         #
         SUID_label = Label(MAIN_FRAME_0, text="SUID : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        SUID_label.place(x=435, y=210)
+        SUID_label.place(x=495, y=210)
         SUID_var=StringVar()
-        SUID_entry= Entry(MAIN_FRAME_0, textvariable=SUID_var,width=30)
-        SUID_entry.place(x=490, y=210)
+        SUID_entry= Entry(MAIN_FRAME_0, textvariable=SUID_var,width=40)
+        SUID_entry.place(x=550, y=210)
         SUID_entry.delete(0,END)
         SUID_entry.insert(0,data[0][14])
 
         #
         Adhar_no_label = Label(MAIN_FRAME_0, text="Adhar Card No : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Adhar_no_label.place(x=785, y=210)
+        Adhar_no_label.place(x=885, y=210)
         Adhar_no_var=StringVar()
-        Adhar_no_entry= Entry(MAIN_FRAME_0, textvariable=Adhar_no_var,width=30)
-        Adhar_no_entry.place(x=900, y=210)
+        Adhar_no_entry= Entry(MAIN_FRAME_0, textvariable=Adhar_no_var,width=40)
+        Adhar_no_entry.place(x=1000, y=210)
         Adhar_no_entry.delete(0,END)
         Adhar_no_entry.insert(0,data[0][15])
 
 
 
-        present_address_frame = LabelFrame(MAIN_FRAME_0, bg="lightblue", text="Present Address", width=980, height=220,relief=RIDGE)
-        present_address_frame.place(x=10, y=235)
+        present_address_frame = LabelFrame(MAIN_FRAME_0, bg="lightblue", text="Present Address", width=1280, height=240,relief=RIDGE)
+        present_address_frame.place(x=10, y=300)
 
         #
         Address_label = Label(present_address_frame, text="Address : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Address_label.place(x=70, y=10)
         Address_var=StringVar()
-        Address_entry1= Entry(present_address_frame, textvariable=Address_var, width=87)
+        Address_entry1= Entry(present_address_frame, textvariable=Address_var, width=107)
         Address_entry1.place(x=140, y=10)
         Address_entry1.delete(0,END)
         Address_entry1.insert(0,data[0][16])
-        Address_entry2= Entry(present_address_frame, textvariable=Address_var, width=87)
+        Address_entry2= Entry(present_address_frame, textvariable=Address_var, width=107)
         Address_entry2.place(x=140, y=50)
         Address_entry2.delete(0,END)
         Address_entry2.insert(0,data[0][17])
@@ -1404,17 +1377,17 @@ def GR_FUNCTION():
         Area_label = Label(present_address_frame, text="Area : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Area_label.place(x=90, y=90)
         Area_var=StringVar()
-        Area_entry= Entry(present_address_frame, textvariable=Area_var,width=30)
+        Area_entry= Entry(present_address_frame, textvariable=Area_var,width=40)
         Area_entry.place(x=140, y=90)
         Area_entry.delete(0,END)
         Area_entry.insert(0,data[0][18])
 
         #
         City_label = Label(present_address_frame, text="City : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        City_label.place(x=433, y=90)
+        City_label.place(x=493, y=90)
         City_var=StringVar()
-        City_entry= Entry(present_address_frame, textvariable=City_var,width=30)
-        City_entry.place(x=480, y=90)
+        City_entry= Entry(present_address_frame, textvariable=City_var,width=40)
+        City_entry.place(x=540, y=90)
         City_entry.delete(0,END)
         City_entry.insert(0,data[0][19])
 
@@ -1422,17 +1395,17 @@ def GR_FUNCTION():
         District_label = Label(present_address_frame, text="District : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         District_label.place(x=78, y=130)
         District_var=StringVar()
-        District_entry= Entry(present_address_frame, textvariable=District_var,width=30)
+        District_entry= Entry(present_address_frame, textvariable=District_var,width=40)
         District_entry.place(x=140, y=130)
         District_entry.delete(0,END)
         District_entry.insert(0,data[0][20])
 
 
         Pincode_label = Label(present_address_frame, text="Pincode : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Pincode_label.place(x=405, y=130)
+        Pincode_label.place(x=465, y=130)
         Pincode_var=StringVar()
-        Pincode_entry= Entry(present_address_frame, textvariable=Pincode_var,width=30)
-        Pincode_entry.place(x=480, y=130)
+        Pincode_entry= Entry(present_address_frame, textvariable=Pincode_var,width=40)
+        Pincode_entry.place(x=540, y=130)
         Pincode_entry.delete(0,END)
         Pincode_entry.insert(0,data[0][21])
 
@@ -1475,7 +1448,8 @@ def GR_FUNCTION():
             gr_details()
 
         save_next_button = Button(MAIN_FRAME_0,text="SAVE",font=("Arial",20),command=others_details1)
-        save_next_button.place(x=1050,y=370)
+        save_next_button.place(x=1100,y=470)
+        
 
     def add1():
         GR_EDIT_BTN["state"]="active"
@@ -1514,33 +1488,33 @@ def GR_FUNCTION():
             if found==False:
                 messagebox.showerror("ERROR","GR not found")
             else:
-                # try:
-                #     cur.execute("delete from gr_details where GR_NO={}".format(int(gr_deleting)))
-                # except:
-                # #     pass
+                try:
+                    cur.execute("delete from gr_details where GR_NO={}".format(int(gr_deleting)))
+                except:
+                    pass
                 try:
                     cur.execute("update academic_detail set active1=0 where GR_NO={}".format(int(gr_deleting)))
                 except:
                     pass
+                try:
+                    cur.execute("delete from other_detail where GR_NO={}".format(int(gr_deleting)))
+                except:
+                    pass
                 # try:
-                #     cur.execute("delete from other_detail where GR_NO={}".format(int(gr_deleting)))
+                #     cur.execute("delete from gr_check where GR_NO={}".format(int(gr_deleting)))
                 # except:
                 #     pass
-                try:
-                    cur.execute("delete from gr_check where GR_NO={}".format(int(gr_deleting)))
-                except:
-                    pass
-                try:
-                    cur.execute("delete from pending_fee_detail where GR_NO={}".format(int(gr_deleting)))
-                except:
-                    pass
+                # try:
+                #     cur.execute("delete from pending_fee_detail where GR_NO={}".format(int(gr_deleting)))
+                # except:
+                #     pass
                 mydb.commit()
                 messagebox.showinfo("Info","GR deleted successfully")
             Gr_entry_delete.delete(0,END)
             
 
         save_delete_button = Button(MAIN_FRAME_0,text="Delete",font=("Arial",20), command=delete_main)
-        save_delete_button.place(x=1050,y=370)
+        save_delete_button.place(x=1100,y=470)
 
 
 
@@ -1797,13 +1771,8 @@ def FEES_FUNCTION():
 
 
 
-<<<<<<< HEAD
         wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=380 ,width=270,relief=RIDGE,borderwidth=2)
         wrapper2.place(x=800,y=30)
-=======
-        wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=350 ,width=270,relief=RIDGE,borderwidth=2)
-        wrapper2.place(x=1000,y=75)
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
 
         CheckVar1 = IntVar()
@@ -1813,11 +1782,7 @@ def FEES_FUNCTION():
         CheckVar5 = IntVar()
         CheckVar6 = IntVar()
         CheckVar7 = IntVar()
-<<<<<<< HEAD
         # CheckVar8 = IntVar()
-=======
-        CheckVar8 = IntVar()
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
         
 
         C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
@@ -1827,11 +1792,7 @@ def FEES_FUNCTION():
         C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
         C6 = Checkbutton(wrapper2, text = "ADMISSION FEE", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
         C7 = Checkbutton(wrapper2, text = "ICARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-<<<<<<< HEAD
         # C8 = Checkbutton(wrapper2, text = "LATE FEE", variable = CheckVar8,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-=======
-        C8 = Checkbutton(wrapper2, text = "LATE FEE", variable = CheckVar8,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
         
         C1.place(x=0,y=0)
         C2.place(x=0,y=45)
@@ -1840,7 +1801,6 @@ def FEES_FUNCTION():
         C5.place(x=0,y=180)
         C6.place(x=0,y=225)
         C7.place(x=0,y=270)
-<<<<<<< HEAD
         # C8.place(x=0,y=315)
 
         def receipt_delete():
@@ -1853,7 +1813,7 @@ def FEES_FUNCTION():
             pass_entry.place(x=80,y=60)
             def pass_check():
                 val = pass_entry.get()
-                if(val == "anand1972"):
+                if(val == "Admin@321"):
                     abc1()
                 else:
                     messagebox.showerror("ERROR","WRONG PASSWORD")
@@ -1885,15 +1845,15 @@ def FEES_FUNCTION():
                     cur.execute("update fee_details set c4=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
                 if(CheckVar5.get() == 1):
                     cur.execute("update gr_check set c5=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                    cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(fees_data[12],FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(fees_data[12],FEES_GR_ENTRY))
                     cur.execute("update fee_details set c5=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
                 if(CheckVar6.get() == 1):
                     cur.execute("update gr_check set c6=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                    cur.execute("update pending_fee_detail set ADMISSION_FEE={} where gr_no={}".format(fees_data[1],FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set ADMISSION_FEE={} where gr_no={}".format(fees_data[1],FEES_GR_ENTRY))
                     cur.execute("update fee_details set c6=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
                 if(CheckVar7.get() == 1):
                     cur.execute("update gr_check set c7=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                    cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(fees_data[2],FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(fees_data[2],FEES_GR_ENTRY))
                     cur.execute("update fee_details set c7=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
                 # if(CheckVar8.get() == 1):
                 #     cur.execute("update gr_check set c8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
@@ -1911,7 +1871,7 @@ def FEES_FUNCTION():
 
 
     FEES_1=Button(MENU_FRAME2,text="RECEIPT DELETE",command = receipt_delete_function)
-    FEES_1.place(x=10,y=20)
+    FEES_1.place(x=20,y=20)
 
 
     def pending_paid_report():
@@ -1930,79 +1890,53 @@ def FEES_FUNCTION():
             if(RadioVar2.get() == 1):
                 file = open("pending_report.csv","w",newline="\n")
                 writer2 = csv.writer(file)
-                data_heading=['GR NO','NAME','STD','CONTACT NUMBER','APR-JUN TUTION','APR-JUN ACTIVTIY','JUL-SEP TUTION','JUL-SEP ACTIVITY','OCT-DEC TUTION','OCT-DEC ACTIVITY','JAN-MAR TUTION','JAN-MAR ACTIVITY','OTHERS','ADMISSION','ICARD']
+                data_heading=['GR NO','NAME','CLASS','FEES','APR-JUN TUTION','APR-JUN ACTIVTIY','JUL-SEP TUTION','JUL-SEP ACTIVITY','OCT-DEC TUTION','OCT-DEC ACTIVITY','JAN-MAR TUTION','JAN-MAR ACTIVITY','OTHERS','ADMISSION','ICARD']
                 writer2.writerow(data_heading)
                 cur.execute("select * from GR_CHECK order by gr_no")
                 data1 = cur.fetchall()
                 for i in data1:
-                    # print(i)
-                    cur.execute("select left1 from academic_detail where gr_no={}".format(i[0]))
-                    left_data = cur.fetchall()[0]
-                    # print(left_data)
-                    if left_data[0] == 0:
-                        data=[]
-                        cur.execute("select * from pending_fee_detail where gr_no={}".format(i[0]))
-                        data2 = cur.fetchall()[0]
-                        data.append(i[0])
-                        try:
-                            cur.execute("select name,father,surname from gr_details where gr_no={}".format(i[0]))
-                            data46 = cur.fetchall()[0]
-                            data.append(data46[0] +" "+ data46[1] +" "+ data46[2])
-                        except:
-                            data.append(' ')
-                        try:
-                            cur.execute("select curr_std,division from academic_detail where gr_no={}".format(i[0]))
-                            data49 = cur.fetchall()[0]
-                            data.append(data49[0] +"-"+ data49[1])
-                        except:
-                            data.append(' ')
-                        try:
-                            cur.execute("select phone_no from other_detail where gr_no={}".format(i[0]))
-                            data47 = cur.fetchall()[0]
-                            data.append(data47[0])
-                        except:
-                            data.append(0)
-                        # cur.execute("select gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.division from gr_details,academic_detail where gr_details.gr_no={} and gr_details.gr_no=academic_detail.gr_no".format(i[0]))
-                        # student_detail = cur.fetchall()[0]
-                        # data.append(student_detail[0]+" "+student_detail[1])
-                        # data.append(student_detail[2] + "-" + student_detail[3])anand1972anand1972
-                        if (i[1] == 0):
-                            data.append(data2[3])
-                            data.append(data2[4])
-                        else:
-                            data.append(0)
-                            data.append(0)
-                        if i[2] == 0:
-                            data.append(data2[6])
-                            data.append(data2[7])
-                        else:
-                            data.append(0)
-                            data.append(0)
-                        if i[3] == 0:
-                            data.append(data2[8])
-                            data.append(data2[9])
-                        else:
-                            data.append(0)
-                            data.append(0)
-                        if i[4] == 0:
-                            data.append(data2[10])
-                            data.append(data2[11])
-                        else:
-                            data.append(0)
-                            data.append(0)
-                        if i[5] == 0:
-                            data.append(data2[12])
-                        else:
-                            data.append(0)
-                        if i[6] == 0:
-                            data.append(data2[1])
-                        else:
-                            data.append(0)
-                        if i[7] == 0:
-                            data.append(data2[2])
-                        else:
-                            data.append(0)
-                        writer2.writerow(data)
+                    data=[]
+                    cur.execute("select * from pending_fee_detail where gr_no={}".format(i[0]))
+                    data2 = cur.fetchall()[0]
+                    data.append(i[0])
+                    if (data1[1] == 1):
+                        data.append(data2[3])
+                        data.append(data2[4])
+                    else:
+                        data.append(0)
+                        data.append(0)
+                    if data1[2] == 1:
+                        data.append(data2[6])
+                        data.append(data2[7])
+                    else:
+                        data.append(0)
+                        data.append(0)
+                    if data1[3] == 1:
+                        data.append(data2[8])
+                        data.append(data2[9])
+                    else:
+                        data.append(0)
+                        data.append(0)
+                    if data1[4] == 1:
+                        data.append(data2[10])
+                        data.append(data2[11])
+                    else:
+                        data.append(0)
+                        data.append(0)
+                    if data1[5] == 1:
+                        data.append(data2[12])
+                    else:
+                        data.append(0)
+                    if data1[6] == 1:
+                        data.append(data2[1])
+                    else:
+                        data.append(0)
+                    if data1[7] == 1:
+                        data.append(data2[2])
+                    else:
+                        data.append(0)
+                file.close()
+                    
             if(RadioVar2.get() == 2):
                 file = open("paid_report.csv","w",newline="\n")
                 writer2 = csv.writer(file)
@@ -2041,7 +1975,7 @@ def FEES_FUNCTION():
         SAVE_BTN.place(x=950,y=350)
 
     FEES_2=Button(MENU_FRAME2,text="FEES REPORT",command=pending_paid_report)
-    FEES_2.place(x=10,y=80)
+    FEES_2.place(x=20,y=80)
 
     def gr_fees_change():
         for widget in MAIN_FRAME.winfo_children():
@@ -2222,65 +2156,13 @@ def FEES_FUNCTION():
 
 
     FEES_3=Button(MENU_FRAME2,text="GR FEES CHANGE",command=gr_fees_change)
-    FEES_3.place(x=10,y=140)
+    FEES_3.place(x=20,y=140)
 
 
-=======
-        C8.place(x=0,y=315)
-
-        def receipt_delete():
-            cur.execute("select * from std_fees where std={}".format(FEES_STD_ENTRY.get()))
-            fees_data = cur.fetchall()[0]
-
-            if(CheckVar1.get() == 1):
-                cur.execute("update gr_checks set c1=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set apr_jun_tution={},APR_JUN_ATITVITY={} where gr_no={}".format(fees_data[3],fees_data[4],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c1=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar2.get() == 1):
-                cur.execute("update gr_checks set c2=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set JUL_SEP_TUTION={},JUL_SEP_ACTIVITY={} where gr_no={}".format(fees_data[6],fees_data[7],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c2=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar3.get() == 1):
-                cur.execute("update gr_checks set c3=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set OCT_DEC_TUTION={},OCT_DEC_ACTIVITY={} where gr_no={}".format(fees_data[8],fees_data[9],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c3=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar4.get() == 1):
-                cur.execute("update gr_checks set c4=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set JAN_MAR_TUTION={},JAN_MAR_ACTIVITY={} where gr_no={}".format(fees_data[10],fees_data[11],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c4=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar5.get() == 1):
-                cur.execute("update gr_checks set c5=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(fees_data[12],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c5=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar6.get() == 1):
-                cur.execute("update gr_checks set c6=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set ADMISSION_FEE={} where gr_no={}".format(fees_data[1],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c6=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar7.get() == 1):
-                cur.execute("update gr_checks set c7=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(fees_data[2],FEES_GR_ENTRY))
-                cur.execute("update fee_details set c7=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            if(CheckVar8.get() == 1):
-                cur.execute("update gr_checks set c8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set LATE_FEES={} where gr_no={}".format(0,FEES_GR_ENTRY))
-                cur.execute("update fee_details set c8=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
-            cur.execute("delete from tran_details where receipt_no={}".format(FEES_RECEIPTNO_ENTRY1.get()))
-            cur.execute("delete from fee_tran where receipt_no={}".format(FEES_RECEIPTNO_ENTRY1.get()))
-        delete_button=Button(MAIN_FRAME,text="DELETE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=receipt_delete)
-        delete_button.place(x=1050,y=500)
-
-
-
-    FEES_1=Button(MENU_FRAME2,text="FEES DELETE",command = receipt_delete_function)
-    FEES_1.place(x=20,y=20)
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
-
-    # FEES_1=Button(MENU_FRAME2,text="DELETE")
-    # FEES_1.place(x=20,y=20)
 
 
     wrapper1=Frame(MAIN_FRAME,height=250,width=620)
-    wrapper1.place(x=50,y=140)
+    wrapper1.place(x=50,y=170)
     style = ttk.Style()
     style.theme_use('clam')
     trv=ttk.Treeview(wrapper1,columns=(1,2,3,4),show="headings",height="8")
@@ -2305,7 +2187,7 @@ def FEES_FUNCTION():
 
 
     wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=320,width=250,relief=RIDGE,borderwidth=2)
-    wrapper2.place(x=890,y=30)
+    wrapper2.place(x=1000,y=60)
 
 
     CheckVar1 = IntVar()
@@ -2315,9 +2197,7 @@ def FEES_FUNCTION():
     CheckVar5 = IntVar()
     CheckVar6 = IntVar()
     CheckVar7 = IntVar()
-    CheckVar8 = IntVar()
 
-<<<<<<< HEAD
     C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
     C2 = Checkbutton(wrapper2, text = "JUL SEP FEES", variable = CheckVar2,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
     C3 = Checkbutton(wrapper2, text = "OCT DEC FEES", variable = CheckVar3,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
@@ -2327,31 +2207,12 @@ def FEES_FUNCTION():
     C7 = Checkbutton(wrapper2, text = "ICARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
 
     C1.place(x=0,y=0)
-    C2.place(x=0,y=40)
-    C3.place(x=0,y=80)
-    C4.place(x=0,y=120)
-    C5.place(x=0,y=160)
-    C6.place(x=0,y=200)
-    C7.place(x=0,y=240)
-=======
-    C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C2 = Checkbutton(wrapper2, text = "JUL SEP FEES", variable = CheckVar2,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C3 = Checkbutton(wrapper2, text = "OCT DEC FEES", variable = CheckVar3,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C4 = Checkbutton(wrapper2, text = "JAN MAR FEES", variable = CheckVar4,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C6 = Checkbutton(wrapper2, text = "ADMISSION", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C7 = Checkbutton(wrapper2, text = "ICARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    # C8 = Checkbutton(wrapper2,text = "LATE FEES",variable = CheckVar8,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-
-    C1.place(x=0,y=0)
     C2.place(x=0,y=45)
     C3.place(x=0,y=90)
     C4.place(x=0,y=135)
     C5.place(x=0,y=180)
     C6.place(x=0,y=225)
     C7.place(x=0,y=270)
-    # C8.place(x=0,y=315)
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
     
 
 
@@ -2477,8 +2338,9 @@ def FEES_FUNCTION():
 
         
 
-    SEARCH_BTN=Button(MAIN_FRAME,text="SEARCH",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 10),command=fees_search)
-    SEARCH_BTN.place(x=1000,y=370)
+    SEARCH_BTN=Button(MAIN_FRAME,text="SEARCH",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=fees_search)
+    SEARCH_BTN.place(x=1100,y=420)
+
 
     
 
@@ -2488,112 +2350,111 @@ def FEES_FUNCTION():
 
 
 
-    FEES_DEPT_LABEL=Label(MAIN_FRAME,text="DEPT : ",font=('Arial', 8),bg="lightpink")
+    FEES_DEPT_LABEL=Label(MAIN_FRAME,text="DEPT : ",font=('Arial', 10),bg="lightpink")
     FEES_DEPT_LABEL.place(x=50,y=10)
-    FEES_DEPT_ENTRY=Entry(MAIN_FRAME,width=17)
-    FEES_DEPT_ENTRY.place(x=100,y=10)
+    FEES_DEPT_ENTRY=Entry(MAIN_FRAME,width=20)
+    FEES_DEPT_ENTRY.place(x=110,y=10)
     FEES_DEPT_ENTRY.delete(0,END)
     FEES_DEPT_ENTRY.insert(0,"CBSE")
 
-    FEES_GR_LABEL=Label(MAIN_FRAME,text="GR : ",font=('Arial', 8),bg="lightpink")
+    FEES_GR_LABEL=Label(MAIN_FRAME,text="GR : ",font=('Arial', 10),bg="lightpink")
     FEES_GR_LABEL.place(x=250,y=10)
-    FEES_GR_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 8))
-    FEES_GR_ENTRY.place(x=285,y=10)
-    FEES_GR_ENTRY.bind('<F3>',fees_search)
+    FEES_GR_ENTRY=Entry(MAIN_FRAME,width=20,font=('Arial', 10))
+    FEES_GR_ENTRY.place(x=295,y=10)
 
     
 
-    FEES_DATE_LABEL=Label(MAIN_FRAME,text="DATE : ",font=('Arial', 8),bg="lightpink")
-    FEES_DATE_LABEL.place(x=450,y=10)
-    FEES_DATE_ENTRY=DateEntry(MAIN_FRAME,selectmode="day",date_pattern="dd-mm-y",width=15,font=('Arial', 10))
-    FEES_DATE_ENTRY.place(x=500,y=10)
+    FEES_DATE_LABEL=Label(MAIN_FRAME,text="DATE : ",font=('Arial', 10),bg="lightpink")
+    FEES_DATE_LABEL.place(x=460,y=10)
+    FEES_DATE_ENTRY=DateEntry(MAIN_FRAME,selectmode="day",date_pattern="dd-mm-y",width=17,font=('Arial', 10))
+    FEES_DATE_ENTRY.place(x=520,y=10)
 
 
-    FEES_RECEIPTNO_LABEL=Label(MAIN_FRAME,text="RECEIPT NO. : ",font=('Arial', 8),bg="lightpink")
-    FEES_RECEIPTNO_LABEL.place(x=670,y=10)
-    FEES_RECEIPTNO_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 8))
-    FEES_RECEIPTNO_ENTRY.place(x=770,y=10)
+    FEES_RECEIPTNO_LABEL=Label(MAIN_FRAME,text="RECEIPT NO. : ",font=('Arial', 10),bg="lightpink")
+    FEES_RECEIPTNO_LABEL.place(x=680,y=10)
+    FEES_RECEIPTNO_ENTRY=Entry(MAIN_FRAME,width=20,font=('Arial', 10))
+    FEES_RECEIPTNO_ENTRY.place(x=790,y=10)
     cur.execute("select * from fee_tran")
     data = cur.fetchall()
     FEES_RECEIPTNO_ENTRY.delete(0,END)
     FEES_RECEIPTNO_ENTRY.insert(0,data[-1][0]+1)
 
 
-    FEES_NAME_LABEL=Label(MAIN_FRAME,text="NAME : ",font=('Arial', 8),bg="lightpink")
-    FEES_NAME_LABEL.place(x=50,y=45)
-    FEES_NAME_ENTRY=Entry(MAIN_FRAME,width=48)
-    FEES_NAME_ENTRY.place(x=100,y=45)
+    FEES_NAME_LABEL=Label(MAIN_FRAME,text="NAME : ",font=('Arial', 10),bg="lightpink")
+    FEES_NAME_LABEL.place(x=50,y=50)
+    FEES_NAME_ENTRY=Entry(MAIN_FRAME,width=54)
+    FEES_NAME_ENTRY.place(x=110,y=50)
 
 
-    FEES_RECEIPTBOOK_LABEL=Label(MAIN_FRAME,text="RECEIPT BOOK : ",font=('Arial', 8),bg="lightpink")
-    FEES_RECEIPTBOOK_LABEL.place(x=670,y=45)
-    FEES_RECEIPTBOOK_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 8))
-    FEES_RECEIPTBOOK_ENTRY.place(x=770,y=45)
+    FEES_RECEIPTBOOK_LABEL=Label(MAIN_FRAME,text="RECEIPT BOOK : ",font=('Arial', 10),bg="lightpink")
+    FEES_RECEIPTBOOK_LABEL.place(x=680,y=50)
+    FEES_RECEIPTBOOK_ENTRY=Entry(MAIN_FRAME,width=20,font=('Arial', 10))
+    FEES_RECEIPTBOOK_ENTRY.place(x=790,y=50)
     FEES_RECEIPTBOOK_ENTRY.delete(0,END)
     FEES_RECEIPTBOOK_ENTRY.insert(0,"ARPT")
 
 
-    FEES_STD_LABEL=Label(MAIN_FRAME,text="STD : ",font=('Arial', 8),bg="lightpink")
-    FEES_STD_LABEL.place(x=50,y=85)
-    FEES_STD_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 8))
-    FEES_STD_ENTRY.place(x=100,y=85)
+    FEES_STD_LABEL=Label(MAIN_FRAME,text="STD : ",font=('Arial', 10),bg="lightpink")
+    FEES_STD_LABEL.place(x=50,y=90)
+    FEES_STD_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 10))
+    FEES_STD_ENTRY.place(x=110,y=90)
 
 
-    FEES_DIV_LABEL=Label(MAIN_FRAME,text="DIV : ",font=('Arial', 8),bg="lightpink")
-    FEES_DIV_LABEL.place(x=250,y=85)
-    FEES_DIV_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 8))
-    FEES_DIV_ENTRY.place(x=285,y=85)
+    FEES_DIV_LABEL=Label(MAIN_FRAME,text="DIV : ",font=('Arial', 10),bg="lightpink")
+    FEES_DIV_LABEL.place(x=250,y=90)
+    FEES_DIV_ENTRY=Entry(MAIN_FRAME,width=20,font=('Arial', 10))
+    FEES_DIV_ENTRY.place(x=295,y=90)
 
 
 
-    FEES_TOTALAMOUNT_LABEL=Label(MAIN_FRAME,text="TOTAL : ",font=('Arial', 8),bg="lightpink")
-    FEES_TOTALAMOUNT_LABEL.place(x=80,y=370)
-    FEES_TOTALAMOUNT_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
-    FEES_TOTALAMOUNT_ENTRY.place(x=50,y=390)
+    FEES_TOTALAMOUNT_LABEL=Label(MAIN_FRAME,text="TOTAL : ",font=('Arial', 10),bg="lightpink")
+    FEES_TOTALAMOUNT_LABEL.place(x=80,y=460)
+    FEES_TOTALAMOUNT_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
+    FEES_TOTALAMOUNT_ENTRY.place(x=50,y=480)
 
-    FEES_LATEFEES_LABEL=Label(MAIN_FRAME,text="LATE FEES : ",font=('Arial', 8),bg="lightpink")
-    FEES_LATEFEES_LABEL.place(x=280,y=370)
-    FEES_LATEFEES_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
-    FEES_LATEFEES_ENTRY.place(x=250,y=390)
+    FEES_LATEFEES_LABEL=Label(MAIN_FRAME,text="LATE FEES : ",font=('Arial', 10),bg="lightpink")
+    FEES_LATEFEES_LABEL.place(x=280,y=460)
+    FEES_LATEFEES_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
+    FEES_LATEFEES_ENTRY.place(x=250,y=480)
     FEES_LATEFEES_ENTRY.insert(0,0)
 
 
-    EXEMPTION_LABEL=Label(MAIN_FRAME,text="EXEMPTION : ",font=('Arial', 8),bg="lightpink")
-    EXEMPTION_LABEL.place(x=480,y=370)
-    EXEMPTION_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
-    EXEMPTION_ENTRY.place(x=450,y=390)
+    EXEMPTION_LABEL=Label(MAIN_FRAME,text="EXEMPTION : ",font=('Arial', 10),bg="lightpink")
+    EXEMPTION_LABEL.place(x=480,y=460)
+    EXEMPTION_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
+    EXEMPTION_ENTRY.place(x=450,y=480)
     EXEMPTION_ENTRY.insert(0,0)
 
     
-    FEES_GRANDTOTAL_LABEL=Label(MAIN_FRAME,text="GRAND TOTAL : ",font=('Arial', 8),bg="lightpink")
-    FEES_GRANDTOTAL_LABEL.place(x=680,y=370)
-    FEES_GRANDTOTAL_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
-    FEES_GRANDTOTAL_ENTRY.place(x=650,y=390)
+    FEES_GRANDTOTAL_LABEL=Label(MAIN_FRAME,text="GRAND TOTAL : ",font=('Arial', 10),bg="lightpink")
+    FEES_GRANDTOTAL_LABEL.place(x=680,y=460)
+    FEES_GRANDTOTAL_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
+    FEES_GRANDTOTAL_ENTRY.place(x=650,y=480)
 
 
 
 
 
 
-    FEES_PAYMODE_LABEL=Label(MAIN_FRAME,text="PAYMODE : ",font=('Arial', 8),bg="lightpink")
-    FEES_PAYMODE_LABEL.place(x=80,y=420)
-    FEES_PAYMODE_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
-    FEES_PAYMODE_ENTRY.place(x=50,y=440)
+    FEES_PAYMODE_LABEL=Label(MAIN_FRAME,text="PAYMODE : ",font=('Arial', 10),bg="lightpink")
+    FEES_PAYMODE_LABEL.place(x=80,y=530)
+    FEES_PAYMODE_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
+    FEES_PAYMODE_ENTRY.place(x=50,y=550)
 
-    FEES_BANKNAME_LABEL=Label(MAIN_FRAME,text="BANK : ",font=('Arial', 8),bg="lightpink")
-    FEES_BANKNAME_LABEL.place(x=280,y=420)
-    FEES_BANKNAME_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
-    FEES_BANKNAME_ENTRY.place(x=250,y=440)
+    FEES_BANKNAME_LABEL=Label(MAIN_FRAME,text="BANK : ",font=('Arial', 10),bg="lightpink")
+    FEES_BANKNAME_LABEL.place(x=280,y=530)
+    FEES_BANKNAME_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
+    FEES_BANKNAME_ENTRY.place(x=250,y=550)
 
-    FEES_CHEQUENUMBER_LABEL=Label(MAIN_FRAME,text="CHEQUENO : ",font=('Arial', 8),bg="lightpink")
-    FEES_CHEQUENUMBER_LABEL.place(x=480,y=420)
-    FEES_CHEQUENUMBER_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
-    FEES_CHEQUENUMBER_ENTRY.place(x=450,y=440)
+    FEES_CHEQUENUMBER_LABEL=Label(MAIN_FRAME,text="CHEQUENO : ",font=('Arial', 10),bg="lightpink")
+    FEES_CHEQUENUMBER_LABEL.place(x=480,y=530)
+    FEES_CHEQUENUMBER_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
+    FEES_CHEQUENUMBER_ENTRY.place(x=450,y=550)
 
-    FEES_CHEQUEDATE_LABEL=Label(MAIN_FRAME,text="CHEQUEDATE : ",font=('Arial', 8),bg="lightpink")
-    FEES_CHEQUEDATE_LABEL.place(x=680,y=420)
-    FEES_CHEQUEDATE_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
-    FEES_CHEQUEDATE_ENTRY.place(x=650,y=440)
+    FEES_CHEQUEDATE_LABEL=Label(MAIN_FRAME,text="CHEQUEDATE : ",font=('Arial', 10),bg="lightpink")
+    FEES_CHEQUEDATE_LABEL.place(x=680,y=530)
+    FEES_CHEQUEDATE_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
+    FEES_CHEQUEDATE_ENTRY.place(x=650,y=550)
     
     def fees_save():
         root.bell()
@@ -2698,16 +2559,6 @@ def FEES_FUNCTION():
                 cur.execute("update fee_tran set c7=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
                 cur.execute("update pending_fee_detail set ICARD=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_details set c7='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-        if(CheckVar8.get() == 0):
-            cur.execute("update gr_check set c8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-        else:
-            cur.execute("select c8 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
-            data = cur.fetchall()
-            if(int(data[0][0]) == 0):
-                cur.execute("update gr_check set c8=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update fee_tran set c8=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
-                cur.execute("update pending_fee_detail set LATE_FEES=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update fee_details set c8='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
         mydb.commit()
 
 
@@ -2756,11 +2607,7 @@ def FEES_FUNCTION():
 
         def fees_print():
             Grvalue=FEES_GR_ENTRY.get()
-<<<<<<< HEAD
             RECEIPT_VAR=FEES_RECEIPTNO_ENTRY.get()
-=======
-            RECEIPT_VAR=FEES_RECEIPTBOOK_ENTRY.get()
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
             DATE_VAR=FEES_DATE_ENTRY.get()
             TOTAL_AMOUNT_VAR=FEES_GRANDTOTAL_ENTRY.get()
             PAY_TYPE=FEES_PAYMODE_ENTRY.get()
@@ -2771,32 +2618,21 @@ def FEES_FUNCTION():
             cur.execute("select SURNAME,NAME,FATHER from gr_details WHERE GR_NO=%s",[Grvalue])
             fee_wee=cur.fetchall()
 
-<<<<<<< HEAD
             cur.execute("select curr_std,division from academic_detail WHERE GR_NO=%s",[Grvalue])
-=======
-            cur.execute("select curr_std from academic_detail WHERE GR_NO=%s",[Grvalue])
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
             fee_wee_1=cur.fetchall()
 
 
             NAME_VAR=fee_wee[0][1]
             SURNAME_VAR=fee_wee[0][0]
             FATHERS_NAME_VAR=fee_wee[0][2]
-<<<<<<< HEAD
             STD_VAR=fee_wee_1[0][0]+"-"+fee_wee_1[0][1]
-=======
-            STD_VAR=fee_wee_1[0][0]
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
             
 
 
             print(Grvalue,RECEIPT_VAR,DATE_VAR,TOTAL_AMOUNT_VAR,PAY_TYPE,CHEQUE_VAR,BANK_VAR,NAME_VAR,SURNAME_VAR,FATHERS_NAME_VAR,STD_VAR)
-<<<<<<< HEAD
             cur.execute("select aai1 from academic_detail where gr_no={}".format(Grvalue))
             aai_data=cur.fetchall()[0]
-=======
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
 
             FEES_NAME_PAID=[]
@@ -2877,7 +2713,6 @@ def FEES_FUNCTION():
             q=460
             c.drawString(x,y,str(FEES_NAME_PAID[0]))
             c.drawString(p,q,str(FEES_AMT_PAID[0]))
-<<<<<<< HEAD
             print(FEES_NAME_PAID)
             if(aai_data[0] == 0):
                 for i in range(len(FEES_NAME_PAID)):
@@ -2888,26 +2723,20 @@ def FEES_FUNCTION():
             else:
                 for i in range(len(FEES_NAME_PAID)):
                     if FEES_NAME_PAID[i] == "APR_JUN_ATITVITY":
-                        FEES_NAME_PAID[i]="APR_SEP_ACTIVITY"    
+                        FEES_NAME_PAID[i]="APR_SEP_ACTIVITY"
                     if FEES_NAME_PAID[i] == "JUL_SEP_ACTIVITY":
                         FEES_NAME_PAID[i]="OCT_MAR_ACTIVITY"
                     if FEES_NAME_PAID[i] == "ICARD":
                         FEES_NAME_PAID[i]="ICARD, ALMANAC & CLASS GROUP PHOTO"
             print(FEES_NAME_PAID)
 
-=======
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
             for a in range(1,len(FEES_NAME_PAID)):
                 y=y-20
                 c.drawString(x,y,str(FEES_NAME_PAID[a]))
 
             for b in range(1,len(FEES_AMT_PAID)):
                 q=q-20
-<<<<<<< HEAD
                 c.drawString(p,q,str(FEES_AMT_PAID[b]))
-=======
-                c.drawString(p,q,str(FEES_AMT_PAID[b]))             
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
 
             c.setLineWidth(2)
@@ -2942,11 +2771,7 @@ def FEES_FUNCTION():
             c.drawString(360,-25,"Receiver Sign")
             c.setFont('Helvetica',12)
 
-<<<<<<< HEAD
             c.drawImage(r"ICONS\schl logo1.png",-0.3*inch,8.5*inch)
-=======
-            c.drawImage(r"C:\Users\Kunal Adwani\OneDrive\Desktop\CREATIONS!!\CodeWorked\ICONS\schl logo1.png",-0.3*inch,8.5*inch)
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
             c.setLineWidth(2)
             c.setStrokeColorRGB(0,0,0)
@@ -3052,11 +2877,7 @@ def FEES_FUNCTION():
             c.drawString(360,-25,"Receiver Sign")
             c.setFont('Helvetica',12)
 
-<<<<<<< HEAD
             c.drawImage(r"ICONS\schl logo1.png",-0.3*inch,8.5*inch)
-=======
-            c.drawImage(r"C:\Users\Kunal Adwani\OneDrive\Desktop\CREATIONS!!\CodeWorked\ICONS\schl logo1.png",-0.3*inch,8.5*inch)
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
             c.setLineWidth(2)
             c.setStrokeColorRGB(0,0,0)
@@ -3065,7 +2886,6 @@ def FEES_FUNCTION():
             c.showPage()
             
             c.save()
-<<<<<<< HEAD
             
             import os
             os.startfile(my_path)
@@ -3073,10 +2893,6 @@ def FEES_FUNCTION():
         fees_print()
         FEES_REPORT_FUNCTION()
         BACKUP_FUNCTION()
-=======
-
-        fees_print()
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
         FEES_FUNCTION()
 
 
@@ -3326,16 +3142,17 @@ def FEES_FUNCTION():
         win.mainloop()
     
 
-    GENERATE_BTN=Button(MAIN_FRAME,text="GENERATE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 10),command=fees_generate)
-    GENERATE_BTN.place(x=810,y=440)
+    GENERATE_BTN=Button(MAIN_FRAME,text="GENERATE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=fees_generate)
+    GENERATE_BTN.place(x=900,y=500)
     
-    SHOW_BTN=Button(MAIN_FRAME,text="SHOW\nFEE DETAIL",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 10),command=show_fee_details_func)
-    SHOW_BTN.place(x=810,y=370)
+    SHOW_BTN=Button(MAIN_FRAME,text="SHOW\nFEE DETAIL",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=show_fee_details_func)
+    SHOW_BTN.place(x=900,y=420)
 
 
-    SAVE_BTN=Button(MAIN_FRAME,text="SAVE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 10),command=fees_save)
-    SAVE_BTN.place(x=1000,y=440)
+    SAVE_BTN=Button(MAIN_FRAME,text="SAVE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=fees_save)
+    SAVE_BTN.place(x=1100,y=500)
     SAVE_BTN["state"]=DISABLED
+
 
 
 
@@ -3688,62 +3505,33 @@ def FEES_REPORT_FUNCTION():
         wrt.writerow(i)
 
 
-<<<<<<< HEAD
     f2 = open(r"REPORTS\gr_report.csv",'w',newline="\n")
     wrt = csv.writer(f2)
     wrt.writerow(["CLASS","DIVISION","TOTAL"])
     cur.execute("select curr_std,division,count(gr_no) as total from academic_detail where active1=1 group by curr_std,division order by curr_std")
-=======
-    f2 = open(r"REPORTS\gr_report.csv",'w')
-    wrt = csv.writer(f2)
-    wrt.writerow(["CLASS","DIVISION","TOTAL"])
-    cur.execute("select curr_std,divison,count(gr_no) as total from academic_detail group by curr_std,divison order by curr_std")
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
     data_report = cur.fetchall()
     for i in data_report:
         wrt.writerow(i)
     f2.close()
 
-<<<<<<< HEAD
     f3 = open(r"REPORTS\male_female.csv",'w',newline="\n")
     wrt = csv.writer(f3)
     wrt.writerow(["CLASS","DIVISION","SEX","TOTAL"])
-    cur.execute('''SELECT ad.division, ad.curr_std AS class,
-       SUM(CASE WHEN gd.SEX = 'Male' THEN 1 ELSE 0 END) AS male_count,
-       SUM(CASE WHEN gd.SEX = 'Female' THEN 1 ELSE 0 END) AS female_count
-FROM academic_detail AS ad
-JOIN gr_details AS gd ON ad.gr_no = gd.GR_NO
-GROUP BY ad.division, ad.curr_std
-ORDER BY ad.division, ad.curr_std;
-''')
-=======
-    f3 = open(r"REPORTS\male_female.csv",'w')
-    wrt = csv.writer(f3)
-    wrt.writerow("CLASS","DIVISION","SEX","TOTAL")
-    cur.execute("select academic_detail.curr_std,academic_detail.divison,gr_details.sex,count(gr_details.sex) as total from gr_details,academic_detail group by academic_detail.curr_std,academic_detail.divison,gr_details.sex order by academic_detail.curr_std,academic_detail.divison")
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
+    cur.execute("select academic_detail.curr_std,academic_detail.division,gr_details.sex,count(gr_details.sex) as total from gr_details,academic_detail where academic_detail.active1=1 group by academic_detail.curr_std,academic_detail.division,gr_details.sex order by academic_detail.curr_std,academic_detail.division")
     data_report = cur.fetchall()
     for i in data_report:
         wrt.writerow(i)
     f3.close()
 
-<<<<<<< HEAD
     f4 = open(r"REPORTS\caste_report.csv",'w',newline="\n")
     wrt = csv.writer(f4)
     wrt.writerow(["CLASS","DIVISION","CASTE","TOTAL"])
     cur.execute("select academic_detail.curr_std,academic_detail.division,gr_details.caste,count(gr_details.caste) as total from gr_details,academic_detail where academic_detail.active1=1 group by academic_detail.curr_std,academic_detail.division,gr_details.caste order by academic_detail.curr_std,academic_detail.division")
-=======
-    f4 = open(r"REPORTS\caste_report.csv",'w')
-    wrt = csv.writer(f4)
-    wrt.writerow("CLASS","DIVISION","CASTE","TOTAL")
-    cur.execute("select academic_detail.curr_std,academic_detail.divison,gr_details.caste,count(gr_details.caste) as total from gr_details,academic_detail group by academic_detail.curr_std,academic_detail.divison,gr_details.caste order by academic_detail.curr_std,academic_detail.divison")
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
     data_report = cur.fetchall()    
     for i in data_report:
         wrt.writerow(i)
     f4.close()
 
-<<<<<<< HEAD
     f5 = open(r"REPORTS\new_admission.csv",'w',newline="\n")
     wrt = csv.writer(f5)
     wrt.writerow(["GR NO","NAME","FATHER","SURNAME","CURR STD","DIVISION"])
@@ -3752,9 +3540,6 @@ ORDER BY ad.division, ad.curr_std;
     for i in data_report:
         wrt.writerow(i)
     f5.close()
-=======
-    
->>>>>>> 3be7afc60d48e41005f773c4d948214e6ebcf7c3
 
 
 
@@ -3766,16 +3551,637 @@ ORDER BY ad.division, ad.curr_std;
 
 
 def LIBRARY_FUNCTION():
+
+        # text_Q1="LIBRARY"
+        # myobj = gTTS(text=text_Q1, slow=False)
+        # myobj.save(r"AUDIOS\library.mp3")
+        #pygame.mixer.init()
+        #pygame.mixer.music.load(r"AUDIOS\library.mp3")
+        #pygame.mixer.music.play(loops=0)
+
+
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
     for widget in MAIN_FRAME.winfo_children():
         widget.destroy()  
-    # text_Q1="LIBRARY"
-    # myobj = gTTS(text=text_Q1, slow=False)
-    # myobj.save(r"AUDIOS\library.mp3")
-    #pygame.mixer.init()
-    #pygame.mixer.music.load(r"AUDIOS\library.mp3")
-    #pygame.mixer.music.play(loops=0)
+
+    def LIB_1():
+        for widget in MAIN_FRAME.winfo_children():
+            widget.destroy()
+
+        MAIN_FRAME.configure(bg="#c1e0b7")
+        f6 = open(r"LIBRARY\lib_report.csv",'w',newline="\n")
+        writer1 = csv.writer(f6)
+        cur.execute("select * from issued")
+        headings = cur.column_names
+        data = cur.fetchall()
+        # print(headings)
+        # print(data)
+        writer1.writerow(headings)
+        writer1.writerows(data)
+        f6.close()
+
+        organisation_lbl=Label(MAIN_FRAME,text="Organisation :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        organisation_lbl.place(x=55,y=40)
+        organisation_var=StringVar()
+        organisation_combo = ttk.Combobox(MAIN_FRAME,width=27,textvariable = organisation_var)
+        organisation_combo['values'] = ('SEBC','ST','GEN','SC')
+        organisation_combo.place(x=160,y=45)
+
+
+        GR_label = Label(MAIN_FRAME,text="GR :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        GR_label.place(x=115,y=80)
+        GR_entry = Entry(MAIN_FRAME,width=15,font=("Arial",10,"bold"))
+        GR_entry.place(x=160,y=85)
+
+
+        mobile_no_label = Label(MAIN_FRAME,text="Mobile :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        mobile_no_label.place(x=295,y=80)
+        mobile_no_entry = Entry(MAIN_FRAME,width=15,font=("Arial",10,"bold"))
+        mobile_no_entry.place(x=365,y=85)
+
+
+        
+        standard_label = Label(MAIN_FRAME,text="Std :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        standard_label.place(x=510,y=80)
+        standard_entry = Entry(MAIN_FRAME,width=15,font=("Arial",10,"bold"))
+        standard_entry.place(x=555,y=85)
+
+
+        
+        roll_no_label = Label(MAIN_FRAME,text="Roll No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        roll_no_label.place(x=705,y=80)
+        roll_no_entry = Entry(MAIN_FRAME,width=15,font=("Arial",10,"bold"))
+        roll_no_entry.place(x=775,y=85)
+
+        
+        Name_label = Label(MAIN_FRAME,text="Name :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Name_label.place(x=95,y=120)
+        Name_entry = Entry(MAIN_FRAME,width=25,font=("Arial",10,"bold"))
+        Name_entry.place(x=160,y=125)
+
+
+
+
+
+
+        book_issue_frame=Frame(MAIN_FRAME,height=220,width=500,bg="#c1e0b7",borderwidth=4,relief=RIDGE)
+        book_issue_frame.place(x=50,y=170)
+
+
+        accession_no_label = Label(book_issue_frame,text="Accession No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",9,"bold"))
+        accession_no_label.place(x=15,y=15)
+        accession_no_entry = Entry(book_issue_frame,width=20,font=("Arial",9,"bold"))
+        accession_no_entry.place(x=125,y=20)
+        
+        Book_name_label = Label(book_issue_frame,text="Book Name :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",9,"bold"))
+        Book_name_label.place(x=25,y=55)
+        Book_name_entry = Entry(book_issue_frame,width=45,font=("Arial",9,"bold"))
+        Book_name_entry.place(x=125,y=60)
+
+
+        issue_dt_lbl=Label(book_issue_frame,text="Issue Date : ",bg="#c1e0b7",font=("Arial",9,"bold"))
+        issue_dt_lbl.place(x=35,y=95)
+        issue_dt_entry_tab=DateEntry(book_issue_frame,selectmode="day",date_pattern="y-mm-dd",font=("Arial",9,"bold"),width=10)
+        issue_dt_entry_tab.place(x=125,y=95)
+
+        # to_date_lbl=Label(book_issue_frame,text="Issue Date : ",bg="#c1e0b7",font=("Arial",9,"bold"))
+        # to_date_lbl.place(x=252,y=95)
+        # to_date_entry_tab=DateEntry(book_issue_frame,selectmode="day",date_pattern="y-mm-dd",font=("Arial",9,"bold"),width=10)
+        # to_date_entry_tab.place(x=345,y=95)
+
+            
+        Issue_remark_label = Label(book_issue_frame,text="Issue Remark :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",9,"bold"))
+        Issue_remark_label.place(x=10,y=130)
+        Issue_remark_entry = Entry(book_issue_frame,width=45,font=("Arial",9,"bold"))
+        Issue_remark_entry.place(x=125,y=135)
+
+        
+
+
+
+
+
+
+
+
+        book_return_frame=Frame(MAIN_FRAME,height=220,width=500,bg="#c1e0b7",borderwidth=4,relief=RIDGE)
+        book_return_frame.place(x=700,y=170)
+
+        return_dt_lbl=Label(book_return_frame,text="Return Date : ",bg="#c1e0b7",font=("Arial",9,"bold"))
+        return_dt_lbl.place(x=25,y=15)
+        return_dt_entry_tab=DateEntry(book_return_frame,selectmode="day",date_pattern="y-mm-dd",font=("Arial",9,"bold"),width=10)
+        return_dt_entry_tab.place(x=125,y=15)
+        
+
+        penalty_days_label = Label(book_return_frame,text="Penalty Days :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",9,"bold"))
+        penalty_days_label.place(x=20,y=45)
+        penalty_days_entry = Entry(book_return_frame,width=20,font=("Arial",9,"bold"))
+        penalty_days_entry.place(x=125,y=50)
+
+        penalty_days_label = Label(book_return_frame,text="Penalty Rate :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",9,"bold"))
+        penalty_days_label.place(x=300,y=25)
+        penalty_rate_entry = Entry(book_return_frame,width=20,font=("Arial",9,"bold"))
+        penalty_rate_entry.place(x=305,y=50)
+
+        penalty_amount_label = Label(book_return_frame,text="Penalty Amount :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",9,"bold"))
+        penalty_amount_label.place(x=5,y=80)
+        penalty_amount_entry = Entry(book_return_frame,width=20,font=("Arial",9,"bold"))
+        penalty_amount_entry.place(x=125,y=85)
+
+        return_remark_label = Label(book_return_frame,text="Return Remark :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",9,"bold"))
+        return_remark_label.place(x=5,y=115)
+        return_remark_entry = Entry(book_return_frame,width=45,font=("Arial",9,"bold"))
+        return_remark_entry.place(x=125,y=120)
+            
+        
+
+        # RETURN_DELETE_BTN=Button(book_return_frame,text="Return Delete",height=1,width=12,bg="lightgrey",activebackground='lightgrey',font=('Arial',9,"bold"))
+        # RETURN_DELETE_BTN.place(x=320,y=170)
+
+
+        
+        wrapper1=Frame(MAIN_FRAME,height=150,width=1170)
+        wrapper1.place(x=50,y=415)
+        style = ttk.Style()
+        style.theme_use('clam')
+        trv=ttk.Treeview(wrapper1,columns=(1,2,3,4,5),show="headings",height="5")
+
+        trv.pack(side=LEFT)
+
+        trv.heading("#1",text="Accession No")
+        trv.heading("#2",text="Book Name")
+        trv.heading("#3",text="Issue Date")
+        trv.heading("#4",text="Issue Upto")
+        trv.heading("#5",text="Return Date")
+
+        trv.column("#1",width=230)
+        trv.column("#2",width=350)
+        trv.column("#3",width=180)
+        trv.column("#4",width=180)
+        trv.column("#5",width=180)
+        
+
+
+        y_scroll=Scrollbar(wrapper1,orient="vertical",command=trv.yview)
+        y_scroll.pack(side=RIGHT,fill='y')
+        trv.configure(yscrollcommand=y_scroll.set)
+
+        def data_entry_func(e):
+            grval = GR_entry.get()
+            Name_entry.delete(0,END)
+            roll_no_entry.delete(0,END)
+            standard_entry.delete(0,END)
+            mobile_no_entry.delete(0,END)
+            accession_no_entry.delete(0,END)
+            Book_name_entry.delete(0,END)
+            issue_dt_entry_tab.delete(0,END)
+            return_dt_entry_tab.delete(0,END)
+            Issue_remark_entry.delete(0,END)
+            penalty_days_entry.delete(0,END)
+            penalty_rate_entry.delete(0,END)
+            penalty_amount_entry.delete(0,END)
+            return_remark_entry.delete(0,END)
+            for i in trv.get_children():
+                trv.delete(i)
+            mobileval = 0
+            cur.execute("select name,roll_no,curr_std from academic_detail where gr_no={}".format(grval))
+            data = cur.fetchall()[0]
+            Name_entry.insert(0,data[0])
+            roll_no_entry.insert(0,data[1])
+            standard_entry.insert(0,data[2])
+            mobile_no_entry.insert(0,mobileval)
+            # print(data)
+            cur.execute("select * from issued")
+            data = cur.fetchall()
+            # print(data)
+            # print(data[0][1] == grval)
+            for i in data:
+                if(int(grval) == i[1]):
+                    # print("hi")
+                    accession_no_entry.insert(0,i[6])
+                    Book_name_entry.insert(0,i[7])
+                    issue_dt_entry_tab.insert(0,i[8])
+                    return_dt_entry_tab.insert(0,i[10])
+                    Issue_remark_entry.insert(0,i[9])
+                    return_remark_entry.insert(0,i[-1])
+                    date12 = i[10].split("-")
+                    trv.insert("",'end',values=(i[6],i[7],i[8],i[10],i[10]))
+                    # print(datetime.date(int(date12[0]),int(date12[1]),int(date12[2])))
+                    if(datetime.date.today() > datetime.date(int(date12[0]),int(date12[1]),int(date12[2]))):
+                        penalty_days_entry.insert(0,(datetime.date.today()-datetime.date(int(date12[0]),int(date12[1]),int(date12[2]))).days)
+                        penalty_rate_entry.insert(0,5)
+                        penalty_amount_entry.insert(0,(datetime.date.today()-datetime.date(int(date12[0]),int(date12[1]),int(date12[2]))).days*5)
+                    break
+                
+            
+
+            
+        GR_entry.bind("<Return>",data_entry_func)
+
+        def issusing_accession(e):
+            accession_val = accession_no_entry.get()
+            return_dt_entry_tab.delete(0,END)
+            Book_name_entry.delete(0,END)
+            issue_dt_entry_tab.delete(0,END)
+            Issue_remark_entry.delete(0,END)
+            return_remark_entry.delete(0,END)
+            penalty_amount_entry.delete(0,END)
+            penalty_days_entry.delete(0,END)
+            penalty_rate_entry.delete(0,END)
+            issue_dt_entry_tab.insert(0,datetime.date.today())
+            return_dt_entry_tab.insert(0,datetime.date.today()+datetime.timedelta(days=7))
+            for i in trv.get_children():
+                trv.delete(i)
+            cur.execute("SELECT * from book_accession where accession_no={}".format(accession_val))
+            book_data = cur.fetchall()[0]
+            Book_name_entry.insert(0,book_data[1])
+            trv.insert('','end',values=(book_data[0],book_data[1],issue_dt_entry_tab.get(),return_dt_entry_tab.get(),return_dt_entry_tab.get()))
+        accession_no_entry.bind("<Return>",issusing_accession)
+
+        def issue_book():
+            lib_records = []
+            lib_records.append(organisation_combo.get())#1
+            lib_records.append(GR_entry.get())#2
+            lib_records.append(mobile_no_entry.get())#3
+            lib_records.append(standard_entry.get())#4
+            lib_records.append(roll_no_entry.get())#5
+            lib_records.append(Name_entry.get())#6
+            lib_records.append(accession_no_entry.get())#7
+            lib_records.append(Book_name_entry.get())#8
+            lib_records.append(issue_dt_entry_tab.get())#9
+            lib_records.append(Issue_remark_entry.get())#10
+            lib_records.append(return_dt_entry_tab.get())#11
+            lib_records.append(penalty_days_entry.get())#12
+            lib_records.append(penalty_rate_entry.get())#13
+            lib_records.append(penalty_amount_entry.get())#14
+            lib_records.append(return_remark_entry.get())#15
+            cur.execute("insert into lib_records values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",lib_records)
+            cur.execute("insert into issued values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",lib_records)
+            mydb.commit()
+            LIB_1()
+        
+        def issue_delete():
+            cur.execute("delete from issued where gr_no=%s",([GR_entry.get()]))
+            mydb.commit()
+            LIB_1()
+
+        def return_book():
+            issue_delete()
+        
+        ISSUE_BTN=Button(book_issue_frame,text="Issue",height=1,width=12,bg="lightgrey",activebackground='lightgrey',font=('Arial',9,"bold"),command=issue_book)
+        ISSUE_BTN.place(x=180,y=170)
+
+        ISSUE_DELETE_BTN=Button(book_issue_frame,text="Issue Delete",height=1,width=12,bg="lightgrey",activebackground='lightgrey',font=('Arial',9,"bold"),command=issue_delete)
+        ISSUE_DELETE_BTN.place(x=320,y=170)
+
+        RETURN_BTN=Button(book_return_frame,text="Return",height=1,width=12,bg="lightgrey",activebackground='lightgrey',font=('Arial',9,"bold"),command=return_book)
+        RETURN_BTN.place(x=180,y=170)
+
+
+
+
+    LIBRARY_1=Button(MENU_FRAME2,text="LIBRARY 1",command = LIB_1)
+    LIBRARY_1.place(x=20,y=20)
+
+
+
+
+
+    def LIB_2():
+        for widget in MAIN_FRAME.winfo_children():
+            widget.destroy()
+
+        MAIN_FRAME.configure(bg="#c1e0b7")
+
+        Accession_No_label = Label(MAIN_FRAME,text="Accession No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Accession_No_label.place(x=100,y=40)
+        Accession_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Accession_No_entry.place(x=220,y=45)
+
+
+
+        Book_No_label = Label(MAIN_FRAME,text="Book No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Book_No_label.place(x=130,y=80)
+        Book_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Book_No_entry.place(x=220,y=85)
+
+
+        Class_No_label = Label(MAIN_FRAME,text="Class No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Class_No_label.place(x=463,y=80)
+        Class_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Class_No_entry.place(x=550,y=85)
+
+
+        ISBN_No_label = Label(MAIN_FRAME,text="ISBN No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        ISBN_No_label.place(x=800,y=80)
+        ISBN_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        ISBN_No_entry.place(x=890,y=85)
+
+
+        
+        Book_Name_label = Label(MAIN_FRAME,text="Book Name :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Book_Name_label.place(x=110,y=120)
+        Book_Name_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Book_Name_entry.place(x=220,y=125)
+
+
+
+        Author_label = Label(MAIN_FRAME,text="Author :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Author_label.place(x=140,y=160)
+        Author_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Author_entry.place(x=220,y=165)
+
+
+        
+
+        Rec_No_label = Label(MAIN_FRAME,text="Rec No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Rec_No_label.place(x=807,y=160)
+        Rec_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Rec_No_entry.place(x=890,y=165)
+
+
+        
+        Publisher_label = Label(MAIN_FRAME,text="Publisher :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Publisher_label.place(x=122,y=200)
+        Publisher_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Publisher_entry.place(x=220,y=205)
+
+
+        
+        Sub_Rec_No_label = Label(MAIN_FRAME,text="Sub Rec No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Sub_Rec_No_label.place(x=777,y=200)
+        Sub_Rec_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Sub_Rec_No_entry.place(x=890,y=205)
+
+
+        
+        Book_Category_label = Label(MAIN_FRAME,text="Book Category :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Book_Category_label.place(x=88,y=240)
+        Book_Category_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Book_Category_entry.place(x=220,y=245)
+
+
+
+        Price_label = Label(MAIN_FRAME,text="Price :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Price_label.place(x=816,y=240)
+        Price_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Price_entry.place(x=890,y=245)
+
+
+                
+        Subject_label = Label(MAIN_FRAME,text="Subject :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Subject_label.place(x=133,y=280)
+        Subject_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Subject_entry.place(x=220,y=285)
+
+
+        
+        Stock_label = Label(MAIN_FRAME,text="Stock :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Stock_label.place(x=815,y=280)
+        Stock_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Stock_entry.place(x=890,y=285)
+
+                
+
+        Book_Language_label = Label(MAIN_FRAME,text="Book Language :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Book_Language_label.place(x=81,y=320)
+        Book_Language_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Book_Language_entry.place(x=220,y=325)
+
+
+        Currency_label = Label(MAIN_FRAME,text="Currency :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Currency_label.place(x=792,y=320)
+        Currency_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Currency_entry.place(x=890,y=325)
+
+
+
+        PUR_DON_label = Label(MAIN_FRAME,text="Purchased/Donated :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        PUR_DON_label.place(x=58,y=360)
+        PUR_DON_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        PUR_DON_entry.place(x=220,y=365)
+
+
+        
+        Date_label = Label(MAIN_FRAME,text="Date :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Date_label.place(x=819,y=360)
+        Date_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Date_entry.place(x=890,y=365)
+
+
+        
+        Book_Cancelvalue=IntVar()
+        Book_Cancel_check=Checkbutton(MAIN_FRAME,text="Book Cancel",onvalue=1,offvalue=0,bg="#c1e0b7",activebackground="#c1e0b7")
+        Book_Cancel_check.place(x=1100,y=365)
+
+
+
+        Edition_label = Label(MAIN_FRAME,text="Edition :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Edition_label.place(x=138,y=400)
+        Edition_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Edition_entry.place(x=220,y=405)
+
+
+        Bill_No_Date_label = Label(MAIN_FRAME,text="Bill No / Date :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Bill_No_Date_label.place(x=764,y=400)
+        Bill_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Bill_No_entry.place(x=890,y=405)
+        Bill_Date_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Bill_Date_entry.place(x=1100,y=405)
+
+
+        
+        Authority_label = Label(MAIN_FRAME,text="Authority :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Authority_label.place(x=125,y=440)
+        Authority_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Authority_entry.place(x=220,y=445)
+
+
+        Voucher_No_Date_label = Label(MAIN_FRAME,text="Voucher No / Date :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Voucher_No_Date_label.place(x=734,y=440)
+        Voucher_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Voucher_No_entry.place(x=890,y=445)
+        Voucher_Date_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Voucher_Date_entry.place(x=1100,y=445)
+
+
+        Issueablevalue=IntVar()
+        Issueable_check=Checkbutton(MAIN_FRAME,text="Issueable",onvalue=1,offvalue=0,bg="#c1e0b7",activebackground="#c1e0b7")
+        Issueable_check.place(x=220,y=485)
+
+
+        Remark_label = Label(MAIN_FRAME,text="Remark :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Remark_label.place(x=125,y=520)
+        Remark_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Remark_entry.place(x=220,y=525)
+
+
+
+
+    LIBRARY_2=Button(MENU_FRAME2,text="LIBRARY 2",command = LIB_2)
+    LIBRARY_2.place(x=20,y=100)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def LIB_3():
+        for widget in MAIN_FRAME.winfo_children():
+            widget.destroy()
+
+        MAIN_FRAME.configure(bg="#c1e0b7")
+
+
+        
+        Select_report_label = Label(MAIN_FRAME,text="Select Report :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Select_report_label.place(x=335,y=55)
+        Select_report_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Select_report_entry.place(x=450,y=60)
+
+
+
+        Author_label = Label(MAIN_FRAME,text="Author :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Author_label.place(x=335,y=90)
+        Author_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Author_entry.place(x=450,y=95)
+
+
+        
+        Category_label = Label(MAIN_FRAME,text="Category :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Category_label.place(x=335,y=125)
+        Category_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Category_entry.place(x=450,y=130)
+
+
+                
+        Language_label = Label(MAIN_FRAME,text="Language :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Language_label.place(x=335,y=160)
+        Language_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Language_entry.place(x=450,y=165)
+
+
+                        
+        Book_label = Label(MAIN_FRAME,text="Book :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Book_label.place(x=335,y=195)
+        Book_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Book_entry.place(x=450,y=200)
+
+
+                                
+        Issueable_label = Label(MAIN_FRAME,text="Issueable :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Issueable_label.place(x=335,y=230)
+        Issueable_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Issueable_entry.place(x=450,y=235)
+
+
+                
+
+        Rec_No_label = Label(MAIN_FRAME,text="Rec No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Rec_No_label.place(x=335,y=265)
+        Rec_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Rec_No_entry.place(x=450,y=270)
+
+
+        Sub_Rec_No_label = Label(MAIN_FRAME,text="Sub Rec No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Sub_Rec_No_label.place(x=678,y=265)
+        Sub_Rec_No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Sub_Rec_No_entry.place(x=778,y=270)
+
+
+
+        Price_from_label = Label(MAIN_FRAME,text="Price From:",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Price_from_label.place(x=335,y=300)
+        Price_from_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Price_from_entry.place(x=450,y=305)
+
+
+        Price_to_label = Label(MAIN_FRAME,text="Price To :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Price_to_label.place(x=678,y=300)
+        Price_to_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Price_to_entry.place(x=778,y=305)
+
+
+
+        Quantity_from_label = Label(MAIN_FRAME,text="Quantity From:",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Quantity_from_label.place(x=335,y=335)
+        Quantity_from_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Quantity_from_entry.place(x=450,y=340)
+
+
+        Quantity_to_label = Label(MAIN_FRAME,text="Quantity To :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Quantity_to_label.place(x=678,y=335)
+        Quantity_to_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Quantity_to_entry.place(x=778,y=340)
+
+
+
+        No_label = Label(MAIN_FRAME,text="No :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        No_label.place(x=335,y=370)
+        No_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        No_entry.place(x=450,y=375)
+
+
+
+        
+        Date_from_label = Label(MAIN_FRAME,text="Date From:",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Date_from_label.place(x=335,y=405)
+        Date_from_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Date_from_entry.place(x=450,y=410)
+
+
+        Date_to_label = Label(MAIN_FRAME,text="Date To :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Date_to_label.place(x=678,y=405)
+        Date_to_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Date_to_entry.place(x=778,y=410)
+
+
+        
+        Reader_Type_label = Label(MAIN_FRAME,text="Reader Type :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Reader_Type_label.place(x=335,y=440)
+        Reader_Type_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Reader_Type_entry.place(x=450,y=445)
+
+
+
+        Standard_label = Label(MAIN_FRAME,text="Standard :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Standard_label.place(x=335,y=475)
+        Standard_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Standard_entry.place(x=450,y=480)
+
+
+        Division_label = Label(MAIN_FRAME,text="Division :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Division_label.place(x=678,y=475)
+        Division_entry = Entry(MAIN_FRAME,width=23,font=("Arial",10,"bold"))
+        Division_entry.place(x=778,y=480)
+
+
+
+        Reader_label = Label(MAIN_FRAME,text="Reader :",padx=5,pady=5,bg="#c1e0b7",font=("Arial",10,"bold"))
+        Reader_label.place(x=335,y=505)
+        Reader_entry = Entry(MAIN_FRAME,width=70,font=("Arial",10,"bold"))
+        Reader_entry.place(x=450,y=510)
+
+
+
+
+
+
+
+    LIBRARY_3=Button(MENU_FRAME2,text="LIBRARY 3",command = LIB_3)
+    LIBRARY_3.place(x=20,y=180)
 
 
 
@@ -4300,15 +4706,6 @@ def BACKUP_FUNCTION():
     writer1.writerow(headings)
     writer1.writerows(data)
     f10.close()
-
-    f11 = open("all_data.csv","w", newline="\n")
-    writer1 = csv.writer(f11)
-    cur.execute("select * from gr_details,academic_detail,other_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no=other_detail.gr_no and academic_detail.gr_no=other_detail.gr_no")
-    headings = cur.column_names
-    data = cur.fetchall()
-    writer1.writerow(headings)
-    writer1.writerows(data)
-    f11.close()
 BACKUP_FUNCTION()
 
 
@@ -4498,19 +4895,19 @@ def EXIT_FUNCTION():
 #---------------------------------------------------------------------------------------------------------
 
 
-MENU_FRAME=Frame(root,relief=RIDGE,bg="lightgrey",height=100,width=1370,borderwidth=5)
+MENU_FRAME=Frame(root,relief=RIDGE,bg="lightgrey",height=100,width=1550,borderwidth=5)
 MENU_FRAME.place(x=0,y=0)
 
 #---------------------------------------------------------------------------------------------------------
 
-MENU_FRAME2=Frame(root,relief=RIDGE,bg="lightgrey",height=605,width=100,borderwidth=1)
+MENU_FRAME2=Frame(root,relief=RIDGE,bg="lightgrey",height=700,width=100,borderwidth=1)
 MENU_FRAME2.place(x=0,y=100)
 
 
 #---------------------------------------------------------------------------------------------------------
 
 
-MAIN_FRAME=Frame(root,relief=RIDGE,bg="white",height=520,width=1180,borderwidth=4) 
+MAIN_FRAME=Frame(root,relief=RIDGE,bg="white",height=600,width=1320,borderwidth=4) 
 MAIN_FRAME.place(x=150,y=150)
 
 #---------------------------------------------------------------------------------------------------------
@@ -4622,3 +5019,5 @@ y()
 
 
 root.mainloop()
+
+
