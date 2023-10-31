@@ -10,36 +10,33 @@ import datetime
 from tkinter import messagebox
 import mysql.connector as con
 from PIL import Image,ImageTk
-from playsound import playsound
-from gtts import gTTS
-from tkVideoPlayer import TkinterVideo
+# from playsound import playsound
+# from gtts import gTTS
+# from tkVideoPlayer import TkinterVideo
 import csv
 import time
 from tkhtmlview import HTMLLabel
 import webbrowser
 
-video =Tk()
-video.geometry("1000x600")
-video.title("ZETA CORE")
-photo = PhotoImage(file = r"ICONS\Zeta.png")
-video.iconphoto(False, photo)
-video.resizable(False, False)
-
-videoplayer = TkinterVideo(master=video, scaled=True)
-videoplayer.load(r"VIDEOS\ZETACORE.mp4")
-videoplayer.set_size(size=(1000, 600), keep_aspect=False)
-videoplayer.pack(expand=True, fill="both")
-videoplayer.play()
-
-
-def video_ended(event):
-    # print("video ended")
-    duration_video = videoplayer.current_duration()
-    # print(f"video duration: {duration_video}")
-    if(duration_video == 14.833333333333334):
-        video.destroy()
-videoplayer.bind("<<Ended>>", video_ended )
-video.mainloop()
+# video =Tk()
+# video.geometry("1000x600")
+# video.title("ZETA CORE")
+# photo = PhotoImage(file = r"ICONS\Zeta.png")
+# video.iconphoto(False, photo)
+# video.resizable(False, False)
+# videoplayer = TkinterVideo(master=video, scaled=True)
+# videoplayer.load(r"VIDEOS\ZETACORE.mp4")
+# videoplayer.set_size(size=(1000, 600), keep_aspect=False)
+# videoplayer.pack(expand=True, fill="both")
+# videoplayer.play()
+# def video_ended(event):
+#     # print("video ended")
+#     duration_video = videoplayer.current_duration()
+#     # print(f"video duration: {duration_video}")
+#     if(duration_video == 14.833333333333334):
+#         video.destroy()
+# videoplayer.bind("<<Ended>>", video_ended )
+# video.mainloop()
 
 
 
@@ -60,14 +57,23 @@ video.mainloop()
 
 
 
-mydb = con.connect(host="localhost",user="root",password="Mouse@2010",database="airport_school")
+mydb = con.connect(host="localhost",user="root",password="root",database="airport_school")
 cur = mydb.cursor()
 root=Tk()
 root.state('zoomed')
-# root.geometry("1500x800")
+root.geometry("1000x500")
+# root.attributes('-fullscreen', True)
 root.title("ZETA CORE")
 photo = PhotoImage(file = r"ICONS\Zeta.png")
 root.iconphoto(False, photo)
+
+
+
+
+
+
+
+
 
 
 def GR_FUNCTION():
@@ -83,7 +89,7 @@ def GR_FUNCTION():
     #pygame.mixer.music.load(r"AUDIOS\general register.mp3")
     #pygame.mixer.music.play(loops=0)
 
-    MAIN_FRAME_0=Frame(MAIN_FRAME,relief=RIDGE,bg="lightblue",height=550,width=1300,borderwidth=4)
+    MAIN_FRAME_0=Frame(MAIN_FRAME,relief=RIDGE,bg="lightblue",height=470,width=1160,borderwidth=4)
     MAIN_FRAME_0.place(x=5,y=30)
 
 
@@ -97,15 +103,15 @@ def GR_FUNCTION():
 
         MAIN_FRAME_0.configure(bg="lightblue")
 
-        photo_frame = Frame(MAIN_FRAME_0,height=155,width=155,borderwidth=4,relief=RIDGE)
+        photo_frame = Frame(MAIN_FRAME_0,height=125,width=125,borderwidth=4,relief=RIDGE)
         photo_frame.place(x=30,y=20)
         
-        details_frame=Frame(MAIN_FRAME_0,height=150,width=1000,bg="lightblue",borderwidth=4,relief=RIDGE)
-        details_frame.place(x=220,y=20)
+        details_frame=Frame(MAIN_FRAME_0,height=150,width=920,bg="lightblue",borderwidth=4,relief=RIDGE)
+        details_frame.place(x=170,y=20)
 
         
-        general_details_frame=Frame(MAIN_FRAME_0,height=360,width=800,bg="lightblue",borderwidth=4,relief=RIDGE)
-        general_details_frame.place(x=220,y=175)
+        general_details_frame=Frame(MAIN_FRAME_0,height=280,width=820,bg="lightblue",borderwidth=4,relief=RIDGE)
+        general_details_frame.place(x=170,y=175)
 
         gr_lbl=Label(details_frame,text="GR no :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         gr_lbl.place(x=23,y=20)
@@ -165,77 +171,77 @@ def GR_FUNCTION():
 
 
         sex_lbl=Label(general_details_frame,text="Sex :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        sex_lbl.place(x=50,y=40)
+        sex_lbl.place(x=50,y=20)
         sex_var= StringVar()
         sex_combo = ttk.Combobox(general_details_frame,width=20,textvariable = sex_var)
         sex_combo['values'] = ('Male','Female')
-        sex_combo.place(x=100,y=45)
+        sex_combo.place(x=100,y=25)
 
         birth_date_lbl=Label(general_details_frame,text="Birth Date :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        birth_date_lbl.place(x=280,y=40)
+        birth_date_lbl.place(x=280,y=20)
         birth_date_ent=DateEntry(general_details_frame,selectmode="day",date_pattern="dd-mm-y",width=17)
-        birth_date_ent.place(x=370,y=45)
+        birth_date_ent.place(x=370,y=25)
 
         category_lbl=Label(general_details_frame,text="Category :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        category_lbl.place(x=575,y=40)
+        category_lbl.place(x=575,y=20)
         category_var=StringVar()
         category_combo = ttk.Combobox(general_details_frame,width=17,textvariable = category_var)
         category_combo['values'] = ('SEBC','ST','GEN','SC')
-        category_combo.place(x=655,y=45)
+        category_combo.place(x=655,y=25)
 
         religion_lbl=Label(general_details_frame,text="Religion :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        religion_lbl.place(x=24,y=105)
+        religion_lbl.place(x=24,y=65)
         religion_var=StringVar()
         religion_combo = ttk.Combobox(general_details_frame,width=20,textvariable = religion_var)
         religion_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
-        religion_combo.place(x=100,y=110)
+        religion_combo.place(x=100,y=70)
 
         birth_place_lbl=Label(general_details_frame,text="Birth Place :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        birth_place_lbl.place(x=274,y=105)
+        birth_place_lbl.place(x=274,y=65)
         birth_place_var=StringVar()
         birth_place_ent=Entry(general_details_frame,text=birth_place_var)
-        birth_place_ent.place(x=370,y=110)
+        birth_place_ent.place(x=370,y=70)
 
         
         previous_school_lbl=Label(general_details_frame,text="Previous School :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        previous_school_lbl.place(x=530,y=105)
+        previous_school_lbl.place(x=530,y=65)
         previous_school_var=StringVar()
         previous_school_ent=Entry(general_details_frame,text=previous_school_var)
-        previous_school_ent.place(x=655,y=110)
+        previous_school_ent.place(x=655,y=70)
 
         caste_lbl=Label(general_details_frame,text="Caste :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        caste_lbl.place(x=42,y=170)
+        caste_lbl.place(x=42,y=110)
         caste_var=StringVar()
         caste_combo = ttk.Combobox(general_details_frame,textvariable = caste_var)
         caste_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
-        caste_combo.place(x=100,y=175)
+        caste_combo.place(x=100,y=115)
 
         birth_taluka_lbl=Label(general_details_frame,text="Birth Taluka :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        birth_taluka_lbl.place(x=268,y=170)
+        birth_taluka_lbl.place(x=268,y=110)
         birth_taluka_var=StringVar()
         birth_taluka_ent=Entry(general_details_frame,text=birth_taluka_var)
-        birth_taluka_ent.place(x=370,y=175)
+        birth_taluka_ent.place(x=370,y=115)
 
         subcaste_lbl=Label(general_details_frame,text="Subcaste :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        subcaste_lbl.place(x=21,y=240)
+        subcaste_lbl.place(x=21,y=160)
         subcaste_var=StringVar()
         subcaste_combo = ttk.Combobox(general_details_frame,width=20,textvariable = subcaste_var)
         subcaste_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
-        subcaste_combo.place(x=100,y=245)
+        subcaste_combo.place(x=100,y=165)
 
         state_lbl=Label(general_details_frame,text="State :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        state_lbl.place(x=310,y=240)
+        state_lbl.place(x=310,y=160)
         state_var=StringVar()
         state_ent=Entry(general_details_frame,text=state_var)
-        state_ent.place(x=370,y=245)
+        state_ent.place(x=370,y=165)
 
         minorityvalue=IntVar()
         minority_check=Checkbutton(general_details_frame,text="Minority",onvalue=1,offvalue=0,bg="lightblue",activebackground="black")
-        minority_check.place(x=100,y=315)
+        minority_check.place(x=100,y=225)
 
         rtevalue=IntVar()
         rte_check=Checkbutton(general_details_frame,text="RTE",variable=rtevalue,onvalue=1,offvalue=0,bg="lightblue",activebackground="black")
-        rte_check.place(x=250,y=315)
+        rte_check.place(x=250,y=225)
 
         def grsave():
             grlst=[]
@@ -262,8 +268,8 @@ def GR_FUNCTION():
             cur.execute("insert into gr_details values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",grlst)
             mydb.commit()
             academic_details()
-        save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=grsave)
-        save_next_button.place(x=1100,y=470)
+        save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",15),command=grsave)
+        save_next_button.place(x=1050,y=370)
 
     global academic_details
     def academic_details():
@@ -276,98 +282,100 @@ def GR_FUNCTION():
 
 
 
-        academic_frame1=Frame(MAIN_FRAME_0,height=541,width=645,bg="lightblue",borderwidth=4,relief=RIDGE)
+        academic_frame1=Frame(MAIN_FRAME_0,height=461,width=560,bg="lightblue",borderwidth=4,relief=RIDGE)
         academic_frame1.place(x=0,y=0)
 
         #
         Gr_label = Label(academic_frame1, text="GR NO : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Gr_label.place(x=90, y=10)
+        Gr_label.place(x=80, y=40)
         Gr_var=StringVar()
         Gr_entry= Entry(academic_frame1, textvariable=Gr_var, width=20)
-        Gr_entry.place(x=150, y=10)
+        Gr_entry.place(x=140, y=40)
         cur.execute("select gr_no from gr_details")
         data = cur.fetchall()
         Gr_entry.insert(0,data[-1][0]) 
 
         #
         Name_label = Label(academic_frame1, text="Name : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Name_label.place(x=310, y=10)
+        Name_label.place(x=300, y=40)
         Name_var=StringVar()
         Name_entry=Entry(academic_frame1, textvariable=Name_var, width=20)
-        Name_entry.place(x=370,y=10)
+        Name_entry.place(x=360,y=40)
   
         activevalue=IntVar()
         active_check=Checkbutton(academic_frame1,text="Active",variable=activevalue,offvalue=0,onvalue=1,activebackground="lightblue",font=("Arieal",10,"bold"),bg="lightblue")
-        active_check.place(x=75,y=50)
+        active_check.place(x=65,y=80)
 
         leftvalue=IntVar()
         left_check=Checkbutton(academic_frame1,text="Left",variable=leftvalue,offvalue=0,onvalue=1,activebackground="lightblue",font=("Arieal",10,"bold"),bg="lightblue")
-        left_check.place(x=200,y=50)
+        left_check.place(x=190,y=80)
 
         aaivalue=IntVar()
         aai_check=Checkbutton(academic_frame1,text="AAI",variable=aaivalue,offvalue=0,onvalue=1,activebackground="lightblue",font=("Arieal",10,"bold"),bg="lightblue")
-        aai_check.place(x=325,y=50)
+        aai_check.place(x=315,y=80)
         #
         in_active_date_lbl=Label(academic_frame1,text="InActive Date :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        in_active_date_lbl.place(x=50,y=100)
+        in_active_date_lbl.place(x=40,y=120)
         in_active_date_ent=DateEntry(academic_frame1,selectmode="day",date_pattern="dd-mm-y")
-        in_active_date_ent.place(x=160,y=105)
+        in_active_date_ent.place(x=150,y=125)
  
         date_lbl=Label(academic_frame1,text="Date",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        date_lbl.place(x=180,y=160)
+        date_lbl.place(x=170,y=160)
 
         year_lbl=Label(academic_frame1,text="Year",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        year_lbl.place(x=280,y=160)
+        year_lbl.place(x=270,y=160)
 
         standard=Label(academic_frame1,text="Standard",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        standard.place(x=370,y=160)
+        standard.place(x=360,y=160)
 
         #
         addmission_lbl=Label(academic_frame1,text="Addmission :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        addmission_lbl.place(x=50,y=200)
+        addmission_lbl.place(x=40,y=200)
         addmission_date_ent=DateEntry(academic_frame1,selectmode="day",date_pattern="dd-mm-y")
-        addmission_date_ent.place(x=150,y=205)
+        addmission_date_ent.place(x=140,y=205)
         addmission_year_var=IntVar()
         addmission_year_ent=Entry(academic_frame1,textvariable=addmission_year_var,width=10)
-        addmission_year_ent.place(x=275,y=205)
+        addmission_year_ent.place(x=265,y=205)
         addmission_standard_var=StringVar()
         addmission_standard_ent=ttk.Combobox(academic_frame1,textvariable=addmission_standard_var,width=10)
         addmission_standard_ent['values']=['NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI']
-        addmission_standard_ent.place(x=370,y=205) 
+        # addmission_standard_ent.set('NUR')
+        addmission_standard_ent.place(x=360,y=205) 
 
         current_lbl=Label(academic_frame1,text="Current :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        current_lbl.place(x=75,y=240)
+        current_lbl.place(x=65,y=240)
         current_date_ent=DateEntry(academic_frame1,selectmode="day",date_pattern="dd-mm-y")
-        current_date_ent.place(x=150,y=245)
+        current_date_ent.place(x=140,y=245)
         current_year_var=IntVar()
         current_year_ent=Entry(academic_frame1,textvariable=current_year_var,width=10)
-        current_year_ent.place(x=275,y=245)
+        current_year_ent.place(x=265,y=245)
         current_standard_var=StringVar()
         current_standard_ent=ttk.Combobox(academic_frame1,textvariable=current_standard_var,width=10)
         current_standard_ent['values']=['NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI']
-        current_standard_ent.place(x=370,y=245) 
+        # current_standard_ent.set('NUR')
+        current_standard_ent.place(x=360,y=245) 
 
         division_lbl=Label(academic_frame1,text="Division :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        division_lbl.place(x=75,y=340)
+        division_lbl.place(x=65,y=310)
         division_var=StringVar()
         division_ent=ttk.Combobox(academic_frame1,textvariable=division_var,width=8)
         division_ent['values']=['A','B','C','D','E']
-        division_ent.place(x=150,y=345)
+        division_ent.place(x=140,y=315)
 
         roll_no_lbl=Label(academic_frame1,text="Roll No :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        roll_no_lbl.place(x=250,y=340)
+        roll_no_lbl.place(x=240,y=310)
         roll_no_var=IntVar()
         roll_no_ent=Entry(academic_frame1 ,textvariable=roll_no_var,width=10)
-        roll_no_ent.place(x=320,y=345)
+        roll_no_ent.place(x=310,y=315)
 
         inactive_reason_lbl=Label(academic_frame1,text="InActive Reason :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        inactive_reason_lbl.place(x=22,y=400)
+        inactive_reason_lbl.place(x=12,y=360)
         inactive_reason_var=StringVar()
         inactive_reason_ent=Entry(academic_frame1,textvariable=inactive_reason_var,width=35)
-        inactive_reason_ent.place(x=150,y=405)
+        inactive_reason_ent.place(x=140,y=365)
 
-        academic_frame2=Frame(MAIN_FRAME_0,height=541,width=645,bg="lightblue",borderwidth=4,relief=RIDGE)
-        academic_frame2.place(x=646,y=0)
+        academic_frame2=Frame(MAIN_FRAME_0,height=461,width=560,bg="lightblue",borderwidth=4,relief=RIDGE)
+        academic_frame2.place(x=561,y=0)
         left_reason_lbl=Label(academic_frame2,text="Left Reason :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
         left_reason_lbl.place(x=50,y=50)
         left_reason_var=StringVar()
@@ -447,15 +455,15 @@ def GR_FUNCTION():
                 data = cur.fetchall()
                 cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12]])
             else:
-                cur.execute("select * from exmp_fees where std='{}'".format(current_standard_ent.get()))
+                cur.execute("select * from std_fees where std='{}'".format(current_standard_ent.get()))
                 data = cur.fetchall()
                 cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12]])
             cur.execute("insert into gr_check values({},0,0,0,0,0,0,0)".format(Gr_entry.get()))
             cur.execute("insert into fee_details values({},' ',' ',' ',' ',' ',' ',' ')".format(Gr_entry.get()))
             mydb.commit()
             other_details()
-        save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=academic_details_save)
-        save_next_button.place(x=1100,y=470)
+        save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",15),command=academic_details_save)
+        save_next_button.place(x=1050,y=370)
 
 
 
@@ -471,7 +479,7 @@ def GR_FUNCTION():
         Gr_label = Label(MAIN_FRAME_0, text="GR NO : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Gr_label.place(x=90, y=10)
         Gr_var=StringVar()
-        Gr_entry= Entry(MAIN_FRAME_0, textvariable=Gr_var, width=40)
+        Gr_entry= Entry(MAIN_FRAME_0, textvariable=Gr_var, width=30)
         Gr_entry.place(x=150, y=10)
         cur.execute("select gr_no from gr_details")
         data = cur.fetchall()
@@ -479,156 +487,156 @@ def GR_FUNCTION():
 
         #
         Name_label = Label(MAIN_FRAME_0, text="Name : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Name_label.place(x=490, y=10)
+        Name_label.place(x=430, y=10)
         Name_var=StringVar()
-        Name_entry=Entry(MAIN_FRAME_0, textvariable=Name_var, width=40)
-        Name_entry.place(x=550,y=10)
+        Name_entry=Entry(MAIN_FRAME_0, textvariable=Name_var, width=30)
+        Name_entry.place(x=490,y=10)
 
         #
         Bank_holder=Label(MAIN_FRAME_0, text="Bank Acc. Holder : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Bank_holder.place(x=870,y=10)
+        Bank_holder.place(x=770,y=10)
         Bank_holder_var=StringVar()
-        Bank_holder_entry = Entry(MAIN_FRAME_0, textvariable=Bank_holder_var, width=40)
-        Bank_holder_entry.place(x=1000, y=10)
+        Bank_holder_entry = Entry(MAIN_FRAME_0, textvariable=Bank_holder_var, width=30)
+        Bank_holder_entry.place(x=900, y=10)
 
         #
         Scholarship_label = Label(MAIN_FRAME_0, text="Scholarship Category : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Scholarship_label.place(x=0, y=50)
         Scholarship_var=StringVar()
-        Scholarship_entry = Entry(MAIN_FRAME_0, textvariable=Scholarship_var, width=40)
+        Scholarship_entry = Entry(MAIN_FRAME_0, textvariable=Scholarship_var, width=30)
         Scholarship_entry.place(x=150, y=50)
 
         #
         Transport_label = Label(MAIN_FRAME_0, text="Transport : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue" )
-        Transport_label.place(x=470, y=50)
+        Transport_label.place(x=410, y=50)
         Transport_var=StringVar()
-        Transport_entry=Entry(MAIN_FRAME_0, textvariable=Transport_var, width=40)
-        Transport_entry.place(x=550, y=50)
+        Transport_entry=Entry(MAIN_FRAME_0, textvariable=Transport_var, width=30)
+        Transport_entry.place(x=490, y=50)
 
         #
         bnk_name_label = Label(MAIN_FRAME_0, text="Bank Name : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        bnk_name_label.place(x=905, y=50)
+        bnk_name_label.place(x=805, y=50)
         bnk_name_var=StringVar()
-        bnk_name_entry=Entry(MAIN_FRAME_0, textvariable=bnk_name_label, width=40)
-        bnk_name_entry.place(x=1000,y=50)
+        bnk_name_entry=Entry(MAIN_FRAME_0, textvariable=bnk_name_label, width=30)
+        bnk_name_entry.place(x=900,y=50)
 
         #
         preschool_label=Label(MAIN_FRAME_0,text='PreSchool Type : ',font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         preschool_label.place(x=30, y=90)
         preschool_var=StringVar()
-        preschool_entry=Entry(MAIN_FRAME_0, textvariable=preschool_var, width=40)
+        preschool_entry=Entry(MAIN_FRAME_0, textvariable=preschool_var, width=30)
         preschool_entry.place(x=150, y=90)
 
         #
         blood_label = Label(MAIN_FRAME_0, text="Blood Group : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        blood_label.place(x=450, y=90)
+        blood_label.place(x=390, y=90)
         blood_var=StringVar()
-        blood_entry= Entry(MAIN_FRAME_0, textvariable=blood_var,width=40)
-        blood_entry.place(x=550, y=90)
+        blood_entry= Entry(MAIN_FRAME_0, textvariable=blood_var,width=30)
+        blood_entry.place(x=490, y=90)
 
         #
         bank_acc_no_label = Label(MAIN_FRAME_0, text="Bank Account No : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        bank_acc_no_label.place(x=870, y=90)
+        bank_acc_no_label.place(x=770, y=90)
         bank_ac_no_var=StringVar()
-        bank_ac_no_entry = Entry(MAIN_FRAME_0, textvariable=bank_ac_no_var,width=40)
-        bank_ac_no_entry.place(x=1000, y=90)
+        bank_ac_no_entry = Entry(MAIN_FRAME_0, textvariable=bank_ac_no_var,width=30)
+        bank_ac_no_entry.place(x=900, y=90)
 
         #
         Remark_label = Label(MAIN_FRAME_0, text="Remark : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Remark_label.place(x=80, y=130)
         Remark_var=StringVar()
-        Remark_entry= Entry(MAIN_FRAME_0, textvariable=Remark_var,width=107)
+        Remark_entry= Entry(MAIN_FRAME_0, textvariable=Remark_var,width=87)
         Remark_entry.place(x=150, y=130)
 
         #
         bank_branch_label = Label(MAIN_FRAME_0, text="Bank Branch : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        bank_branch_label.place(x=900, y=130)
+        bank_branch_label.place(x=800, y=130)
         bank_branch_var=StringVar()
-        bank_branch_entry= Entry(MAIN_FRAME_0, textvariable=bank_branch_var,width=40)
-        bank_branch_entry.place(x=1000, y=130)
+        bank_branch_entry= Entry(MAIN_FRAME_0, textvariable=bank_branch_var,width=30)
+        bank_branch_entry.place(x=900, y=130)
 
         #
         student_email_label = Label(MAIN_FRAME_0, text="Student Email : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         student_email_label.place(x=40, y=170)
         student_email_var=StringVar()
-        student_email_entry= Entry(MAIN_FRAME_0, textvariable=student_email_var,width=107)
+        student_email_entry= Entry(MAIN_FRAME_0, textvariable=student_email_var,width=87)
         student_email_entry.place(x=150, y=170)
 
         #
         IFSC_label = Label(MAIN_FRAME_0, text="IFSC Code : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        IFSC_label.place(x=910, y=170)
+        IFSC_label.place(x=810, y=170)
         IFSC_var=StringVar()
-        IFSC_entry= Entry(MAIN_FRAME_0, textvariable=IFSC_var,width=40)
-        IFSC_entry.place(x=1000, y=170)
+        IFSC_entry= Entry(MAIN_FRAME_0, textvariable=IFSC_var,width=30)
+        IFSC_entry.place(x=900, y=170)
 
         #
         Mobile_No_label = Label(MAIN_FRAME_0, text="Mobile No. : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Mobile_No_label.place(x=60, y=210)
         Mobile_No_var=StringVar()
-        Mobile_No_entry= Entry(MAIN_FRAME_0, textvariable=Mobile_No_var,width=40)
+        Mobile_No_entry= Entry(MAIN_FRAME_0, textvariable=Mobile_No_var,width=30)
         Mobile_No_entry.place(x=150, y=210)
 
         #
         SUID_label = Label(MAIN_FRAME_0, text="SUID : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        SUID_label.place(x=495, y=210)
+        SUID_label.place(x=435, y=210)
         SUID_var=StringVar()
-        SUID_entry= Entry(MAIN_FRAME_0, textvariable=SUID_var,width=40)
-        SUID_entry.place(x=550, y=210)
+        SUID_entry= Entry(MAIN_FRAME_0, textvariable=SUID_var,width=30)
+        SUID_entry.place(x=490, y=210)
 
         #
         Adhar_no_label = Label(MAIN_FRAME_0, text="Adhar Card No : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Adhar_no_label.place(x=885, y=210)
+        Adhar_no_label.place(x=785, y=210)
         Adhar_no_var=StringVar()
-        Adhar_no_entry= Entry(MAIN_FRAME_0, textvariable=Adhar_no_var,width=40)
-        Adhar_no_entry.place(x=1000, y=210)
+        Adhar_no_entry= Entry(MAIN_FRAME_0, textvariable=Adhar_no_var,width=30)
+        Adhar_no_entry.place(x=900, y=210)
 
 
 
-        present_address_frame = LabelFrame(MAIN_FRAME_0, bg="lightblue", text="Present Address", width=1280, height=240,relief=RIDGE)
-        present_address_frame.place(x=10, y=300)
+        present_address_frame = LabelFrame(MAIN_FRAME_0, bg="lightblue", text="Present Address", width=980, height=220,relief=RIDGE)
+        present_address_frame.place(x=10, y=235)
 
         #
         Address_label = Label(present_address_frame, text="Address : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Address_label.place(x=70, y=10)
         Address_var=StringVar()
-        Address_entry1= Entry(present_address_frame, textvariable=Address_var, width=107)
+        Address_entry1= Entry(present_address_frame, textvariable=Address_var, width=87)
         Address_entry1.place(x=140, y=10)
-        Address_entry2= Entry(present_address_frame, textvariable=Address_var, width=107)
+        Address_entry2= Entry(present_address_frame, textvariable=Address_var, width=87)
         Address_entry2.place(x=140, y=50)
 
         #
         Area_label = Label(present_address_frame, text="Area : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Area_label.place(x=90, y=90)
         Area_var=StringVar()
-        Area_entry= Entry(present_address_frame, textvariable=Area_var,width=40)
+        Area_entry= Entry(present_address_frame, textvariable=Area_var,width=30)
         Area_entry.place(x=140, y=90)
 
         #
         City_label = Label(present_address_frame, text="City : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        City_label.place(x=493, y=90)
+        City_label.place(x=433, y=90)
         City_var=StringVar()
-        City_entry= Entry(present_address_frame, textvariable=City_var,width=40)
-        City_entry.place(x=540, y=90)
+        City_entry= Entry(present_address_frame, textvariable=City_var,width=30)
+        City_entry.place(x=480, y=90)
 
         #
         District_label = Label(present_address_frame, text="District : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         District_label.place(x=78, y=130)
         District_var=StringVar()
-        District_entry= Entry(present_address_frame, textvariable=District_var,width=40)
+        District_entry= Entry(present_address_frame, textvariable=District_var,width=30)
         District_entry.place(x=140, y=130)
 
 
         Pincode_label = Label(present_address_frame, text="Pincode : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Pincode_label.place(x=465, y=130)
+        Pincode_label.place(x=405, y=130)
         Pincode_var=StringVar()
-        Pincode_entry= Entry(present_address_frame, textvariable=Pincode_var,width=40)
-        Pincode_entry.place(x=540, y=130)
+        Pincode_entry= Entry(present_address_frame, textvariable=Pincode_var,width=30)
+        Pincode_entry.place(x=480, y=130)
 
 
         Phone_label = Label(present_address_frame, text="Phone No : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Phone_label.place(x=60, y=170)
         Phone_var=StringVar()
-        Phone_entry= Entry(present_address_frame, textvariable=Phone_var,width=40)
+        Phone_entry= Entry(present_address_frame, textvariable=Phone_var,width=30)
         Phone_entry.place(x=140, y=170)
 
         def others_details1():
@@ -657,14 +665,14 @@ def GR_FUNCTION():
             others_details_list.append(Pincode_entry.get())#22
             others_details_list.append(Phone_entry.get())#23
             cur.execute("insert into other_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",others_details_list)
-            # cur.execute("select GRNO,NAME,CURRENT_STANDARD,DIVISON from academic_details")
+            # cur.execute("select GRNO,NAME,CURRENT_STANDARD,division from academic_details")
             # aca_data = cur.fetchall()
-            # cur.execute("insert into fee(GR,NAME,STD,DIVISON) values(%s,%s,%s,%s)",[aca_data[0][0],aca_data[0][1],aca_data[0][2],aca_data[0][3]])
+            # cur.execute("insert into fee(GR,NAME,STD,division) values(%s,%s,%s,%s)",[aca_data[0][0],aca_data[0][1],aca_data[0][2],aca_data[0][3]])
             mydb.commit()
             gr_details()
 
         save_next_button = Button(MAIN_FRAME_0,text="SAVE",font=("Arial",20),command=others_details1)
-        save_next_button.place(x=1100,y=470)
+        save_next_button.place(x=1050,y=370)
 
     def gr_details1():
         for widget in MAIN_FRAME_0.winfo_children():
@@ -676,15 +684,15 @@ def GR_FUNCTION():
 
         MAIN_FRAME_0.configure(bg="lightblue")
 
-        photo_frame = Frame(MAIN_FRAME_0,height=155,width=155,borderwidth=4,relief=RIDGE)
+        photo_frame = Frame(MAIN_FRAME_0,height=125,width=125,borderwidth=4,relief=RIDGE)
         photo_frame.place(x=30,y=20)
         
-        details_frame=Frame(MAIN_FRAME_0,height=150,width=1000,bg="lightblue",borderwidth=4,relief=RIDGE)
-        details_frame.place(x=220,y=20)
+        details_frame=Frame(MAIN_FRAME_0,height=150,width=920,bg="lightblue",borderwidth=4,relief=RIDGE)
+        details_frame.place(x=170,y=20)
 
         
-        general_details_frame=Frame(MAIN_FRAME_0,height=360,width=800,bg="lightblue",borderwidth=4,relief=RIDGE)
-        general_details_frame.place(x=220,y=175)
+        general_details_frame=Frame(MAIN_FRAME_0,height=280,width=820,bg="lightblue",borderwidth=4,relief=RIDGE)
+        general_details_frame.place(x=170,y=175)
 
         gr_lbl=Label(details_frame,text="GR no :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         gr_lbl.place(x=23,y=20)
@@ -701,33 +709,35 @@ def GR_FUNCTION():
         edit_gr_details = data[0][0]
 
         
-
         form_no_lbl=Label(details_frame,text="Form No :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         form_no_lbl.place(x=240,y=20)
         form_no_var=IntVar()
         form_no_ent=Entry(details_frame,textvariable=form_no_var)
+        form_no_ent.place(x=316,y=25)  
         form_no_ent.delete(0,END)
-        form_no_ent.place(x=316,y=25)
         form_no_ent.insert(0,data[0][1])          
  
         enquiry_no_lbl=Label(details_frame,text="Enquiry No :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         enquiry_no_lbl.place(x=470,y=20)
         enquiry_no_var=IntVar()
         enquiry_no_ent=Entry(details_frame,textvariable=enquiry_no_var)
-        enquiry_no_ent.delete(0,END)
         enquiry_no_ent.place(x=559,y=25) 
+        enquiry_no_ent.delete(0,END)
         enquiry_no_ent.insert(0,data[0][2])
+
 
         uid_lbl=Label(details_frame,text="UID :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         uid_lbl.place(x=720,y=20)
         uid_var=IntVar()
         uid_ent=Entry(details_frame,textvariable=uid_var)
+        uid_ent.place(x=771,y=25)
         uid_ent.delete(0,END)
-        uid_ent.place(x=771,y=25) 
         uid_ent.insert(0,data[0][3])
+
 
         name1_lbl=Label(details_frame,text="Name :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         name1_lbl.place(x=25,y=100)
+
 
         surname_lbl=Label(details_frame,text="Surname:",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         surname_lbl.place(x=114,y=68)
@@ -736,6 +746,8 @@ def GR_FUNCTION():
         surname_ent.place(x=84,y=105)
         surname_ent.delete
         surname_ent.insert(0,data[0][4])
+
+      
 
         name_lbl=Label(details_frame,text="Name:",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
         name_lbl.place(x=350,y=68)
@@ -763,94 +775,95 @@ def GR_FUNCTION():
 
 
         sex_lbl=Label(general_details_frame,text="Sex :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        sex_lbl.place(x=50,y=40)
+        sex_lbl.place(x=50,y=20)
         sex_var= StringVar()
-        sex_combo = ttk.Combobox(general_details_frame,width=20,textvariable= sex_var)
-        sex_combo['values'] = ('Male','Female')
-        sex_combo.place(x=100,y=45)
+        sex_combo = Entry(general_details_frame,width=20,textvariable= sex_var)
+        # sex_combo['values'] = ('Male','Female')
+        sex_combo.place(x=100,y=25)
         sex_combo.delete(0,END)
         sex_combo.insert(0,data[0][8])
 
         birth_date_lbl=Label(general_details_frame,text="Birth Date :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        birth_date_lbl.place(x=280,y=40)
+        birth_date_lbl.place(x=280,y=20)
         birth_date_ent=DateEntry(general_details_frame,selectmode="day",date_pattern="dd-mm-y",width=17)
-        birth_date_ent.place(x=370,y=45)
+        birth_date_ent.place(x=370,y=25)
         birth_date_ent.delete(0,END)
         birth_date_ent.insert(0,data[0][9])
 
         category_lbl=Label(general_details_frame,text="Category :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        category_lbl.place(x=575,y=40)
+        category_lbl.place(x=575,y=20)
         category_var=StringVar()
-        category_combo = ttk.Combobox(general_details_frame,width=17,textvariable = category_var)
-        category_combo['values'] = ('SEBC','ST','GEN','SC')
-        category_combo.place(x=655,y=45)
+        category_combo = Entry(general_details_frame,width=17,textvariable = category_var)
+        # category_combo['values'] = ('SEBC','ST','GEN','SC')
+        category_combo.place(x=655,y=25)
         category_combo.delete(0,END)
         category_combo.insert(0,data[0][10])
 
         religion_lbl=Label(general_details_frame,text="Religion :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        religion_lbl.place(x=24,y=105)
+        religion_lbl.place(x=24,y=65)
         religion_var=StringVar()
-        religion_combo = ttk.Combobox(general_details_frame,width=20,textvariable = religion_var)
-        religion_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
-        religion_combo.place(x=100,y=110)
+        religion_combo = Entry(general_details_frame,width=20,textvariable = religion_var)
+        # religion_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
+        religion_combo.place(x=100,y=70)
         religion_combo.delete(0,END)
         religion_combo.insert(0,data[0][11])
 
         
         birth_place_lbl=Label(general_details_frame,text="Birth Place :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        birth_place_lbl.place(x=274,y=105)
+        birth_place_lbl.place(x=274,y=65)
         birth_place_var=StringVar()
         birth_place_ent=Entry(general_details_frame,text=birth_place_var)
-        birth_place_ent.place(x=370,y=110)
+        birth_place_ent.place(x=370,y=70)
         birth_place_ent.delete(0,END)
         birth_place_ent.insert(0,data[0][12])
 
         previous_school_lbl=Label(general_details_frame,text="Previous School :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        previous_school_lbl.place(x=530,y=105)
+        previous_school_lbl.place(x=530,y=65)
         previous_school_var=StringVar()
         previous_school_ent=Entry(general_details_frame,text=previous_school_var)
-        previous_school_ent.place(x=655,y=110)
+        previous_school_ent.place(x=655,y=70)
         previous_school_ent.delete(0,END)
         previous_school_ent.insert(0,data[0][13])
 
         caste_lbl=Label(general_details_frame,text="Caste :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        caste_lbl.place(x=42,y=170)
+        caste_lbl.place(x=42,y=110)
         caste_var=StringVar()
-        caste_combo = ttk.Combobox(general_details_frame,textvariable = caste_var)
-        caste_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
-        caste_combo.place(x=100,y=175)
+        caste_combo = Entry(general_details_frame,textvariable = caste_var)
+        caste_combo.place(x=100,y=115)
         caste_combo.delete(0,END)
         caste_combo.insert(0,data[0][14])
+        print(data[0][14])
 
         
         birth_taluka_lbl=Label(general_details_frame,text="Birth Taluka :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        birth_taluka_lbl.place(x=268,y=170)
+        birth_taluka_lbl.place(x=268,y=110)
         birth_taluka_var=StringVar()
         birth_taluka_ent=Entry(general_details_frame,text=birth_taluka_var)
-        birth_taluka_ent.place(x=370,y=175)
+        birth_taluka_ent.place(x=370,y=115)
         birth_taluka_ent.delete(0,END)
         birth_taluka_ent.insert(0,data[0][15])
 
         subcaste_lbl=Label(general_details_frame,text="Subcaste :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        subcaste_lbl.place(x=21,y=240)
+        subcaste_lbl.place(x=21,y=160)
         subcaste_var=StringVar()
-        subcaste_combo = ttk.Combobox(general_details_frame,width=20,textvariable = subcaste_var)
-        subcaste_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
-        subcaste_combo.place(x=100,y=245)
+        subcaste_combo = Entry(general_details_frame,width=20,textvariable = subcaste_var)
+        # subcaste_combo['values'] = ('Hindhu','Muslim','Jain','Sikh','Cristian')
+        subcaste_combo.place(x=100,y=165)
         subcaste_combo.delete(0,END)
         subcaste_combo.insert(0,data[0][16])
 
         state_lbl=Label(general_details_frame,text="State :",padx=5,pady=5,bg="lightblue",font=("Arial",10,"bold"))
-        state_lbl.place(x=310,y=240)
+        state_lbl.place(x=310,y=160)
         state_var=StringVar()
         state_ent=Entry(general_details_frame,text=state_var)
-        state_ent.place(x=370,y=245)
+        state_ent.place(x=370,y=165)
         state_ent.delete(0,END)
         state_ent.insert(0,data[0][17])
 
         minorityvalue=IntVar()
         minority_check=Checkbutton(general_details_frame,text="Minority",onvalue=1,offvalue=0,bg="lightblue",activebackground="black")
-        minority_check.place(x=100,y=315)
+        minority_check.place(x=100,y=225)
+
         if (data[0][18]==0):
             minority_check.deselect()
         else:
@@ -858,7 +871,7 @@ def GR_FUNCTION():
 
         rtevalue=IntVar()
         rte_check=Checkbutton(general_details_frame,text="RTE",variable=rtevalue,onvalue=1,offvalue=0,bg="lightblue",activebackground="black")
-        rte_check.place(x=250,y=315)
+        rte_check.place(x=250,y=225)
         if(data[0][19] == 0):
             rte_check.deselect()
         else:
@@ -881,23 +894,23 @@ def GR_FUNCTION():
                 mother_ent.delete(0,END)
                 mother_ent.insert(0,data[0][7])
                 sex_combo.delete(0,END)
-                sex_combo.set(data[0][8])
+                sex_combo.insert(0,data[0][8])
                 birth_date_ent.delete(0,END)
                 birth_date_ent.insert(0,data[0][9])
                 category_combo.delete(0,END)
-                category_combo.set(data[0][10])
+                category_combo.insert(0,data[0][10])
                 religion_combo.delete(0,END)
-                religion_combo.set(data[0][11])
+                religion_combo.insert(0,data[0][11])
                 birth_place_ent.delete(0,END)
                 birth_place_ent.insert(0,data[0][12])
                 previous_school_ent.delete(0,END)
                 previous_school_ent.insert(0,data[0][13])
                 caste_combo.delete(0,END)
-                caste_combo.set(data[0][14])
+                caste_combo.insert(0,data[0][14])
                 birth_taluka_ent.delete(0,END)
                 birth_taluka_ent.insert(0,data[0][15])
                 subcaste_combo.delete(0,END)
-                subcaste_combo.set(data[0][16])
+                subcaste_combo.insert(0,data[0][16])
                 state_ent.delete(0,END)
                 state_ent.insert(0,data[0][17])
                 if (data[0][18]==0):
@@ -944,7 +957,7 @@ def GR_FUNCTION():
             mydb.commit()
             academic_details1()
         save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=grsave)
-        save_next_button.place(x=1100,y=470)
+        save_next_button.place(x=1050,y=370)
 
     global academic_details1
     def academic_details1():
@@ -957,15 +970,15 @@ def GR_FUNCTION():
 
 
 
-        academic_frame1=Frame(MAIN_FRAME_0,height=541,width=645,bg="lightblue",borderwidth=4,relief=RIDGE)
+        academic_frame1=Frame(MAIN_FRAME_0,height=461,width=560,bg="lightblue",borderwidth=4,relief=RIDGE)
         academic_frame1.place(x=0,y=0)
 
         #
         Gr_label = Label(academic_frame1, text="GR NO : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Gr_label.place(x=90, y=10)
+        Gr_label.place(x=90, y=40)
         Gr_var=StringVar()
         Gr_entry= Entry(academic_frame1, textvariable=Gr_var, width=20)
-        Gr_entry.place(x=150, y=10)
+        Gr_entry.place(x=150, y=40)
         Gr_entry.delete(0,END)
         Gr_entry.insert(0,edit_gr_details)
         cur.execute("select * from academic_detail where gr_no=%s",[edit_gr_details])
@@ -974,16 +987,16 @@ def GR_FUNCTION():
 
         #
         Name_label = Label(academic_frame1, text="Name : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Name_label.place(x=310, y=10)
+        Name_label.place(x=310, y=40)
         Name_var=StringVar()
         Name_entry=Entry(academic_frame1, textvariable=Name_var, width=20)
-        Name_entry.place(x=370,y=10)
+        Name_entry.place(x=370,y=40)
         Name_entry.delete(0,END)
         Name_entry.insert(0,data[0][1])
   
         activevalue=IntVar()
         active_check=Checkbutton(academic_frame1,text="Active",variable=activevalue,offvalue=0,onvalue=1,activebackground="lightblue",font=("Arieal",10,"bold"),bg="lightblue")
-        active_check.place(x=75,y=50)
+        active_check.place(x=75,y=80)
         if(data[0][2] == 1):
             active_check.select()
         else:
@@ -991,7 +1004,7 @@ def GR_FUNCTION():
 
         leftvalue=IntVar()
         left_check=Checkbutton(academic_frame1,text="Left",variable=leftvalue,offvalue=0,onvalue=1,activebackground="lightblue",font=("Arieal",10,"bold"),bg="lightblue")
-        left_check.place(x=200,y=50)
+        left_check.place(x=200,y=80)
         if(data[0][3] == 1):
             left_check.select()
         else:
@@ -999,16 +1012,16 @@ def GR_FUNCTION():
 
         aaivalue=IntVar()
         aai_check=Checkbutton(academic_frame1,text="AAI",variable=aaivalue,offvalue=0,onvalue=1,activebackground="lightblue",font=("Arieal",10,"bold"),bg="lightblue")
-        aai_check.place(x=325,y=50)
+        aai_check.place(x=325,y=80)
         if(data[0][4] == 1):
             aai_check.select()
         else:
             aai_check.deselect()
         #
         in_active_date_lbl=Label(academic_frame1,text="InActive Date :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        in_active_date_lbl.place(x=50,y=100)
+        in_active_date_lbl.place(x=50,y=120)
         in_active_date_ent=DateEntry(academic_frame1,selectmode="day",date_pattern="dd-mm-y")
-        in_active_date_ent.place(x=160,y=105)
+        in_active_date_ent.place(x=160,y=125)
         in_active_date_ent.delete(0,END)
         in_active_date_ent.insert(0,data[0][5])
  
@@ -1034,11 +1047,11 @@ def GR_FUNCTION():
         addmission_year_ent.delete(0,END)
         addmission_year_ent.insert(0,data[0][7])
         addmission_standard_var=StringVar()
-        addmission_standard_ent=ttk.Combobox(academic_frame1,textvariable=addmission_standard_var,width=10)
-        addmission_standard_ent['values']=['NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI']
+        addmission_standard_ent=Entry(academic_frame1,textvariable=addmission_standard_var,width=10)
+        # addmission_standard_ent['values']=['NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI']
         addmission_standard_ent.place(x=370,y=205) 
         addmission_standard_ent.delete(0,END)
-        addmission_standard_ent.set(data[0][8])
+        addmission_standard_ent.insert(0,data[0][8])
 
         current_lbl=Label(academic_frame1,text="Current :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
         current_lbl.place(x=75,y=240)
@@ -1052,39 +1065,40 @@ def GR_FUNCTION():
         current_year_ent.delete(0,END)
         current_year_ent.insert(0,data[0][10])
         current_standard_var=StringVar()
-        current_standard_ent=ttk.Combobox(academic_frame1,textvariable=current_standard_var,width=10)
-        current_standard_ent['values']=['NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI']
+        current_standard_ent=Entry(academic_frame1,textvariable=current_standard_var,width=10)
+        # current_standard_ent['values']=['NUR','JR.KG','SR.KG','1','2','3','4','5','6','7','8','9','10','11 COMM','11 SCI','12 COMM','12 SCI']
         current_standard_ent.place(x=370,y=245) 
         current_standard_ent.delete(0,END)
-        current_standard_ent.set(data[0][11])
+        current_standard_ent.insert(0,data[0][11])
 
         division_lbl=Label(academic_frame1,text="Division :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        division_lbl.place(x=75,y=340)
+        division_lbl.place(x=75,y=310)
         division_var=StringVar()
-        division_ent=ttk.Combobox(academic_frame1,textvariable=division_var,width=8)
-        division_ent['values']=['A','B','C','D','E']
-        division_ent.place(x=150,y=345)
+        division_ent=Entry(academic_frame1,textvariable=division_var,width=8)
+        # division_ent['values']=['A','B','C','D','E']
+        division_ent.place(x=150,y=315)
         division_ent.delete(0,END)
-        division_ent.set(data[0][12])
+        division_ent.insert(0,data[0][12])
 
         roll_no_lbl=Label(academic_frame1,text="Roll No :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        roll_no_lbl.place(x=250,y=340)
+        roll_no_lbl.place(x=250,y=310)
         roll_no_var=IntVar()
         roll_no_ent=Entry(academic_frame1 ,textvariable=roll_no_var,width=10)
-        roll_no_ent.place(x=320,y=345)
+        roll_no_ent.place(x=320,y=315)
         roll_no_ent.delete(0,END)
         roll_no_ent.insert(0,data[0][13])
 
         inactive_reason_lbl=Label(academic_frame1,text="InActive Reason :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
-        inactive_reason_lbl.place(x=22,y=400)
+        inactive_reason_lbl.place(x=22,y=360)
         inactive_reason_var=StringVar()
         inactive_reason_ent=Entry(academic_frame1,textvariable=inactive_reason_var,width=35)
-        inactive_reason_ent.place(x=150,y=405)
+        inactive_reason_ent.place(x=150,y=365)
         inactive_reason_ent.delete(0,END)
         inactive_reason_ent.insert(0,data[0][14])
 
-        academic_frame2=Frame(MAIN_FRAME_0,height=541,width=645,bg="lightblue",borderwidth=4,relief=RIDGE)
-        academic_frame2.place(x=646,y=0)
+        academic_frame2=Frame(MAIN_FRAME_0,height=461,width=560,bg="lightblue",borderwidth=4,relief=RIDGE)
+        academic_frame2.place(x=561,y=0)
+
         left_reason_lbl=Label(academic_frame2,text="Left Reason :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightblue")
         left_reason_lbl.place(x=50,y=50)
         left_reason_var=StringVar()
@@ -1175,20 +1189,20 @@ def GR_FUNCTION():
             academic_details_lst.append(lc_remark_ent.get())#22
             academic_details_lst.append(lc_copy_ent.get())#23
             academic_details_lst.append(Gr_entry.get())#1
-            cur.execute("update academic_detail set name=%s,active1=%s,left1=%s,aai1=%s,inactive_date=%s,add_date=%s,add_year=%s,add_std=%s,curr_date=%s,curr_year=%s,curr_std=%s,divison=%s,roll_no=%s,inactive_reason=%s,left_reason=%s,progress=%s,presence=%s,out_of=%s,lc_book=%s,lc_no=%s,lc_date=%s,lc_remark=%s,lc_copy=%s where gr_no=%s",academic_details_lst)
+            cur.execute("update academic_detail set name=%s,active1=%s,left1=%s,aai1=%s,inactive_date=%s,add_date=%s,add_year=%s,add_std=%s,curr_date=%s,curr_year=%s,curr_std=%s,division=%s,roll_no=%s,inactive_reason=%s,left_reason=%s,progress=%s,presence=%s,out_of=%s,lc_book=%s,lc_no=%s,lc_date=%s,lc_remark=%s,lc_copy=%s where gr_no=%s",academic_details_lst)
             
             if(aaivalue.get() == 0):
                 cur.execute("select * from std_fees where std='{}'".format(current_standard_ent.get()))
                 data = cur.fetchall()
-                cur.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ACTIVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],Gr_entry.get()])
+                cur.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ATITVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],Gr_entry.get()])
             else:
-                cur.execute("select * from exmp_fees where std='{}'".format(current_standard_ent.get()))
+                cur.execute("select * from STD_fees where std='{}'".format(current_standard_ent.get()))
                 data = cur.fetchall()
-                cur.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ACTIVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],Gr_entry.get()])
+                cur.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ATITVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],Gr_entry.get()])
             mydb.commit()
             other_details1()
         save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=academic_details_save)
-        save_next_button.place(x=1100,y=470)
+        save_next_button.place(x=1050,y=370)
 
 
 
@@ -1204,7 +1218,7 @@ def GR_FUNCTION():
         Gr_label = Label(MAIN_FRAME_0, text="GR NO : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Gr_label.place(x=90, y=10)
         Gr_var=StringVar()
-        Gr_entry= Entry(MAIN_FRAME_0, textvariable=Gr_var, width=40)
+        Gr_entry= Entry(MAIN_FRAME_0, textvariable=Gr_var, width=30)
         Gr_entry.place(x=150, y=10)
         Gr_entry.delete(0,END)
         Gr_entry.insert(0,edit_gr_details)
@@ -1213,19 +1227,19 @@ def GR_FUNCTION():
         
         #
         Name_label = Label(MAIN_FRAME_0, text="Name : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Name_label.place(x=490, y=10)
+        Name_label.place(x=430, y=10)
         Name_var=StringVar()
-        Name_entry=Entry(MAIN_FRAME_0, textvariable=Name_var, width=40)
-        Name_entry.place(x=550,y=10)
+        Name_entry=Entry(MAIN_FRAME_0, textvariable=Name_var, width=30)
+        Name_entry.place(x=490,y=10)
         Name_entry.delete(0,END)
         Name_entry.insert(0,data[0][1])
 
         #
         Bank_holder=Label(MAIN_FRAME_0, text="Bank Acc. Holder : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Bank_holder.place(x=870,y=10)
+        Bank_holder.place(x=770,y=10)
         Bank_holder_var=StringVar()
-        Bank_holder_entry = Entry(MAIN_FRAME_0, textvariable=Bank_holder_var, width=40)
-        Bank_holder_entry.place(x=1000, y=10)
+        Bank_holder_entry = Entry(MAIN_FRAME_0, textvariable=Bank_holder_var, width=30)
+        Bank_holder_entry.place(x=900, y=10)
         Bank_holder_entry.delete(0,END)
         Bank_holder_entry.insert(0,data[0][2])
 
@@ -1233,26 +1247,26 @@ def GR_FUNCTION():
         Scholarship_label = Label(MAIN_FRAME_0, text="Scholarship Category : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Scholarship_label.place(x=0, y=50)
         Scholarship_var=StringVar()
-        Scholarship_entry = Entry(MAIN_FRAME_0, textvariable=Scholarship_var, width=40)
+        Scholarship_entry = Entry(MAIN_FRAME_0, textvariable=Scholarship_var, width=30)
         Scholarship_entry.place(x=150, y=50)
         Scholarship_entry.delete(0,END)
         Scholarship_entry.insert(0,data[0][3])
 
         #
         Transport_label = Label(MAIN_FRAME_0, text="Transport : ", font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue" )
-        Transport_label.place(x=470, y=50)
+        Transport_label.place(x=410, y=50)
         Transport_var=StringVar()
-        Transport_entry=Entry(MAIN_FRAME_0, textvariable=Transport_var, width=40)
-        Transport_entry.place(x=550, y=50)
+        Transport_entry=Entry(MAIN_FRAME_0, textvariable=Transport_var, width=30)
+        Transport_entry.place(x=490, y=50)
         Transport_entry.delete(0,END)
         Transport_entry.insert(0,data[0][4])
 
         #
         bnk_name_label = Label(MAIN_FRAME_0, text="Bank Name : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        bnk_name_label.place(x=905, y=50)
+        bnk_name_label.place(x=805, y=50)
         bnk_name_var=StringVar()
-        bnk_name_entry=Entry(MAIN_FRAME_0, textvariable=bnk_name_label, width=40)
-        bnk_name_entry.place(x=1000,y=50)
+        bnk_name_entry=Entry(MAIN_FRAME_0, textvariable=bnk_name_label, width=30)
+        bnk_name_entry.place(x=900,y=50)
         bnk_name_entry.delete(0,END)
         bnk_name_entry.insert(0,data[0][5])
 
@@ -1260,26 +1274,26 @@ def GR_FUNCTION():
         preschool_label=Label(MAIN_FRAME_0,text='PreSchool Type : ',font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         preschool_label.place(x=30, y=90)
         preschool_var=StringVar()
-        preschool_entry=Entry(MAIN_FRAME_0, textvariable=preschool_var, width=40)
+        preschool_entry=Entry(MAIN_FRAME_0, textvariable=preschool_var, width=30)
         preschool_entry.place(x=150, y=90)
         preschool_entry.delete(0,END)
         preschool_entry.insert(0,data[0][6])
 
         #
         blood_label = Label(MAIN_FRAME_0, text="Blood Group : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        blood_label.place(x=450, y=90)
+        blood_label.place(x=390, y=90)
         blood_var=StringVar()
-        blood_entry= Entry(MAIN_FRAME_0, textvariable=blood_var,width=40)
-        blood_entry.place(x=550, y=90)
+        blood_entry= Entry(MAIN_FRAME_0, textvariable=blood_var,width=30)
+        blood_entry.place(x=490, y=90)
         blood_entry.delete(0,END)
         blood_entry.insert(0,data[0][7])
 
         #
         bank_acc_no_label = Label(MAIN_FRAME_0, text="Bank Account No : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        bank_acc_no_label.place(x=870, y=90)
+        bank_acc_no_label.place(x=770, y=90)
         bank_ac_no_var=StringVar()
-        bank_ac_no_entry = Entry(MAIN_FRAME_0, textvariable=bank_ac_no_var,width=40)
-        bank_ac_no_entry.place(x=1000, y=90)
+        bank_ac_no_entry = Entry(MAIN_FRAME_0, textvariable=bank_ac_no_var,width=30)
+        bank_ac_no_entry.place(x=900, y=90)
         bank_ac_no_entry.delete(0,END)
         bank_ac_no_entry.insert(0,data[0][8])
 
@@ -1287,17 +1301,17 @@ def GR_FUNCTION():
         Remark_label = Label(MAIN_FRAME_0, text="Remark : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Remark_label.place(x=80, y=130)
         Remark_var=StringVar()
-        Remark_entry= Entry(MAIN_FRAME_0, textvariable=Remark_var,width=107)
+        Remark_entry= Entry(MAIN_FRAME_0, textvariable=Remark_var,width=87)
         Remark_entry.place(x=150, y=130)
         Remark_entry.delete(0,END)
         Remark_entry.insert(0,data[0][9])
 
         #
         bank_branch_label = Label(MAIN_FRAME_0, text="Bank Branch : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        bank_branch_label.place(x=900, y=130)
+        bank_branch_label.place(x=800, y=130)
         bank_branch_var=StringVar()
-        bank_branch_entry= Entry(MAIN_FRAME_0, textvariable=bank_branch_var,width=40)
-        bank_branch_entry.place(x=1000, y=130)
+        bank_branch_entry= Entry(MAIN_FRAME_0, textvariable=bank_branch_var,width=30)
+        bank_branch_entry.place(x=900, y=130)
         bank_branch_entry.delete(0,END)
         bank_branch_entry.insert(0,data[0][10])
 
@@ -1305,17 +1319,17 @@ def GR_FUNCTION():
         student_email_label = Label(MAIN_FRAME_0, text="Student Email : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         student_email_label.place(x=40, y=170)
         student_email_var=StringVar()
-        student_email_entry= Entry(MAIN_FRAME_0, textvariable=student_email_var,width=107)
+        student_email_entry= Entry(MAIN_FRAME_0, textvariable=student_email_var,width=87)
         student_email_entry.place(x=150, y=170)
         student_email_entry.delete(0,END)
         student_email_entry.insert(0,data[0][11])
 
         #
         IFSC_label = Label(MAIN_FRAME_0, text="IFSC Code : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        IFSC_label.place(x=910, y=170)
+        IFSC_label.place(x=810, y=170)
         IFSC_var=StringVar()
-        IFSC_entry= Entry(MAIN_FRAME_0, textvariable=IFSC_var,width=40)
-        IFSC_entry.place(x=1000, y=170)
+        IFSC_entry= Entry(MAIN_FRAME_0, textvariable=IFSC_var,width=30)
+        IFSC_entry.place(x=900, y=170)
         IFSC_entry.delete(0,END)
         IFSC_entry.insert(0,data[0][12])
 
@@ -1323,43 +1337,43 @@ def GR_FUNCTION():
         Mobile_No_label = Label(MAIN_FRAME_0, text="Mobile No. : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Mobile_No_label.place(x=60, y=210)
         Mobile_No_var=StringVar()
-        Mobile_No_entry= Entry(MAIN_FRAME_0, textvariable=Mobile_No_var,width=40)
+        Mobile_No_entry= Entry(MAIN_FRAME_0, textvariable=Mobile_No_var,width=30)
         Mobile_No_entry.place(x=150, y=210)
         Mobile_No_entry.delete(0,END)
         Mobile_No_entry.insert(0,data[0][13])
 
         #
         SUID_label = Label(MAIN_FRAME_0, text="SUID : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        SUID_label.place(x=495, y=210)
+        SUID_label.place(x=435, y=210)
         SUID_var=StringVar()
-        SUID_entry= Entry(MAIN_FRAME_0, textvariable=SUID_var,width=40)
-        SUID_entry.place(x=550, y=210)
+        SUID_entry= Entry(MAIN_FRAME_0, textvariable=SUID_var,width=30)
+        SUID_entry.place(x=490, y=210)
         SUID_entry.delete(0,END)
         SUID_entry.insert(0,data[0][14])
 
         #
         Adhar_no_label = Label(MAIN_FRAME_0, text="Adhar Card No : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Adhar_no_label.place(x=885, y=210)
+        Adhar_no_label.place(x=785, y=210)
         Adhar_no_var=StringVar()
-        Adhar_no_entry= Entry(MAIN_FRAME_0, textvariable=Adhar_no_var,width=40)
-        Adhar_no_entry.place(x=1000, y=210)
+        Adhar_no_entry= Entry(MAIN_FRAME_0, textvariable=Adhar_no_var,width=30)
+        Adhar_no_entry.place(x=900, y=210)
         Adhar_no_entry.delete(0,END)
         Adhar_no_entry.insert(0,data[0][15])
 
 
 
-        present_address_frame = LabelFrame(MAIN_FRAME_0, bg="lightblue", text="Present Address", width=1280, height=240,relief=RIDGE)
-        present_address_frame.place(x=10, y=300)
+        present_address_frame = LabelFrame(MAIN_FRAME_0, bg="lightblue", text="Present Address", width=980, height=220,relief=RIDGE)
+        present_address_frame.place(x=10, y=235)
 
         #
         Address_label = Label(present_address_frame, text="Address : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Address_label.place(x=70, y=10)
         Address_var=StringVar()
-        Address_entry1= Entry(present_address_frame, textvariable=Address_var, width=107)
+        Address_entry1= Entry(present_address_frame, textvariable=Address_var, width=87)
         Address_entry1.place(x=140, y=10)
         Address_entry1.delete(0,END)
         Address_entry1.insert(0,data[0][16])
-        Address_entry2= Entry(present_address_frame, textvariable=Address_var, width=107)
+        Address_entry2= Entry(present_address_frame, textvariable=Address_var, width=87)
         Address_entry2.place(x=140, y=50)
         Address_entry2.delete(0,END)
         Address_entry2.insert(0,data[0][17])
@@ -1368,17 +1382,17 @@ def GR_FUNCTION():
         Area_label = Label(present_address_frame, text="Area : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         Area_label.place(x=90, y=90)
         Area_var=StringVar()
-        Area_entry= Entry(present_address_frame, textvariable=Area_var,width=40)
+        Area_entry= Entry(present_address_frame, textvariable=Area_var,width=30)
         Area_entry.place(x=140, y=90)
         Area_entry.delete(0,END)
         Area_entry.insert(0,data[0][18])
 
         #
         City_label = Label(present_address_frame, text="City : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        City_label.place(x=493, y=90)
+        City_label.place(x=433, y=90)
         City_var=StringVar()
-        City_entry= Entry(present_address_frame, textvariable=City_var,width=40)
-        City_entry.place(x=540, y=90)
+        City_entry= Entry(present_address_frame, textvariable=City_var,width=30)
+        City_entry.place(x=480, y=90)
         City_entry.delete(0,END)
         City_entry.insert(0,data[0][19])
 
@@ -1386,17 +1400,17 @@ def GR_FUNCTION():
         District_label = Label(present_address_frame, text="District : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
         District_label.place(x=78, y=130)
         District_var=StringVar()
-        District_entry= Entry(present_address_frame, textvariable=District_var,width=40)
+        District_entry= Entry(present_address_frame, textvariable=District_var,width=30)
         District_entry.place(x=140, y=130)
         District_entry.delete(0,END)
         District_entry.insert(0,data[0][20])
 
 
         Pincode_label = Label(present_address_frame, text="Pincode : ",font=('Monteserrat', 10, 'bold'), fg="black", bg="lightblue")
-        Pincode_label.place(x=465, y=130)
+        Pincode_label.place(x=405, y=130)
         Pincode_var=StringVar()
-        Pincode_entry= Entry(present_address_frame, textvariable=Pincode_var,width=40)
-        Pincode_entry.place(x=540, y=130)
+        Pincode_entry= Entry(present_address_frame, textvariable=Pincode_var,width=30)
+        Pincode_entry.place(x=480, y=130)
         Pincode_entry.delete(0,END)
         Pincode_entry.insert(0,data[0][21])
 
@@ -1439,7 +1453,7 @@ def GR_FUNCTION():
             gr_details()
 
         save_next_button = Button(MAIN_FRAME_0,text="SAVE",font=("Arial",20),command=others_details1)
-        save_next_button.place(x=1100,y=470)
+        save_next_button.place(x=1050,y=370)
 
     def add1():
         GR_EDIT_BTN["state"]="active"
@@ -1478,18 +1492,18 @@ def GR_FUNCTION():
             if found==False:
                 messagebox.showerror("ERROR","GR not found")
             else:
+                # try:
+                #     cur.execute("delete from gr_details where GR_NO={}".format(int(gr_deleting)))
+                # except:
+                # #     pass
                 try:
-                    cur.execute("delete from gr_details where GR_NO={}".format(int(gr_deleting)))
+                    cur.execute("update academic_detail set active1=0 where GR_NO={}".format(int(gr_deleting)))
                 except:
                     pass
-                try:
-                    cur.execute("delete from academic_detail where GR_NO={}".format(int(gr_deleting)))
-                except:
-                    pass
-                try:
-                    cur.execute("delete from other_detail where GR_NO={}".format(int(gr_deleting)))
-                except:
-                    pass
+                # try:
+                #     cur.execute("delete from other_detail where GR_NO={}".format(int(gr_deleting)))
+                # except:
+                #     pass
                 try:
                     cur.execute("delete from gr_check where GR_NO={}".format(int(gr_deleting)))
                 except:
@@ -1504,7 +1518,7 @@ def GR_FUNCTION():
             
 
         save_delete_button = Button(MAIN_FRAME_0,text="Delete",font=("Arial",20), command=delete_main)
-        save_delete_button.place(x=1100,y=470)
+        save_delete_button.place(x=1050,y=370)
 
 
 
@@ -1606,15 +1620,582 @@ def FEES_FUNCTION():
         widget.destroy()
     MAIN_FRAME.configure(bg="lightpink")
 
-    FEES_1=Button(MENU_FRAME2,text="FEES 1")
-    FEES_1.place(x=20,y=20)
+    def receipt_delete_function():
+        for widget in MAIN_FRAME.winfo_children():
+            widget.destroy()
+
+        def receipt_searching(event):
+            rec_no = FEES_RECEIPTNO_ENTRY1.get()
+            cur.execute("select * from tran_details where RECEIPT_NO={}".format(int(rec_no)))
+            data = cur.fetchall()[0]
+            FEES_GR_ENTRY.delete(0,END)
+            FEES_GR_ENTRY.insert(0,data[2])
+            FEES_NAME_ENTRY.delete(0,END)
+            FEES_NAME_ENTRY.insert(0,data[4])
+            FEES_RECEIPTBOOK_ENTRY.delete(0,END)
+            FEES_RECEIPTBOOK_ENTRY.insert(0,data[5])
+            FEES_STD_ENTRY.delete(0,END)
+            FEES_STD_ENTRY.insert(0,data[6])
+            FEES_DIV_ENTRY.delete(0,END)
+            FEES_DIV_ENTRY.insert(0,data[7])
+            FEES_LATEFEES_ENTRY.delete(0,END)
+            FEES_LATEFEES_ENTRY.insert(0,data[9])
+            FEES_TOTALAMOUNT_ENTRY.delete(0,END)
+            FEES_TOTALAMOUNT_ENTRY.insert(0,data[8])
+            EXEMPTION_ENTRY.delete(0,END)
+            EXEMPTION_ENTRY.insert(0,data[10])
+            FEES_GRANDTOTAL_ENTRY.delete(0,END)
+            FEES_GRANDTOTAL_ENTRY.insert(0,data[11])
+            FEES_PAYMODE_ENTRY.delete(0,END)
+            FEES_PAYMODE_ENTRY.insert(0,data[12])
+            FEES_BANKNAME_ENTRY.delete(0,END)
+            FEES_BANKNAME_ENTRY.insert(0,data[13])
+            FEES_CHEQUEDATE_ENTRY.delete(0,END)
+            FEES_CHEQUEDATE_ENTRY.insert(0,data[15])
+            FEES_CHEQUENUMBER_ENTRY.delete(0,END)
+            FEES_CHEQUENUMBER_ENTRY.insert(0,data[14])
+            if(int(data[16])==1):
+                C1.select()
+            else:
+                C1.deselect()
+            if(int(data[17])==1):
+                C2.select()
+            else:
+                C2.deselect()
+            if(int(data[18])==1):
+                C3.select()
+            else:
+                C3.deselect()
+            if(int(data[19])==1):
+                C4.select()
+            else:
+                C4.deselect()
+            if(int(data[20])==1):
+                C5.select()
+            else:
+                C5.deselect()
+            if(int(data[21])==1):
+                C6.select()
+            else:
+                C6.deselect()
+            if(int(data[22])==1):
+                C7.select()
+            else:
+                C7.deselect()
+            
+
+
+
+        FEES_RECEIPTNO_LABEL1=Label(MAIN_FRAME,text="RECEIPT NO. : ",font=('Arial', 13),bg="lightpink")
+        FEES_RECEIPTNO_LABEL1.place(x=70,y=30)
+        FEES_RECEIPTNO_ENTRY1=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_RECEIPTNO_ENTRY1.place(x=220,y=30)
+        FEES_RECEIPTNO_ENTRY1.bind("<Return>",receipt_searching)
+
+
+        FEES_GR_LABEL=Label(MAIN_FRAME,text="GR : ",font=('Arial', 13),bg="lightpink")
+        FEES_GR_LABEL.place(x=70,y=80)
+        FEES_GR_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_GR_ENTRY.place(x=220,y=80)
+
+        FEES_NAME_LABEL=Label(MAIN_FRAME,text="NAME : ",font=('Arial', 13),bg="lightpink")
+        FEES_NAME_LABEL.place(x=70,y=130)
+        FEES_NAME_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_NAME_ENTRY.place(x=220,y=130)
+
+
+        FEES_RECEIPTBOOK_LABEL=Label(MAIN_FRAME,text="RECEIPT BOOK : ",font=('Arial', 13),bg="lightpink")
+        FEES_RECEIPTBOOK_LABEL.place(x=70,y=180)
+        FEES_RECEIPTBOOK_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_RECEIPTBOOK_ENTRY.place(x=220,y=180)
+
+
+        FEES_STD_LABEL=Label(MAIN_FRAME,text="STD : ",font=('Arial', 13),bg="lightpink")
+        FEES_STD_LABEL.place(x=70,y=230)
+        FEES_STD_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_STD_ENTRY.place(x=220,y=230)
+
+
+        FEES_DIV_LABEL=Label(MAIN_FRAME,text="DIV : ",font=('Arial', 13),bg="lightpink")
+        FEES_DIV_LABEL.place(x=70,y=280)
+        FEES_DIV_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_DIV_ENTRY.place(x=220,y=280)
+
+
+        FEES_LATEFEES_LABEL=Label(MAIN_FRAME,text="LATE FEES : ",font=('Arial', 13),bg="lightpink")
+        FEES_LATEFEES_LABEL.place(x=70,y=330)
+        FEES_LATEFEES_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_LATEFEES_ENTRY.place(x=220,y=330)
+
+
+
+
+
+
+        FEES_TOTALAMOUNT_LABEL=Label(MAIN_FRAME,text="TOTAL : ",font=('Arial', 13),bg="lightpink")
+        FEES_TOTALAMOUNT_LABEL.place(x=400,y=30)
+        FEES_TOTALAMOUNT_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_TOTALAMOUNT_ENTRY.place(x=550,y=30)
+
+
+
+        EXEMPTION_LABEL=Label(MAIN_FRAME,text="EXEMPTION : ",font=('Arial', 13),bg="lightpink")
+        EXEMPTION_LABEL.place(x=400,y=80)
+        EXEMPTION_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        EXEMPTION_ENTRY.place(x=550,y=80)
+        
+
+        FEES_GRANDTOTAL_LABEL=Label(MAIN_FRAME,text="GRAND TOTAL : ",font=('Arial', 13),bg="lightpink")
+        FEES_GRANDTOTAL_LABEL.place(x=400,y=130)
+        FEES_GRANDTOTAL_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_GRANDTOTAL_ENTRY.place(x=550,y=130)
+
+
+
+
+        FEES_PAYMODE_LABEL=Label(MAIN_FRAME,text="PAYMODE : ",font=('Arial', 13),bg="lightpink")
+        FEES_PAYMODE_LABEL.place(x=400,y=180)
+        FEES_PAYMODE_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_PAYMODE_ENTRY.place(x=550,y=180)
+
+        FEES_BANKNAME_LABEL=Label(MAIN_FRAME,text="BANK : ",font=('Arial', 13),bg="lightpink")
+        FEES_BANKNAME_LABEL.place(x=400,y=230)
+        FEES_BANKNAME_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_BANKNAME_ENTRY.place(x=550,y=230)
+
+        FEES_CHEQUENUMBER_LABEL=Label(MAIN_FRAME,text="CHEQUENO : ",font=('Arial', 13),bg="lightpink")
+        FEES_CHEQUENUMBER_LABEL.place(x=400,y=280)
+        FEES_CHEQUENUMBER_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_CHEQUENUMBER_ENTRY.place(x=550,y=280)
+
+        FEES_CHEQUEDATE_LABEL=Label(MAIN_FRAME,text="CHEQUEDATE : ",font=('Arial', 13),bg="lightpink")
+        FEES_CHEQUEDATE_LABEL.place(x=400,y=330)
+        FEES_CHEQUEDATE_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+        FEES_CHEQUEDATE_ENTRY.place(x=550,y=330)
+
+
+
+        wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=380 ,width=270,relief=RIDGE,borderwidth=2)
+        wrapper2.place(x=800,y=30)
+
+
+        CheckVar1 = IntVar()
+        CheckVar2 = IntVar()
+        CheckVar3 = IntVar()
+        CheckVar4 = IntVar()
+        CheckVar5 = IntVar()
+        CheckVar6 = IntVar()
+        CheckVar7 = IntVar()
+        # CheckVar8 = IntVar()
+        
+
+        C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C2 = Checkbutton(wrapper2, text = "JUL SEP FEES", variable = CheckVar2,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C3 = Checkbutton(wrapper2, text = "OCT DEC FEES", variable = CheckVar3,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C4 = Checkbutton(wrapper2, text = "JAN MAR FEES", variable = CheckVar4,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C6 = Checkbutton(wrapper2, text = "ADMISSION FEE", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C7 = Checkbutton(wrapper2, text = "ICARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        # C8 = Checkbutton(wrapper2, text = "LATE FEE", variable = CheckVar8,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        
+        C1.place(x=0,y=0)
+        C2.place(x=0,y=45)
+        C3.place(x=0,y=90)
+        C4.place(x=0,y=135)
+        C5.place(x=0,y=180)
+        C6.place(x=0,y=225)
+        C7.place(x=0,y=270)
+        # C8.place(x=0,y=315)
+
+        def receipt_delete():
+            passroot = Tk()
+            passroot.title("PASSWORD")
+            passroot.geometry("300x200")
+            passroot.resizable(0,0)
+            Label(passroot,text="ENTER PASSWORD",font=('Arial', 13)).place(x=80,y=20)
+            pass_entry=Entry(passroot,width=14,show="*",font=('Arial', 13))
+            pass_entry.place(x=80,y=60)
+            def pass_check():
+                val = pass_entry.get()
+                if(val == "anand1972"):
+                    abc1()
+                else:
+                    messagebox.showerror("ERROR","WRONG PASSWORD")
+            submit_button=Button(passroot,text="SUBMIT",font=('Arial', 13),command=pass_check)
+            submit_button.place(x=120,y=100)
+
+            global abc1
+            def abc1():
+                passroot.destroy()
+                cur.execute("select * from std_fees where STD='{}'".format(FEES_STD_ENTRY.get()))
+                
+                fees_data = cur.fetchall()[0]
+
+                if(CheckVar1.get() == 1):
+                    cur.execute("update gr_check set c1=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set apr_jun_tution={},APR_JUN_ATITVITY={} where gr_no={}".format(fees_data[3],fees_data[4],FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_details set c1=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                if(CheckVar2.get() == 1):
+                    cur.execute("update gr_check set c2=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set JUL_SEP_TUTION={},JUL_SEP_ACTIVITY={} where gr_no={}".format(fees_data[6],fees_data[7],FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_details set c2=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                if(CheckVar3.get() == 1):
+                    cur.execute("update gr_check set c3=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set OCT_DEC_TUTION={},OCT_DEC_ACTIVITY={} where gr_no={}".format(fees_data[8],fees_data[9],FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_details set c3=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                if(CheckVar4.get() == 1):
+                    cur.execute("update gr_check set c4=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set JAN_MAR_TUTION={},JAN_MAR_ACTIVITY={} where gr_no={}".format(fees_data[10],fees_data[11],FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_details set c4=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                if(CheckVar5.get() == 1):
+                    cur.execute("update gr_check set c5=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(fees_data[12],FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_details set c5=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                if(CheckVar6.get() == 1):
+                    cur.execute("update gr_check set c6=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set ADMISSION_FEE={} where gr_no={}".format(fees_data[1],FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_details set c6=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                if(CheckVar7.get() == 1):
+                    cur.execute("update gr_check set c7=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(fees_data[2],FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_details set c7=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                # if(CheckVar8.get() == 1):
+                #     cur.execute("update gr_check set c8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                #     cur.execute("update pending_fee_detail set LATE_FEES={} where gr_no={}".format(0,FEES_GR_ENTRY))
+                #     cur.execute("update fee_details set c8=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("delete from tran_details where receipt_no={}".format(FEES_RECEIPTNO_ENTRY1.get()))
+                cur.execute("delete from fee_tran where receipt_no={}".format(FEES_RECEIPTNO_ENTRY1.get()))
+                mydb.commit()
+                for widget in MAIN_FRAME.winfo_children():
+                    widget.destroy()
+        delete_button=Button(MAIN_FRAME,text="DELETE",height=3,width=15,bg="lightgrey",activebackground='lightgrey',font=('Arial', 7),command=receipt_delete)
+        delete_button.place(x=980,y=440)
+
+    
+
+
+    FEES_1=Button(MENU_FRAME2,text="RECEIPT DELETE",command = receipt_delete_function)
+    FEES_1.place(x=10,y=20)
+
+
+    def pending_paid_report():
+        for widget in MAIN_FRAME.winfo_children():
+            widget.destroy()
+        RadioVar2 = IntVar()
+
+        Pending = Radiobutton(MAIN_FRAME, text = "Pending", variable = RadioVar2, value=1, height=2,font=('Arial', 30),bg="lightpink",activebackground='lightpink')
+        Paid = Radiobutton(MAIN_FRAME, text = "Paid", variable = RadioVar2, value=2, height=2,font=('Arial', 30),bg="lightpink",activebackground='lightpink')
+
+
+        Pending.place(x=100,y=150)
+        Paid.place(x=100,y=250)
+
+        def pending_paid_report_submit():
+            if(RadioVar2.get() == 1):
+                file = open("pending_report.csv","w",newline="\n")
+                writer2 = csv.writer(file)
+                data_heading=['GR NO','NAME','STD','CONTACT NUMBER','APR-JUN TUTION','APR-JUN ACTIVTIY','JUL-SEP TUTION','JUL-SEP ACTIVITY','OCT-DEC TUTION','OCT-DEC ACTIVITY','JAN-MAR TUTION','JAN-MAR ACTIVITY','OTHERS','ADMISSION','ICARD']
+                writer2.writerow(data_heading)
+                cur.execute("select * from GR_CHECK order by gr_no")
+                data1 = cur.fetchall()
+                for i in data1:
+                    # print(i)
+                    cur.execute("select left1 from academic_detail where gr_no={}".format(i[0]))
+                    left_data = cur.fetchall()[0]
+                    # print(left_data)
+                    if left_data[0] == 0:
+                        data=[]
+                        cur.execute("select * from pending_fee_detail where gr_no={}".format(i[0]))
+                        data2 = cur.fetchall()[0]
+                        data.append(i[0])
+                        try:
+                            cur.execute("select name,father,surname from gr_details where gr_no={}".format(i[0]))
+                            data46 = cur.fetchall()[0]
+                            data.append(data46[0] +" "+ data46[1] +" "+ data46[2])
+                        except:
+                            data.append(' ')
+                        try:
+                            cur.execute("select curr_std,division from academic_detail where gr_no={}".format(i[0]))
+                            data49 = cur.fetchall()[0]
+                            data.append(data49[0] +"-"+ data49[1])
+                        except:
+                            data.append(' ')
+                        try:
+                            cur.execute("select phone_no from other_detail where gr_no={}".format(i[0]))
+                            data47 = cur.fetchall()[0]
+                            data.append(data47[0])
+                        except:
+                            data.append(0)
+                        # cur.execute("select gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.division from gr_details,academic_detail where gr_details.gr_no={} and gr_details.gr_no=academic_detail.gr_no".format(i[0]))
+                        # student_detail = cur.fetchall()[0]
+                        # data.append(student_detail[0]+" "+student_detail[1])
+                        # data.append(student_detail[2] + "-" + student_detail[3])anand1972anand1972
+                        if (i[1] == 0):
+                            data.append(data2[3])
+                            data.append(data2[4])
+                        else:
+                            data.append(0)
+                            data.append(0)
+                        if i[2] == 0:
+                            data.append(data2[6])
+                            data.append(data2[7])
+                        else:
+                            data.append(0)
+                            data.append(0)
+                        if i[3] == 0:
+                            data.append(data2[8])
+                            data.append(data2[9])
+                        else:
+                            data.append(0)
+                            data.append(0)
+                        if i[4] == 0:
+                            data.append(data2[10])
+                            data.append(data2[11])
+                        else:
+                            data.append(0)
+                            data.append(0)
+                        if i[5] == 0:
+                            data.append(data2[12])
+                        else:
+                            data.append(0)
+                        if i[6] == 0:
+                            data.append(data2[1])
+                        else:
+                            data.append(0)
+                        if i[7] == 0:
+                            data.append(data2[2])
+                        else:
+                            data.append(0)
+                        writer2.writerow(data)
+            if(RadioVar2.get() == 2):
+                file = open("paid_report.csv","w",newline="\n")
+                writer2 = csv.writer(file)
+                data_heading=['GR NO','NAME','CLASS','FEES','LATE FEES','AMOUNT PAID','DATE']
+                writer2.writerow(data_heading)
+                cur.execute("select * from tran_details order by gr_no")
+                data1 = cur.fetchall()
+                for i in data1:
+                    data=[]
+                    data.append(i[2])
+                    data.append(i[4])
+                    data.append(str(i[6]) + "-" + str(i[7]))
+                    xyz = [i[16],i[17],i[18],i[19],i[20],i[21],i[22]]
+                    a = ""
+                    if xyz[0] == 1:
+                        a = a + "APR-JUN,"
+                    if xyz[1] == 1:
+                        a = a + "JUL-SEP,"
+                    if xyz[2] == 1:
+                        a = a + "OCT-DEC,"
+                    if xyz[3] == 1:
+                        a = a + "JAN-MAR,"
+                    if xyz[4] == 1:
+                        a = a + "OTHER,"
+                    if xyz[6] == 1:
+                        a = a + "ICARD,"
+                    if xyz[5] == 1:
+                        a = a + "ADMISSION,"
+                    data.append(a)
+                    data.append(i[9])
+                    data.append(i[11])
+                    data.append(i[3])
+                    writer2.writerow(data)
+                file.close()
+        SAVE_BTN=Button(MAIN_FRAME,text="SUBMIT",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=pending_paid_report_submit)
+        SAVE_BTN.place(x=950,y=350)
+
+    FEES_2=Button(MENU_FRAME2,text="FEES REPORT",command=pending_paid_report)
+    FEES_2.place(x=10,y=80)
+
+    def gr_fees_change():
+        for widget in MAIN_FRAME.winfo_children():
+            widget.destroy()
+        def gr_fees_change_submit(e):
+            cur.execute("select * from pending_fee_detail where gr_no={}".format(FEES_GR_ENTRY.get()))
+            pending_data = cur.fetchall()[0]
+            cur.execute("select name,surname from gr_details where gr_no={}".format(FEES_GR_ENTRY.get()))
+            gr_data = cur.fetchall()[0]
+            cur.execute("select curr_std,division,aai1 from academic_detail where gr_no={}".format(FEES_GR_ENTRY.get()))
+            std_data = cur.fetchall()[0]
+            cur.execute("select * from exmp_fees where std='{}'".format(std_data[0]))
+            exmp_data = cur.fetchall()[0]
+            FEES_NAME_ENTRY.delete(0,END)
+            FEES_STD_ENTRY.delete(0,END)
+            FEES_DIV_ENTRY.delete(0,END)
+            OLD_ENT.delete(0,END)
+            OLD_ENT1.delete(0,END)
+            NEW_ENT.delete(0,END)
+            NEW_ENT1.delete(0,END)
+            FEES_NAME_ENTRY.insert(0,gr_data[0] + " " + gr_data[1])
+            FEES_STD_ENTRY.insert(0,std_data[0])
+            FEES_DIV_ENTRY.insert(0,std_data[1])
+            val = RadioVar.get()
+            if std_data[2] == 0:
+                if (val == 1):
+                    OLD_ENT.insert(0,pending_data[3])
+                    OLD_ENT1.insert(0,pending_data[4])
+                if (val == 2):
+                    OLD_ENT.insert(0,pending_data[6])
+                    OLD_ENT1.insert(0,pending_data[7])
+                if(val == 3):
+                    OLD_ENT.insert(0,pending_data[8])
+                    OLD_ENT1.insert(0,pending_data[9])
+                if(val == 4):
+                    OLD_ENT.insert(0,pending_data[10])
+                    OLD_ENT1.insert(0,pending_data[11])
+                if (val == 5):
+                    OLD_ENT.insert(0,pending_data[12])
+                if (val == 6):
+                    OLD_ENT.insert(0,pending_data[2])
+                if (val == 7):
+                    OLD_ENT.insert(0,pending_data[1])
+            else:
+                if (val == 1):
+                    OLD_ENT.insert(0,pending_data[3] - exmp_data[3])
+                    OLD_ENT1.insert(0,pending_data[4] - exmp_data[4])
+                if (val == 2):
+                    OLD_ENT.insert(0,pending_data[6] - exmp_data[6])
+                    OLD_ENT1.insert(0,pending_data[7] - exmp_data[7])
+                if(val == 3):
+                    OLD_ENT.insert(0,pending_data[8] - exmp_data[8])
+                    OLD_ENT1.insert(0,pending_data[9] - exmp_data[9])
+                if(val == 4):
+                    OLD_ENT.insert(0,pending_data[10] - exmp_data[10])
+                    OLD_ENT1.insert(0,pending_data[11] - exmp_data[11])
+                if (val == 5):
+                    OLD_ENT.insert(0,pending_data[12] - exmp_data[12])
+                if (val == 6):
+                    OLD_ENT.insert(0,pending_data[2] - exmp_data[2])
+                if (val == 7):
+                    OLD_ENT.insert(0,pending_data[1] - exmp_data[1])
+        FEES_GR_LABEL=Label(MAIN_FRAME,text="GR : ",font=('Arial', 13),bg="lightpink")
+        FEES_GR_LABEL.place(x=70,y=80)
+        FEES_GR_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 13))
+        FEES_GR_ENTRY.place(x=220,y=80)
+        FEES_GR_ENTRY.bind("<Return>",gr_fees_change_submit)
+
+        FEES_NAME_LABEL=Label(MAIN_FRAME,text="NAME : ",font=('Arial', 13),bg="lightpink")
+        FEES_NAME_LABEL.place(x=70,y=130)
+        FEES_NAME_ENTRY=Entry(MAIN_FRAME,width=30,font=('Arial', 13))
+        FEES_NAME_ENTRY.place(x=220,y=130)
+
+
+        FEES_STD_LABEL=Label(MAIN_FRAME,text="STD : ",font=('Arial', 13),bg="lightpink")
+        FEES_STD_LABEL.place(x=70,y=180)
+        FEES_STD_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 13))
+        FEES_STD_ENTRY.place(x=220,y=180)
+
+
+        FEES_DIV_LABEL=Label(MAIN_FRAME,text="DIV : ",font=('Arial', 13),bg="lightpink")
+        FEES_DIV_LABEL.place(x=70,y=230)
+        FEES_DIV_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 13))
+        FEES_DIV_ENTRY.place(x=220,y=230)
+
+
+
+        wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=350,width=270,relief=RIDGE,borderwidth=2)
+        wrapper2.place(x=850,y=30)
+
+        RadioVar = IntVar()
+
+        C1 = Radiobutton(wrapper2, text = "APR JUN FEES", variable = RadioVar, value=1, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C2 = Radiobutton(wrapper2, text = "JUL SEP FEES", variable = RadioVar, value=2,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C3 = Radiobutton(wrapper2, text = "OCT DEC FEES", variable = RadioVar, value=3,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C4 = Radiobutton(wrapper2, text = "JAN MAR FEES", variable = RadioVar, value=4,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C5 = Radiobutton(wrapper2, text = "OTHERS", variable = RadioVar, value=5,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C6 = Radiobutton(wrapper2, text = "ICARD", variable = RadioVar, value=6,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C7 = Radiobutton(wrapper2, text = "ADMISSION", variable = RadioVar, value=7,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C1.place(x=0,y=0)
+        C2.place(x=0,y=45)
+        C3.place(x=0,y=90)
+        C4.place(x=0,y=135)
+        C5.place(x=0,y=180)
+        C6.place(x=0,y=225)
+        C7.place(x=0,y=270)
+
+
+
+        Label(MAIN_FRAME,text="TUTION",font=('Arial', 13),bg="lightpink").place(x=220,y=350)
+        Label(MAIN_FRAME,text="ACTIVITY",font=('Arial', 13),bg="lightpink").place(x=400,y=350)
+        OLD_LABEL = Label(MAIN_FRAME,text="OLD FEES : ",font=('Arial', 13),bg="lightpink")
+        OLD_LABEL.place(x=70,y=400)
+        OLD_ENT = Entry(MAIN_FRAME,width=17,font=('Arial', 13))
+        OLD_ENT.place(x=220,y=400)
+        OLD_ENT1 = Entry(MAIN_FRAME,width=17,font=('Arial', 13))
+        OLD_ENT1.place(x=400,y=400)
+
+
+        NEW_LABEL = Label(MAIN_FRAME,text="NEW FEES : ",font=('Arial', 13),bg="lightpink")
+        NEW_LABEL.place(x=70,y=450)
+        NEW_ENT = Entry(MAIN_FRAME,width=17,font=('Arial', 13))
+        NEW_ENT.place(x=220,y=450)
+        NEW_ENT1 = Entry(MAIN_FRAME,width=17,font=('Arial', 13))
+        NEW_ENT1.place(x=400,y=450)
+
+
+        def gr_fees_change_save():
+            cur.execute("select * from pending_fee_detail where gr_no={}".format(FEES_GR_ENTRY.get()))
+            pending_data = cur.fetchall()[0]
+            cur.execute("select name,surname from gr_details where gr_no={}".format(FEES_GR_ENTRY.get()))
+            gr_data = cur.fetchall()[0]
+            cur.execute("select curr_std,division,aai1 from academic_detail where gr_no={}".format(FEES_GR_ENTRY.get()))
+            std_data = cur.fetchall()[0]
+            cur.execute("select * from exmp_fees where std='{}'".format(std_data[0]))
+            exmp_data = cur.fetchall()[0]
+            val = RadioVar.get()
+            gr = FEES_GR_ENTRY.get()
+            newfee = NEW_ENT.get()
+            newfee1 = NEW_ENT1.get()
+            cur.execute("select aai1 from academic_detail where gr_no={}".format(gr))
+            aai1 = cur.fetchall()[0]
+            if aai1[0] == 0:
+                if (val == 1):
+                    cur.execute("update pending_fee_detail set apr_jun_tution={},apr_jun_atitvity={} where gr_no={}".format(newfee,newfee1,gr))
+                if (val == 2):
+                    cur.execute("update pending_fee_detail set jul_sep_tution={},jul_sep_activity={} where gr_no={}".format(newfee,newfee1,gr))
+                if(val == 3):
+                    cur.execute("update pending_fee_detail set oct_dec_tution={},oct_dec_activity={} where gr_no={}".format(newfee,newfee1,gr))
+                if(val == 4):
+                    cur.execute("update pending_fee_detail set jan_mar_tution={},jan_mar_activity={} where gr_no={}".format(newfee,newfee1,gr))
+                if (val == 5):
+                    cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(newfee,gr))
+                if (val == 6):
+                    cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(newfee,gr))
+                if (val == 7):
+                    cur.execute("update pending_fee_detail set admission_fee={} where gr_no={}".format(newfee,gr))
+            else:
+                if (val == 1):
+                    cur.execute("update pending_fee_detail set apr_jun_tution={},apr_jun_atitvity={} where gr_no={}".format(int(newfee) + exmp_data[3],int(newfee1) + exmp_data[4],gr))
+                if (val == 2):
+                    cur.execute("update pending_fee_detail set jul_sep_tution={},jul_sep_activity={} where gr_no={}".format(int(newfee) + exmp_data[6],int(newfee1) + exmp_data[7],gr))
+                if(val == 3):
+                    cur.execute("update pending_fee_detail set oct_dec_tution={},oct_dec_activity={} where gr_no={}".format(int(newfee) + exmp_data[8],int(newfee1) + exmp_data[9],gr))
+                if(val == 4):
+                    cur.execute("update pending_fee_detail set jan_mar_tution={},jan_mar_activity={} where gr_no={}".format(int(newfee) + exmp_data[10],int(newfee1) + exmp_data[11],gr))
+                if (val == 5):
+                    cur.execute("update pending_fee_detail set OTHERS={} where gr_no={}".format(int(newfee) + exmp_data[12],gr))
+                if (val == 6):
+                    cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(int(newfee) + exmp_data[2],gr))
+                if (val == 7):
+                    cur.execute("update pending_fee_detail set admission_fee={} where gr_no={}".format(int(newfee) + exmp_data[1],gr))
+            mydb.commit()
+            for widget in MAIN_FRAME.winfo_children():
+                widget.destroy()
+        SAVE_BTN=Button(MAIN_FRAME,text="SAVE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=gr_fees_change_save)
+        SAVE_BTN.place(x=850,y=400)
+
+
+    FEES_3=Button(MENU_FRAME2,text="GR FEES CHANGE",command=gr_fees_change)
+    FEES_3.place(x=10,y=140)
+
+
 
 
     wrapper1=Frame(MAIN_FRAME,height=250,width=620)
-    wrapper1.place(x=50,y=170)
+    wrapper1.place(x=50,y=140)
     style = ttk.Style()
     style.theme_use('clam')
-    trv=ttk.Treeview(wrapper1,columns=(1,2,3,4),show="headings",height="10")
+    trv=ttk.Treeview(wrapper1,columns=(1,2,3,4),show="headings",height="8")
 
     trv.pack(side=LEFT)
 
@@ -1635,8 +2216,8 @@ def FEES_FUNCTION():
 
 
 
-    wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=335,width=270,relief=RIDGE,borderwidth=2)
-    wrapper2.place(x=1000,y=60)
+    wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=320,width=250,relief=RIDGE,borderwidth=2)
+    wrapper2.place(x=890,y=30)
 
 
     CheckVar1 = IntVar()
@@ -1647,26 +2228,26 @@ def FEES_FUNCTION():
     CheckVar6 = IntVar()
     CheckVar7 = IntVar()
 
-    C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C2 = Checkbutton(wrapper2, text = "JUL SEP FEES", variable = CheckVar2,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C3 = Checkbutton(wrapper2, text = "OCT DEC FEES", variable = CheckVar3,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C4 = Checkbutton(wrapper2, text = "JAN MAR FEES", variable = CheckVar4,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C6 = Checkbutton(wrapper2, text = "ADMISSION", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
-    C7 = Checkbutton(wrapper2, text = "I CARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+    C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
+    C2 = Checkbutton(wrapper2, text = "JUL SEP FEES", variable = CheckVar2,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
+    C3 = Checkbutton(wrapper2, text = "OCT DEC FEES", variable = CheckVar3,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
+    C4 = Checkbutton(wrapper2, text = "JAN MAR FEES", variable = CheckVar4,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
+    C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
+    C6 = Checkbutton(wrapper2, text = "ADMISSION", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
+    C7 = Checkbutton(wrapper2, text = "ICARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
 
     C1.place(x=0,y=0)
-    C2.place(x=0,y=45)
-    C3.place(x=0,y=90)
-    C4.place(x=0,y=135)
-    C5.place(x=0,y=180)
-    C6.place(x=0,y=225)
-    C7.place(x=0,y=270)
+    C2.place(x=0,y=40)
+    C3.place(x=0,y=80)
+    C4.place(x=0,y=120)
+    C5.place(x=0,y=160)
+    C6.place(x=0,y=200)
+    C7.place(x=0,y=240)
     
 
 
-
-    def fees_search():
+    global fees_search
+    def fees_search(e):
     
         root.bell()
         top = Toplevel()
@@ -1686,6 +2267,7 @@ def FEES_FUNCTION():
         surname_var=StringVar()
         surname_entry=Entry(top, font=('Orator Std',10, 'bold'),textvariable=surname_var, width=18)
         surname_entry.place(x=350, y=100)
+        
 
 
         name_label=Label(top,text="Name :", font=('Orator Std',12, 'bold'), bg='lightpink')
@@ -1726,6 +2308,10 @@ def FEES_FUNCTION():
 
         style = ttk.Style()
         style.configure("Treeview", foreground="black")
+
+
+
+
         treeview = ttk.Treeview(tree_frame, yscrollcommand=scrollbary.set,columns=("GR No", "Name", "Surname","Standard", "Division", "Roll No"), show='headings', height=22)  
         treeview.pack(fill=X)
         scrollbary.config(command=treeview.yview())
@@ -1737,7 +2323,7 @@ def FEES_FUNCTION():
         treeview.heading("Division", text="Division")
         treeview.heading("Roll No", text="Roll No")
 
-        cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.divison,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no")
+        cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.division,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no")
         data = cur.fetchall()
         
         for i in range(len(data)):
@@ -1746,39 +2332,44 @@ def FEES_FUNCTION():
         
         
         # def treeview_insert():
-        #     cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.divison,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.name like {}% and gr_details.surname like {}% and academic_detail.curr_std like {}%".format(name_var.get(),surname_var.get(),gr_num_var.get()))
+        #     cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.division,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.name like {}% and gr_details.surname like {}% and academic_detail.curr_std like {}%".format(name_var.get(),surname_var.get(),gr_num_var.get()))
         #     data = cur.fetchall()
             
         #     for i in range(len(data)):
         #         treeview.insert(parent='', iid=i, index='end',text='', values=data[i])
 
-        def fees_search1():
+        def fees_search1(e):
             # print(gr_num_entry.get())
             # print(gr_num_entry2.get())
             if(name_entry.get() == '' or surname_entry.get() == ''):
-                cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.divison,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no >= {} and gr_details.gr_no <= {}".format(gr_num_entry.get(),gr_num_entry2.get()))
+                cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.division,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no >= {} and gr_details.gr_no <= {}".format(gr_num_entry.get(),gr_num_entry2.get()))
                 treeview.delete(*treeview.get_children())
                 data = cur.fetchall()
             else:
-                cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.divison,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no >= {} and gr_details.gr_no <= {} and gr_details.name like '{}%' and gr_details.surname like '{}%'".format(gr_num_entry.get(),gr_num_entry2.get(),name_entry.get(),surname_entry.get()))
+                cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.division,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no >= {} and gr_details.gr_no <= {} and gr_details.name like '{}%' and gr_details.surname like '{}%'".format(gr_num_entry.get(),gr_num_entry2.get(),name_entry.get(),surname_entry.get()))
 
                 treeview.delete(*treeview.get_children())
                 data = cur.fetchall()
         
             for i in range(len(data)):
                 treeview.insert(parent='', iid=i, index='end',text='', values=data[i])
+        surname_entry.bind("<Return>",fees_search1)
+        name_entry.bind("<Return>",fees_search1)
+        gr_num_entry.bind("<Return>",fees_search1)
+        gr_num_entry2.bind("<Return>",fees_search1)
         
 
         search_btn=Button(top, text="Search",font=('Orator STD',10, 'bold'), width=10,command=fees_search1)
         search_btn.place(x=1000, y=150)
         top.mainloop()
+    
 
     
 
         
 
-    SEARCH_BTN=Button(MAIN_FRAME,text="SEARCH",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=fees_search)
-    SEARCH_BTN.place(x=1100,y=420)
+    SEARCH_BTN=Button(MAIN_FRAME,text="SEARCH",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 10),command=fees_search)
+    SEARCH_BTN.place(x=1000,y=370)
 
     
 
@@ -1788,111 +2379,112 @@ def FEES_FUNCTION():
 
 
 
-    FEES_DEPT_LABEL=Label(MAIN_FRAME,text="DEPT : ",font=('Arial', 10),bg="lightpink")
+    FEES_DEPT_LABEL=Label(MAIN_FRAME,text="DEPT : ",font=('Arial', 8),bg="lightpink")
     FEES_DEPT_LABEL.place(x=50,y=10)
-    FEES_DEPT_ENTRY=Entry(MAIN_FRAME,width=20)
-    FEES_DEPT_ENTRY.place(x=110,y=10)
+    FEES_DEPT_ENTRY=Entry(MAIN_FRAME,width=17)
+    FEES_DEPT_ENTRY.place(x=100,y=10)
     FEES_DEPT_ENTRY.delete(0,END)
     FEES_DEPT_ENTRY.insert(0,"CBSE")
 
-    FEES_GR_LABEL=Label(MAIN_FRAME,text="GR : ",font=('Arial', 10),bg="lightpink")
+    FEES_GR_LABEL=Label(MAIN_FRAME,text="GR : ",font=('Arial', 8),bg="lightpink")
     FEES_GR_LABEL.place(x=250,y=10)
-    FEES_GR_ENTRY=Entry(MAIN_FRAME,width=20,font=('Arial', 10))
-    FEES_GR_ENTRY.place(x=295,y=10)
+    FEES_GR_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 8))
+    FEES_GR_ENTRY.place(x=285,y=10)
+    FEES_GR_ENTRY.bind('<F3>',fees_search)
 
     
 
-    FEES_DATE_LABEL=Label(MAIN_FRAME,text="DATE : ",font=('Arial', 10),bg="lightpink")
-    FEES_DATE_LABEL.place(x=460,y=10)
-    FEES_DATE_ENTRY=DateEntry(MAIN_FRAME,selectmode="day",date_pattern="dd-mm-y",width=17,font=('Arial', 10))
-    FEES_DATE_ENTRY.place(x=520,y=10)
+    FEES_DATE_LABEL=Label(MAIN_FRAME,text="DATE : ",font=('Arial', 8),bg="lightpink")
+    FEES_DATE_LABEL.place(x=450,y=10)
+    FEES_DATE_ENTRY=DateEntry(MAIN_FRAME,selectmode="day",date_pattern="dd-mm-y",width=15,font=('Arial', 10))
+    FEES_DATE_ENTRY.place(x=500,y=10)
 
 
-    FEES_RECEIPTNO_LABEL=Label(MAIN_FRAME,text="RECEIPT NO. : ",font=('Arial', 10),bg="lightpink")
-    FEES_RECEIPTNO_LABEL.place(x=680,y=10)
-    FEES_RECEIPTNO_ENTRY=Entry(MAIN_FRAME,width=20,font=('Arial', 10))
-    FEES_RECEIPTNO_ENTRY.place(x=790,y=10)
+    FEES_RECEIPTNO_LABEL=Label(MAIN_FRAME,text="RECEIPT NO. : ",font=('Arial', 8),bg="lightpink")
+    FEES_RECEIPTNO_LABEL.place(x=670,y=10)
+    FEES_RECEIPTNO_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 8))
+    FEES_RECEIPTNO_ENTRY.place(x=770,y=10)
     cur.execute("select * from fee_tran")
     data = cur.fetchall()
     FEES_RECEIPTNO_ENTRY.delete(0,END)
     FEES_RECEIPTNO_ENTRY.insert(0,data[-1][0]+1)
 
 
-    FEES_NAME_LABEL=Label(MAIN_FRAME,text="NAME : ",font=('Arial', 10),bg="lightpink")
-    FEES_NAME_LABEL.place(x=50,y=50)
-    FEES_NAME_ENTRY=Entry(MAIN_FRAME,width=54)
-    FEES_NAME_ENTRY.place(x=110,y=50)
+    FEES_NAME_LABEL=Label(MAIN_FRAME,text="NAME : ",font=('Arial', 8),bg="lightpink")
+    FEES_NAME_LABEL.place(x=50,y=45)
+    FEES_NAME_ENTRY=Entry(MAIN_FRAME,width=48)
+    FEES_NAME_ENTRY.place(x=100,y=45)
 
 
-    FEES_RECEIPTBOOK_LABEL=Label(MAIN_FRAME,text="RECEIPT BOOK : ",font=('Arial', 10),bg="lightpink")
-    FEES_RECEIPTBOOK_LABEL.place(x=680,y=50)
-    FEES_RECEIPTBOOK_ENTRY=Entry(MAIN_FRAME,width=20,font=('Arial', 10))
-    FEES_RECEIPTBOOK_ENTRY.place(x=790,y=50)
+    FEES_RECEIPTBOOK_LABEL=Label(MAIN_FRAME,text="RECEIPT BOOK : ",font=('Arial', 8),bg="lightpink")
+    FEES_RECEIPTBOOK_LABEL.place(x=670,y=45)
+    FEES_RECEIPTBOOK_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 8))
+    FEES_RECEIPTBOOK_ENTRY.place(x=770,y=45)
     FEES_RECEIPTBOOK_ENTRY.delete(0,END)
     FEES_RECEIPTBOOK_ENTRY.insert(0,"ARPT")
 
 
-    FEES_STD_LABEL=Label(MAIN_FRAME,text="STD : ",font=('Arial', 10),bg="lightpink")
-    FEES_STD_LABEL.place(x=50,y=90)
-    FEES_STD_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 10))
-    FEES_STD_ENTRY.place(x=110,y=90)
+    FEES_STD_LABEL=Label(MAIN_FRAME,text="STD : ",font=('Arial', 8),bg="lightpink")
+    FEES_STD_LABEL.place(x=50,y=85)
+    FEES_STD_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 8))
+    FEES_STD_ENTRY.place(x=100,y=85)
 
 
-    FEES_DIV_LABEL=Label(MAIN_FRAME,text="DIV : ",font=('Arial', 10),bg="lightpink")
-    FEES_DIV_LABEL.place(x=250,y=90)
-    FEES_DIV_ENTRY=Entry(MAIN_FRAME,width=20,font=('Arial', 10))
-    FEES_DIV_ENTRY.place(x=295,y=90)
+    FEES_DIV_LABEL=Label(MAIN_FRAME,text="DIV : ",font=('Arial', 8),bg="lightpink")
+    FEES_DIV_LABEL.place(x=250,y=85)
+    FEES_DIV_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 8))
+    FEES_DIV_ENTRY.place(x=285,y=85)
 
 
 
-    FEES_TOTALAMOUNT_LABEL=Label(MAIN_FRAME,text="TOTAL : ",font=('Arial', 10),bg="lightpink")
-    FEES_TOTALAMOUNT_LABEL.place(x=80,y=460)
-    FEES_TOTALAMOUNT_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
-    FEES_TOTALAMOUNT_ENTRY.place(x=50,y=480)
+    FEES_TOTALAMOUNT_LABEL=Label(MAIN_FRAME,text="TOTAL : ",font=('Arial', 8),bg="lightpink")
+    FEES_TOTALAMOUNT_LABEL.place(x=80,y=370)
+    FEES_TOTALAMOUNT_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+    FEES_TOTALAMOUNT_ENTRY.place(x=50,y=390)
 
-    FEES_LATEFEES_LABEL=Label(MAIN_FRAME,text="LATE FEES : ",font=('Arial', 10),bg="lightpink")
-    FEES_LATEFEES_LABEL.place(x=280,y=460)
-    FEES_LATEFEES_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
-    FEES_LATEFEES_ENTRY.place(x=250,y=480)
+    FEES_LATEFEES_LABEL=Label(MAIN_FRAME,text="LATE FEES : ",font=('Arial', 8),bg="lightpink")
+    FEES_LATEFEES_LABEL.place(x=280,y=370)
+    FEES_LATEFEES_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+    FEES_LATEFEES_ENTRY.place(x=250,y=390)
     FEES_LATEFEES_ENTRY.insert(0,0)
 
 
-    EXEMPTION_LABEL=Label(MAIN_FRAME,text="EXEMPTION : ",font=('Arial', 10),bg="lightpink")
-    EXEMPTION_LABEL.place(x=480,y=460)
-    EXEMPTION_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
-    EXEMPTION_ENTRY.place(x=450,y=480)
+    EXEMPTION_LABEL=Label(MAIN_FRAME,text="EXEMPTION : ",font=('Arial', 8),bg="lightpink")
+    EXEMPTION_LABEL.place(x=480,y=370)
+    EXEMPTION_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+    EXEMPTION_ENTRY.place(x=450,y=390)
     EXEMPTION_ENTRY.insert(0,0)
 
     
-    FEES_GRANDTOTAL_LABEL=Label(MAIN_FRAME,text="GRAND TOTAL : ",font=('Arial', 10),bg="lightpink")
-    FEES_GRANDTOTAL_LABEL.place(x=680,y=460)
-    FEES_GRANDTOTAL_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
-    FEES_GRANDTOTAL_ENTRY.place(x=650,y=480)
+    FEES_GRANDTOTAL_LABEL=Label(MAIN_FRAME,text="GRAND TOTAL : ",font=('Arial', 8),bg="lightpink")
+    FEES_GRANDTOTAL_LABEL.place(x=680,y=370)
+    FEES_GRANDTOTAL_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+    FEES_GRANDTOTAL_ENTRY.place(x=650,y=390)
 
 
 
 
 
 
-    FEES_PAYMODE_LABEL=Label(MAIN_FRAME,text="PAYMODE : ",font=('Arial', 10),bg="lightpink")
-    FEES_PAYMODE_LABEL.place(x=80,y=530)
-    FEES_PAYMODE_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
-    FEES_PAYMODE_ENTRY.place(x=50,y=550)
+    FEES_PAYMODE_LABEL=Label(MAIN_FRAME,text="PAYMODE : ",font=('Arial', 8),bg="lightpink")
+    FEES_PAYMODE_LABEL.place(x=80,y=420)
+    FEES_PAYMODE_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+    FEES_PAYMODE_ENTRY.place(x=50,y=440)
 
-    FEES_BANKNAME_LABEL=Label(MAIN_FRAME,text="BANK : ",font=('Arial', 10),bg="lightpink")
-    FEES_BANKNAME_LABEL.place(x=280,y=530)
-    FEES_BANKNAME_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
-    FEES_BANKNAME_ENTRY.place(x=250,y=550)
+    FEES_BANKNAME_LABEL=Label(MAIN_FRAME,text="BANK : ",font=('Arial', 8),bg="lightpink")
+    FEES_BANKNAME_LABEL.place(x=280,y=420)
+    FEES_BANKNAME_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+    FEES_BANKNAME_ENTRY.place(x=250,y=440)
 
-    FEES_CHEQUENUMBER_LABEL=Label(MAIN_FRAME,text="CHEQUENO : ",font=('Arial', 10),bg="lightpink")
-    FEES_CHEQUENUMBER_LABEL.place(x=480,y=530)
-    FEES_CHEQUENUMBER_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
-    FEES_CHEQUENUMBER_ENTRY.place(x=450,y=550)
+    FEES_CHEQUENUMBER_LABEL=Label(MAIN_FRAME,text="CHEQUENO : ",font=('Arial', 8),bg="lightpink")
+    FEES_CHEQUENUMBER_LABEL.place(x=480,y=420)
+    FEES_CHEQUENUMBER_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+    FEES_CHEQUENUMBER_ENTRY.place(x=450,y=440)
 
-    FEES_CHEQUEDATE_LABEL=Label(MAIN_FRAME,text="CHEQUEDATE : ",font=('Arial', 10),bg="lightpink")
-    FEES_CHEQUEDATE_LABEL.place(x=680,y=530)
-    FEES_CHEQUEDATE_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 15))
-    FEES_CHEQUEDATE_ENTRY.place(x=650,y=550)
+    FEES_CHEQUEDATE_LABEL=Label(MAIN_FRAME,text="CHEQUEDATE : ",font=('Arial', 8),bg="lightpink")
+    FEES_CHEQUEDATE_LABEL.place(x=680,y=420)
+    FEES_CHEQUEDATE_ENTRY=Entry(MAIN_FRAME,width=14,font=('Arial', 13))
+    FEES_CHEQUEDATE_ENTRY.place(x=650,y=440)
     
     def fees_save():
         root.bell()
@@ -1932,7 +2524,7 @@ def FEES_FUNCTION():
                 cur.execute("update gr_check set c1=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_tran set c1=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
                 cur.execute("update fee_details set c1='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set APR_JUN_TUTION=0,APR_JUN_ACTIVITY=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set APR_JUN_TUTION=0,APR_JUN_ATITVITY=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
 
 
 
@@ -1985,7 +2577,7 @@ def FEES_FUNCTION():
             if(int(data[0][0]) == 0):
                 cur.execute("update gr_check set c6=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_tran set c6=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
-                cur.execute("update pending_fee_detail set ADMISSION=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
+                cur.execute("update pending_fee_detail set ADMISSION_FEE=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_details set c6='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
         if(CheckVar7.get() == 0):
             cur.execute("update gr_check set c7=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
@@ -1998,6 +2590,339 @@ def FEES_FUNCTION():
                 cur.execute("update pending_fee_detail set ICARD=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_details set c7='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
         mydb.commit()
+
+
+
+
+        def number_to_word(number):
+            def get_word(n):
+                words={ 0:"", 1:"One", 2:"Two", 3:"Three", 4:"Four", 5:"Five", 6:"Six", 7:"Seven", 8:"Eight", 9:"Nine", 10:"Ten", 11:"Eleven", 12:"Twelve", 13:"Thirteen", 14:"Fourteen", 15:"Fifteen", 16:"Sixteen", 17:"Seventeen", 18:"Eighteen", 19:"Nineteen", 20:"Twenty", 30:"Thirty", 40:"Forty", 50:"Fifty", 60:"Sixty", 70:"Seventy", 80:"Eighty", 90:"Ninty" }
+                if n<=20:
+                    return words[n]
+                else:
+                    ones=n%10
+                    tens=n-ones
+                    return words[tens]+" "+words[ones]
+                    
+            def get_all_word(n):
+                d=[100,10,100,100]
+                v=["","Hundred And","Thousand","lakh"]
+                w=[]
+                for i,x in zip(d,v):
+                    t=get_word(n%i)
+                    if t!="":
+                        t+=" "+x
+                    w.append(t.rstrip(" "))
+                    n=n//i
+                w.reverse()
+                w=' '.join(w).strip()
+                if w.endswith("And"):
+                    w=w[:-3]
+                return w
+
+            arr=str(number).split(".")
+            number=int(arr[0])
+            crore=number//10000000
+            number=number%10000000
+            word=""
+            if crore>0:
+                word+=get_all_word(crore)
+                word+=" crore "
+            word+=get_all_word(number).strip()+" Rupees"
+            if len(arr)>1:
+                if len(arr[1])==1:
+                    arr[1]+="0"
+                word+=" and "+get_all_word(int(arr[1]))+" paisa"
+            return word
+
+        def fees_print():
+            Grvalue=FEES_GR_ENTRY.get()
+            RECEIPT_VAR=FEES_RECEIPTNO_ENTRY.get()
+            DATE_VAR=FEES_DATE_ENTRY.get()
+            TOTAL_AMOUNT_VAR=FEES_GRANDTOTAL_ENTRY.get()
+            PAY_TYPE=FEES_PAYMODE_ENTRY.get()
+            CHEQUE_VAR=FEES_CHEQUENUMBER_ENTRY.get()
+            t=(number_to_word(int(TOTAL_AMOUNT_VAR)))
+            BANK_VAR=FEES_BANKNAME_ENTRY.get()
+
+            cur.execute("select SURNAME,NAME,FATHER from gr_details WHERE GR_NO=%s",[Grvalue])
+            fee_wee=cur.fetchall()
+
+            cur.execute("select curr_std,division from academic_detail WHERE GR_NO=%s",[Grvalue])
+            fee_wee_1=cur.fetchall()
+
+
+            NAME_VAR=fee_wee[0][1]
+            SURNAME_VAR=fee_wee[0][0]
+            FATHERS_NAME_VAR=fee_wee[0][2]
+            STD_VAR=fee_wee_1[0][0]+"-"+fee_wee_1[0][1]
+
+            
+
+
+            print(Grvalue,RECEIPT_VAR,DATE_VAR,TOTAL_AMOUNT_VAR,PAY_TYPE,CHEQUE_VAR,BANK_VAR,NAME_VAR,SURNAME_VAR,FATHERS_NAME_VAR,STD_VAR)
+            cur.execute("select aai1 from academic_detail where gr_no={}".format(Grvalue))
+            aai_data=cur.fetchall()[0]
+
+
+            FEES_NAME_PAID=[]
+            FEES_AMT_PAID=[]
+            for child in trv.get_children():
+                # print(trv.item(child)["values"])
+                FEES_NAME_PAID.append(trv.item(child)["values"][0])
+                FEES_AMT_PAID.append(trv.item(child)["values"][3])
+
+            
+
+
+            from reportlab.pdfgen import canvas
+            from reportlab.lib.units import inch
+            from reportlab.lib.pagesizes import letter, A4
+
+            my_path = "RECIEPTS\\{}  - {}.pdf".format(str(NAME_VAR)+" "+str(SURNAME_VAR),str(RECEIPT_VAR))
+
+            c=canvas.Canvas(my_path,pagesize=A4)
+            c.translate(inch,inch)
+            c.setStrokeColorRGB(0,0,0) 
+            c.setLineWidth(2)
+            c.line(-15,580,475,580)
+
+            c.setFont('Helvetica-Bold',17)
+            c.drawString(130,690,"AIRPORT SCHOOL - AHMEDABAD")
+            c.setFont('Helvetica',15)
+
+            c.drawString(145,670,"CBSE AFFILIATION NO 430133")
+            c.drawString(108,650,"AIRPORT COLONY, SARDARNAGAR, AHMEDABAD")
+            c.drawString(173,630,"PHONE : 079-22864175")
+            
+            c.setFont('Helvetica-Bold',17)
+            c.drawString(193,610,"C.B.S.E BOARD")
+            c.setFont('Helvetica',12)
+            
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,557,"Receipt No :")
+            c.setFont('Helvetica',12)
+            c.drawString(80,557,str(RECEIPT_VAR))
+            
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(350,557,"Date :")
+            c.setFont('Helvetica',12)
+            c.drawString(390,557,str(DATE_VAR))
+
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,540,"Student's Name :")
+            c.setFont('Helvetica',12)
+            c.drawString(100,542,str(NAME_VAR)+" "+str(SURNAME_VAR))
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(350,540,"Std :")
+            c.setFont('Helvetica',12)
+            c.drawString(390,540,str(STD_VAR))
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,523,"Father's Name :")
+            c.setFont('Helvetica',12)
+            c.drawString(95,523,str(FATHERS_NAME_VAR)+" "+str(SURNAME_VAR))
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(350,523,"G.R.No :")
+            c.setFont('Helvetica',12)
+            c.drawString(410,523,str(Grvalue))
+            c.setLineWidth(2)
+            c.line(-15,7.2*inch,6.6*inch,7.2*inch)
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(140,498,"Fee Detail")
+            c.drawString(380,498,"Fee Amount")
+            c.setFont('Helvetica',12)
+
+            x=25
+            y=460
+
+            p=435
+            q=460
+            c.drawString(x,y,str(FEES_NAME_PAID[0]))
+            c.drawString(p,q,str(FEES_AMT_PAID[0]))
+            print(FEES_NAME_PAID)
+            if(aai_data[0] == 0):
+                for i in range(len(FEES_NAME_PAID)):
+                    if FEES_NAME_PAID[i] == "APR_JUN_ATITVITY":
+                        FEES_NAME_PAID[i]="APR_JUN_ACTIVITY"
+                    if FEES_NAME_PAID[i] == "ICARD":
+                        FEES_NAME_PAID[i]="ICARD, ALMANAC & CLASS GROUP PHOTO"
+            else:
+                for i in range(len(FEES_NAME_PAID)):
+                    if FEES_NAME_PAID[i] == "APR_JUN_ATITVITY":
+                        FEES_NAME_PAID[i]="APR_SEP_ACTIVITY"    
+                    if FEES_NAME_PAID[i] == "JUL_SEP_ACTIVITY":
+                        FEES_NAME_PAID[i]="OCT_MAR_ACTIVITY"
+                    if FEES_NAME_PAID[i] == "ICARD":
+                        FEES_NAME_PAID[i]="ICARD, ALMANAC & CLASS GROUP PHOTO"
+            print(FEES_NAME_PAID)
+
+            for a in range(1,len(FEES_NAME_PAID)):
+                y=y-20
+                c.drawString(x,y,str(FEES_NAME_PAID[a]))
+
+            for b in range(1,len(FEES_AMT_PAID)):
+                q=q-20
+                c.drawString(p,q,str(FEES_AMT_PAID[b]))
+
+
+            c.setLineWidth(2)
+            c.line(-15,6.8*inch,6.6*inch,6.8*inch)
+
+            c.setLineWidth(2)
+            c.line(-15,0.7*inch,6.6*inch,0.7*inch)
+
+            c.setLineWidth(2)
+            c.line(-15,0.4*inch,6.6*inch,0.4*inch)
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,5,"Pay By :")
+            c.setFont('Helvetica',12)
+            
+            c.drawString(50,5,str(PAY_TYPE)+' '+str(CHEQUE_VAR)+' '+str(BANK_VAR))
+            
+
+
+            c.drawString(0,34,str(t))
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(400,34,str(TOTAL_AMOUNT_VAR)+str('/-'))
+            c.setFont('Helvetica',12)
+
+            
+
+            c.drawString(370,-10,"RAMESH")
+            c.setLineWidth(2)
+            c.line(350,-14,440,-14)
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(360,-25,"Receiver Sign")
+            c.setFont('Helvetica',12)
+
+            c.drawImage(r"ICONS\schl logo1.png",-0.3*inch,8.5*inch)
+
+            c.setLineWidth(2)
+            c.setStrokeColorRGB(0,0,0)
+            c.rect(-0.2*inch,-0.5*inch,6.8*inch,10.8*inch,fill=0)
+            c.showPage()
+            
+            c.translate(inch,inch)
+            c.setStrokeColorRGB(0,0,0) 
+            c.setLineWidth(2)
+            c.line(-15,580,475,580)
+
+            c.setFont('Helvetica-Bold',17)
+            c.drawString(130,690,"AIRPORT SCHOOL - AHMEDABAD")
+            c.setFont('Helvetica',15)
+
+            c.drawString(145,670,"CBSE AFFILIATION NO 430133")
+            c.drawString(108,650,"AIRPORT COLONY, SARDARNAGAR, AHMEDABAD")
+            c.drawString(173,630,"PHONE : 079-22864175")
+            
+            c.setFont('Helvetica-Bold',17)
+            c.drawString(193,610,"C.B.S.E BOARD")
+            c.setFont('Helvetica',12)
+            
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,557,"Receipt No :")
+            c.setFont('Helvetica',12)
+            c.drawString(80,557,str(RECEIPT_VAR))
+            
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(350,557,"Date :")
+            c.setFont('Helvetica',12)
+            c.drawString(390,557,str(DATE_VAR))
+
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,540,"Student's Name :")
+            c.setFont('Helvetica',12)
+            c.drawString(100,542,str(NAME_VAR)+" "+str(SURNAME_VAR))
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(350,540,"Std :")
+            c.setFont('Helvetica',12)
+            c.drawString(390,540,str(STD_VAR))
+            
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,523,"Father's Name :")
+            c.setFont('Helvetica',12)
+            c.drawString(95,523,str(FATHERS_NAME_VAR)+" "+str(SURNAME_VAR))
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(350,523,"G.R.No :")
+            c.setFont('Helvetica',12)
+            c.drawString(410,523,str(Grvalue))
+            
+            c.setLineWidth(2)
+            c.line(-15,7.2*inch,6.6*inch,7.2*inch)
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(140,498,"Fee Detail")
+            c.drawString(380,498,"Fee Amount")
+            c.setFont('Helvetica',12)
+            x=25
+            y=460
+
+            p=435
+            q=460
+            c.drawString(x,y,str(FEES_NAME_PAID[0]))
+            c.drawString(p,q,str(FEES_AMT_PAID[0]))
+            for a in range(1,len(FEES_NAME_PAID)):
+                y=y-20
+                c.drawString(x,y,str(FEES_NAME_PAID[a]))
+
+            for b in range(1,len(FEES_AMT_PAID)):
+                q=q-20
+                c.drawString(p,q,str(FEES_AMT_PAID[b]))             
+
+
+            c.setLineWidth(2)
+            c.line(-15,6.8*inch,6.6*inch,6.8*inch)
+
+            c.setLineWidth(2)
+            c.line(-15,0.7*inch,6.6*inch,0.7*inch)
+
+            c.setLineWidth(2)
+            c.line(-15,0.4*inch,6.6*inch,0.4*inch)
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(-0.1,5,"Pay By :")
+            c.setFont('Helvetica',12)
+
+            c.drawString(50,5,str(PAY_TYPE)+' '+str(CHEQUE_VAR)+' '+str(BANK_VAR))
+
+            c.drawString(0,34,str(t))
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(400,34,str(TOTAL_AMOUNT_VAR)+str('/-'))
+            c.setFont('Helvetica',12)
+
+
+            c.drawString(370,-10,"RAMESH")
+            c.setLineWidth(2)
+            c.line(350,-14,440,-14)
+
+            c.setFont('Helvetica-Bold',12)
+            c.drawString(360,-25,"Receiver Sign")
+            c.setFont('Helvetica',12)
+
+            c.drawImage(r"ICONS\schl logo1.png",-0.3*inch,8.5*inch)
+
+            c.setLineWidth(2)
+            c.setStrokeColorRGB(0,0,0)
+            c.rect(-0.2*inch,-0.5*inch,6.8*inch,10.8*inch,fill=0)
+
+            c.showPage()
+            
+            c.save()
+            
+            import os
+            os.startfile(my_path)
+            
+        fees_print()
+        FEES_REPORT_FUNCTION()
+        BACKUP_FUNCTION()
         FEES_FUNCTION()
 
 
@@ -2005,21 +2930,26 @@ def FEES_FUNCTION():
 
     def fees_generate():
         GR_VALUE = FEES_GR_ENTRY.get()
-        cur.execute("select curr_std,divison from academic_detail where gr_no={}".format(GR_VALUE))
+        cur.execute("select curr_std,division from academic_detail where gr_no={}".format(GR_VALUE))
         data1 = cur.fetchall()
         trv.delete(*trv.get_children())
         cur.execute("select * from gr_check where gr_no={}".format(GR_VALUE))
         gr_checks = cur.fetchall()
         cur.execute("select * from pending_fee_detail where gr_no={}".format(GR_VALUE))
         pending_data = cur.fetchall()
-        cur.execute("select * from exmp_fees where std='{}'".format(data1[0][0]))
-        exmp_data = cur.fetchall()
+        cur.execute("select aai1 from academic_detail where gr_no={}".format(GR_VALUE))
+        aaidata = cur.fetchall()[0]
+        if(aaidata[0] == 1):
+            cur.execute("select * from exmp_fees where std='{}'".format(data1[0][0]))
+            exmp_data = cur.fetchall()
+        else:
+            exmp_data = [[data1[0][0],0,0,0,0,0,0,0,0,0,0,0,0]]
         if (CheckVar1.get() == 1):
             if(gr_checks[0][1] == 1):
                 pass
             else:
                 trv.insert(parent='',index="end",text='',value=("APR_JUN_TUTION",pending_data[0][3],exmp_data[0][3],pending_data[0][3]-exmp_data[0][3]))
-                trv.insert(parent='',index="end",text='',value=("APR_JUN_ACTIVITY",pending_data[0][4],exmp_data[0][4],pending_data[0][4]-exmp_data[0][4]))
+                trv.insert(parent='',index="end",text='',value=("APR_JUN_ATITVITY",pending_data[0][4],exmp_data[0][4],pending_data[0][4]-exmp_data[0][4]))
         if (CheckVar2.get() == 1):
             if(gr_checks[0][2] == 1):
                 pass
@@ -2063,7 +2993,12 @@ def FEES_FUNCTION():
         FEES_TOTALAMOUNT_ENTRY.delete(0,END)
         FEES_TOTALAMOUNT_ENTRY.insert(0,total)
         late_fees = int(FEES_LATEFEES_ENTRY.get())
+        if late_fees>0:
+            trv.insert(parent='',index="end",text='',value=("LATE FEES",late_fees,0,late_fees))
+
         exmp_fees = int(EXEMPTION_ENTRY.get())
+        if exmp_fees>0:
+            trv.insert(parent='',index="end",text='',value=("EXEMPTION",exmp_fees,0,exmp_fees))
         FEES_GRANDTOTAL_ENTRY.delete(0,END)
         FEES_GRANDTOTAL_ENTRY.insert(0,total+late_fees-exmp_fees)
         mydb.commit()
@@ -2075,7 +3010,7 @@ def FEES_FUNCTION():
         cur.execute("select name,father,surname from gr_details where gr_no={}".format(GR_VALUE))
         data = cur.fetchall()
         full_name = data[0][0] +" "+ data[0][1] +" "+ data[0][2]
-        cur.execute("select curr_std,divison from academic_detail where gr_no={}".format(GR_VALUE))
+        cur.execute("select curr_std,division from academic_detail where gr_no={}".format(GR_VALUE))
         data1 = cur.fetchall()
         FEES_STD_ENTRY.delete(0,END)
         FEES_STD_ENTRY.insert(0,data1[0][0])
@@ -2128,17 +3063,17 @@ def FEES_FUNCTION():
             C5.select()
             C5.config(state=DISABLED)
         if(gr_checks[0][6] == 0):
-            C5.deselect()
-            C5.config(state=ACTIVE)
+            C6.deselect()
+            C6.config(state=ACTIVE)
         else:
-            C5.select()
-            C5.config(state=DISABLED)
+            C6.select()
+            C6.config(state=DISABLED)
         if(gr_checks[0][7] == 0):
-            C5.deselect()
-            C5.config(state=ACTIVE)
+            C7.deselect()
+            C7.config(state=ACTIVE)
         else:
-            C5.select()
-            C5.config(state=DISABLED)
+            C7.select()
+            C7.config(state=DISABLED)
         mydb.commit()
     FEES_GR_ENTRY.bind('<Return>',fees_insert)
 
@@ -2207,10 +3142,10 @@ def FEES_FUNCTION():
             print(fee_tran_data[1])
             if(fee_tran_data[1] == 1):
                 tree.insert(parent='',index="end",text='',value=("APR_JUN_TUTION",std_fees_data[3],std_fees_data[3]-exmp_data[3],std_fees_data[3]-exmp_data[3],tran_details[14],std_fees_data[3]-pending_data[3]-exmp_data[3]))
-                tree.insert(parent='',index="end",text='',value=("APR_JUN_ACTIVITY",std_fees_data[4],std_fees_data[4]-exmp_data[4],pending_data[4]-exmp_data[4],tran_details[14],std_fees_data[4]-pending_data[4]-exmp_data[4]))
+                tree.insert(parent='',index="end",text='',value=("APR_JUN_ATITVITY",std_fees_data[4],std_fees_data[4]-exmp_data[4],pending_data[4]-exmp_data[4],tran_details[14],std_fees_data[4]-pending_data[4]-exmp_data[4]))
             else:
                 tree.insert(parent='',index="end",text='',value=("APR_JUN_TUTION",std_fees_data[3],std_fees_data[3]-exmp_data[3],pending_data[3]-exmp_data[3],' ',std_fees_data[3]-pending_data[3]-exmp_data[3]))
-                tree.insert(parent='',index="end",text='',value=("APR_JUN_ACTIVITY",std_fees_data[4],std_fees_data[4]-exmp_data[4],pending_data[4]-exmp_data[4],' ',std_fees_data[4]-pending_data[4]-exmp_data[4]))
+                tree.insert(parent='',index="end",text='',value=("APR_JUN_ATITVITY",std_fees_data[4],std_fees_data[4]-exmp_data[4],pending_data[4]-exmp_data[4],' ',std_fees_data[4]-pending_data[4]-exmp_data[4]))
             
             if(fee_tran_data[2] == 1):
                 tree.insert(parent='',index="end",text='',value=("SEP_JUL_TUTION",std_fees_data[6],std_fees_data[6]-exmp_data[6],pending_data[6]-exmp_data[6],tran_details[14],std_fees_data[6]-pending_data[6]-exmp_data[6]))
@@ -2235,17 +3170,17 @@ def FEES_FUNCTION():
 
         tree.place(x=50,y=300)
         win.mainloop()
-    FEES_GR_ENTRY.bind('<F3>',show_fee_details_func)
-
-    GENERATE_BTN=Button(MAIN_FRAME,text="GENERATE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=fees_generate)
-    GENERATE_BTN.place(x=900,y=500)
     
-    SHOW_BTN=Button(MAIN_FRAME,text="SHOW\nFEE DETAIL",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=show_fee_details_func)
-    SHOW_BTN.place(x=900,y=420)
+
+    GENERATE_BTN=Button(MAIN_FRAME,text="GENERATE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 10),command=fees_generate)
+    GENERATE_BTN.place(x=810,y=440)
+    
+    SHOW_BTN=Button(MAIN_FRAME,text="SHOW\nFEE DETAIL",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 10),command=show_fee_details_func)
+    SHOW_BTN.place(x=810,y=370)
 
 
-    SAVE_BTN=Button(MAIN_FRAME,text="SAVE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=fees_save)
-    SAVE_BTN.place(x=1100,y=500)
+    SAVE_BTN=Button(MAIN_FRAME,text="SAVE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 10),command=fees_save)
+    SAVE_BTN.place(x=1000,y=440)
     SAVE_BTN["state"]=DISABLED
 
 
@@ -2404,13 +3339,13 @@ def FEES_EDIT_FUNCTION():
                         cur.execute("update pending_fee_detail set {}={} where gr_no={}".format(i,a,i1[0]))
                     mydb.commit()
             if(fees_select_combo.get() == 'ACTIVITY'):
-                cur.execute("update std_fees set APR_JUN_ATIVITY={},JUL_SEP_ACTIVITY={},OCT_DEC_ACTIVITY={},JAN_MAR_ACTIVITY={} WHERE STD='{}'".format(a,a,a,a,s))
+                cur.execute("update std_fees set APR_JUN_ATITVITY={},JUL_SEP_ACTIVITY={},OCT_DEC_ACTIVITY={},JAN_MAR_ACTIVITY={} WHERE STD='{}'".format(a,a,a,a,s))
                 cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
                 gr_nos = cur.fetchall()
                 for i1  in gr_nos:
-                    cur.execute("select APR_JUN_ACTIVITY,JUL_SEP_ACTIVITY,OCT_DEC_ACTIVITY,JAN_MAR_ACTIVITY from pending_fee_detail where gr_no={}".format(i1[0]))
+                    cur.execute("select APR_JUN_ATITVITY,JUL_SEP_ACTIVITY,OCT_DEC_ACTIVITY,JAN_MAR_ACTIVITY from pending_fee_detail where gr_no={}".format(i1[0]))
                     data=cur.fetchall()
-                    dict = {'APR_JUN_ACTIVITY':data[0][0],
+                    dict = {'APR_JUN_ATITVITY':data[0][0],
                             'JUL_SEP_ACTIVITY':data[0][1],
                             'OCT_DEC_ACTIVITY':data[0][2],
                             'JAN_MAR_ACTIVITY':data[0][3]
@@ -2429,7 +3364,7 @@ def FEES_EDIT_FUNCTION():
                 cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
                 gr_nos = cur.fetchall()
                 for i1  in gr_nos:
-                    cur.execute("select admission_fee from pending_fee_detail where gr_no={}".format(i1))
+                    cur.execute("select admission_fee from pending_fee_detail where gr_no={}".format(i1[0]))
                     data = cur.fetchall()[0]
                     if (data[0] == 0):
                         pass
@@ -2442,8 +3377,9 @@ def FEES_EDIT_FUNCTION():
                 cur.execute("update std_fees set ICARD={} WHERE STD='{}'".format(a,s))
                 cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
                 gr_nos = cur.fetchall()
+                # print(gr_nos)
                 for i1  in gr_nos:
-                    cur.execute("select icard from pending_fee_detail where gr_no={}".format(i1))
+                    cur.execute("select ICARD from pending_fee_detail where gr_no={}".format(i1[0]))
                     data = cur.fetchall()[0]
                     if (data[0] == 0):
                         pass
@@ -2457,7 +3393,7 @@ def FEES_EDIT_FUNCTION():
                 cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
                 gr_nos = cur.fetchall()
                 for i1  in gr_nos:
-                    cur.execute("select others from pending_fee_detail where gr_no={}".format(i1))
+                    cur.execute("select others from pending_fee_detail where gr_no={}".format(i1[0]))
                     data = cur.fetchall()[0]
                     if (data[0] == 0):
                         pass
@@ -2496,13 +3432,13 @@ def FEES_EDIT_FUNCTION():
                     mydb.commit()
                 mydb.commit()
             if(fees_select_combo.get() == 'ACTIVITY'):
-                cur.execute("update exmp_fees set APR_JUN_ATIVITY={},JUL_SEP_ACTIVITY={},OCT_DEC_ACTIVITY={},JAN_MAR_ACTIVITY={} WHERE STD='{}'".format(a,a,a,a,s))
+                cur.execute("update exmp_fees set APR_JUN_ATITVITY={},JUL_SEP_ACTIVITY={},OCT_DEC_ACTIVITY={},JAN_MAR_ACTIVITY={} WHERE STD='{}'".format(a,a,a,a,s))
                 cur.execute("select gr_no from academic_detail where curr_std='{}'".format(s))
                 gr_nos = cur.fetchall()
                 for i1  in gr_nos:
-                    cur.execute("select APR_JUN_ACTIVITY,JUL_SEP_ACTIVITY,OCT_DEC_ACTIVITY,JAN_MAR_ACTIVITY from pending_fee_detail where gr_no={}".format(i1[0]))
+                    cur.execute("select APR_JUN_ATITVITY,JUL_SEP_ACTIVITY,OCT_DEC_ACTIVITY,JAN_MAR_ACTIVITY from pending_fee_detail where gr_no={}".format(i1[0]))
                     data=cur.fetchall()
-                    dict = {'APR_JUN_ACTIVITY':data[0][0],
+                    dict = {'APR_JUN_ATITVITY':data[0][0],
                             'JUL_SEP_ACTIVITY':data[0][1],
                             'OCT_DEC_ACTIVITY':data[0][2],
                             'JAN_MAR_ACTIVITY':data[0][3]
@@ -2579,7 +3515,7 @@ def FEES_EDIT_FUNCTION():
 
 
 
-
+global FEES_REPORT_FUNCTION
 def FEES_REPORT_FUNCTION():
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
@@ -2592,22 +3528,54 @@ def FEES_REPORT_FUNCTION():
     wrt=csv.writer(f1)
     wrt.writerow(["RECIEPT NO","DATE","GR_NO","NAME","PAY TYPE","CHEQUE_NO","BANK NAME","TOTAL"])
     print(current_date)
-
     cur.execute("select RECEIPT_NO,date1,gr_no,name,paymode,cheque_no,bank,grand_total from tran_details where date1='{}'".format(current_date))
-    
-
     data_report = cur.fetchall()
     for i in data_report:
         wrt.writerow(i)
 
-    # text_Q1="FEES REPORT"
-    # myobj = gTTS(text=text_Q1, slow=False)
-    # myobj.save(r"AUDIOS\fees_report.mp3")
-    #pygame.mixer.init()
-    #pygame.mixer.music.load(r"AUDIOS\fees_report.mp3")
-    #pygame.mixer.music.play(loops=0)
 
-    # MAIN_FRAME.configure(bg="#dda0dd")
+    f2 = open(r"REPORTS\gr_report.csv",'w',newline="\n")
+    wrt = csv.writer(f2)
+    wrt.writerow(["CLASS","DIVISION","TOTAL"])
+    cur.execute("select curr_std,division,count(gr_no) as total from academic_detail where active1=1 group by curr_std,division order by curr_std")
+    data_report = cur.fetchall()
+    for i in data_report:
+        wrt.writerow(i)
+    f2.close()
+
+    f3 = open(r"REPORTS\male_female.csv",'w',newline="\n")
+    wrt = csv.writer(f3)
+    wrt.writerow(["CLASS","DIVISION","SEX","TOTAL"])
+    cur.execute('''SELECT ad.division, ad.curr_std AS class,
+       SUM(CASE WHEN gd.SEX = 'Male' THEN 1 ELSE 0 END) AS male_count,
+       SUM(CASE WHEN gd.SEX = 'Female' THEN 1 ELSE 0 END) AS female_count
+FROM academic_detail AS ad
+JOIN gr_details AS gd ON ad.gr_no = gd.GR_NO
+GROUP BY ad.division, ad.curr_std
+ORDER BY ad.division, ad.curr_std;
+''')
+    data_report = cur.fetchall()
+    for i in data_report:
+        wrt.writerow(i)
+    f3.close()
+
+    f4 = open(r"REPORTS\caste_report.csv",'w',newline="\n")
+    wrt = csv.writer(f4)
+    wrt.writerow(["CLASS","DIVISION","CASTE","TOTAL"])
+    cur.execute("select academic_detail.curr_std,academic_detail.division,gr_details.caste,count(gr_details.caste) as total from gr_details,academic_detail where academic_detail.active1=1 group by academic_detail.curr_std,academic_detail.division,gr_details.caste order by academic_detail.curr_std,academic_detail.division")
+    data_report = cur.fetchall()    
+    for i in data_report:
+        wrt.writerow(i)
+    f4.close()
+
+    f5 = open(r"REPORTS\new_admission.csv",'w',newline="\n")
+    wrt = csv.writer(f5)
+    wrt.writerow(["GR NO","NAME","FATHER","SURNAME","CURR STD","DIVISION"])
+    cur.execute("select gr_details.gr_no,gr_details.name,gr_details.father,gr_details.surname,academic_detail.curr_std,academic_detail.division from gr_details,academic_detail where gr_details.gr_no>4575 and gr_details.gr_no=academic_detail.gr_no and academic_detail.active1=1")
+    data_report = cur.fetchall()    
+    for i in data_report:
+        wrt.writerow(i)
+    f5.close()
 
 
 
@@ -3042,7 +4010,7 @@ def CERTIFICATES_FUNCTION():
 
 
 
-
+global BACKUP_FUNCTION
 def BACKUP_FUNCTION():
     f1 = open(r"BACKUP\academic_detail.csv","w", newline="\n")
     writer1 = csv.writer(f1)
@@ -3154,6 +4122,15 @@ def BACKUP_FUNCTION():
     writer1.writerows(data)
     f10.close()
 
+    f11 = open("all_data.csv","w", newline="\n")
+    writer1 = csv.writer(f11)
+    cur.execute("select * from gr_details,academic_detail,other_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no=other_detail.gr_no and academic_detail.gr_no=other_detail.gr_no")
+    headings = cur.column_names
+    data = cur.fetchall()
+    writer1.writerow(headings)
+    writer1.writerows(data)
+    f11.close()
+BACKUP_FUNCTION()
 
 
 
@@ -3342,19 +4319,19 @@ def EXIT_FUNCTION():
 #---------------------------------------------------------------------------------------------------------
 
 
-MENU_FRAME=Frame(root,relief=RIDGE,bg="lightgrey",height=100,width=1550,borderwidth=5)
+MENU_FRAME=Frame(root,relief=RIDGE,bg="lightgrey",height=100,width=1370,borderwidth=5)
 MENU_FRAME.place(x=0,y=0)
 
 #---------------------------------------------------------------------------------------------------------
 
-MENU_FRAME2=Frame(root,relief=RIDGE,bg="lightgrey",height=700,width=100,borderwidth=1)
+MENU_FRAME2=Frame(root,relief=RIDGE,bg="lightgrey",height=605,width=100,borderwidth=1)
 MENU_FRAME2.place(x=0,y=100)
 
 
 #---------------------------------------------------------------------------------------------------------
 
 
-MAIN_FRAME=Frame(root,relief=RIDGE,bg="white",height=600,width=1320,borderwidth=4) 
+MAIN_FRAME=Frame(root,relief=RIDGE,bg="white",height=520,width=1180,borderwidth=4) 
 MAIN_FRAME.place(x=150,y=150)
 
 #---------------------------------------------------------------------------------------------------------
@@ -3366,21 +4343,21 @@ image_gr= Image.open(r"ICONS\gr.png")
 image_gr= image_gr.resize((55,55))
 img_gr= ImageTk.PhotoImage(image_gr)
 GR_BTN=Button(MENU_FRAME,image = img_gr,bg='lightgrey',compound=TOP,text="GR",command=GR_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
-GR_BTN.place(x=200,y=0)
+GR_BTN.place(x=160,y=0)
 
 
 image_fees= Image.open(r"ICONS\fees.png")
 image_fees= image_fees.resize((55,55))
 img_fees= ImageTk.PhotoImage(image_fees)
 FEES_BTN=Button(MENU_FRAME,image = img_fees,bg='lightgrey',compound=TOP,text="FEES",command=FEES_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
-FEES_BTN.place(x=300,y=0) 
+FEES_BTN.place(x=260,y=0) 
 
 
 image_fees_edit= Image.open(r"ICONS\edity1.png")
 image_fees_edit= image_fees_edit.resize((55,55))
 img_fees_edit= ImageTk.PhotoImage(image_fees_edit)
 FEES_EDIT_BTN=Button(MENU_FRAME,image = img_fees_edit,bg='lightgrey',compound=TOP,text="FEES EDIT",command=FEES_EDIT_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
-FEES_EDIT_BTN.place(x=400,y=0) 
+FEES_EDIT_BTN.place(x=360,y=0) 
 
 
 
@@ -3388,7 +4365,7 @@ image_fees_report= Image.open(r"ICONS\fee_report.png")
 image_fees_report= image_fees_report.resize((55,55))
 img_fees_report= ImageTk.PhotoImage(image_fees_report)
 FEES_REPORT_BTN=Button(MENU_FRAME,image = img_fees_report,bg='lightgrey',compound=TOP,text="FEES REPORT",command=FEES_REPORT_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
-FEES_REPORT_BTN.place(x=490,y=0) 
+FEES_REPORT_BTN.place(x=450,y=0) 
 
 
 
@@ -3396,7 +4373,7 @@ image_library= Image.open(r"ICONS\Library.png")
 image_library= image_library.resize((55,55))
 img_library= ImageTk.PhotoImage(image_library)
 LIBRARY_BTN=Button(MENU_FRAME,image = img_library,bg='lightgrey',compound=TOP,text="LIBRARY",command=LIBRARY_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
-LIBRARY_BTN.place(x=590,y=0)
+LIBRARY_BTN.place(x=550,y=0)
 
 
 
@@ -3404,7 +4381,7 @@ image_certificate= Image.open(r"ICONS\certificate.png")
 image_certificate= image_certificate.resize((55,55))
 img_certificate= ImageTk.PhotoImage(image_certificate)
 CERTIFICATES_BTN=Button(MENU_FRAME,image = img_certificate,bg='lightgrey',compound=TOP,text="CERTIFICATES",command=CERTIFICATES_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
-CERTIFICATES_BTN.place(x=680,y=0)
+CERTIFICATES_BTN.place(x=640,y=0)
 
 
 
@@ -3412,7 +4389,7 @@ image_backup= Image.open(r"ICONS\backup.png")
 image_backup= image_backup.resize((55,55))
 img_backup= ImageTk.PhotoImage(image_backup)
 BACKUP_BTN=Button(MENU_FRAME,image = img_backup,bg='lightgrey',compound=TOP,text="BACKUP",command=BACKUP_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
-BACKUP_BTN.place(x=780,y=0)
+BACKUP_BTN.place(x=740,y=0)
 
 
 
@@ -3420,7 +4397,7 @@ image_aboutus= Image.open(r"ICONS\about us.png")
 image_aboutus= image_aboutus.resize((50,55))
 img_aboutus= ImageTk.PhotoImage(image_aboutus)
 ABOUTUS_BTN=Button(MENU_FRAME,image = img_aboutus,bg='lightgrey',compound=TOP,text="DETAILS",command=ABOUTUS_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
-ABOUTUS_BTN.place(x=870,y=0)
+ABOUTUS_BTN.place(x=830,y=0)
 
 
 
@@ -3428,7 +4405,7 @@ image_exit= Image.open(r"ICONS\EXIT_menu.png")
 image_exit= image_exit.resize((55,55))
 img_exit= ImageTk.PhotoImage(image_exit)
 EXIT_BTN=Button(MENU_FRAME,image = img_exit,bg='lightgrey',compound=TOP,text="EXIT",command=EXIT_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
-EXIT_BTN.place(x=960,y=0)
+EXIT_BTN.place(x=920,y=0)
 
 
 
@@ -3441,17 +4418,17 @@ SCHL_BTN.place(x=0,y=0)
 
 
 
-DATElbl=Label(MENU_FRAME,text="Date : ",bg='light grey',fg='#151B54',font=("Copperplate Gothic Bold",12))
-DATElbl.place(x=1150, y=60)
+DATElbl=Label(MENU_FRAME,text="Date : ",bg='light grey',fg='#151B54',font=("Copperplate Gothic Bold",10))
+DATElbl.place(x=1050, y=60)
 
-label_date_now = Label(MENU_FRAME,text="Current Date",bg='light grey',fg='#151B54',font=("Copperplate Gothic Bold",12))
-label_date_now.place(x=1210, y=60)
+label_date_now = Label(MENU_FRAME,text="Current Date",bg='light grey',fg='#151B54',font=("Copperplate Gothic Bold",10))
+label_date_now.place(x=1110, y=60)
 
-TIMElbl=Label(MENU_FRAME,text="Time : ",bg='light grey',fg='#151B54',font=("Copperplate Gothic Bold",12))
-TIMElbl.place(x=1330, y=60)
+TIMElbl=Label(MENU_FRAME,text="Time : ",bg='light grey',fg='#151B54',font=("Copperplate Gothic Bold",10))
+TIMElbl.place(x=1210, y=60)
 
-label_time_now = Label(MENU_FRAME,text="Current Time",bg='lightgrey',fg='#151B54',font=("Copperplate Gothic Bold",12))
-label_time_now.place(x=1390, y=60)
+label_time_now = Label(MENU_FRAME,text="Current Time",bg='lightgrey',fg='#151B54',font=("Copperplate Gothic Bold",10))
+label_time_now.place(x=1260, y=60)
 
 def y():
     current_date=datetime.datetime.today().strftime('%d-%m-%y')
