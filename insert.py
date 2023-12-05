@@ -3,10 +3,14 @@ import csv
 mydb = con.connect(host="localhost", user="root", password="root", database="airport_school")
 cur = mydb.cursor()
 
-f1 =open("std_fees.csv","r")
+f1 =open(r"C:\Users\Admin\Documents\Received Files\book_accession.csv","r")
 
 reader = csv.reader(f1)
 
 for row in reader:
-    cur.execute("insert into std_fees values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", row)
+    print(row)
+    try:
+        cur.execute("insert into book_accession values(%s, %s)", row)
+    except:
+        pass
 mydb.commit()

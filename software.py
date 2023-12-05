@@ -952,6 +952,15 @@ def GR_FUNCTION():
             grlst.append(state_ent.get())
             grlst.append(minorityvalue.get())
             grlst.append(rtevalue.get())
+            if (rtevalue.get() == 1):
+                cur.execute("UPDATE PENDING_FEE_DETAIL SET ADMISSION_FEE=0,ICARD=0,APR_JUN_TUTION=0,APR_JUN_ATITVITY=0,LATE_FEES=0,JUL_SEP_TUTION=0,JUL_SEP_ACTIVITY=0,OCT_DEC_ACTIVITY=0,OCT_DEC_TUTION=0,JAN_MAR_TUTION=0,JAN_MAR_ACTIVITY=0, OTHERS=0 WHERE GR_NO={}".format(int(gr_ent.get())))
+            else:
+                cur.execute("select curr_std from academic_detail where gr_no={}".format(gr_ent.get()))
+                data = cur.fetchall()
+
+                cur.execute("select * from std_fees where std='{}'".format(data[0][0]))
+                data = cur.fetchall()
+                cur.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ATITVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],gr_ent.get()])
             grlst.append(gr_ent.get())
             cur.execute("update gr_details set form_no=%s,enquiry_no=%s,uid=%s,surname=%s,name=%s,father=%s,MOTHER=%s,SEX=%s,BIRTH_DATE=%s,CATEGORY=%s,RELIGION=%s,BIRTH_PLACE=%s,PREVIOUS_SCH=%s,CASTE=%s,BIRTH_TALUKA=%s,SUB_CASTE=%s,STATE1=%s,MINORITY=%s,RTE=%s where gr_no=%s",grlst)
             mydb.commit()
@@ -2593,16 +2602,16 @@ def FEES_FUNCTION():
                 cur.execute("update fee_tran set c7=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
                 cur.execute("update pending_fee_detail set ICARD=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
                 cur.execute("update fee_details set c7='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-        if(CheckVar8.get() == 0):
-            cur.execute("update gr_check set c8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-        else:
-            cur.execute("select c8 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
-            data = cur.fetchall()
-            if(int(data[0][0]) == 0):
-                cur.execute("update gr_check set c8=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update fee_tran set c8=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
-                cur.execute("update pending_fee_detail set LATE_FEES=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update fee_details set c8='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+        # if(CheckVar8.get() == 0):
+        #     cur.execute("update gr_check set c8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+        # else:
+        #     cur.execute("select c8 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+        #     data = cur.fetchall()
+        #     if(int(data[0][0]) == 0):
+        #         cur.execute("update gr_check set c8=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+        #         cur.execute("update fee_tran set c8=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+        #         cur.execute("update pending_fee_detail set LATE_FEES=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
+        #         cur.execute("update fee_details set c8='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
         mydb.commit()
 
 
