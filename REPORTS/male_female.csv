@@ -1,5 +1,172 @@
 CLASS,DIVISION,SEX,TOTAL
-NUR,A,,0
-NUR,A,,1
-NUR,A,ljkn,1
-NUR,A,Male,1
+1,A,,92
+1,A,Female,51566
+1,A,Male,56902
+1,B,,92
+1,B,Female,51566
+1,B,Male,56902
+1,C,,90
+1,C,Female,50445
+1,C,Male,55665
+1,D,,88
+1,D,Female,49324
+1,D,Male,54428
+10,A,,102
+10,A,Female,57171
+10,A,Male,63087
+10,B,,70
+10,B,Female,39235
+10,B,Male,43295
+10,C,,76
+10,C,Female,42598
+10,C,Male,47006
+10,D,,70
+10,D,Female,39235
+10,D,Male,43295
+11 COMM,A,,96
+11 COMM,A,Female,53808
+11 COMM,A,Male,59376
+11 COMM,B,,18
+11 COMM,B,Female,10089
+11 COMM,B,Male,11133
+11 COMM,C,,14
+11 COMM,C,Female,7847
+11 COMM,C,Male,8659
+11 SCI,A,,64
+11 SCI,A,Female,35872
+11 SCI,A,Male,39584
+12 COMM,A,,88
+12 COMM,A,Female,49324
+12 COMM,A,Male,54428
+12 SCI,A,,84
+12 SCI,A,Female,47082
+12 SCI,A,Male,51954
+2,A,,82
+2,A,Female,45961
+2,A,Male,50717
+2,B,,84
+2,B,Female,47082
+2,B,Male,51954
+2,C,,84
+2,C,Female,47082
+2,C,Male,51954
+2,D,,82
+2,D,Female,45961
+2,D,Male,50717
+3,A,,90
+3,A,Female,50445
+3,A,Male,55665
+3,B,,86
+3,B,Female,48203
+3,B,Male,53191
+3,C,,88
+3,C,Female,49324
+3,C,Male,54428
+3,D,,88
+3,D,Female,49324
+3,D,Male,54428
+4,A,,94
+4,A,Female,52687
+4,A,Male,58139
+4,B,,96
+4,B,Female,53808
+4,B,Male,59376
+4,C,,94
+4,C,Female,52687
+4,C,Male,58139
+4,D,,92
+4,D,Female,51566
+4,D,Male,56902
+5,A,,82
+5,A,Female,45961
+5,A,Male,50717
+5,B,,84
+5,B,Female,47082
+5,B,Male,51954
+5,C,,88
+5,C,Female,49324
+5,C,Male,54428
+5,D,,84
+5,D,Female,47082
+5,D,Male,51954
+6,A,,84
+6,A,Female,47082
+6,A,Male,51954
+6,B,,84
+6,B,Female,47082
+6,B,Male,51954
+6,C,,80
+6,C,Female,44840
+6,C,Male,49480
+6,D,,82
+6,D,Female,45961
+6,D,Male,50717
+7,A,,84
+7,A,Female,47082
+7,A,Male,51954
+7,B,,78
+7,B,Female,43719
+7,B,Male,48243
+7,C,,78
+7,C,Female,43719
+7,C,Male,48243
+7,D,,78
+7,D,Female,43719
+7,D,Male,48243
+8,A,,98
+8,A,Female,54929
+8,A,Male,60613
+8,B,,96
+8,B,Female,53808
+8,B,Male,59376
+8,C,,96
+8,C,Female,53808
+8,C,Male,59376
+9,A,,98
+9,A,Female,54929
+9,A,Male,60613
+9,B,,72
+9,B,Female,40356
+9,B,Male,44532
+9,C,,74
+9,C,Female,41477
+9,C,Male,45769
+9,D,,74
+9,D,Female,41477
+9,D,Male,45769
+JR.KG,A,,76
+JR.KG,A,Female,42598
+JR.KG,A,Male,47006
+JR.KG,B,,72
+JR.KG,B,Female,40356
+JR.KG,B,Male,44532
+JR.KG,C,,76
+JR.KG,C,Female,42598
+JR.KG,C,Male,47006
+JR.KG,D,,74
+JR.KG,D,Female,41477
+JR.KG,D,Male,45769
+NUR,A,,68
+NUR,A,Female,38114
+NUR,A,Male,42058
+NUR,B,,66
+NUR,B,Female,36993
+NUR,B,Male,40821
+NUR,C,,68
+NUR,C,Female,38114
+NUR,C,Male,42058
+NUR,D,,68
+NUR,D,Female,38114
+NUR,D,Male,42058
+SR.KG,A,,80
+SR.KG,A,Female,44840
+SR.KG,A,Male,49480
+SR.KG,B,,80
+SR.KG,B,Female,44840
+SR.KG,B,Male,49480
+SR.KG,C,,74
+SR.KG,C,Female,41477
+SR.KG,C,Male,45769
+SR.KG,D,,82
+SR.KG,D,Female,45961
+SR.KG,D,Male,50717
