@@ -4209,114 +4209,141 @@ def LIBRARY_FUNCTION():
 
 
         
-        f = open("./LIBRARY/author.csv","w",newline="\n")
-        cur.execute('''SELECT
-    author,
-    COUNT(*) AS total_books,
-    GROUP_CONCAT(book_title ORDER BY book_title ASC) AS book_titles
-FROM
-    book_accession
-GROUP BY
-    author
-ORDER BY
-    author
-''')
-        writer1 = csv.writer(f)
-        writer1.writerow(["AUTHOR","TOTAL BOOKS","BOOK TITLES"])
-        data = cur.fetchall()
-        for i in data:
-            writer1.writerow(i)
-        f.close()
+        import tkinter as tk
+        from tkinter import ttk
+        import mysql.connector
+        import csv
 
-        f = open("./LIBRARY/publisher.csv","w",newline="\n")
-        cur.execute('''SELECT
-    publisher,
-    COUNT(*) AS total_books,
-    GROUP_CONCAT(book_title ORDER BY book_title ASC) AS book_titles
-FROM
-    book_accession
-GROUP BY
-    publisher
-ORDER BY
-    publisher
-''')
-        writer1 = csv.writer(f)
-        writer1.writerow(["PUBLISHER","TOTAL BOOKS","BOOK TITLES"])
-        data = cur.fetchall()
-        for i in data:
-            writer1.writerow(i)
-        f.close()
+        # Function to connect to MySQL and fetch data based on the selected option
+        def fetch_data(option):
+            try:
+                # Establish connection to the MySQL server
+                connection = mysql.connector.connect(
+                    host="192.168.0.156",
+                    user="superuser",
+                    password="superuser",
+                    database="airport_school"
+                )
 
-        f = open("./LIBRARY/category.csv","w",newline="\n")
-        cur.execute('''SELECT
-    category,
-    COUNT(*) AS total_books,
-    GROUP_CONCAT(book_title ORDER BY book_title ASC) AS book_titles
-FROM
-    book_accession
-GROUP BY
-    category
-ORDER BY
-    category
-''')
-        writer1 = csv.writer(f)
-        writer1.writerow(["CATEGORY","TOTAL BOOKS","BOOK TITLES"])
-        data = cur.fetchall()
-        for i in data:
-            writer1.writerow(i)
-        f.close()
+                if connection.is_connected():
+                    print("Connected to MySQL database")
 
-        f = open("./LIBRARY/lib_records.csv","w",newline="\n")
-        cur.execute('''SELECT
-        org,
-        gr_no,
-        mobile,
-        std,
-        roll_no,
-        name,
-        accession_no,
-        book_name,
-        issuse_date,
-        issuse_remark,
-        return_date,
-        penalty_days,
-        penalty_rate,
-        penalty_amt,
-        return_remark
-    FROM
-        lib_records''')
-        writer1 = csv.writer(f)
-        writer1.writerow(["ORG","GR_NO","MOBILE","STD","ROLL_NO","NAME","ACCESSION_NO","BOOK_NAME","ISSUE_DATE","ISSUE_REMARK","RETURN_DATE","PENALTY_DAYS","PENALTY_RATE","PENALTY_AMT","RETURN_REMARK"])
-        data = cur.fetchall()
-        for i in data:
-            writer1.writerow(i)
-        f.close()
+                    cursor = connection.cursor()
 
-        f = open("./LIBRARY/issued.csv","w",newline="\n")
-        cur.execute('''SELECT
-        org,
-        gr_no,
-        mobile,
-        std,
-        roll_no,
-        name,
-        accession_no,
-        book_name,
-        issuse_date,
-        issuse_remark,
-        return_date,
-        penalty_days,
-        penalty_rate,
-        penalty_amt,
-        return_remark
-    FROM
-        issued''')
-        writer1 = csv.writer(f)
-        writer1.writerow(["ORG","GR_NO","MOBILE","STD","ROLL_NO","NAME","ACCESSION_NO","BOOK_NAME","ISSUE_DATE","ISSUE_REMARK","RETURN_DATE","PENALTY_DAYS","PENALTY_RATE","PENALTY_AMT","RETURN_REMARK"])
-        data = cur.fetchall()
-        for i in data:
-            writer1.writerow(i)
-        f.close()
+                    if option == "authorwise":
+                        query = "select author,book_title,accession_no from book_accession order by author"
+                        cursor.execute(query)
+                        data = cursor.fetchall()
+                        filename = option + "_data.csv"
+                        with open(filename, 'w', newline='') as csvfile:
+                            csvwriter = csv.writer(csvfile)
+                            csvwriter.writerow(["Author", "Book Name", "Accession No"])  # Write column headers
+                            for row in data:
+                                csvwriter.writerow(row)
+
+                        print("Data saved to", filename)
+
+                        
+                    elif option == "booklist":
+                        query = "SELECT * FROM book_accession"
+                        cursor.execute(query)
+                        data = cursor.fetchall()
+                        filename = option + "_data.csv"
+                        with open(filename, 'w', newline='') as csvfile:
+                            csvwriter = csv.writer(csvfile)
+                            csvwriter.writerow([i[0] for i in cursor.description])  # Write column headers
+                            csvwriter.writerows(data)
+
+                        print("Data saved to", filename)
+                        
+                    elif option == "categorywise":
+                        query = "select category,book_title,accession_no from book_accession group by category"
+                        cursor.execute(query)
+                        data = cursor.fetchall()
+                        filename = option + "_data.csv"
+                        with open(filename, 'w', newline='') as csvfile:
+                            csvwriter = csv.writer(csvfile)
+                            csvwriter.writerow(["Category", "Book Name", "Accession No"])  # Write column headers
+                            for row in data:
+                                csvwriter.writerow(row)
+
+                        print("Data saved to", filename)
+
+                        
+                    elif option == "subjectwise":
+                        query = "select subject,book_title,accession_no from book_accession group by subject"
+                        cursor.execute(query)
+                        data = cursor.fetchall()
+                        filename = option + "_data.csv"
+                        with open(filename, 'w', newline='') as csvfile:
+                            csvwriter = csv.writer(csvfile)
+                            csvwriter.writerow(["Subject", "Book Name", "Accession No"])  # Write column headers
+                            for row in data:
+                                csvwriter.writerow(row)
+
+                        print("Data saved to", filename)
+
+                    elif option =="date":
+                        query = """
+                        SELECT *
+                        FROM issued
+                        WHERE STR_TO_DATE(return_date, '%d-%m-%Y') > '2023-04-15'
+                        """
+                        cursor.execute(query)
+                        data = cursor.fetchall()
+                        filename = "return_date_passed.csv"
+                        with open(filename, 'w', newline='') as csvfile:
+                            csvwriter = csv.writer(csvfile)
+                            csvwriter.writerow([i[0] for i in cursor.description])  # Write column headers
+                            csvwriter.writerows(data)
+
+                        print("Data saved to", filename)
+
+                    
+
+                    # Extract unique authors
+                    
+
+            except mysql.connector.Error as e:
+                print("Error connecting to MySQL database:", e)
+
+            finally:
+                # Close the connection
+                if 'connection' in locals() and connection.is_connected():
+                    connection.close()
+                    print("MySQL connection is closed")
+
+        # Tkinter GUI
+        root = tk.Tk()
+        root.title("Data Export Tool")
+        root.geometry("800x600")  # Set initial window size
+
+        # Set background color
+        root.configure(bg='light green')
+
+
+        # Function to handle button click
+        def export_data(option):
+            fetch_data(option)
+
+        # Create buttons
+        button_authorwise = ttk.Button(root, text="Authorwise", command=lambda: export_data("authorwise"), padding=(20, 10))
+        button_authorwise.pack(pady=20)
+
+        button_booklist = ttk.Button(root, text="Book List", command=lambda: export_data("booklist"), padding=(20, 10))
+        button_booklist.pack(pady=20)
+
+        button_categorywise = ttk.Button(root, text="Categorywise", command=lambda: export_data("categorywise"), padding=(20, 10))
+        button_categorywise.pack(pady=20)
+
+        button_subjectwise = ttk.Button(root, text="Subjectwise", command=lambda: export_data("subjectwise"), padding=(20, 10))
+        button_subjectwise.pack(pady=20)
+
+        button_subjectwise = ttk.Button(root, text="Date", command=lambda: export_data("date"), padding=(20, 10))
+        button_subjectwise.pack(pady=20)
+
+        root.mainloop()
+
 
 
 
