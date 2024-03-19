@@ -1515,14 +1515,11 @@ def GR_FUNCTION():
                 #     cur.execute("delete from other_detail where GR_NO={}".format(int(gr_deleting)))
                 # except:
                 #     pass
-                try:
-                    cur.execute("delete from gr_check where GR_NO={}".format(int(gr_deleting)))
-                except:
-                    pass
-                try:
-                    cur.execute("delete from pending_fee_detail where GR_NO={}".format(int(gr_deleting)))
-                except:
-                    pass
+            
+                cur.execute("delete from gr_check where GR_NO={}".format(int(gr_deleting)))
+            
+                cur.execute("delete from pending_fee_detail where GR_NO={}".format(int(gr_deleting)))
+            
                 mydb.commit()
                 messagebox.showinfo("Info","GR deleted successfully")
             Gr_entry_delete.delete(0,END)
@@ -2265,56 +2262,154 @@ def FEES_FUNCTION():
     FEES_3.place(x=10,y=140)
 
     def csv_to_sql():
-        import os
-        import csv
-        import tkinter
-        from tkinter import Tk, Button, filedialog
+        import tkinter as tk
+        from tkinter import simpledialog, messagebox, Scrollbar
         import mysql.connector
 
-        mydb = mysql.connector.connect(host="localhost", user="root", password="root", database="airport_school_new")
-        cur = mydb.cursor()
+        class TableApp1:
+            def __init__(self, root, std_fee_table_name, exmp_fee_table_name):
+                self.root = root
+                self.std_fee_table_name = std_fee_table_name
+                self.exmp_fee_table_name = exmp_fee_table_name
+                self.entry_widgets = {}  # Dictionary to store Entry widgets for each cell
+                self.label_widgets = {}  # Dictionary to store Label widgets for differences
+                self.updated_rows = []
+
+                self.create_table()
+
+            def create_table(self):
+                # Connect to the MySQL database (replace the parameters with your database details)
+                self.db = mysql.connector.connect(
+                    host="localhost", user="root", password="root", database="airport_school_new"
+                )
+                self.cursor = self.db.cursor()
+
+                # Get column names using SHOW COLUMNS query for std_fee_table
+                self.cursor.execute(f"SHOW COLUMNS FROM {self.std_fee_table_name}")
+                columns = [column[0] for column in self.cursor.fetchall()]
+
+                # Fetch data from std_fee_table
+                self.cursor.execute(f"SELECT * FROM {self.std_fee_table_name}")
+                data = self.cursor.fetchall()
+
+                # Increase font size
+                font = ('bold', 12)
+
+                # Create a canvas to hold the table
+                canvas = tk.Canvas(self.root)
+                canvas.grid(row=0, column=0)
+
+                # Create a frame to hold the widgets
+                frame = tk.Frame(canvas, bg="lightpink")
+                canvas.create_window((0, 0), window=frame, anchor="nw")
+
+                # Create Entry widgets for each cell in std_fee_table
+                for col_index, column_name in enumerate(columns):
+                    heading_label = tk.Label(frame, text=column_name, font=('bold', 15), bg="lightpink")
+                    heading_label.grid(row=0, column=col_index, padx=10, pady=10)
+
+                for row_index, row in enumerate(data):
+                    for col_index, value in enumerate(row):
+                        entry_var = tk.StringVar()
+                        entry = tk.Entry(frame, textvariable=entry_var, width=20, font=font, bg="white")
+                        entry.grid(row=row_index + 1, column=col_index, padx=5, pady=6)
+                        entry.insert(tk.END, value)  # Set the initial value using the insert method
+                        self.entry_widgets[(row_index, col_index)] = entry
+
+                        # Create Label widget to display the difference
+                        label = tk.Label(frame, text="", font=font, bg="lightpink")
+                        label.grid(row=row_index + 1, column=len(columns) + col_index + 1, padx=5, pady=6)
+                        self.label_widgets[(row_index, col_index)] = label
+
+                # Create horizontal scrollbar
+                h_scrollbar = Scrollbar(self.root, orient="horizontal", command=canvas.xview)
+                h_scrollbar.grid(row=0, column=0, sticky="ew")
+
+                # Configure canvas to use scrollbar
+                canvas.configure(xscrollcommand=h_scrollbar.set)
+                frame.update_idletasks()
+                canvas.config(scrollregion=canvas.bbox("all"), width=self.root.winfo_screenwidth(), height=1500)
+
+                # Create Save Changes button
+                save_button = tk.Button(frame, text="Save Changes", command=self.save_changes, font=font, bg="gray")
+                save_button.grid(row=21, column=3, pady=10)
+
+            def save_changes(self):
+                password = simpledialog.askstring("1234", "Enter password:", show='*')
+                if password != "1234":
+                    messagebox.showerror("Error", "Incorrect password.")
+                    return
+
+                try:
+                    for (row, col), entry_widget in self.entry_widgets.items():
+                        new_value = entry_widget.get()
+                        primary_key = self.entry_widgets[(row, 0)].get()
+                        column_name = self.get_column_name(col)
+                        update_query = f"UPDATE {self.std_fee_table_name} SET {column_name} = %s WHERE {self.get_column_name(0)} = %s"
+                        self.cursor.execute(update_query, (new_value, primary_key))
+                        self.db.commit()
+
+                        if self.cursor.rowcount > 0:
+                            self.updated_rows.append(row + 1)
+
+                        self.db.commit()
+
+                    if self.updated_rows:
+                        for updated_row in self.updated_rows:
+                            select_target_query = f"SELECT curr_std FROM academic_detail "
+                            self.cursor.execute(select_target_query)
+                            target_comparison_data = self.cursor.fetchall()
+
+                            up = tuple(self.entry_widgets[(updated_row - 1, 0)].get().split(", "))
+
+                            select_query2 = f"SELECT * FROM {self.std_fee_table_name} WHERE STD= %s"
+                            self.cursor.execute(select_query2, up)
+                            data_to_be_transfered = self.cursor.fetchone()
+
+                            for i in target_comparison_data:
+                                if i == up:
+                                    select_query3 = f"UPDATE {self.exmp_fee_table_name} SET " \
+                                                    f"ADMISSION_FEE = %s, ICARD = %s, APR_JUN_TUTION = %s, " \
+                                                    f"APR_JUN_ATITVITY = %s, LATE_FEES = %s, JUL_SEP_TUTION = %s, " \
+                                                    f"JUL_SEP_ACTIVITY = %s, OCT_DEC_TUTION = %s, OCT_DEC_ACTIVITY = %s, " \
+                                                    f"JAN_MAR_TUTION = %s, JAN_MAR_ACTIVITY = %s, OTHERS1 = %s"
+                                    # Calculate and update exmp_fee based on the difference
+                                    exmp_fee_values = tuple(500 - int(value) for value in data_to_be_transfered[1:])
+                                    self.cursor.execute(select_query3, exmp_fee_values)
+                                    self.db.commit()
+
+                                    # Update the label with the difference
+                                    for col_index, value in enumerate(data_to_be_transfered[1:]):
+                                        difference = int(entry_widget.get()) - int(value)
+                                        self.label_widgets[(updated_row - 1, col_index)].config(text=str(difference))
+
+                except mysql.connector.Error as e:
+                    messagebox.showerror("Error", f"Error updating data: {e}")
+                else:
+                    messagebox.showinfo("Success", "Data updated successfully!")
+
+            def get_column_name(self, col_index):
+                # Helper function to get the column name dynamically
+                self.cursor.execute(f"SHOW COLUMNS FROM {self.std_fee_table_name}")
+                columns = [column[0] for column in self.cursor.fetchall()]
+                return columns[col_index]
 
 
-        roo1 = Tk()
-        roo1.configure(bg="lightpink", height=200, width=200)
+        # Usage
+        root = tk.Tk()
+        root.title("Fees")
+        root.geometry("1960x1080")
 
-        def browsefunc():
-            filename = filedialog.askopenfilename(title='Open a file', initialdir=r"D:\ZETA CORE 2024-25\BACKUP", filetypes=(('csv files', '.csv'), ("All files", ".*")))
-            filename = os.path.basename(filename)
-            tableename = filename.split(".")[0]
-            print(filename)
-            print(tableename)
-            filepath = r"D:\ZETA CORE 2024-25\BACKUP" + "\\" + filename
-            
-            data = []
-            file = open(filepath, 'r')
-            readder = csv.reader(file)
-            for row in readder:
-                data.append(row)
+        std_fee_table_name = "std_fees"
+        exmp_fee_table_name = "exmp_fees"
 
-            print(data)
-            length = len(data[0])
-            
-            cur.execute("delete from {}".format(tableename))
+        app = TableApp1(root, std_fee_table_name, exmp_fee_table_name)
 
-            for roww in data[1:]:
-                # Use %s placeholders for parameters in the query
-                q = f"INSERT INTO {tableename} VALUES ({', '.join(['%s' for _ in range(length)])})"
-
-                # Uncomment the following line if you want to execute the insert queries
-                cur.execute(q, tuple(roww))
-
-            mydb.commit()
-            print("Data inserted successfully")
-            roo1.destroy()
+        root.mainloop()
 
 
-        b1 = Button(roo1, text="SELECT FILE", font=40, command=browsefunc)
-        b1.pack()
 
-        roo1.mainloop()
-
-    FEES_4=Button(MENU_FRAME2,text="CSV UPLOAD",command=csv_to_sql)
+    FEES_4=Button(MENU_FRAME2,text="AAI FEE CHANGE",command=csv_to_sql)
     FEES_4.place(x=10,y=200)
 
 

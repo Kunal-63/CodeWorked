@@ -2135,21 +2135,25 @@ academic_gr = [
 
 ]
 
-with open(r"D:\ZETA CORE 2023-24\BACKUP\academic_detail.csv", 'r') as file:
+with open(r"D:\ZETA CORE 2023-24\BACKUP\exmp_fees.csv", 'r') as file:
     reader = csv.reader(file)
     for row in reader:
        
         try:
 
-            if int(row[0]) in academic_gr:
-                print(row)
-                # cursor.execute('insert into other_detail values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', row)
+            # if int(row[0]) in academic_gr:
+            #     print(row)
+                # cursor.execute('delete from academic_detail where gr_no=%s', (row[0],))
+                # cursor.execute('delete from gr_check where gr_no=%s', (row[0],))
+                # cursor.execute('delete from pending_fee_detail where gr_no=%s', (row[0],))
+            cursor.execute("insert into exmp_fees values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", row)
+                # cursor.execute('insert into academic_detail values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', row)
                 
                 # cursor.execute("select * from std_fees where std='{}'".format(row[11]))
                 # data = cursor.fetchall()
                 # cursor.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[row[0],data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12]])
-                cursor.execute("insert into gr_check values({},0,0,0,0,0,0,0)".format(row[0]))
-                cursor.execute("insert into fee_details values({},' ',' ',' ',' ',' ',' ',' ')".format(row[0]))
+                # cursor.execute("insert into gr_check values({},0,0,0,0,0,0,0)".format(row[0]))
+                # cursor.execute("insert into fee_details values({},' ',' ',' ',' ',' ',' ',' ')".format(row[0]))
         except:
             pass
         mydb.commit()
