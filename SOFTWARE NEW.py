@@ -3379,13 +3379,25 @@ def FEES_FUNCTION():
                 pass
             else:
                 trv.insert(parent='',index="end",text='',value=("OCT TO DEC TUITION",pending_data[0][8],exmp_data[0][8],pending_data[0][8]-exmp_data[0][8]))
-                trv.insert(parent='',index="end",text='',value=("APR TO SEP ACTIVITY",pending_data[0][9],exmp_data[0][9],pending_data[0][9]-exmp_data[0][9]))
+                if data1[0] == 'NUR':
+                    trv.insert(parent='',index="end",text='',value=("APR TO SEP ACTIVITY",pending_data[0][9],exmp_data[0][9],pending_data[0][9]-exmp_data[0][9]))
+                else:
+                    if pending_data[0][9]-exmp_data[0][9] > 0:
+                        trv.insert(parent='',index="end",text='',value=("OCT TO DEC ACTIVITY",pending_data[0][9],exmp_data[0][9],pending_data[0][9]-exmp_data[0][9]))
+                    else:
+                        pass
         if (CheckVar4.get() == 1):
             if(gr_checks[0][4] == 1):
                 pass
             else:
                 trv.insert(parent='',index="end",text='',value=("JAN TO MAR TUITION",pending_data[0][10],exmp_data[0][10],pending_data[0][10]-exmp_data[0][10]))
-                trv.insert(parent='',index="end",text='',value=("OCT TO MAR ACTIVITY",pending_data[0][11],exmp_data[0][11],pending_data[0][11]-exmp_data[0][11]))
+                if data1[0]=='NUR':
+                    trv.insert(parent='',index="end",text='',value=("OCT TO MAR ACTIVITY",pending_data[0][11],exmp_data[0][11],pending_data[0][11]-exmp_data[0][11]))
+                else:
+                    if pending_data[0][11]-exmp_data[0][11] > 0:
+                        trv.insert(parent='',index="end",text='',value=("JAN TO MAR ACTIVITY",pending_data[0][11],exmp_data[0][11],pending_data[0][11]-exmp_data[0][11]))
+                    else:
+                        pass
         if (CheckVar5.get() == 1):
             if(gr_checks[0][5] == 1):
                 pass
@@ -4149,27 +4161,87 @@ def FEES_REPORT_FUNCTION():
     f2 = open(r"REPORTS\gr_report.csv",'w',newline="\n")
     wrt = csv.writer(f2)
     wrt.writerow(["CLASS","DIVISION","TOTAL"])
-    cur.execute("select curr_std,division,count(gr_no) as total from academic_detail where active1=1 group by curr_std,division order by curr_std")
+    cur.execute('''SELECT curr_std, division, COUNT(gr_no) AS total
+FROM academic_detail
+WHERE active1 = 1
+GROUP BY curr_std, division
+ORDER BY
+  CASE curr_std
+    WHEN 'NUR' THEN 1
+    WHEN 'JR.KG' THEN 2
+    WHEN 'SR.KG' THEN 3
+    WHEN '1' THEN 4
+    WHEN '2' THEN 5
+    WHEN '3' THEN 6
+    WHEN '4' THEN 7
+    WHEN '5' THEN 8
+    WHEN '6' THEN 9
+    WHEN '7' THEN 10
+    WHEN '8' THEN 11
+    WHEN '9' THEN 12
+    WHEN '10' THEN 13
+    WHEN '11 COMM' THEN 14
+    WHEN '11 SCI' THEN 15
+    WHEN '12 COMM' THEN 16
+    WHEN '12 SCI' THEN 17
+  END,
+  CASE division
+    WHEN 'A' THEN 1
+    WHEN 'B' THEN 2
+    WHEN 'C' THEN 3
+    WHEN 'D' THEN 4
+  END
+''')
     data_report = cur.fetchall()
     for i in data_report:
         wrt.writerow(i)
     f2.close()
 
-    f3 = open(r"REPORTS\male_female.csv",'w',newline="\n")
+    f3 = open(r"REPORTS\male_female.csv", 'w', newline="\n")
     wrt = csv.writer(f3)
-    wrt.writerow(["CLASS","DIVISION","MALE","FEMALE"])
-    cur.execute('''SELECT ad.division, ad.curr_std AS class,
-       SUM(CASE WHEN gd.SEX = 'Male' THEN 1 ELSE 0 END) AS male_count,
-       SUM(CASE WHEN gd.SEX = 'Female' THEN 1 ELSE 0 END) AS female_count
-FROM academic_detail AS ad
-JOIN gr_details AS gd ON ad.gr_no = gd.GR_NO
-GROUP BY ad.division, ad.curr_std
-ORDER BY ad.division, ad.curr_std;
-''')
+    wrt.writerow(["CLASS", "DIVISION", "MALE", "FEMALE"])
+
+    cur.execute('''
+        SELECT ad.curr_std, ad.division AS class,
+            SUM(CASE WHEN gd.SEX = 'Male' THEN 1 ELSE 0 END) AS male_count,
+            SUM(CASE WHEN gd.SEX = 'Female' THEN 1 ELSE 0 END) AS female_count
+        FROM academic_detail AS ad
+        JOIN gr_details AS gd ON ad.gr_no = gd.GR_NO
+        GROUP BY ad.division, ad.curr_std
+        ORDER BY
+        CASE ad.curr_std
+            WHEN 'NUR' THEN 1
+            WHEN 'JR.KG' THEN 2
+            WHEN 'SR.KG' THEN 3
+            WHEN '1' THEN 4
+            WHEN '2' THEN 5
+            WHEN '3' THEN 6
+            WHEN '4' THEN 7
+            WHEN '5' THEN 8
+            WHEN '6' THEN 9
+            WHEN '7' THEN 10
+            WHEN '8' THEN 11
+            WHEN '9' THEN 12
+            WHEN '10' THEN 13
+            WHEN '11 COMM' THEN 14
+            WHEN '11 SCI' THEN 15
+            WHEN '12 COMM' THEN 16
+            WHEN '12 SCI' THEN 17
+        END,
+        CASE ad.division
+            WHEN 'A' THEN 1
+            WHEN 'B' THEN 2
+            WHEN 'C' THEN 3
+            WHEN 'D' THEN 4
+        END;
+    ''')
+
     data_report = cur.fetchall()
     for i in data_report:
         wrt.writerow(i)
+
     f3.close()
+
 
     f4 = open(r"REPORTS\caste_report.csv",'w',newline="\n")
     wrt = csv.writer(f4)
