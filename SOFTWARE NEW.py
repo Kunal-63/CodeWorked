@@ -57,7 +57,7 @@ import webbrowser
 
 
 
-mydb = con.connect(host="localhost",user="root",password="root",database="airport_school_new")
+mydb = con.connect(host="localhost",user="root",password="root",database="airport_school1", autocommit=False)
 cur = mydb.cursor()
 root=Tk()
 root.state('zoomed')
@@ -964,12 +964,12 @@ def GR_FUNCTION():
             grlst.append(gr_ent.get())
             cur.execute("update gr_details set form_no=%s,enquiry_no=%s,uid=%s,surname=%s,name=%s,father=%s,MOTHER=%s,SEX=%s,BIRTH_DATE=%s,CATEGORY=%s,RELIGION=%s,BIRTH_PLACE=%s,PREVIOUS_SCH=%s,CASTE=%s,BIRTH_TALUKA=%s,SUB_CASTE=%s,STATE1=%s,MINORITY=%s,RTE=%s where gr_no=%s",grlst)
             mydb.commit()
-            academic_details1()
+            academic_details1(rtevalue.get())
         save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=grsave)
         save_next_button.place(x=1050,y=370)
 
     global academic_details1
-    def academic_details1():
+    def academic_details1(rtevalue):
         for widget in MAIN_FRAME_0.winfo_children():
             widget.destroy()
     
@@ -1199,18 +1199,13 @@ def GR_FUNCTION():
             academic_details_lst.append(lc_copy_ent.get())#23
             academic_details_lst.append(Gr_entry.get())#1
             cur.execute("update academic_detail set name=%s,active1=%s,left1=%s,aai1=%s,inactive_date=%s,add_date=%s,add_year=%s,add_std=%s,curr_date=%s,curr_year=%s,curr_std=%s,division=%s,roll_no=%s,inactive_reason=%s,left_reason=%s,progress=%s,presence=%s,out_of=%s,lc_book=%s,lc_no=%s,lc_date=%s,lc_remark=%s,lc_copy=%s where gr_no=%s",academic_details_lst)
-            
-            if(aaivalue.get() == 0):
-                cur.execute("select * from std_fees where std='{}'".format(current_standard_ent.get()))
-                data = cur.fetchall()
-                cur.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ATITVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],Gr_entry.get()])
-            else:
+            if rtevalue == 0 :
+                cur.execute("UPDATE PENDING_FEE_DETAIL SET ADMISSION_FEE=0,ICARD=0,APR_JUN_TUTION=0,APR_JUN_ATITVITY=0,LATE_FEES=0,JUL_SEP_TUTION=0,JUL_SEP_ACTIVITY=0,OCT_DEC_ACTIVITY=0,OCT_DEC_TUTION=0,JAN_MAR_TUTION=0,JAN_MAR_ACTIVITY=0, OTHERS=0 WHERE GR_NO={}".format(int(Gr_entry.get())))
+            else:            
                 cur.execute("select * from STD_fees where std='{}'".format(current_standard_ent.get()))
                 data = cur.fetchall()
-                # cur.execute("select * from exmp_fees where std='{}'".format(data[0][1]))
-                # exmp_data = cur.fetchall()
                 cur.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ATITVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],Gr_entry.get()])
-            mydb.commit()
+                mydb.commit()
             other_details1()
         save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=academic_details_save)
         save_next_button.place(x=1050,y=370)
@@ -2280,7 +2275,7 @@ def FEES_FUNCTION():
             def create_table(self):
                 # Connect to the MySQL database (replace the parameters with your database details)
                 self.db = mysql.connector.connect(
-                    host="localhost", user="root", password="root", database="airport_school_new"
+                    host="localhost", user="root", password="root", database="airport_school1"
                 )
                 self.cursor = self.db.cursor()
 
@@ -2622,7 +2617,7 @@ def FEES_FUNCTION():
             def create_table(self):
                 # Connect to the MySQL database (replace the parameters with your database details)
                 self.db = mysql.connector.connect(
-                host="localhost",user="root",password="root",database="airport_school_new"
+                host="localhost",user="root",password="root",database="airport_school1"
                 )
 
                 # Create a cursor object to execute SQL queries
@@ -2884,457 +2879,447 @@ def FEES_FUNCTION():
     
     def fees_save():
         root.bell()
-        fee_lst=[]
-        fee_lst.append(FEES_RECEIPTNO_ENTRY.get())#1
-        fee_lst.append(FEES_DEPT_ENTRY.get())#2
-        fee_lst.append(FEES_GR_ENTRY.get())#3
-        fee_lst.append(FEES_DATE_ENTRY.get())#4
-        fee_lst.append(FEES_NAME_ENTRY.get())#5
-        fee_lst.append(FEES_RECEIPTBOOK_ENTRY.get())#6
-        fee_lst.append(FEES_STD_ENTRY.get())#7
-        fee_lst.append(FEES_DIV_ENTRY.get())#8
-        fee_lst.append(FEES_TOTALAMOUNT_ENTRY.get())#9
-        fee_lst.append(FEES_LATEFEES_ENTRY.get())#10
-        fee_lst.append(EXEMPTION_ENTRY.get())#11
-        fee_lst.append(int(FEES_TOTALAMOUNT_ENTRY.get())+int(FEES_LATEFEES_ENTRY.get())-int(EXEMPTION_ENTRY.get()))#12
-        fee_lst.append(FEES_PAYMODE_ENTRY.get())#13
-        fee_lst.append(FEES_BANKNAME_ENTRY.get())#14
-        fee_lst.append(FEES_CHEQUENUMBER_ENTRY.get())#15
-        fee_lst.append(FEES_CHEQUEDATE_ENTRY.get())#16
-        fee_lst.append(CheckVar1.get())#17
-        fee_lst.append(CheckVar2.get())#18
-        fee_lst.append(CheckVar3.get())#19
-        fee_lst.append(CheckVar4.get())#20
-        fee_lst.append(CheckVar5.get())#21
-        fee_lst.append(CheckVar6.get())#22
-        fee_lst.append(CheckVar7.get())#23
-        cur.execute("insert into tran_details values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",fee_lst)
-        cur.execute("insert into fee_tran values({},0,0,0,0,0,0,0)".format(FEES_RECEIPTNO_ENTRY.get()))
+        try: 
+            fee_lst=[]
+            fee_lst.append(FEES_RECEIPTNO_ENTRY.get())#1
+            fee_lst.append(FEES_DEPT_ENTRY.get())#2
+            fee_lst.append(FEES_GR_ENTRY.get())#3
+            fee_lst.append(FEES_DATE_ENTRY.get())#4
+            fee_lst.append(FEES_NAME_ENTRY.get())#5
+            fee_lst.append(FEES_RECEIPTBOOK_ENTRY.get())#6
+            fee_lst.append(FEES_STD_ENTRY.get())#7
+            fee_lst.append(FEES_DIV_ENTRY.get())#8
+            fee_lst.append(FEES_TOTALAMOUNT_ENTRY.get())#9
+            fee_lst.append(FEES_LATEFEES_ENTRY.get())#10
+            fee_lst.append(EXEMPTION_ENTRY.get())#11
+            fee_lst.append(int(FEES_TOTALAMOUNT_ENTRY.get())+int(FEES_LATEFEES_ENTRY.get())-int(EXEMPTION_ENTRY.get()))#12
+            fee_lst.append(FEES_PAYMODE_ENTRY.get())#13
+            fee_lst.append(FEES_BANKNAME_ENTRY.get())#14
+            fee_lst.append(FEES_CHEQUENUMBER_ENTRY.get())#15
+            fee_lst.append(FEES_CHEQUEDATE_ENTRY.get())#16
+            fee_lst.append(CheckVar1.get())#17
+            fee_lst.append(CheckVar2.get())#18
+            fee_lst.append(CheckVar3.get())#19
+            fee_lst.append(CheckVar4.get())#20
+            fee_lst.append(CheckVar5.get())#21
+            fee_lst.append(CheckVar6.get())#22
+            fee_lst.append(CheckVar7.get())#23
+            cur.execute("insert into tran_details values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",fee_lst)
+            cur.execute("insert into fee_tran values({},0,0,0,0,0,0,0)".format(FEES_RECEIPTNO_ENTRY.get()))
 
-        if (CheckVar1.get() == 0):
-            cur.execute("update gr_check set c1=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-        else:
-            cur.execute("select c1 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
-            data = cur.fetchall()
-            if(int(data[0][0]) == 0):
-                cur.execute("update gr_check set c1=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update fee_tran set c1=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
-                cur.execute("update fee_details set c1='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set APR_JUN_TUTION=0,APR_JUN_ATITVITY=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
-
-
-
-        if(CheckVar2.get() == 0):
-            cur.execute("update gr_check set c2=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-        else:
-            cur.execute("select c2 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
-            data = cur.fetchall()
-            if(int(data[0][0]) == 0):
-                cur.execute("update gr_check set c2=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update fee_tran set c2=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
-                cur.execute("update fee_details set c2='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set JUL_SEP_TUTION=0,JUL_SEP_ACTIVITY=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
-        if(CheckVar3.get() == 0):
-            cur.execute("update gr_check set c3=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-        else:
-            cur.execute("select c3 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
-            data = cur.fetchall()
-            if(int(data[0][0]) == 0):
-                cur.execute("update gr_check set c3=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update fee_tran set c3=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
-                cur.execute("update fee_details set c3='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set OCT_DEC_TUTION=0,OCT_DEC_ACTIVITY=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
-        if(CheckVar4.get() == 0):
-            cur.execute("update gr_check set c4=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-        else:
-            cur.execute("select c4 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
-            data = cur.fetchall()
-            if(int(data[0][0]) == 0):
-                cur.execute("update gr_check set c4=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update fee_tran set c4=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
-                cur.execute("update fee_details set c4='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set JAN_MAR_TUTION=0,JAN_MAR_ACTIVITY=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
-
-        if(CheckVar5.get() == 0):
-            cur.execute("update gr_check set c5=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-        else:
-            cur.execute("select c5 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
-            data = cur.fetchall()
-            if(int(data[0][0]) == 0):
-                cur.execute("update gr_check set c5=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update fee_tran set c5=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
-                cur.execute("update fee_details set c5='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-                cur.execute("update pending_fee_detail set OTHERS=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
-        if(CheckVar6.get() == 0):
-            cur.execute("update gr_check set c6=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-        else:
-            cur.execute("select c6 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
-            data = cur.fetchall()
-            if(int(data[0][0]) == 0):
-                cur.execute("update gr_check set c6=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update fee_tran set c6=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
-                cur.execute("update pending_fee_detail set ADMISSION_FEE=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update fee_details set c6='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-        if(CheckVar7.get() == 0):
-            cur.execute("update gr_check set c7=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-        else:
-            cur.execute("select c7 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
-            data = cur.fetchall()
-            if(int(data[0][0]) == 0):
-                cur.execute("update gr_check set c7=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update fee_tran set c7=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
-                cur.execute("update pending_fee_detail set ICARD=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
-                cur.execute("update fee_details set c7='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-        # if(CheckVar8.get() == 0):
-        #     cur.execute("update gr_check set c8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-        # else:
-        #     cur.execute("select c8 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
-        #     data = cur.fetchall()
-        #     if(int(data[0][0]) == 0):
-        #         cur.execute("update gr_check set c8=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-        #         cur.execute("update fee_tran set c8=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
-        #         cur.execute("update pending_fee_detail set LATE_FEES=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
-        #         cur.execute("update fee_details set c8='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-        mydb.commit()
-
-
-
-
-        def number_to_word(number):
-            def get_word(n):
-                words={ 0:"", 1:"One", 2:"Two", 3:"Three", 4:"Four", 5:"Five", 6:"Six", 7:"Seven", 8:"Eight", 9:"Nine", 10:"Ten", 11:"Eleven", 12:"Twelve", 13:"Thirteen", 14:"Fourteen", 15:"Fifteen", 16:"Sixteen", 17:"Seventeen", 18:"Eighteen", 19:"Nineteen", 20:"Twenty", 30:"Thirty", 40:"Forty", 50:"Fifty", 60:"Sixty", 70:"Seventy", 80:"Eighty", 90:"Ninty" }
-                if n<=20:
-                    return words[n]
-                else:
-                    ones=n%10
-                    tens=n-ones
-                    return words[tens]+" "+words[ones]
-                    
-            def get_all_word(n):
-                d=[100,10,100,100]
-                v=["","Hundred And","Thousand","lakh"]
-                w=[]
-                for i,x in zip(d,v):
-                    t=get_word(n%i)
-                    if t!="":
-                        t+=" "+x
-                    w.append(t.rstrip(" "))
-                    n=n//i
-                w.reverse()
-                w=' '.join(w).strip()
-                if w.endswith("And"):
-                    w=w[:-3]
-                return w
-
-            arr=str(number).split(".")
-            number=int(arr[0])
-            crore=number//10000000
-            number=number%10000000
-            word=""
-            if crore>0:
-                word+=get_all_word(crore)
-                word+=" crore "
-            word+=get_all_word(number).strip()+" Rupees"
-            if len(arr)>1:
-                if len(arr[1])==1:
-                    arr[1]+="0"
-                word+=" and "+get_all_word(int(arr[1]))+" paisa"
-            return word
-
-        def fees_print():
-            Grvalue=FEES_GR_ENTRY.get()
-            RECEIPT_VAR=FEES_RECEIPTNO_ENTRY.get()
-            DATE_VAR=FEES_DATE_ENTRY.get()
-            TOTAL_AMOUNT_VAR=FEES_GRANDTOTAL_ENTRY.get()
-            PAY_TYPE=FEES_PAYMODE_ENTRY.get()
-            CHEQUE_VAR=FEES_CHEQUENUMBER_ENTRY.get()
-            t=(number_to_word(int(TOTAL_AMOUNT_VAR)))
-            BANK_VAR=FEES_BANKNAME_ENTRY.get()
-
-            cur.execute("select SURNAME,NAME,FATHER from gr_details WHERE GR_NO=%s",[Grvalue])
-            fee_wee=cur.fetchall()
-
-            cur.execute("select curr_std,division from academic_detail WHERE GR_NO=%s",[Grvalue])
-            fee_wee_1=cur.fetchall()
-
-
-            NAME_VAR=fee_wee[0][1]
-            SURNAME_VAR=fee_wee[0][0]
-            FATHERS_NAME_VAR=fee_wee[0][2]
-            STD_VAR=fee_wee_1[0][0]+"-"+fee_wee_1[0][1]
-
-            
-
-
-            print(Grvalue,RECEIPT_VAR,DATE_VAR,TOTAL_AMOUNT_VAR,PAY_TYPE,CHEQUE_VAR,BANK_VAR,NAME_VAR,SURNAME_VAR,FATHERS_NAME_VAR,STD_VAR)
-            cur.execute("select aai1 from academic_detail where gr_no={}".format(Grvalue))
-            aai_data=cur.fetchall()[0]
-
-
-            FEES_NAME_PAID=[]
-            FEES_AMT_PAID=[]
-            for child in trv.get_children():
-                # print(trv.item(child)["values"])
-                FEES_NAME_PAID.append(trv.item(child)["values"][0])
-                FEES_AMT_PAID.append(trv.item(child)["values"][3])
-
-            
-
-
-            from reportlab.pdfgen import canvas
-            from reportlab.lib.units import inch
-            from reportlab.lib.pagesizes import letter, A4
-
-
-            tNAME_VAR = NAME_VAR.split("\n")
-            tSURNAME_VAR = SURNAME_VAR.split("\n")   
-
-
-
-            my_path = r"RECIEPTS\\{}  - {}.pdf".format(str(tNAME_VAR[0])+" "+str(tSURNAME_VAR[0]),str(RECEIPT_VAR))
-
-            c=canvas.Canvas(my_path,pagesize=A4)
-            c.translate(inch,inch)
-            c.setStrokeColorRGB(0,0,0) 
-            c.setLineWidth(2)
-            c.line(-15,580,475,580)
-
-            c.setFont('Helvetica-Bold',17)
-            c.drawString(130,690,"AIRPORT SCHOOL - AHMEDABAD")
-            c.setFont('Helvetica',15)
-
-            c.drawString(145,670,"CBSE AFFILIATION NO 430133")
-            c.drawString(108,650,"AIRPORT COLONY, SARDARNAGAR, AHMEDABAD")
-            c.drawString(173,630,"PHONE : 079-22864175")
-            
-            c.setFont('Helvetica-Bold',17)
-            c.drawString(193,610,"C.B.S.E BOARD")
-            c.setFont('Helvetica',12)
-            
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(-0.1,557,"Receipt No :")
-            c.setFont('Helvetica',12)
-            c.drawString(80,557,str(RECEIPT_VAR))
-            
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(350,557,"Date :")
-            c.setFont('Helvetica',12)
-            c.drawString(390,557,str(DATE_VAR))
-
-
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(-0.1,540,"Student's Name :")
-            c.setFont('Helvetica',12)
-            c.drawString(100,542,str(NAME_VAR.split("\n")[0])+" "+str(SURNAME_VAR))
-
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(350,540,"Std :")
-            c.setFont('Helvetica',12)
-            c.drawString(390,540,str(STD_VAR))
-
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(-0.1,523,"Father's Name :")
-            c.setFont('Helvetica',12)
-            c.drawString(95,523,str(FATHERS_NAME_VAR.split("\n")[0])+" "+str(SURNAME_VAR))
-
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(350,523,"G.R.No :")
-            c.setFont('Helvetica',12)
-            c.drawString(410,523,str(Grvalue))
-            c.setLineWidth(2)
-            c.line(-15,7.2*inch,6.6*inch,7.2*inch)
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(140,498,"Fee Detail")
-            c.drawString(380,498,"Fee Amount")
-            c.setFont('Helvetica',12)
-
-            x=25
-            y=460
-
-            p=435
-            q=460
-            c.drawString(x,y,str(FEES_NAME_PAID[0]))
-            c.drawString(p,q,str(FEES_AMT_PAID[0]))
-            print(FEES_NAME_PAID)
-            if(aai_data[0] == 0):
-                for i in range(len(FEES_NAME_PAID)):
-                    if FEES_NAME_PAID[i] == "APR_JUN_ATITVITY":
-                        FEES_NAME_PAID[i]="APR_JUN_ACTIVITY"
-                    if FEES_NAME_PAID[i] == "ICARD":
-                        FEES_NAME_PAID[i]="ICARD, ALMANAC & CLASS GROUP PHOTO"
+            if (CheckVar1.get() == 0):
+                cur.execute("update gr_check set c1=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
             else:
-                for i in range(len(FEES_NAME_PAID)):
-                    if FEES_NAME_PAID[i] == "APR_JUN_ATITVITY":
-                        FEES_NAME_PAID[i]="APR_SEP_ACTIVITY"    
-                    if FEES_NAME_PAID[i] == "JUL_SEP_ACTIVITY":
-                        FEES_NAME_PAID[i]="OCT_MAR_ACTIVITY"
-                    if FEES_NAME_PAID[i] == "ICARD":
-                        FEES_NAME_PAID[i]="ICARD, ALMANAC & CLASS GROUP PHOTO"
-            print(FEES_NAME_PAID)
-
-            for a in range(1,len(FEES_NAME_PAID)):
-                y=y-20
-                c.drawString(x,y,str(FEES_NAME_PAID[a]))
-
-            for b in range(1,len(FEES_AMT_PAID)):
-                q=q-20
-                c.drawString(p,q,str(FEES_AMT_PAID[b]))
+                cur.execute("select c1 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+                data = cur.fetchall()
+                if(int(data[0][0]) == 0):
+                    cur.execute("update gr_check set c1=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_tran set c1=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                    cur.execute("update fee_details set c1='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set APR_JUN_TUTION=0,APR_JUN_ATITVITY=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
 
 
-            c.setLineWidth(2)
-            c.line(-15,6.8*inch,6.6*inch,6.8*inch)
 
-            c.setLineWidth(2)
-            c.line(-15,0.7*inch,6.6*inch,0.7*inch)
+            if(CheckVar2.get() == 0):
+                cur.execute("update gr_check set c2=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+            else:
+                cur.execute("select c2 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+                data = cur.fetchall()
+                if(int(data[0][0]) == 0):
+                    cur.execute("update gr_check set c2=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_tran set c2=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                    cur.execute("update fee_details set c2='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set JUL_SEP_TUTION=0,JUL_SEP_ACTIVITY=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
+            if(CheckVar3.get() == 0):
+                cur.execute("update gr_check set c3=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+            else:
+                cur.execute("select c3 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+                data = cur.fetchall()
+                if(int(data[0][0]) == 0):
+                    cur.execute("update gr_check set c3=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_tran set c3=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                    cur.execute("update fee_details set c3='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set OCT_DEC_TUTION=0,OCT_DEC_ACTIVITY=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
+            if(CheckVar4.get() == 0):
+                cur.execute("update gr_check set c4=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+            else:
+                cur.execute("select c4 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+                data = cur.fetchall()
+                if(int(data[0][0]) == 0):
+                    cur.execute("update gr_check set c4=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_tran set c4=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                    cur.execute("update fee_details set c4='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set JAN_MAR_TUTION=0,JAN_MAR_ACTIVITY=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
 
-            c.setLineWidth(2)
-            c.line(-15,0.4*inch,6.6*inch,0.4*inch)
+            if(CheckVar5.get() == 0):
+                cur.execute("update gr_check set c5=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+            else:
+                cur.execute("select c5 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+                data = cur.fetchall()
+                if(int(data[0][0]) == 0):
+                    cur.execute("update gr_check set c5=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_tran set c5=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                    cur.execute("update fee_details set c5='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set OTHERS=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
+            if(CheckVar6.get() == 0):
+                cur.execute("update gr_check set c6=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+            else:
+                cur.execute("select c6 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+                data = cur.fetchall()
+                if(int(data[0][0]) == 0):
+                    cur.execute("update gr_check set c6=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_tran set c6=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set ADMISSION_FEE=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_details set c6='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+            if(CheckVar7.get() == 0):
+                cur.execute("update gr_check set c7=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+            else:
+                cur.execute("select c7 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+                data = cur.fetchall()
+                if(int(data[0][0]) == 0):
+                    cur.execute("update gr_check set c7=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_tran set c7=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set ICARD=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_details set c7='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+            def number_to_word(number):
+                def get_word(n):
+                    words={ 0:"", 1:"One", 2:"Two", 3:"Three", 4:"Four", 5:"Five", 6:"Six", 7:"Seven", 8:"Eight", 9:"Nine", 10:"Ten", 11:"Eleven", 12:"Twelve", 13:"Thirteen", 14:"Fourteen", 15:"Fifteen", 16:"Sixteen", 17:"Seventeen", 18:"Eighteen", 19:"Nineteen", 20:"Twenty", 30:"Thirty", 40:"Forty", 50:"Fifty", 60:"Sixty", 70:"Seventy", 80:"Eighty", 90:"Ninty" }
+                    if n<=20:
+                        return words[n]
+                    else:
+                        ones=n%10
+                        tens=n-ones
+                        return words[tens]+" "+words[ones]
+                        
+                def get_all_word(n):
+                    d=[100,10,100,100]
+                    v=["","Hundred And","Thousand","lakh"]
+                    w=[]
+                    for i,x in zip(d,v):
+                        t=get_word(n%i)
+                        if t!="":
+                            t+=" "+x
+                        w.append(t.rstrip(" "))
+                        n=n//i
+                    w.reverse()
+                    w=' '.join(w).strip()
+                    if w.endswith("And"):
+                        w=w[:-3]
+                    return w
 
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(-0.1,5,"Pay By :")
-            c.setFont('Helvetica',12)
-            
-            c.drawString(50,5,str(PAY_TYPE)+' '+str(CHEQUE_VAR)+' '+str(BANK_VAR))
-            
+                arr=str(number).split(".")
+                number=int(arr[0])
+                crore=number//10000000
+                number=number%10000000
+                word=""
+                if crore>0:
+                    word+=get_all_word(crore)
+                    word+=" crore "
+                word+=get_all_word(number).strip()+" Rupees"
+                if len(arr)>1:
+                    if len(arr[1])==1:
+                        arr[1]+="0"
+                    word+=" and "+get_all_word(int(arr[1]))+" paisa"
+                return word
 
+            def fees_print():
+                Grvalue=FEES_GR_ENTRY.get()
+                RECEIPT_VAR=FEES_RECEIPTNO_ENTRY.get()
+                DATE_VAR=FEES_DATE_ENTRY.get()
+                TOTAL_AMOUNT_VAR=FEES_GRANDTOTAL_ENTRY.get()
+                PAY_TYPE=FEES_PAYMODE_ENTRY.get()
+                CHEQUE_VAR=FEES_CHEQUENUMBER_ENTRY.get()
+                t=(number_to_word(int(TOTAL_AMOUNT_VAR)))
+                BANK_VAR=FEES_BANKNAME_ENTRY.get()
 
-            c.drawString(0,34,str(t))
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(400,34,str(TOTAL_AMOUNT_VAR)+str('/-'))
-            c.setFont('Helvetica',12)
+                cur.execute("select SURNAME,NAME,FATHER from gr_details WHERE GR_NO=%s",[Grvalue])
+                fee_wee=cur.fetchall()
 
-            
-
-            c.drawString(370,-10,"RAMESH")
-            c.setLineWidth(2)
-            c.line(350,-14,440,-14)
-
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(360,-25,"Receiver Sign")
-            c.setFont('Helvetica',12)
-
-            c.drawImage(r"ICONS\schl logo1.png",-0.3*inch,8.5*inch)
-
-            c.setLineWidth(2)
-            c.setStrokeColorRGB(0,0,0)
-            c.rect(-0.2*inch,-0.5*inch,6.8*inch,10.8*inch,fill=0)
-            c.showPage()
-            
-            c.translate(inch,inch)
-            c.setStrokeColorRGB(0,0,0) 
-            c.setLineWidth(2)
-            c.line(-15,580,475,580)
-
-            c.setFont('Helvetica-Bold',17)
-            c.drawString(130,690,"AIRPORT SCHOOL - AHMEDABAD")
-            c.setFont('Helvetica',15)
-
-            c.drawString(145,670,"CBSE AFFILIATION NO 430133")
-            c.drawString(108,650,"AIRPORT COLONY, SARDARNAGAR, AHMEDABAD")
-            c.drawString(173,630,"PHONE : 079-22864175")
-            
-            c.setFont('Helvetica-Bold',17)
-            c.drawString(193,610,"C.B.S.E BOARD")
-            c.setFont('Helvetica',12)
-            
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(-0.1,557,"Receipt No :")
-            c.setFont('Helvetica',12)
-            c.drawString(80,557,str(RECEIPT_VAR))
-            
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(350,557,"Date :")
-            c.setFont('Helvetica',12)
-            c.drawString(390,557,str(DATE_VAR))
-
-
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(-0.1,540,"Student's Name :")
-            c.setFont('Helvetica',12)
-            c.drawString(100,542,str(NAME_VAR.split("\n")[0])+" "+str(SURNAME_VAR))
-
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(350,540,"Std :")
-            c.setFont('Helvetica',12)
-            c.drawString(390,540,str(STD_VAR))
-            
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(-0.1,523,"Father's Name :")
-            c.setFont('Helvetica',12)
-            c.drawString(95,523,str(FATHERS_NAME_VAR.split("\n")[0])+" "+str(SURNAME_VAR))
-
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(350,523,"G.R.No :")
-            c.setFont('Helvetica',12)
-            c.drawString(410,523,str(Grvalue))
-            
-            c.setLineWidth(2)
-            c.line(-15,7.2*inch,6.6*inch,7.2*inch)
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(140,498,"Fee Detail")
-            c.drawString(380,498,"Fee Amount")
-            c.setFont('Helvetica',12)
-            x=25
-            y=460
-
-            p=435
-            q=460
-            c.drawString(x,y,str(FEES_NAME_PAID[0]))
-            c.drawString(p,q,str(FEES_AMT_PAID[0]))
-            for a in range(1,len(FEES_NAME_PAID)):
-                y=y-20
-                c.drawString(x,y,str(FEES_NAME_PAID[a]))
-
-            for b in range(1,len(FEES_AMT_PAID)):
-                q=q-20
-                c.drawString(p,q,str(FEES_AMT_PAID[b]))             
-
-
-            c.setLineWidth(2)
-            c.line(-15,6.8*inch,6.6*inch,6.8*inch)
-
-            c.setLineWidth(2)
-            c.line(-15,0.7*inch,6.6*inch,0.7*inch)
-
-            c.setLineWidth(2)
-            c.line(-15,0.4*inch,6.6*inch,0.4*inch)
-
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(-0.1,5,"Pay By :")
-            c.setFont('Helvetica',12)
-
-            c.drawString(50,5,str(PAY_TYPE)+' '+str(CHEQUE_VAR)+' '+str(BANK_VAR))
-
-            c.drawString(0,34,str(t))
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(400,34,str(TOTAL_AMOUNT_VAR)+str('/-'))
-            c.setFont('Helvetica',12)
+                cur.execute("select curr_std,division from academic_detail WHERE GR_NO=%s",[Grvalue])
+                fee_wee_1=cur.fetchall()
 
 
-            c.drawString(370,-10,"RAMESH")
-            c.setLineWidth(2)
-            c.line(350,-14,440,-14)
+                NAME_VAR=fee_wee[0][1]
+                SURNAME_VAR=fee_wee[0][0]
+                FATHERS_NAME_VAR=fee_wee[0][2]
+                STD_VAR=fee_wee_1[0][0]+"-"+fee_wee_1[0][1]
 
-            c.setFont('Helvetica-Bold',12)
-            c.drawString(360,-25,"Receiver Sign")
-            c.setFont('Helvetica',12)
+                
 
-            c.drawImage(r"ICONS\schl logo1.png",-0.3*inch,8.5*inch)
 
-            c.setLineWidth(2)
-            c.setStrokeColorRGB(0,0,0)
-            c.rect(-0.2*inch,-0.5*inch,6.8*inch,10.8*inch,fill=0)
+                print(Grvalue,RECEIPT_VAR,DATE_VAR,TOTAL_AMOUNT_VAR,PAY_TYPE,CHEQUE_VAR,BANK_VAR,NAME_VAR,SURNAME_VAR,FATHERS_NAME_VAR,STD_VAR)
+                cur.execute("select aai1 from academic_detail where gr_no={}".format(Grvalue))
+                aai_data=cur.fetchall()[0]
 
-            c.showPage()
-            
-            c.save()
-            
-            import os
-            os.startfile(my_path)
-            
-        fees_print()
-        FEES_REPORT_FUNCTION()
-        BACKUP_FUNCTION()
+
+                FEES_NAME_PAID=[]
+                FEES_AMT_PAID=[]
+                for child in trv.get_children():
+                    # print(trv.item(child)["values"])
+                    FEES_NAME_PAID.append(trv.item(child)["values"][0])
+                    FEES_AMT_PAID.append(trv.item(child)["values"][3])
+
+                
+
+
+                from reportlab.pdfgen import canvas
+                from reportlab.lib.units import inch
+                from reportlab.lib.pagesizes import letter, A4
+
+
+                tNAME_VAR = NAME_VAR.split("\n")
+                tSURNAME_VAR = SURNAME_VAR.split("\n")   
+
+
+
+                my_path = r"RECIEPTS\\{}  - {}.pdf".format(str(tNAME_VAR[0])+" "+str(tSURNAME_VAR[0]),str(RECEIPT_VAR))
+
+                c=canvas.Canvas(my_path,pagesize=A4)
+                c.translate(inch,inch)
+                c.setStrokeColorRGB(0,0,0) 
+                c.setLineWidth(2)
+                c.line(-15,580,475,580)
+
+                c.setFont('Helvetica-Bold',17)
+                c.drawString(130,690,"AIRPORT SCHOOL - AHMEDABAD")
+                c.setFont('Helvetica',15)
+
+                c.drawString(145,670,"CBSE AFFILIATION NO 430133")
+                c.drawString(108,650,"AIRPORT COLONY, SARDARNAGAR, AHMEDABAD")
+                c.drawString(173,630,"PHONE : 079-22864175")
+                
+                c.setFont('Helvetica-Bold',17)
+                c.drawString(193,610,"C.B.S.E BOARD")
+                c.setFont('Helvetica',12)
+                
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(-0.1,557,"Receipt No :")
+                c.setFont('Helvetica',12)
+                c.drawString(80,557,str(RECEIPT_VAR))
+                
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(350,557,"Date :")
+                c.setFont('Helvetica',12)
+                c.drawString(390,557,str(DATE_VAR))
+
+
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(-0.1,540,"Student's Name :")
+                c.setFont('Helvetica',12)
+                c.drawString(100,542,str(NAME_VAR.split("\n")[0])+" "+str(SURNAME_VAR))
+
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(350,540,"Std :")
+                c.setFont('Helvetica',12)
+                c.drawString(390,540,str(STD_VAR))
+
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(-0.1,523,"Father's Name :")
+                c.setFont('Helvetica',12)
+                c.drawString(95,523,str(FATHERS_NAME_VAR.split("\n")[0])+" "+str(SURNAME_VAR))
+
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(350,523,"G.R.No :")
+                c.setFont('Helvetica',12)
+                c.drawString(410,523,str(Grvalue))
+                c.setLineWidth(2)
+                c.line(-15,7.2*inch,6.6*inch,7.2*inch)
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(140,498,"Fee Detail")
+                c.drawString(380,498,"Fee Amount")
+                c.setFont('Helvetica',12)
+
+                x=25
+                y=460
+
+                p=435
+                q=460
+                c.drawString(x,y,str(FEES_NAME_PAID[0]))
+                c.drawString(p,q,str(FEES_AMT_PAID[0]))
+                print(FEES_NAME_PAID)
+                if(aai_data[0] == 0):
+                    for i in range(len(FEES_NAME_PAID)):
+                        if FEES_NAME_PAID[i] == "APR_JUN_ATITVITY":
+                            FEES_NAME_PAID[i]="APR_JUN_ACTIVITY"
+                        if FEES_NAME_PAID[i] == "ICARD":
+                            FEES_NAME_PAID[i]="ICARD, ALMANAC & CLASS GROUP PHOTO"
+                else:
+                    for i in range(len(FEES_NAME_PAID)):
+                        if FEES_NAME_PAID[i] == "APR_JUN_ATITVITY":
+                            FEES_NAME_PAID[i]="APR_SEP_ACTIVITY"    
+                        if FEES_NAME_PAID[i] == "JUL_SEP_ACTIVITY":
+                            FEES_NAME_PAID[i]="OCT_MAR_ACTIVITY"
+                        if FEES_NAME_PAID[i] == "ICARD":
+                            FEES_NAME_PAID[i]="ICARD, ALMANAC & CLASS GROUP PHOTO"
+                print(FEES_NAME_PAID)
+
+                for a in range(1,len(FEES_NAME_PAID)):
+                    y=y-20
+                    c.drawString(x,y,str(FEES_NAME_PAID[a]))
+
+                for b in range(1,len(FEES_AMT_PAID)):
+                    q=q-20
+                    c.drawString(p,q,str(FEES_AMT_PAID[b]))
+
+
+                c.setLineWidth(2)
+                c.line(-15,6.8*inch,6.6*inch,6.8*inch)
+
+                c.setLineWidth(2)
+                c.line(-15,0.7*inch,6.6*inch,0.7*inch)
+
+                c.setLineWidth(2)
+                c.line(-15,0.4*inch,6.6*inch,0.4*inch)
+
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(-0.1,5,"Pay By :")
+                c.setFont('Helvetica',12)
+                
+                c.drawString(50,5,str(PAY_TYPE)+' '+str(CHEQUE_VAR)+' '+str(BANK_VAR))
+                
+
+
+                c.drawString(0,34,str(t))
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(400,34,str(TOTAL_AMOUNT_VAR)+str('/-'))
+                c.setFont('Helvetica',12)
+
+                
+
+                c.drawString(370,-10,"RAMESH")
+                c.setLineWidth(2)
+                c.line(350,-14,440,-14)
+
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(360,-25,"Receiver Sign")
+                c.setFont('Helvetica',12)
+
+                c.drawImage(r"ICONS\schl logo1.png",-0.3*inch,8.5*inch)
+
+                c.setLineWidth(2)
+                c.setStrokeColorRGB(0,0,0)
+                c.rect(-0.2*inch,-0.5*inch,6.8*inch,10.8*inch,fill=0)
+                c.showPage()
+                
+                c.translate(inch,inch)
+                c.setStrokeColorRGB(0,0,0) 
+                c.setLineWidth(2)
+                c.line(-15,580,475,580)
+
+                c.setFont('Helvetica-Bold',17)
+                c.drawString(130,690,"AIRPORT SCHOOL - AHMEDABAD")
+                c.setFont('Helvetica',15)
+
+                c.drawString(145,670,"CBSE AFFILIATION NO 430133")
+                c.drawString(108,650,"AIRPORT COLONY, SARDARNAGAR, AHMEDABAD")
+                c.drawString(173,630,"PHONE : 079-22864175")
+                
+                c.setFont('Helvetica-Bold',17)
+                c.drawString(193,610,"C.B.S.E BOARD")
+                c.setFont('Helvetica',12)
+                
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(-0.1,557,"Receipt No :")
+                c.setFont('Helvetica',12)
+                c.drawString(80,557,str(RECEIPT_VAR))
+                
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(350,557,"Date :")
+                c.setFont('Helvetica',12)
+                c.drawString(390,557,str(DATE_VAR))
+
+
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(-0.1,540,"Student's Name :")
+                c.setFont('Helvetica',12)
+                c.drawString(100,542,str(NAME_VAR.split("\n")[0])+" "+str(SURNAME_VAR))
+
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(350,540,"Std :")
+                c.setFont('Helvetica',12)
+                c.drawString(390,540,str(STD_VAR))
+                
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(-0.1,523,"Father's Name :")
+                c.setFont('Helvetica',12)
+                c.drawString(95,523,str(FATHERS_NAME_VAR.split("\n")[0])+" "+str(SURNAME_VAR))
+
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(350,523,"G.R.No :")
+                c.setFont('Helvetica',12)
+                c.drawString(410,523,str(Grvalue))
+                
+                c.setLineWidth(2)
+                c.line(-15,7.2*inch,6.6*inch,7.2*inch)
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(140,498,"Fee Detail")
+                c.drawString(380,498,"Fee Amount")
+                c.setFont('Helvetica',12)
+                x=25
+                y=460
+
+                p=435
+                q=460
+                c.drawString(x,y,str(FEES_NAME_PAID[0]))
+                c.drawString(p,q,str(FEES_AMT_PAID[0]))
+                for a in range(1,len(FEES_NAME_PAID)):
+                    y=y-20
+                    c.drawString(x,y,str(FEES_NAME_PAID[a]))
+
+                for b in range(1,len(FEES_AMT_PAID)):
+                    q=q-20
+                    c.drawString(p,q,str(FEES_AMT_PAID[b]))             
+
+
+                c.setLineWidth(2)
+                c.line(-15,6.8*inch,6.6*inch,6.8*inch)
+
+                c.setLineWidth(2)
+                c.line(-15,0.7*inch,6.6*inch,0.7*inch)
+
+                c.setLineWidth(2)
+                c.line(-15,0.4*inch,6.6*inch,0.4*inch)
+
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(-0.1,5,"Pay By :")
+                c.setFont('Helvetica',12)
+
+                c.drawString(50,5,str(PAY_TYPE)+' '+str(CHEQUE_VAR)+' '+str(BANK_VAR))
+
+                c.drawString(0,34,str(t))
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(400,34,str(TOTAL_AMOUNT_VAR)+str('/-'))
+                c.setFont('Helvetica',12)
+
+
+                c.drawString(370,-10,"RAMESH")
+                c.setLineWidth(2)
+                c.line(350,-14,440,-14)
+
+                c.setFont('Helvetica-Bold',12)
+                c.drawString(360,-25,"Receiver Sign")
+                c.setFont('Helvetica',12)
+
+                c.drawImage(r"ICONS\schl logo1.png",-0.3*inch,8.5*inch)
+
+                c.setLineWidth(2)
+                c.setStrokeColorRGB(0,0,0)
+                c.rect(-0.2*inch,-0.5*inch,6.8*inch,10.8*inch,fill=0)
+
+                c.showPage()
+                
+                c.save()
+                
+                import os
+                os.startfile(my_path)
+                
+            fees_print()
+            FEES_REPORT_FUNCTION()
+            BACKUP_FUNCTION()
+            mydb.commit()
+        except:
+            mydb.rollback()
+            messagebox.showerror("Error","Please Check the Details")
         FEES_FUNCTION()
 
 
@@ -3523,7 +3508,7 @@ def FEES_FUNCTION():
                     host="localhost",
                     user="root",
                     password="root",
-                    database="airport_school_new"
+                    database="airport_school1"
                 )
 
 
@@ -3729,7 +3714,7 @@ def FEES_FUNCTION():
                     host="localhost",
                     user="root",
                     password="root",
-                    database="airport_school_new"
+                    database="airport_school1"
                 )
                 
             cursor = conn.cursor()
