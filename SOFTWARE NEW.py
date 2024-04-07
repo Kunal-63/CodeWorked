@@ -18,51 +18,10 @@ import time
 from tkhtmlview import HTMLLabel
 import webbrowser
 
-# video =Tk()
-# video.geometry("1000x600")
-# video.title("ZETA CORE")
-# photo = PhotoImage(file = r"ICONS\Zeta.png")
-# video.iconphoto(False, photo)
-# video.resizable(False, False)
-# videoplayer = TkinterVideo(master=video, scaled=True)
-# videoplayer.load(r"VIDEOS\ZETACORE.mp4")
-# videoplayer.set_size(size=(1000, 600), keep_aspect=False)
-# videoplayer.pack(expand=True, fill="both")
-# videoplayer.play()
-# def video_ended(event):   
-#     # print("video ended")
-#     duration_video = videoplayer.current_duration()
-#     # print(f"video duration: {duration_video}")
-#     if(duration_video == 14.833333333333334):
-#         video.destroy()
-# videoplayer.bind("<<Ended>>", video_ended )
-# video.mainloop()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-mydb = con.connect(host="localhost",user="root",password="root",database="airport_school1", autocommit=False)
-cur = mydb.cursor()
 root=Tk()
 root.state('zoomed')
 root.geometry("1000x500")
-# root.attributes('-fullscreen', True)
 root.title("ZETA CORE")
 photo = PhotoImage(file = r"ICONS\Zeta.png")
 root.iconphoto(False, photo)
@@ -76,7 +35,9 @@ root.iconphoto(False, photo)
 
 
 
-def GR_FUNCTION():
+def GR_FUNCTION(DatabaseName):
+    mydb = con.connect(host="localhost",user="root",password="root",database=DatabaseName, autocommit=False)
+    cur = mydb.cursor()
     MAIN_FRAME.configure(bg="lightgrey")
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
@@ -1616,7 +1577,9 @@ def GR_FUNCTION():
 
     
 
-def FEES_FUNCTION():
+def FEES_FUNCTION(DatabaseName):
+    mydb = con.connect(host="localhost",user="root",password="root",database=DatabaseName, autocommit=False)
+    cur = mydb.cursor()
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
     for widget in MAIN_FRAME.winfo_children():
@@ -2275,7 +2238,7 @@ def FEES_FUNCTION():
             def create_table(self):
                 # Connect to the MySQL database (replace the parameters with your database details)
                 self.db = mysql.connector.connect(
-                    host="localhost", user="root", password="root", database="airport_school1"
+                    host="localhost", user="root", password="root", database=DatabaseName
                 )
                 self.cursor = self.db.cursor()
 
@@ -2617,7 +2580,7 @@ def FEES_FUNCTION():
             def create_table(self):
                 # Connect to the MySQL database (replace the parameters with your database details)
                 self.db = mysql.connector.connect(
-                host="localhost",user="root",password="root",database="airport_school1"
+                host="localhost",user="root",password="root",database=DatabaseName
                 )
 
                 # Create a cursor object to execute SQL queries
@@ -3314,13 +3277,13 @@ def FEES_FUNCTION():
                 os.startfile(my_path)
                 
             fees_print()
-            FEES_REPORT_FUNCTION()
-            BACKUP_FUNCTION()
+            FEES_REPORT_FUNCTION(DatabaseName)
+            BACKUP_FUNCTION(DatabaseName)
             mydb.commit()
         except:
             mydb.rollback()
             messagebox.showerror("Error","Please Check the Details")
-        FEES_FUNCTION()
+        FEES_FUNCTION(DatabaseName)
 
 
 
@@ -3508,7 +3471,7 @@ def FEES_FUNCTION():
                     host="localhost",
                     user="root",
                     password="root",
-                    database="airport_school1"
+                    database=DatabaseName
                 )
 
 
@@ -3714,7 +3677,7 @@ def FEES_FUNCTION():
                     host="localhost",
                     user="root",
                     password="root",
-                    database="airport_school1"
+                    database=DatabaseName
                 )
                 
             cursor = conn.cursor()
@@ -3802,7 +3765,9 @@ def FEES_FUNCTION():
 
 
 
-def FEES_EDIT_FUNCTION():
+def FEES_EDIT_FUNCTION(DatabaseName):
+    mydb = con.connect(host="localhost",user="root",password="root",database=DatabaseName, autocommit=False)
+    cur = mydb.cursor()
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
     for widget in MAIN_FRAME.winfo_children():
@@ -4125,7 +4090,9 @@ def FEES_EDIT_FUNCTION():
 
 
 global FEES_REPORT_FUNCTION
-def FEES_REPORT_FUNCTION():
+def FEES_REPORT_FUNCTION(DatabaseName):
+    mydb = con.connect(host="localhost",user="root",password="root",database=DatabaseName, autocommit=False)
+    cur = mydb.cursor()
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
     for widget in MAIN_FRAME.winfo_children():
@@ -4255,7 +4222,9 @@ ORDER BY
 
 
 
-def LIBRARY_FUNCTION():
+def LIBRARY_FUNCTION(DatabaseName):
+    mydb = con.connect(host="localhost",user="root",password="root",database=DatabaseName, autocommit=False)
+    cur = mydb.cursor()
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
     for widget in MAIN_FRAME.winfo_children():
@@ -4276,7 +4245,9 @@ def LIBRARY_FUNCTION():
 
 
 
-def CERTIFICATES_FUNCTION():
+def CERTIFICATES_FUNCTION(DatabaseName):
+    mydb = con.connect(host="localhost",user="root",password="root",database=DatabaseName, autocommit=False)
+    cur = mydb.cursor()
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
     for widget in MAIN_FRAME.winfo_children():
@@ -4680,7 +4651,9 @@ def CERTIFICATES_FUNCTION():
 
 
 global BACKUP_FUNCTION
-def BACKUP_FUNCTION():
+def BACKUP_FUNCTION(DatabaseName):
+    mydb = con.connect(host="localhost",user="root",password="root",database=DatabaseName, autocommit=False)
+    cur = mydb.cursor()
     f1 = open(r"BACKUP\academic_detail.csv","w", newline="\n")
     writer1 = csv.writer(f1)
     cur.execute("select * from academic_detail")
@@ -4800,7 +4773,7 @@ def BACKUP_FUNCTION():
     writer1.writerow(headings)
     writer1.writerows(data)
     f11.close()
-BACKUP_FUNCTION()
+
 
 
 
@@ -4811,12 +4784,6 @@ BACKUP_FUNCTION()
 
 
 def ABOUTUS_FUNCTION():
-    # text_Q1="School Details"
-    # myobj = gTTS(text=text_Q1, slow=False)
-    # myobj.save(r"AUDIOS\schooldetails.mp3")
-    #pygame.mixer.init()
-    #pygame.mixer.music.load(r"AUDIOS\schooldetails.mp3")
-    #pygame.mixer.music.play(loops=0)
     root1=Toplevel()
     root1.title("ZETA CORE")
     photo = PhotoImage(file = r"ICONS\Zeta.png")
@@ -4989,7 +4956,7 @@ def EXIT_FUNCTION():
 #---------------------------------------------------------------------------------------------------------
 
 
-MENU_FRAME=Frame(root,relief=RIDGE,bg="lightgrey",height=100,width=1370,borderwidth=5)
+MENU_FRAME=Frame(root,relief=RIDGE,bg="lightgrey",height=100,width=1500,borderwidth=5)
 MENU_FRAME.place(x=0,y=0)
 
 #---------------------------------------------------------------------------------------------------------
@@ -5006,27 +4973,43 @@ MAIN_FRAME.place(x=150,y=150)
 
 #---------------------------------------------------------------------------------------------------------
 
+def update_database_name(event):
+    global databaseyear
+    if academic_year_dropdown.get() == '2023':
+        databaseyear = 'airport_school1'
+    elif academic_year_dropdown.get() == '2024':
+        databaseyear = 'airport_school'
+    elif academic_year_dropdown.get() == '2025':
+        databaseyear = 'airport_school1'
 
+
+academic_years = ['2023', '2024', '2025']
+academic_year_dropdown = ttk.Combobox(MENU_FRAME, values=academic_years, width=15)
+academic_year_dropdown.place(x=1260, y=60)
+academic_year_dropdown.current(0)
+academic_year_dropdown.bind("<<ComboboxSelected>>", update_database_name)
 
 
 image_gr= Image.open(r"ICONS\gr.png")
 image_gr= image_gr.resize((55,55))
 img_gr= ImageTk.PhotoImage(image_gr)
-GR_BTN=Button(MENU_FRAME,image = img_gr,bg='lightgrey',compound=TOP,text="GR",command=GR_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
-GR_BTN.place(x=160,y=0)
+GR_BTN=Button(MENU_FRAME,image=img_gr, bg='lightgrey', compound=TOP, text="GR", command=lambda: GR_FUNCTION(databaseyear), padx=2, pady=2, activebackground='lightgrey', relief=FLAT)
+GR_BTN.place(x=160, y=0)
+
+
 
 
 image_fees= Image.open(r"ICONS\fees.png")
 image_fees= image_fees.resize((55,55))
 img_fees= ImageTk.PhotoImage(image_fees)
-FEES_BTN=Button(MENU_FRAME,image = img_fees,bg='lightgrey',compound=TOP,text="FEES",command=FEES_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
+FEES_BTN=Button(MENU_FRAME,image = img_fees,bg='lightgrey',compound=TOP,text="FEES",command=lambda: FEES_FUNCTION(databaseyear),padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
 FEES_BTN.place(x=260,y=0) 
 
 
 image_fees_edit= Image.open(r"ICONS\edity1.png")
 image_fees_edit= image_fees_edit.resize((55,55))
 img_fees_edit= ImageTk.PhotoImage(image_fees_edit)
-FEES_EDIT_BTN=Button(MENU_FRAME,image = img_fees_edit,bg='lightgrey',compound=TOP,text="FEES EDIT",command=FEES_EDIT_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
+FEES_EDIT_BTN=Button(MENU_FRAME,image = img_fees_edit,bg='lightgrey',compound=TOP,text="FEES EDIT",command=lambda: FEES_EDIT_FUNCTION(databaseyear),padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
 FEES_EDIT_BTN.place(x=360,y=0) 
 
 
@@ -5034,7 +5017,7 @@ FEES_EDIT_BTN.place(x=360,y=0)
 image_fees_report= Image.open(r"ICONS\fee_report.png")
 image_fees_report= image_fees_report.resize((55,55))
 img_fees_report= ImageTk.PhotoImage(image_fees_report)
-FEES_REPORT_BTN=Button(MENU_FRAME,image = img_fees_report,bg='lightgrey',compound=TOP,text="FEES REPORT",command=FEES_REPORT_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
+FEES_REPORT_BTN=Button(MENU_FRAME,image = img_fees_report,bg='lightgrey',compound=TOP,text="FEES REPORT",command=lambda: FEES_REPORT_FUNCTION(databaseyear),padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
 FEES_REPORT_BTN.place(x=450,y=0) 
 
 
@@ -5042,7 +5025,7 @@ FEES_REPORT_BTN.place(x=450,y=0)
 image_library= Image.open(r"ICONS\Library.png")
 image_library= image_library.resize((55,55))
 img_library= ImageTk.PhotoImage(image_library)
-LIBRARY_BTN=Button(MENU_FRAME,image = img_library,bg='lightgrey',compound=TOP,text="LIBRARY",command=LIBRARY_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
+LIBRARY_BTN=Button(MENU_FRAME,image = img_library,bg='lightgrey',compound=TOP,text="LIBRARY",command=lambda: LIBRARY_FUNCTION(databaseyear),padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
 LIBRARY_BTN.place(x=550,y=0)
 
 
@@ -5050,7 +5033,7 @@ LIBRARY_BTN.place(x=550,y=0)
 image_certificate= Image.open(r"ICONS\certificate.png")
 image_certificate= image_certificate.resize((55,55))
 img_certificate= ImageTk.PhotoImage(image_certificate)
-CERTIFICATES_BTN=Button(MENU_FRAME,image = img_certificate,bg='lightgrey',compound=TOP,text="CERTIFICATES",command=CERTIFICATES_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
+CERTIFICATES_BTN=Button(MENU_FRAME,image = img_certificate,bg='lightgrey',compound=TOP,text="CERTIFICATES",command=lambda: CERTIFICATES_FUNCTION(databaseyear),padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
 CERTIFICATES_BTN.place(x=640,y=0)
 
 
@@ -5058,7 +5041,7 @@ CERTIFICATES_BTN.place(x=640,y=0)
 image_backup= Image.open(r"ICONS\backup.png")
 image_backup= image_backup.resize((55,55))
 img_backup= ImageTk.PhotoImage(image_backup)
-BACKUP_BTN=Button(MENU_FRAME,image = img_backup,bg='lightgrey',compound=TOP,text="BACKUP",command=BACKUP_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
+BACKUP_BTN=Button(MENU_FRAME,image = img_backup,bg='lightgrey',compound=TOP,text="BACKUP",command=lambda: BACKUP_FUNCTION(databaseyear),padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
 BACKUP_BTN.place(x=740,y=0)
 
 
@@ -5095,10 +5078,10 @@ label_date_now = Label(MENU_FRAME,text="Current Date",bg='light grey',fg='#151B5
 label_date_now.place(x=1110, y=60)
 
 TIMElbl=Label(MENU_FRAME,text="Time : ",bg='light grey',fg='#151B54',font=("Copperplate Gothic Bold",10))
-TIMElbl.place(x=1210, y=60)
+TIMElbl.place(x=1050, y=30)
 
 label_time_now = Label(MENU_FRAME,text="Current Time",bg='lightgrey',fg='#151B54',font=("Copperplate Gothic Bold",10))
-label_time_now.place(x=1260, y=60)
+label_time_now.place(x=1110, y=30)
 
 def y():
     current_date=datetime.datetime.today().strftime('%d-%m-%y')
