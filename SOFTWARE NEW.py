@@ -4950,7 +4950,8 @@ def EXIT_FUNCTION():
 
 
 
-
+yearsdb = con.connect(host='localhost', user='root', password='root', database='academic_years')
+yearscur = yearsdb.cursor()
 
 
 #---------------------------------------------------------------------------------------------------------
@@ -4973,17 +4974,19 @@ MAIN_FRAME.place(x=150,y=150)
 
 #---------------------------------------------------------------------------------------------------------
 
-def update_database_name(event):
+def update_database_name(event):    
     global databaseyear
-    if academic_year_dropdown.get() == '2023':
-        databaseyear = 'airport_school1'
-    elif academic_year_dropdown.get() == '2024':
-        databaseyear = 'airport_school'
-    elif academic_year_dropdown.get() == '2025':
-        databaseyear = 'airport_school1'
+    yearscur.execute("select * from academic_years")
+    years = yearscur.fetchall()
+    for i in years:
+        if int(academic_year_dropdown.get()) == i[0]:
+            databaseyear = i[1] 
+            break
+    GR_FUNCTION(databaseyear)
 
-
-academic_years = ['2023', '2024', '2025']
+yearscur.execute("select year from academic_years order by year")
+years = yearscur.fetchall()
+academic_years = [i[0] for i in years]
 academic_year_dropdown = ttk.Combobox(MENU_FRAME, values=academic_years, width=15)
 academic_year_dropdown.place(x=1260, y=60)
 academic_year_dropdown.current(0)
