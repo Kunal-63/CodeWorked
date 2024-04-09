@@ -4114,36 +4114,36 @@ def FEES_REPORT_FUNCTION(DatabaseName):
     wrt = csv.writer(f2)
     wrt.writerow(["CLASS","DIVISION","TOTAL"])
     cur.execute('''SELECT curr_std, division, COUNT(gr_no) AS total
-FROM academic_detail
-WHERE active1 = 1
-GROUP BY curr_std, division
-ORDER BY
-  CASE curr_std
-    WHEN 'NUR' THEN 1
-    WHEN 'JR.KG' THEN 2
-    WHEN 'SR.KG' THEN 3
-    WHEN '1' THEN 4
-    WHEN '2' THEN 5
-    WHEN '3' THEN 6
-    WHEN '4' THEN 7
-    WHEN '5' THEN 8
-    WHEN '6' THEN 9
-    WHEN '7' THEN 10
-    WHEN '8' THEN 11
-    WHEN '9' THEN 12
-    WHEN '10' THEN 13
-    WHEN '11 COMM' THEN 14
-    WHEN '11 SCI' THEN 15
-    WHEN '12 COMM' THEN 16
-    WHEN '12 SCI' THEN 17
-  END,
-  CASE division
-    WHEN 'A' THEN 1
-    WHEN 'B' THEN 2
-    WHEN 'C' THEN 3
-    WHEN 'D' THEN 4
-  END
-''')
+        FROM academic_detail
+        WHERE active1 = 1
+        GROUP BY curr_std, division
+        ORDER BY
+        CASE curr_std
+            WHEN 'NUR' THEN 1
+            WHEN 'JR.KG' THEN 2
+            WHEN 'SR.KG' THEN 3
+            WHEN '1' THEN 4
+            WHEN '2' THEN 5
+            WHEN '3' THEN 6
+            WHEN '4' THEN 7
+            WHEN '5' THEN 8
+            WHEN '6' THEN 9
+            WHEN '7' THEN 10
+            WHEN '8' THEN 11
+            WHEN '9' THEN 12
+            WHEN '10' THEN 13
+            WHEN '11 COMM' THEN 14
+            WHEN '11 SCI' THEN 15
+            WHEN '12 COMM' THEN 16
+            WHEN '12 SCI' THEN 17
+        END,
+        CASE division
+            WHEN 'A' THEN 1
+            WHEN 'B' THEN 2
+            WHEN 'C' THEN 3
+            WHEN 'D' THEN 4
+        END
+        ''')
     data_report = cur.fetchall()
     for i in data_report:
         wrt.writerow(i)
@@ -4992,6 +4992,10 @@ academic_year_dropdown.place(x=1260, y=60)
 academic_year_dropdown.current(0)
 academic_year_dropdown.bind("<<ComboboxSelected>>", update_database_name)
 
+def change_database():
+    changedb = con.connect(host='localhost',password='root',user='root')
+change_year_button = Button(MENU_FRAME,text="Change Year", bg="lightgrey")
+change_year_button.place(x=1260,y=30)
 
 image_gr= Image.open(r"ICONS\gr.png")
 image_gr= image_gr.resize((55,55))
