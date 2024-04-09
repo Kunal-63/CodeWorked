@@ -4,6 +4,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter, A4
 from tkinter import *
+from tkinter import simpledialog
 from tkinter import ttk
 from tkcalendar import DateEntry
 import datetime
@@ -4993,7 +4994,16 @@ academic_year_dropdown.current(0)
 academic_year_dropdown.bind("<<ComboboxSelected>>", update_database_name)
 
 def change_database():
-    changedb = con.connect(host='localhost',password='root',user='root')
+    password = simpledialog.askstring("Password", "Enter Password", show='*')
+    if password == "root":
+        global databaseyear
+        datetime.date = datetime.datetime.now()
+        changedb = con.connect(host='localhost',password='root',user='root',database='academic_years')
+        cur = changedb.cursor()
+        cur.execute("insert into academic_years (year,database_name) values({},'{}')".format(int(datetime.date.year),"airport_school_"+str(datetime.date.year)))
+        changedb.commit()
+        changedb.close()
+
 change_year_button = Button(MENU_FRAME,text="Change Year", bg="lightgrey")
 change_year_button.place(x=1260,y=30)
 
