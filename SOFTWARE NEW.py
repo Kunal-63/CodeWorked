@@ -4996,6 +4996,19 @@ academic_year_dropdown.bind("<<ComboboxSelected>>", update_database_name)
 def change_database():
     password = simpledialog.askstring("Password", "Enter Password", show='*')
     if password == "root":
+        createdb = con.connect(host="localhost", password="root", user="root")
+        cur = createdb.cursor()
+        cur.execute("create database airport_school_{}".format(int(datetime.date.year)))
+        createdb.commit()
+        createdb.close()
+
+        currentyeardb = con.connect(host='localhost',password="root", user="root", database="airport_school_{}".format(int(datetime.date.year)))
+        cur = currentyeardb.cursor()
+        
+
+
+        
+
         global databaseyear
         datetime.date = datetime.datetime.now()
         changedb = con.connect(host='localhost',password='root',user='root',database='academic_years')
@@ -5004,7 +5017,7 @@ def change_database():
         changedb.commit()
         changedb.close()
 
-change_year_button = Button(MENU_FRAME,text="Change Year", bg="lightgrey")
+change_year_button = Button(MENU_FRAME,text="Change Year", bg="lightgrey", command=change_database)
 change_year_button.place(x=1260,y=30)
 
 image_gr= Image.open(r"ICONS\gr.png")
