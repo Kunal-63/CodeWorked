@@ -3,6 +3,7 @@ from ast import Delete
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter, A4
 from tkinter import *
+from tkinter import simpledialog
 from tkinter import ttk
 from tkcalendar import DateEntry
 import datetime
@@ -17,51 +18,10 @@ import time
 from tkhtmlview import HTMLLabel
 import webbrowser
 
-# video =Tk()
-# video.geometry("1000x600")
-# video.title("ZETA CORE")
-# photo = PhotoImage(file = r"ICONS\Zeta.png")
-# video.iconphoto(False, photo)
-# video.resizable(False, False)
-# videoplayer = TkinterVideo(master=video, scaled=True)
-# videoplayer.load(r"VIDEOS\ZETACORE.mp4")
-# videoplayer.set_size(size=(1000, 600), keep_aspect=False)
-# videoplayer.pack(expand=True, fill="both")
-# videoplayer.play()
-# def video_ended(event):   
-#     # print("video ended")
-#     duration_video = videoplayer.current_duration()
-#     # print(f"video duration: {duration_video}")
-#     if(duration_video == 14.833333333333334):
-#         video.destroy()
-# videoplayer.bind("<<Ended>>", video_ended )
-# video.mainloop()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-mydb = con.connect(host="localhost",user="root",password="root",database="airport_school_new")
-cur = mydb.cursor()
 root=Tk()
 root.state('zoomed')
 root.geometry("1000x500")
-# root.attributes('-fullscreen', True)
 root.title("ZETA CORE")
 photo = PhotoImage(file = r"ICONS\Zeta.png")
 root.iconphoto(False, photo)
@@ -75,7 +35,9 @@ root.iconphoto(False, photo)
 
 
 
-def GR_FUNCTION():
+def GR_FUNCTION(DatabaseName):
+    mydb = con.connect(host="localhost",user="root",password="root",database=DatabaseName, autocommit=False)
+    cur = mydb.cursor()
     MAIN_FRAME.configure(bg="lightgrey")
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
@@ -185,7 +147,7 @@ def GR_FUNCTION():
         category_lbl.place(x=575,y=20)
         category_var=StringVar()
         category_combo = ttk.Combobox(general_details_frame,width=17,textvariable = category_var)
-        category_combo['values'] = ('SEBC','ST','GEN','SC')
+        category_combo['values'] = ('OBC','ST','GEN','SC')
         category_combo.place(x=655,y=25)
 
         religion_lbl=Label(general_details_frame,text="Religion :",padx=5,pady=5,bg="lightgrey",font=("Arial",10,"bold"))
@@ -381,11 +343,11 @@ def GR_FUNCTION():
         left_reason_ent=Entry(academic_frame2,textvariable=left_reason_var,width=60)
         left_reason_ent.place(x=150,y=55)
 
-        progress_lbl=Label(academic_frame2,text="Progress :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightgrey")
-        progress_lbl.place(x=70,y=100)
-        progress_var=StringVar()
-        progress_ent=Entry(academic_frame2,textvariable=progress_var,width=60)
-        progress_ent.place(x=150,y=105)
+        op_subject_lbl=Label(academic_frame2,text="Op. Subject :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightgrey")
+        op_subject_lbl.place(x=70,y=100)
+        op_subject_var=StringVar()
+        op_subject_ent=Entry(academic_frame2,textvariable=op_subject_var,width=60)
+        op_subject_ent.place(x=150,y=105)
 
         presence_lbl=Label(academic_frame2,text="Presence :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightgrey")
         presence_lbl.place(x=65,y=150)
@@ -439,7 +401,7 @@ def GR_FUNCTION():
             academic_details_lst.append(roll_no_ent.get())#13
             academic_details_lst.append(inactive_reason_ent.get())#14
             academic_details_lst.append(left_reason_ent.get())#15
-            academic_details_lst.append(progress_ent.get())#16
+            academic_details_lst.append(op_subject_ent.get())#16
             academic_details_lst.append(presence_ent.get())#17
             academic_details_lst.append(out_of_ent.get())#18
             academic_details_lst.append(lc_book_ent.get())#19
@@ -452,13 +414,13 @@ def GR_FUNCTION():
             if(aaivalue.get() == 0):
                 cur.execute("select * from std_fees where std='{}'".format(current_standard_ent.get()))
                 data = cur.fetchall()
-                cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12]])
+                cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],data[0][13],data[0][14]])
             else:
                 cur.execute("select * from std_fees where std='{}'".format(current_standard_ent.get()))
                 data = cur.fetchall()
-                cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12]])
-            cur.execute("insert into gr_check values({},0,0,0,0,0,0,0)".format(Gr_entry.get()))
-            cur.execute("insert into fee_details values({},' ',' ',' ',' ',' ',' ',' ')".format(Gr_entry.get()))
+                cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[Gr_entry.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],data[0][13],data[0][14]])
+            cur.execute("insert into gr_check values({},0,0,0,0,0,0,0,0,0)".format(Gr_entry.get()))
+            cur.execute("insert into fee_details values({},' ',' ',' ',' ',' ',' ',' ',' ',' ')".format(Gr_entry.get()))
             mydb.commit()
             other_details()
         save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",15),command=academic_details_save)
@@ -793,7 +755,7 @@ def GR_FUNCTION():
         category_lbl.place(x=575,y=20)
         category_var=StringVar()
         category_combo = Entry(general_details_frame,width=17,textvariable = category_var)
-        # category_combo['values'] = ('SEBC','ST','GEN','SC')
+        # category_combo['values'] = ('OBC','ST','GEN','SC')
         category_combo.place(x=655,y=25)
         category_combo.delete(0,END)
         category_combo.insert(0,data[0][10])
@@ -963,11 +925,11 @@ def GR_FUNCTION():
                 cur.execute("select * from gr_check where gr_no={}".format(gr_ent.get()))
                 gr_check = cur.fetchall()
                 if(gr_check == []):
-                    cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[gr_ent.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12]])
-                    cur.execute("insert into gr_check values({},0,0,0,0,0,0,0)".format(gr_ent.get()))
+                    cur.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[gr_ent.get(),data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],data[0][13],data[0][14]])
+                    cur.execute("insert into gr_check values({},0,0,0,0,0,0,0,0,0)".format(gr_ent.get()))
                     # cur.execute("insert into fee_details values({},' ',' ',' ',' ',' ',' ',' ')".format(gr_ent.get()))
                 else:
-                    cur.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ATITVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],gr_ent.get()])
+                    cur.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ATITVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s,TERM1=%s,TERM2=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],data[0][13],data[0][14],gr_ent.get()])
             grlst.append(gr_ent.get())
             cur.execute("update gr_details set form_no=%s,enquiry_no=%s,uid=%s,surname=%s,name=%s,father=%s,MOTHER=%s,SEX=%s,BIRTH_DATE=%s,CATEGORY=%s,RELIGION=%s,BIRTH_PLACE=%s,PREVIOUS_SCH=%s,CASTE=%s,BIRTH_TALUKA=%s,SUB_CASTE=%s,STATE1=%s,MINORITY=%s,RTE=%s where gr_no=%s",grlst)
             mydb.commit()
@@ -976,7 +938,7 @@ def GR_FUNCTION():
         save_next_button.place(x=1050,y=370)
 
     global academic_details1
-    def academic_details1(rtevalue):
+    def academic_details1(academicrtevaluertevalue):
         for widget in MAIN_FRAME_0.winfo_children():
             widget.destroy()
     
@@ -1123,13 +1085,13 @@ def GR_FUNCTION():
         left_reason_ent.delete(0,END)
         left_reason_ent.insert(0,data[0][15])
 
-        progress_lbl=Label(academic_frame2,text="Progress :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightgrey")
-        progress_lbl.place(x=70,y=100)
-        progress_var=StringVar()
-        progress_ent=Entry(academic_frame2,textvariable=progress_var,width=60)
-        progress_ent.place(x=150,y=105)
-        progress_ent.delete(0,END)
-        progress_ent.insert(0,data[0][16])
+        op_subject_lbl=Label(academic_frame2,text="Op. Subejct :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightgrey")
+        op_subject_lbl.place(x=70,y=100)
+        op_subject_var=StringVar()
+        op_subject_ent=Entry(academic_frame2,textvariable=op_subject_var,width=60)
+        op_subject_ent.place(x=150,y=105)
+        op_subject_ent.delete(0,END)
+        op_subject_ent.insert(0,data[0][16])
 
         presence_lbl=Label(academic_frame2,text="Presence :",padx=5,pady=5,font=("Arieal",10,"bold"),bg="lightgrey")
         presence_lbl.place(x=65,y=150)
@@ -1196,7 +1158,7 @@ def GR_FUNCTION():
             academic_details_lst.append(roll_no_ent.get())#13
             academic_details_lst.append(inactive_reason_ent.get())#14
             academic_details_lst.append(left_reason_ent.get())#15
-            academic_details_lst.append(progress_ent.get())#16
+            academic_details_lst.append(op_subject_ent.get())#16
             academic_details_lst.append(presence_ent.get())#17
             academic_details_lst.append(out_of_ent.get())#18
             academic_details_lst.append(lc_book_ent.get())#19
@@ -1206,18 +1168,14 @@ def GR_FUNCTION():
             academic_details_lst.append(lc_copy_ent.get())#23
             academic_details_lst.append(Gr_entry.get())#1
             cur.execute("update academic_detail set name=%s,active1=%s,left1=%s,aai1=%s,inactive_date=%s,add_date=%s,add_year=%s,add_std=%s,curr_date=%s,curr_year=%s,curr_std=%s,division=%s,roll_no=%s,inactive_reason=%s,left_reason=%s,progress=%s,presence=%s,out_of=%s,lc_book=%s,lc_no=%s,lc_date=%s,lc_remark=%s,lc_copy=%s where gr_no=%s",academic_details_lst)
-            
-            if(aaivalue.get() == 0):
-                cur.execute("select * from std_fees where std='{}'".format(current_standard_ent.get()))
-                data = cur.fetchall()
-                cur.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ATITVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],Gr_entry.get()])
-            else:
+            if academicrtevaluertevalue == 1:
+                cur.execute("UPDATE PENDING_FEE_DETAIL SET ADMISSION_FEE=0,ICARD=0,APR_JUN_TUTION=0,APR_JUN_ATITVITY=0,LATE_FEES=0,JUL_SEP_TUTION=0,JUL_SEP_ACTIVITY=0,OCT_DEC_ACTIVITY=0,OCT_DEC_TUTION=0,JAN_MAR_TUTION=0,JAN_MAR_ACTIVITY=0, OTHERS=0, TERM1=0, TERM2=0 WHERE GR_NO={}".format(int(Gr_entry.get())))
+                mydb.commit()
+            else:            
                 cur.execute("select * from STD_fees where std='{}'".format(current_standard_ent.get()))
                 data = cur.fetchall()
-                # cur.execute("select * from exmp_fees where std='{}'".format(data[0][1]))
-                # exmp_data = cur.fetchall()
-                cur.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ATITVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],Gr_entry.get()])
-            mydb.commit()
+                cur.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ATITVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s,TERM1=%s,TERM2=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],data[0][13],data[0][14],Gr_entry.get()])
+                mydb.commit()
             other_details1()
         save_next_button = Button(MAIN_FRAME_0,text="NEXT",font=("Arial",20),command=academic_details_save)
         save_next_button.place(x=1050,y=370)
@@ -1476,7 +1434,7 @@ def GR_FUNCTION():
     def add1():
         GR_EDIT_BTN["state"]="active"
         GR_DELETE_BTN["state"]="active"
-        GR_PRINT_BTN["state"]="active"
+        GR_SEARCH_BTN["state"]="active"
         gr_details_BTN["state"]="active"
         academic_details_BTN["state"]="active"
         other_details_BTN["state"]="active"
@@ -1551,7 +1509,527 @@ def GR_FUNCTION():
     other_details_BTN.place(x=240,y=0)
     other_details_BTN["state"]="disabled"
 
-    
+    global GR_SEARCH
+    def GR_SEARCH():
+        import tkinter as tk
+        from tkinter import ttk, simpledialog, messagebox
+        import mysql.connector as con
+
+        def execute_query_and_display(query):
+            try:
+                conn = con.connect(
+                    host="localhost",
+                    user="root",
+                    password="root",
+                    database=f"{DatabaseName}"
+                )
+
+                cursor = conn.cursor()
+                cursor.execute(query)
+                result = cursor.fetchall()
+
+                clear_table()
+
+                for row in result:
+                    table.insert('', 'end', values=row)
+
+                if not result:
+                    messagebox.showinfo("No Data Found", "No data found for the specified criteria.")
+
+            except con.Error as e:
+                messagebox.showerror("Error", f"Error: {e}")
+
+            finally:
+                if conn.is_connected():
+                    cursor.close()
+                    conn.close()
+
+        def clear_table():
+            for row in table.get_children():
+                table.delete(row)
+
+        def save_data():
+            # print("RTE :", rte_var.get())
+            gr_no_value = gr_no_var.get()
+            left_std_value = left_std_var.get()
+            left_div_value = left_div_var.get()
+            left_name_value = left_name_entry.get()
+            left_father_name_value = left_father_name_entry.get()
+            left_surname_value = left_surname_entry.get()
+            left_aai_value = int(left_aai_var.get())
+            rte_value = int(rte_var.get())
+            active_value=int(active_var.get())
+
+            query = """
+            SELECT academic_detail.gr_no, academic_detail.curr_std, academic_detail.division, academic_detail.name, gr_details.father,
+            gr_details.surname, academic_detail.aai1, gr_details.RTE,academic_detail.active1
+            FROM academic_detail
+            JOIN gr_details ON academic_detail.gr_no = gr_details.GR_NO
+            """
+
+            where_clauses = []
+
+            if gr_no_value:
+                where_clauses.append(f"academic_detail.gr_no LIKE '{gr_no_value}%'")
+            
+            if left_std_value:
+                if left_std_value == "-":
+                    where_clauses.append("academic_detail.curr_std LIKE '%'")
+                else:
+                    where_clauses.append(f"academic_detail.curr_std = '{left_std_value}'")
+            
+            if left_div_value:
+                if left_div_value == "-":
+                    where_clauses.append("academic_detail.division LIKE '%'")
+                else:
+                    where_clauses.append(f"academic_detail.division = '{left_div_value}'")
+
+            if left_name_value:
+                where_clauses.append(f"academic_detail.name LIKE '{left_name_value}%'")
+
+            if left_father_name_value:
+                where_clauses.append(f"gr_details.father LIKE '{left_father_name_value}%'")
+
+            if left_surname_value:
+                where_clauses.append(f"gr_details.surname LIKE '{left_surname_value}%'")
+
+            # print("AAI Value: ", left_aai_value)
+            if left_aai_value:
+                where_clauses.append(f"academic_detail.aai1 = 1")
+
+            if rte_var.get():
+                where_clauses.append(f"gr_details.RTE = 1")
+
+            if left_active_var.get():
+                where_clauses.append(f"academic_detail.active1 = 1")
+                
+            if where_clauses:
+                query += " WHERE " + " AND ".join(where_clauses)
+
+            # print(query)
+            execute_query_and_display(query)
+
+
+        def on_table_select(event):
+            try:
+                selected_item = table.selection()
+                if selected_item:
+                    std = table.item(selected_item, 'values')[1]
+                    div = table.item(selected_item, 'values')[2]
+                    right_std_var.set(std)
+                    right_div_var.set(div)
+            except Exception as e:
+                # Handle the exception silently
+                pass
+
+
+        def select_all_items():
+            item_ids = table.get_children()
+            for item_id in item_ids:
+                table.selection_add(item_id)
+
+
+        def save_data1():
+            password = simpledialog.askstring("1234", "Enter password:", show='*')
+            if password != "1234":
+                messagebox.showerror("Error", "Incorrect password.")
+                return
+            
+            conn = con.connect(
+                    host="localhost",
+                    user="root",
+                    password="root",
+                    database=f"{DatabaseName}"
+                )
+                
+            cursor = conn.cursor()
+            selected_items = table.selection()
+
+            for selected_item in selected_items:
+                gr_no = table.item(selected_item, 'values' )[0]
+                print(gr_no)
+
+                if (right_std_var.get() == '-'):
+                    cursor.execute("SELECT curr_std FROM academic_detail WHERE gr_no = %s", (gr_no,))
+                    result1 = cursor.fetchone()
+                    std = result1[0] if result1 else None
+
+                else:
+                    std = right_std_var.get()
+                
+                
+                if (right_div_var.get() == '-'):
+                    cursor.execute("SELECT division FROM academic_detail WHERE gr_no = %s", (gr_no,))
+                    result = cursor.fetchone()
+                    div = result[0] if result else None 
+
+                else:
+                    div = right_div_var.get()       
+                
+                
+                active = int(active_var.get())
+
+                update_query = """
+                UPDATE academic_detail
+                SET curr_std = %s, division = %s, active1 = %s
+                WHERE gr_no = %s
+                """
+                update_data = (std, div, active,gr_no)
+                cursor.execute(update_query, update_data)
+                conn.commit()
+
+            messagebox.showinfo("Update", "Selected records updated successfully.")
+        def on_double_click(event):
+            root = tk.Tk()
+            root.title("Student Information")
+            root.configure(bg="lightblue")
+            root.geometry("800x600")
+            # root.state('zoomed')
+
+
+            # Establish database connection
+            db = con.connect(
+                host="localhost",
+                user="root",
+                password="root",
+                database=f"{DatabaseName}"
+            )
+
+            cursor = db.cursor()
+            # Labels
+            gr_label = tk.Label(root, text="GR No:", font=('Arial', 10))
+            gr_label.place(x=10, y=10)
+
+            # Entries
+            gr_entry = tk.Entry(root, font=('Arial', 10))
+            gr_entry.place(x=100, y=10)
+            selected_item = table.selection()
+            if selected_item:
+                gr_no = table.item(selected_item, 'values')[0]
+                # Use the GR No value as needed, for example, print it
+                # print("Selected GR No:", gr_no)
+                gr_entry.delete(0, END)
+                gr_entry.insert(0, gr_no)
+
+            def gr_fill_student_detail():
+                gr_check_val = gr_entry.get()
+                print(gr_check_val)
+
+                # Clear previous entries from the treeview
+                for child in tree.get_children():
+                    tree.delete(child)
+                    
+                # Query to fetch student details from gr_details table
+                query = f"SELECT * FROM gr_details where gr_no = {gr_check_val} limit 1"
+                cursor.execute(query)
+                student_details = cursor.fetchone()  # Assuming there's only one student with the given GR number
+
+                # print(student_details)
+                # print(cursor.column_names)
+
+                if student_details:
+                        # Create a dictionary with column names and values
+                        record_dict = dict(zip(cursor.column_names, student_details))   
+                        # print(record_dict)
+
+                        # Insert student details into the treeview
+                        for key, value in record_dict.items():
+                            tree.insert('', 'end', values=(key, value))
+                    
+                else :
+                    for i in cursor.column_names:
+                        tree.insert('', 'end', values=(i, "N/A"))
+
+            def academic_fill_student_detail():
+                gr_check_val = gr_entry.get()
+                print(gr_check_val)
+
+                # Clear previous entries from the treeview
+                for child in tree.get_children():
+                    tree.delete(child)
+                    
+                # Query to fetch student details from academic_details tables
+                query = f"SELECT * FROM academic_detail where gr_no = {gr_check_val} limit 1"
+                cursor.execute(query)
+                student_details = cursor.fetchone()  # Assuming there's only one student with the given GR number
+
+                # print(student_details)
+                # print(cursor.column_names)
+
+                if student_details:
+                    # Create a dictionary with column names and values
+                    record_dict = dict(zip(cursor.column_names, student_details))   
+                    # print(record_dict)
+
+                    # Insert student details into the treeview
+                    for key, value in record_dict.items():
+                        tree.insert('', 'end', values=(key, value))
+                
+                else :
+                    for i in cursor.column_names:
+                        tree.insert('', 'end', values=(i, "N/A"))
+
+            def other_fill_student_detail():
+                gr_check_val = gr_entry.get()
+                print(gr_check_val)
+
+                # Clear previous entries from the treeview
+                for child in tree.get_children():
+                    tree.delete(child)
+                    
+                # Query to fetch student details from gr_details and academic_details tables
+                query = f"SELECT * FROM other_detail where gr_no = {gr_check_val} limit 1"
+                cursor.execute(query)
+                student_details = cursor.fetchone()  # Assuming there's only one student with the given GR number
+
+                print(student_details)
+                print(cursor.column_names)
+
+                if student_details:
+                    # Create a dictionary with column names and values
+                    record_dict = dict(zip(cursor.column_names, student_details))   
+                    # print(record_dict)
+
+                    # Insert student details into the treeview
+                    for key, value in record_dict.items():
+                        tree.insert('', 'end', values=(key, value))
+                
+                else :
+                    for i in cursor.column_names:
+                        tree.insert('', 'end', values=(i, "N/A"))
+
+
+            gr_button = tk.Button(root, text="gr", command=gr_fill_student_detail, width=10, font=('Arial', 10))
+            gr_button.place(x=10, y=150)
+
+            academic_button = tk.Button(root, text="academic", command=academic_fill_student_detail, width=10, font=('Arial', 10))
+            academic_button.place(x=210, y=150)
+
+            other_button = tk.Button(root, text="other", command=other_fill_student_detail, width=10, font=('Arial', 10))
+            other_button.place(x=410, y=150)
+
+
+            # Treeview (Table)
+            tree = ttk.Treeview(root, columns=('Key', 'Value'), show="headings", height=24)
+            tree.heading('Key', text='Key')
+            tree.heading('Value', text='Value')
+
+
+            # Calculate column widths based on window width
+            # window_width = root.winfo_screenwidth()
+            # column_width = (window_width - 200) # 20 is the sum of padding/margin
+            # print(column_width)
+
+            tree.column('Key', width=50)
+            tree.column('Value', width=50)
+
+
+            tree.place(x=10, y=200, relwidth=0.99)  # Relative width set to 1 for full x-axis coverage
+
+
+            # Clear previous entries from the treeview
+            for child in tree.get_children():
+                tree.delete(child)
+
+
+
+            root.mainloop()
+
+
+
+        root = tk.Tk()
+        root.title("Student Information")
+        root.configure(bg="lightblue")
+
+        left_frame = tk.Frame(root, bg="lightblue")
+        left_frame.grid(row=0, column=0, padx=10, pady=10,sticky='w')
+
+        gr_no_label = tk.Label(left_frame, text="GR_No:", bg="lightblue", font=("Arial", 13))
+        gr_no_label.grid(row=0, column=0, padx=5, pady=5, sticky=tk.E)
+
+        gr_no_var = tk.StringVar()
+        gr_no_entry = tk.Entry(left_frame, textvariable=gr_no_var, font=("Arial", 13))
+        gr_no_entry.grid(row=0, column=1, padx=10, pady=10)
+        # Bind the double-click event to the Entry widget
+        gr_no_entry.bind("<Double-Button-1>", on_double_click)
+
+        left_std_label = tk.Label(left_frame, text="Standard:", bg="lightblue", font=("Arial", 13))
+        left_std_label.grid(row=1, column=0, padx=10, pady=10, sticky=tk.E)
+
+        std_options = ["-", "NUR", "JR.KG", "SR.KG", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "12 COMM", "12 SCI", "11 COMM", "11 SCI"]  
+        
+        left_std_var = tk.StringVar()
+        left_std_dropdown = tk.OptionMenu(left_frame, left_std_var, *std_options)
+        left_std_dropdown.config(font=("Arial", 13))
+        left_std_dropdown.grid(row=1, column=1, padx=10, pady=10,sticky=tk.W)
+
+        left_div_label = tk.Label(left_frame, text="Division:", bg="lightblue", font=("Arial", 13))
+        left_div_label.grid(row=1, column=2, padx=10, pady=10, sticky=tk.W)
+
+        div_options = ["-", "A", "B", "C", "D"]  
+        left_div_var = tk.StringVar()
+        left_div_var.set(div_options[0])  
+        left_div_dropdown = tk.OptionMenu(left_frame, left_div_var, *div_options)
+        left_div_dropdown.config(font=("Arial", 13))
+        left_div_dropdown.grid(row=1, column=3, padx=10, pady=10,sticky=tk.W)
+
+        right_year_label = tk.Label(left_frame, text="Year:", bg="lightblue", font=("Arial", 13))
+        right_year_label.grid(row=1, column=4, padx=10, pady=10)
+
+        year_options = ["-", "2022", "2023", "2024"]  
+        year_div_var = tk.StringVar()
+        year_div_var.set(year_options[0])  
+        year_div_dropdown = tk.OptionMenu(left_frame, year_div_var, *year_options)
+        year_div_dropdown.config(font=("Arial", 13))
+        year_div_dropdown.grid(row=1, column=5, padx=10, pady=10,sticky=tk.W)
+
+        left_name_label = tk.Label(left_frame, text="Name:", bg="lightblue", font=("Arial", 13))
+        left_name_label.grid(row=0, column=2, padx=10, pady=10, sticky=tk.E)
+
+        left_name_entry = tk.Entry(left_frame, font=("Arial", 13))
+        left_name_entry.grid(row=0, column=3, padx=10, pady=10)
+
+        left_father_name_label = tk.Label(left_frame, text="Father Name:", bg="lightblue", font=("Arial", 13))
+        left_father_name_label.grid(row=0, column=4, padx=10, pady=10, sticky=tk.E)
+
+        left_father_name_entry = tk.Entry(left_frame, font=("Arial", 13))
+        left_father_name_entry.grid(row=0, column=5, padx=10, pady=10)
+
+        left_surname_label = tk.Label(left_frame, text="Surname:", bg="lightblue", font=("Arial", 13))
+        left_surname_label.grid(row=0, column=6, padx=10, pady=10, sticky=tk.E)
+
+        left_surname_entry = tk.Entry(left_frame, font=("Arial", 13))
+        left_surname_entry.grid(row=0, column=7, padx=10, pady=10)
+
+        def update_aai_var():
+            left_aai_var.set(not left_aai_var.get())
+
+        left_aai_var = tk.IntVar()
+        left_aai_checkbox = tk.Checkbutton(left_frame, text="AAI", variable=left_aai_var, bg="lightblue", font=("Arial", 13), command=update_aai_var)
+        left_aai_checkbox.grid(row=1, column=6, padx=10, pady=10, sticky=tk.W)
+
+        def update_rte_var():
+            rte_var.set(not rte_var.get())
+
+        rte_var = tk.IntVar()
+        rte_checkbox = tk.Checkbutton(left_frame, text="RTE", variable=rte_var, bg="lightblue", font=("Arial", 13), command=update_rte_var)
+        rte_checkbox.grid(row=1, column=7, padx=10, pady=10, sticky=tk.W)
+
+
+        def update_active_var():
+            left_active_var.set(not left_active_var.get())
+
+        left_active_var = tk.BooleanVar()
+        left_active_checkbox = tk.Checkbutton(left_frame, text="Active", variable=left_active_var, bg="lightblue", font=("Arial", 13), command=update_active_var)
+        left_active_checkbox.grid(row=1, column=8, padx=10, pady=10, sticky=tk.W)
+
+        right_frame = tk.LabelFrame(root, text="Changes", bg="lightblue", padx=10, pady=10,font=("Arial", 10))
+        right_frame.grid(row=1, column=0, padx=10, pady=10,sticky='w')
+
+        right_frame.config(borderwidth=1, relief="solid",highlightbackground="grey", highlightcolor="grey")
+
+        tk.Label(right_frame,text="", bg="lightblue",font=("Arial", 18),width = 10).grid(row=0,column=7, columnspan=1, padx=10, pady=10,sticky='e')
+
+        active_var = tk.BooleanVar()
+        active_checkbox = tk.Checkbutton(right_frame, text="Active", variable=active_var, bg="lightblue", font=("Arial", 13))
+        active_checkbox.grid(row=0, column=4, padx=10, pady=10, sticky=tk.W)
+
+
+        right_std_label = tk.Label(right_frame, text="Standard:",  font=("Arial", 13))
+        right_std_label.grid(row=0, column=0)
+
+        root.bind('<Return>', lambda event: save_data())
+        save_button = tk.Button(right_frame, text="Search", command=save_data, font=("Arial", 13))
+        save_button.grid(row=0, column=8, columnspan=1, padx=10, pady=10,sticky='e')
+
+        def update_right_std(*args):
+            right_std_var.set(left_std_var.get())
+
+
+        left_std_var.set(std_options[0])
+        left_std_var.trace_add("write", update_right_std)
+
+        std_options = ["-", "NUR", "JR.KG", "SR.KG", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "12 COMM", "12 SCI", "11 COMM", "11 SCI"]  
+        right_std_var = tk.StringVar()
+        right_std_var.set(std_options[0])  
+        right_std_dropdown = tk.OptionMenu(right_frame, right_std_var, *std_options)
+        right_std_dropdown.config(font=("Arial", 13))
+        right_std_dropdown.grid(row=0, column=1, padx=10, pady=10)
+
+
+        right_div_label = tk.Label(right_frame, text="Division:", bg="lightblue", font=("Arial", 13))
+        right_div_label.grid(row=0, column=2, padx=10, pady=10, sticky=tk.E)
+
+        div_options = ["-", "A", "B", "C", "D"]  
+        right_div_var = tk.StringVar()
+        right_div_var.set(div_options[0])  
+        right_div_dropdown = tk.OptionMenu(right_frame, right_div_var, *div_options)
+        right_div_dropdown.config(font=("Arial", 13))
+        right_div_dropdown.grid(row=0, column=3, padx=10, pady=10)
+
+        right_year_label1 = tk.Label(right_frame, text="Year:", bg="lightblue", font=("Arial", 13))
+        right_year_label1.grid(row=0, column=5, padx=10, pady=10)
+
+        year_options1 = ["-", "2022", "2023", "2024"]  
+        year_div_var1 = tk.StringVar()
+        year_div_var1.set(year_options1[0])  
+        year_div_dropdown1 = tk.OptionMenu(right_frame, year_div_var1, *year_options1)
+        year_div_dropdown1.config(font=("Arial", 13))
+        year_div_dropdown1.grid(row=0, column=6, padx=10, pady=10,sticky=tk.W)
+
+
+        columns = ("GR_No", "Std", "Div", "Name", "FatherName", "Surname", "AAI","RTE","Active")
+        table = ttk.Treeview(root, columns=columns, show="headings", height=20)
+
+        for col in columns:
+            table.heading(col, text=col)
+
+        for col in columns:
+            table.column(col, width=80)
+
+        table.grid(row=4, column=0, columnspan=3, padx=5, pady=5, sticky="nsew")
+
+
+        style = ttk.Style(root)
+        style.configure("lightblue.Treeview", background="lightblue", font=("Arial", 18))
+
+
+        left_choose_var = tk.BooleanVar()
+        table.tag_configure("Checkbox", background="lightblue")
+
+        def toggle_checkbox(row_id):
+            left_choose_var.set(not left_choose_var.get())
+            selected_items = table.selection()
+            if selected_items:
+                for selected_item in selected_items:
+                    table.item(selected_item, values=(table.item(selected_item, 'values')[0], table.item(selected_item, 'values')[1],
+                                                    table.item(selected_item, 'values')[2], table.item(selected_item, 'values')[3],
+                                                    table.item(selected_item, 'values')[4], table.item(selected_item, 'values')[5],
+                                                    left_choose_var.get()))
+
+        table.tag_bind("Checkbox", '<ButtonRelease-1>', lambda event: toggle_checkbox(table.identify_row(event.y)))
+        table.bind("<Double-Button-1>", on_double_click)
+        table.bind("<<TreeviewSelect>>", on_table_select)
+
+        select_all_button = tk.Button(right_frame, text="Select All", command=select_all_items, font=("Arial", 13))
+        select_all_button.grid(row=0, column=9, columnspan=1, padx=10, pady=10,sticky='e')
+
+        clear_button = tk.Button(right_frame, text="Clear Data", command=clear_table, font=("Arial", 13))
+        clear_button.grid(row=0, column=10, padx=10, pady=10,sticky='e')
+
+        save_button = tk.Button(right_frame, text="Save", command=save_data1, font=("Arial", 13))
+        save_button.grid(row=0, column=11, columnspan=2, padx=10, pady=10,sticky='e')
+
+        def select_all_items():
+            item_ids = table.get_children()
+            for item_id in item_ids:
+                table.selection_add(item_id)
+
+        def clear_data():
+            table.delete(*table.get_children())
+
+        root.mainloop()
+
 
 
 
@@ -1586,9 +2064,9 @@ def GR_FUNCTION():
     img1_print = Image.open(r"ICONS\search.png")
     resized1_print = img1_print.resize((50,50))
     img_print = ImageTk.PhotoImage(resized1_print)
-    GR_PRINT_BTN=Button(MENU_FRAME2,text="PRINT",image=img_print,compound=TOP, bg="lightgrey", relief=FLAT)
-    GR_PRINT_BTN.place(x=20,y=360)
-    GR_PRINT_BTN["state"]="disabled"
+    GR_SEARCH_BTN=Button(MENU_FRAME2,text="SEARCH",image=img_print,compound=TOP, bg="lightgrey", relief=FLAT,command=GR_SEARCH)
+    GR_SEARCH_BTN.place(x=20,y=360)
+    GR_SEARCH_BTN["state"]="disabled"
 
 
 
@@ -1597,6 +2075,167 @@ def GR_FUNCTION():
     img_exit = ImageTk.PhotoImage(resized1_exit)
     GR_EXIT_BTN=Button(MENU_FRAME2,text="EXIT",image=img_exit,compound=TOP, bg="lightgrey", relief=FLAT)
     GR_EXIT_BTN.place(x=20,y=460)
+
+
+
+    def IMPORT_IN_11():
+        import tkinter as tk
+        import mysql.connector
+
+        root = tk.Tk()
+        root.title("IMPORT IN 11")
+
+
+        gr_no_label = tk.Label(root, text="GR_No:", font=("Arial", 18), padx=10, pady=10)
+        gr_no_label.place(x=100, y=100)
+
+        gr_no_var = tk.StringVar()
+        gr_no_entry = tk.Entry(root, textvariable=gr_no_var, font=("Arial", 18))
+        gr_no_entry.place(x=250, y=100)
+
+
+        right_std_label = tk.Label(root, text="Right Screen - Standard:", font=("Arial", 18))
+        right_std_label.place(x=900, y=100)
+
+        std_options = ["11 COMM","11 SCI"]  
+        right_std_var = tk.StringVar()
+        right_std_var.set(std_options[0])
+        right_std_dropdown = tk.OptionMenu(root, right_std_var, *std_options)
+        right_std_dropdown.config(font=("Arial", 18))
+        right_std_dropdown.place(x=1200, y=100)
+
+
+
+        def import_student_in_11():
+
+            conn = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="root",
+            database="airport_school"
+            )
+
+            gr_no_importted = gr_no_entry.get()
+            cursor = conn.cursor()
+            query = f"select * from academic_detail where gr_no = {gr_no_importted} and curr_std = '10'"
+            cursor.execute(query)    
+            result = cursor.fetchone()
+
+            if result:
+                pass
+            else:
+                messagebox.showerror("error","Student not found in 10th standard")
+                return
+
+            query1 = f"select * from gr_details where gr_no = {gr_no_importted}"
+            cursor.execute(query1)    
+            gr_data_of_stu = cursor.fetchone()
+            print("GR : ")
+            print(gr_data_of_stu)
+
+            query2 = f"select * from academic_detail where gr_no = {gr_no_importted}"
+            cursor.execute(query2)    
+            academic_data_of_stu = cursor.fetchone()
+            academic_data_of_stu = list(academic_data_of_stu)
+            academic_data_of_stu[11] = right_std_var.get()
+            academic_data_of_stu = tuple(academic_data_of_stu)
+
+            print("ACADEMIC : ")
+            print(academic_data_of_stu)
+
+            query3 = f"select * from other_detail where gr_no = {gr_no_importted}"
+            cursor.execute(query3)    
+            other_data_of_stu = cursor.fetchone()
+            print("OTHER : ")
+            print(other_data_of_stu)
+
+
+            conn2 = mysql.connector.connect(
+                    host="localhost",
+                    user="root",
+                    password="root",
+                    database="airport_school_new"
+                )
+
+            cursor2 = conn2.cursor()
+
+            q1 = "insert into gr_details values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            cursor2.execute(q1,gr_data_of_stu)
+            q2 = "insert into academic_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            cursor2.execute(q2,academic_data_of_stu)
+            q3 = "insert into other_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            cursor2.execute(q3,other_data_of_stu)
+
+
+            if(academic_data_of_stu[4] == 0):
+                cursor2.execute("select * from std_fees where std='{}'".format(academic_data_of_stu[11]))
+                data = cursor2.fetchall()
+
+                # Check if the row exists
+                cursor2.execute("SELECT * FROM pending_fee_detail WHERE gr_no = %s", (gr_no_importted,))
+                existing_row = cursor2.fetchone()
+
+                if existing_row:
+                    # Update the existing row
+                    cursor2.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ATITVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s,TERM1=%s,TERM2=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],data[0][13],data[0][14],gr_no_importted])
+                else:
+                    # Insert a new row
+                    cursor2.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[gr_no_importted,data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],data[0][13],data[0][14]])
+
+                
+            else:
+                cursor2.execute("select * from std_fees where std='{}'".format(academic_data_of_stu[11]))
+                data = cursor2.fetchall()
+                # Check if the row exists
+                cursor2.execute("SELECT * FROM pending_fee_detail WHERE gr_no = %s", (gr_no_importted,))
+                existing_row = cursor2.fetchone()
+
+                if existing_row:
+                    # Update the existing row
+                    cursor2.execute("update pending_fee_detail set ADMISSION_FEE=%s,ICARD=%s,APR_JUN_TUTION=%s,APR_JUN_ATITVITY=%s,LATE_FEES=%s,JUL_SEP_TUTION=%s,JUL_SEP_ACTIVITY=%s,OCT_DEC_TUTION=%s,OCT_DEC_ACTIVITY=%s,JAN_MAR_TUTION=%s,JAN_MAR_ACTIVITY=%s,OTHERS=%s,TERM1=%s,TERM2=%s where GR_NO=%s",[data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],data[0][13],data[0][14],gr_no_importted])
+                else:
+                    # Insert a new row
+                    cursor2.execute("insert into pending_fee_detail values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[gr_no_importted,data[0][1],data[0][2],data[0][3],data[0][4],data[0][5],data[0][6],data[0][7],data[0][8],data[0][9],data[0][10],data[0][11],data[0][12],data[0][13],data[0][14]])
+
+
+            # Check if the row exists
+            cursor2.execute("SELECT * FROM gr_check WHERE gr_no = %s", (gr_no_importted,))
+            existing_row = cursor2.fetchone()
+
+            if existing_row:
+                # Update the existing row
+                cursor2.execute("UPDATE gr_check SET c1 = 0, c2 = 0, c3 = 0, c4 = 0, c5 = 0, c6 = 0,c7 = 0,C8=0,C9=0 WHERE gr_no = %s",(gr_no_importted,))
+            else:
+                # Insert a new row
+                cursor2.execute("insert into gr_check values({},0,0,0,0,0,0,0,0,0)".format(gr_no_importted))
+
+
+
+
+            # Check if the row exists
+            cursor2.execute("SELECT * FROM fee_details WHERE gr_no = %s", (gr_no_importted,))
+            existing_row = cursor2.fetchone()
+
+            if existing_row:
+                # Update the existing row
+                cursor2.execute("UPDATE fee_details SET c1 = ' ', c2 = ' ', c3 = ' ', c4 = ' ', c5 = ' ', c6 = ' ',c7 = ' ',C8=' ',C9=' ' WHERE gr_no = %s",(gr_no_importted,))
+            else:
+                # Insert a new row
+                    cursor2.execute("insert into fee_details values({},' ',' ',' ',' ',' ',' ',' ',' ',' ')".format(gr_no_importted))
+
+            cursor2.execute("commit")
+
+
+
+        update_button = tk.Button(root, text="IMPORT IN NEW YEAR", command=import_student_in_11, font=("Arial", 18))
+        update_button.place(x=1000, y=200)
+
+
+        root.mainloop()
+
+    GR_IMPORT_IN_11_BTN=Button(MENU_FRAME2,text="IMPORT IN 11",compound=TOP, bg="lightgrey", relief=FLAT,command=IMPORT_IN_11)
+    GR_IMPORT_IN_11_BTN.place(x=20,y=560)
+
     mainloop()
     
 
@@ -1628,7 +2267,9 @@ def GR_FUNCTION():
 
     
 
-def FEES_FUNCTION():
+def FEES_FUNCTION(DatabaseName):
+    mydb = con.connect(host="localhost",user="root",password="root",database=DatabaseName, autocommit=False)
+    cur = mydb.cursor()
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
     for widget in MAIN_FRAME.winfo_children():
@@ -1697,6 +2338,14 @@ def FEES_FUNCTION():
                 C7.select()
             else:
                 C7.deselect()
+            if(int(data[23])==1):
+                C8.select()
+            else:
+                C8.deselect()
+            if(int(data[24])==1):
+                C9.select()
+            else:
+                C9.deselect()
             
 
 
@@ -1790,7 +2439,7 @@ def FEES_FUNCTION():
 
 
 
-        wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=380 ,width=270,relief=RIDGE,borderwidth=2)
+        wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=500 ,width=270,relief=RIDGE,borderwidth=2)
         wrapper2.place(x=800,y=30)
 
 
@@ -1801,6 +2450,8 @@ def FEES_FUNCTION():
         CheckVar5 = IntVar()
         CheckVar6 = IntVar()
         CheckVar7 = IntVar()
+        CheckVar8 = IntVar()
+        CheckVar9 = IntVar()
         # CheckVar8 = IntVar()
         
 
@@ -1811,6 +2462,8 @@ def FEES_FUNCTION():
         C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
         C6 = Checkbutton(wrapper2, text = "ADMISSION FEE", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
         C7 = Checkbutton(wrapper2, text = "ICARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C8 = Checkbutton(wrapper2, text = "TERM 1", variable = CheckVar8,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C9 = Checkbutton(wrapper2, text = "TERM 2", variable = CheckVar9,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
         # C8 = Checkbutton(wrapper2, text = "LATE FEE", variable = CheckVar8,onvalue = 1, offvalue = 0, height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
         
         C1.place(x=0,y=0)
@@ -1820,6 +2473,8 @@ def FEES_FUNCTION():
         C5.place(x=0,y=180)
         C6.place(x=0,y=225)
         C7.place(x=0,y=270)
+        C8.place(x=0,y=315)
+        C9.place(x=0,y=360)
         # C8.place(x=0,y=315)
 
         def receipt_delete():
@@ -1874,6 +2529,14 @@ def FEES_FUNCTION():
                     cur.execute("update gr_check set c7=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
                     cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(fees_data[2],FEES_GR_ENTRY.get()))
                     cur.execute("update fee_details set c7=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                if(CheckVar8.get() == 1):
+                    cur.execute("update gr_check set c8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set LATE_FEES={} where gr_no={}".format(0,FEES_GR_ENTRY))
+                    cur.execute("update fee_details set c8=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
+                if(CheckVar9.get() == 1):
+                    cur.execute("update gr_check set c9=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set TERM1={} where gr_no={}".format(fees_data[13],FEES_GR_ENTRY))
+                    cur.execute("update fee_details set c9=' ' where gr_no={}".format(FEES_GR_ENTRY.get()))
                 # if(CheckVar8.get() == 1):
                 #     cur.execute("update gr_check set c8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
                 #     cur.execute("update pending_fee_detail set LATE_FEES={} where gr_no={}".format(0,FEES_GR_ENTRY))
@@ -1909,144 +2572,166 @@ def FEES_FUNCTION():
             if(RadioVar2.get() == 1):
                 file = open("pending_report.csv","w",newline="\n")
                 writer2 = csv.writer(file)
-                data_heading=['GR NO','NAME','STD','CONTACT NUMBER','APR-JUN TUTION','APR-JUN ACTIVTIY','JUL-SEP TUTION','JUL-SEP ACTIVITY','OCT-DEC TUTION','OCT-DEC ACTIVITY','JAN-MAR TUTION','JAN-MAR ACTIVITY','OTHERS','ADMISSION','ICARD']
+                data_heading=['GR NO','NAME','STD','CONTACT NUMBER','APR-JUN TUTION','APR-JUN ACTIVTIY','JUL-SEP TUTION','JUL-SEP ACTIVITY','OCT-DEC TUTION','OCT-DEC ACTIVITY','JAN-MAR TUTION','JAN-MAR ACTIVITY','OTHERS','ADMISSION','ICARD','TERM 1','TERM 2']
                 writer2.writerow(data_heading)
                 cur.execute("select * from GR_CHECK order by gr_no")
                 data1 = cur.fetchall()
                 for i in data1:
                     # print(i)
-                    cur.execute("select left1,aai1 from academic_detail where gr_no={}".format(i[0]))
-                    left_data = cur.fetchall()[0]
-                    # print(left_data)
-                    if left_data[0] == 0:
-                        if left_data[1] == 1:
-                            data=[]
-                            cur.execute("select * from pending_fee_detail where gr_no={}".format(i[0]))
-                            data2 = cur.fetchall()[0]
-                            data.append(i[0])
-                            cur.execute("select curr_std,division from academic_detail where gr_no={}".format(i[0]))
-                            current_std = cur.fetchall()[0]
-                            cur.execute("select * from exmp_fees where std='{}'".format(current_std[0]))
-                            exmp_fee_data = cur.fetchall()[0]
-                            try:
-                                cur.execute("select name,father,surname from gr_details where gr_no={}".format(i[0]))
-                                data46 = cur.fetchall()[0]
-                                data.append(data46[0] +" "+ data46[1] +" "+ data46[2])
-                            except:
-                                data.append(' ')
-                            try:
+                    try:
+                        cur.execute("select left1,aai1,active1 from academic_detail where gr_no={}".format(i[0]))
+                        left_data = cur.fetchall()[0]
+                        cur.execute("select rte from gr_details where gr_no={}".format(i[0]))
+                        rte_data = cur.fetchall()[0]
+                        print("PENDING FEE REPORTING",left_data,"GR NO",i[0])
+                        if left_data[0] == 0 and left_data[2] == 1 and rte_data[0] == 0:
+                            if left_data[1] == 1:
+                                data=[]
+                                cur.execute("select * from pending_fee_detail where gr_no={}".format(i[0]))
+                                data2 = cur.fetchall()[0]
+                                data.append(i[0])
                                 cur.execute("select curr_std,division from academic_detail where gr_no={}".format(i[0]))
-                                data49 = cur.fetchall()[0]
-                                data.append(data49[0] +"-"+ data49[1])
-                            except:
-                                data.append(' ')
-                            try:
-                                cur.execute("select phone_no from other_detail where gr_no={}".format(i[0]))
-                                data47 = cur.fetchall()[0]
-                                data.append(data47[0])
-                            except:
-                                data.append(0)
-                            if (i[1] == 0):
-                                data.append(data2[3]-int(exmp_fee_data[3]))
-                                data.append(data2[4]-int(exmp_fee_data[4]))
+                                current_std = cur.fetchall()[0]
+                                cur.execute("select * from exmp_fees where std='{}'".format(current_std[0]))
+                                exmp_fee_data = cur.fetchall()[0]
+                                try:
+                                    cur.execute("select name,father,surname from gr_details where gr_no={}".format(i[0]))
+                                    data46 = cur.fetchall()[0]
+                                    data.append(data46[0] +" "+ data46[1] +" "+ data46[2])
+                                except:
+                                    data.append(' ')
+                                try:
+                                    cur.execute("select curr_std,division from academic_detail where gr_no={}".format(i[0]))
+                                    data49 = cur.fetchall()[0]
+                                    data.append(data49[0] +"-"+ data49[1])
+                                except:
+                                    data.append(' ')
+                                try:
+                                    cur.execute("select phone_no from other_detail where gr_no={}".format(i[0]))
+                                    data47 = cur.fetchall()[0]
+                                    data.append(data47[0])
+                                except:
+                                    data.append(0)
+                                if (i[1] == 0):
+                                    data.append(data2[3]-int(exmp_fee_data[3]))
+                                    data.append(data2[4]-int(exmp_fee_data[4]))
+                                else:
+                                    data.append(0)
+                                    data.append(0)
+                                if i[2] == 0:
+                                    data.append(data2[6]-int(exmp_fee_data[6]))
+                                    data.append(data2[7]-int(exmp_fee_data[7]))
+                                else:
+                                    data.append(0)
+                                    data.append(0)
+                                if i[3] == 0:
+                                    data.append(data2[8]-int(exmp_fee_data[8]))
+                                    data.append(data2[9]-int(exmp_fee_data[9]))
+                                else:
+                                    data.append(0)
+                                    data.append(0)
+                                if i[4] == 0:
+                                    data.append(data2[10]-int(exmp_fee_data[10]))
+                                    data.append(data2[11]-int(exmp_fee_data[11]))
+                                else:
+                                    data.append(0)
+                                    data.append(0)
+                                if i[5] == 0:
+                                    data.append(data2[12]-int(exmp_fee_data[12]))
+                                else:
+                                    data.append(0)
+                                if i[6] == 0:
+                                    data.append(data2[1]-int(exmp_fee_data[1]))
+                                else:
+                                    data.append(0)
+                                if i[7] == 0:
+                                    data.append(data2[2]-int(exmp_fee_data[2]))
+                                else:
+                                    data.append(0)
+                                if i[8] == 0:
+                                    data.append(data2[13]-int(exmp_fee_data[13]))
+                                else:
+                                    data.append(0)
+                                if i[9] == 0:
+                                    data.append(data2[14]-int(exmp_fee_data[14]))
+                                else:
+                                    data.append(0)
+                                
                             else:
-                                data.append(0)
-                                data.append(0)
-                            if i[2] == 0:
-                                data.append(data2[6]-int(exmp_fee_data[6]))
-                                data.append(data2[7]-int(exmp_fee_data[7]))
-                            else:
-                                data.append(0)
-                                data.append(0)
-                            if i[3] == 0:
-                                data.append(data2[8]-int(exmp_fee_data[8]))
-                                data.append(data2[9]-int(exmp_fee_data[9]))
-                            else:
-                                data.append(0)
-                                data.append(0)
-                            if i[4] == 0:
-                                data.append(data2[10]-int(exmp_fee_data[10]))
-                                data.append(data2[11]-int(exmp_fee_data[11]))
-                            else:
-                                data.append(0)
-                                data.append(0)
-                            if i[5] == 0:
-                                data.append(data2[12]-int(exmp_fee_data[12]))
-                            else:
-                                data.append(0)
-                            if i[6] == 0:
-                                data.append(data2[1]-int(exmp_fee_data[1]))
-                            else:
-                                data.append(0)
-                            if i[7] == 0:
-                                data.append(data2[2]-int(exmp_fee_data[2]))
-                            else:
-                                data.append(0)
-                        
-                        else:
-                            data=[]
-                            cur.execute("select * from pending_fee_detail where gr_no={}".format(i[0]))
-                            data2 = cur.fetchall()[0]
-                            data.append(i[0])
-                            try:
-                                cur.execute("select name,father,surname from gr_details where gr_no={}".format(i[0]))
-                                data46 = cur.fetchall()[0]
-                                data.append(data46[0] +" "+ data46[1] +" "+ data46[2])
-                            except:
-                                data.append(' ')
-                            try:
-                                cur.execute("select curr_std,division from academic_detail where gr_no={}".format(i[0]))
-                                data49 = cur.fetchall()[0]
-                                data.append(data49[0] +"-"+ data49[1])
-                            except:
-                                data.append(' ')
-                            try:
-                                cur.execute("select phone_no from other_detail where gr_no={}".format(i[0]))
-                                data47 = cur.fetchall()[0]
-                                data.append(data47[0])
-                            except:
-                                data.append(0)
-                            # cur.execute("select gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.division from gr_details,academic_detail where gr_details.gr_no={} and gr_details.gr_no=academic_detail.gr_no".format(i[0]))
-                            # student_detail = cur.fetchall()[0]
-                            # data.append(student_detail[0]+" "+student_detail[1])
-                            # data.append(student_detail[2] + "-" + student_detail[3])anand1972anand1972
-                            if (i[1] == 0):
-                                data.append(data2[3])
-                                data.append(data2[4])
-                            else:
-                                data.append(0)
-                                data.append(0)
-                            if i[2] == 0:
-                                data.append(data2[6])
-                                data.append(data2[7])
-                            else:
-                                data.append(0)
-                                data.append(0)
-                            if i[3] == 0:
-                                data.append(data2[8])
-                                data.append(data2[9])
-                            else:
-                                data.append(0)
-                                data.append(0)
-                            if i[4] == 0:
-                                data.append(data2[10])
-                                data.append(data2[11])
-                            else:
-                                data.append(0)
-                                data.append(0)
-                            if i[5] == 0:
-                                data.append(data2[12])
-                            else:
-                                data.append(0)
-                            if i[6] == 0:
-                                data.append(data2[1])
-                            else:
-                                data.append(0)
-                            if i[7] == 0:
-                                data.append(data2[2])
-                            else:
-                                data.append(0)
-                        writer2.writerow(data)
+                                data=[]
+                                cur.execute("select * from pending_fee_detail where gr_no={}".format(i[0]))
+                                data2 = cur.fetchall()[0]
+                                data.append(i[0])
+                                try:
+                                    cur.execute("select name,father,surname from gr_details where gr_no={}".format(i[0]))
+                                    data46 = cur.fetchall()[0]
+                                    data.append(data46[0] +" "+ data46[1] +" "+ data46[2])
+                                except:
+                                    data.append(' ')
+                                try:
+                                    cur.execute("select curr_std,division from academic_detail where gr_no={}".format(i[0]))
+                                    data49 = cur.fetchall()[0]
+                                    data.append(data49[0] +"-"+ data49[1])
+                                except:
+                                    data.append(' ')
+                                try:
+                                    cur.execute("select phone_no from other_detail where gr_no={}".format(i[0]))
+                                    data47 = cur.fetchall()[0]
+                                    data.append(data47[0])
+                                except:
+                                    data.append(0)
+                                # cur.execute("select gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.division from gr_details,academic_detail where gr_details.gr_no={} and gr_details.gr_no=academic_detail.gr_no".format(i[0]))
+                                # student_detail = cur.fetchall()[0]
+                                # data.append(student_detail[0]+" "+student_detail[1])
+                                # data.append(student_detail[2] + "-" + student_detail[3])anand1972anand1972
+                                if (i[1] == 0):
+                                    data.append(data2[3])
+                                    data.append(data2[4])
+                                else:
+                                    data.append(0)
+                                    data.append(0)
+                                if i[2] == 0:
+                                    data.append(data2[6])
+                                    data.append(data2[7])
+                                else:
+                                    data.append(0)
+                                    data.append(0)
+                                if i[3] == 0:
+                                    data.append(data2[8])
+                                    data.append(data2[9])
+                                else:
+                                    data.append(0)
+                                    data.append(0)
+                                if i[4] == 0:
+                                    data.append(data2[10])
+                                    data.append(data2[11])
+                                else:
+                                    data.append(0)
+                                    data.append(0)
+                                if i[5] == 0:
+                                    data.append(data2[12])
+                                else:
+                                    data.append(0)
+                                if i[6] == 0:
+                                    data.append(data2[1])
+                                else:
+                                    data.append(0)
+                                if i[7] == 0:
+                                    data.append(data2[2])
+                                else:
+                                    data.append(0)
+                                if i[8] == 0:
+                                    data.append(data2[13])
+                                else:
+                                    data.append(0)
+                                if i[9] == 0:
+                                    data.append(data2[14])
+                                else:
+                                    data.append(0)
+                            writer2.writerow(data)
+                    except:
+                        pass
+
             if(RadioVar2.get() == 2):
                 file = open("paid_report.csv","w",newline="\n")
                 writer2 = csv.writer(file)
@@ -2059,7 +2744,7 @@ def FEES_FUNCTION():
                     data.append(i[2])
                     data.append(i[4])
                     data.append(str(i[6]) + "-" + str(i[7]))
-                    xyz = [i[16],i[17],i[18],i[19],i[20],i[21],i[22]]
+                    xyz = [i[16],i[17],i[18],i[19],i[20],i[21],i[22],i[23],i[24]]
                     a = ""
                     if xyz[0] == 1:
                         a = a + "APR-JUN,"
@@ -2075,6 +2760,10 @@ def FEES_FUNCTION():
                         a = a + "ICARD,"
                     if xyz[5] == 1:
                         a = a + "ADMISSION,"
+                    if xyz[7] == 1:
+                        a = a + "TERM1,"
+                    if xyz[8] == 1:
+                        a = a + "TERM2,"
                     data.append(a)
                     data.append(i[9])
                     data.append(i[11])
@@ -2129,6 +2818,11 @@ def FEES_FUNCTION():
                     OLD_ENT.insert(0,pending_data[2])
                 if (val == 7):
                     OLD_ENT.insert(0,pending_data[1])
+                if (val == 8):
+                    OLD_ENT.insert(0,pending_data[13])
+                if (val == 9):
+                    OLD_ENT.insert(0,pending_data[14])
+                
             else:
                 if (val == 1):
                     OLD_ENT.insert(0,pending_data[3] - exmp_data[3])
@@ -2148,6 +2842,10 @@ def FEES_FUNCTION():
                     OLD_ENT.insert(0,pending_data[2] - exmp_data[2])
                 if (val == 7):
                     OLD_ENT.insert(0,pending_data[1] - exmp_data[1])
+                if (val == 8):
+                    OLD_ENT.insert(0,pending_data[13] - exmp_data[13])
+                if (val == 9):
+                    OLD_ENT.insert(0,pending_data[14] - exmp_data[14])
         FEES_GR_LABEL=Label(MAIN_FRAME,text="GR : ",font=('Arial', 13),bg="lightpink")
         FEES_GR_LABEL.place(x=70,y=80)
         FEES_GR_ENTRY=Entry(MAIN_FRAME,width=17,font=('Arial', 13))
@@ -2173,7 +2871,7 @@ def FEES_FUNCTION():
 
 
 
-        wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=350,width=270,relief=RIDGE,borderwidth=2)
+        wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=500,width=270,relief=RIDGE,borderwidth=2)
         wrapper2.place(x=850,y=30)
 
         RadioVar = IntVar()
@@ -2185,6 +2883,8 @@ def FEES_FUNCTION():
         C5 = Radiobutton(wrapper2, text = "OTHERS", variable = RadioVar, value=5,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
         C6 = Radiobutton(wrapper2, text = "ICARD", variable = RadioVar, value=6,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
         C7 = Radiobutton(wrapper2, text = "ADMISSION", variable = RadioVar, value=7,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C8 = Radiobutton(wrapper2, text = "TERM 1", variable = RadioVar, value=8,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
+        C9 = Radiobutton(wrapper2, text = "TERM 2", variable = RadioVar, value=9,height=2,font=('Arial', 13),bg="lightpink",activebackground='lightpink')
         C1.place(x=0,y=0)
         C2.place(x=0,y=45)
         C3.place(x=0,y=90)
@@ -2192,6 +2892,8 @@ def FEES_FUNCTION():
         C5.place(x=0,y=180)
         C6.place(x=0,y=225)
         C7.place(x=0,y=270)
+        C8.place(x=0,y=315)
+        C9.place(x=0,y=360)
 
 
 
@@ -2243,6 +2945,10 @@ def FEES_FUNCTION():
                     cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(newfee,gr))
                 if (val == 7):
                     cur.execute("update pending_fee_detail set admission_fee={} where gr_no={}".format(newfee,gr))
+                if (val == 8):
+                    cur.execute("update pending_fee_detail set term1={} where gr_no={}".format(newfee,gr))
+                if (val == 9):
+                    cur.execute("update pending_fee_detail set term2={} where gr_no={}".format(newfee,gr))
             else:
                 if (val == 1):
                     cur.execute("update pending_fee_detail set apr_jun_tution={},apr_jun_atitvity={} where gr_no={}".format(int(newfee) + exmp_data[3],int(newfee1) + exmp_data[4],gr))
@@ -2258,11 +2964,15 @@ def FEES_FUNCTION():
                     cur.execute("update pending_fee_detail set ICARD={} where gr_no={}".format(int(newfee) + exmp_data[2],gr))
                 if (val == 7):
                     cur.execute("update pending_fee_detail set admission_fee={} where gr_no={}".format(int(newfee) + exmp_data[1],gr))
+                if (val == 8):
+                    cur.execute("update pending_fee_detail set term1={} where gr_no={}".format(int(newfee) + exmp_data[13],gr))
+                if (val == 9):
+                    cur.execute("update pending_fee_detail set term2={} where gr_no={}".format(int(newfee) + exmp_data[14],gr))
             mydb.commit()
             for widget in MAIN_FRAME.winfo_children():
                 widget.destroy()
         SAVE_BTN=Button(MAIN_FRAME,text="SAVE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 13),command=gr_fees_change_save)
-        SAVE_BTN.place(x=850,y=400)
+        SAVE_BTN.place(x=850,y=600)
 
 
     FEES_3=Button(MENU_FRAME2,text="GR FEES CHANGE",command=gr_fees_change)
@@ -2287,7 +2997,7 @@ def FEES_FUNCTION():
             def create_table(self):
                 # Connect to the MySQL database (replace the parameters with your database details)
                 self.db = mysql.connector.connect(
-                    host="localhost", user="root", password="root", database="airport_school_new"
+                    host="localhost", user="root", password="root", database=DatabaseName
                 )
                 self.cursor = self.db.cursor()
 
@@ -2314,6 +3024,8 @@ def FEES_FUNCTION():
                 for col_index, column_name in enumerate(columns):
                     heading_label = tk.Label(frame, text=column_name, font=('bold', 15), bg="lightpink")
                     heading_label.grid(row=0, column=col_index, padx=10, pady=10)
+
+                    
 
                 for row_index, row in enumerate(data):
                     for col_index, value in enumerate(row):
@@ -2451,7 +3163,7 @@ def FEES_FUNCTION():
 
 
 
-    wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=320,width=250,relief=RIDGE,borderwidth=2)
+    wrapper2=Frame(MAIN_FRAME,bg="lightpink",height=500,width=250,relief=RIDGE,borderwidth=2)
     wrapper2.place(x=890,y=30)
 
 
@@ -2463,6 +3175,7 @@ def FEES_FUNCTION():
     CheckVar6 = IntVar()
     CheckVar7 = IntVar()
     CheckVar8 = IntVar()
+    CheckVar9 = IntVar()
 
     C1 = Checkbutton(wrapper2, text = "APR JUN FEES", variable = CheckVar1,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
     C2 = Checkbutton(wrapper2, text = "JUL SEP FEES", variable = CheckVar2,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
@@ -2471,6 +3184,8 @@ def FEES_FUNCTION():
     C5 = Checkbutton(wrapper2, text = "OTHERS", variable = CheckVar5,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
     C6 = Checkbutton(wrapper2, text = "ADMISSION", variable = CheckVar6,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
     C7 = Checkbutton(wrapper2, text = "ICARD", variable = CheckVar7,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
+    C8 = Checkbutton(wrapper2, text = "TERM 1", variable = CheckVar8,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
+    C9 = Checkbutton(wrapper2, text = "TERM 2", variable = CheckVar9,onvalue = 1, offvalue = 0, height=2,font=('Arial', 11),bg="lightpink",activebackground='lightpink')
 
     C1.place(x=0,y=0)
     C2.place(x=0,y=40)
@@ -2479,125 +3194,397 @@ def FEES_FUNCTION():
     C5.place(x=0,y=160)
     C6.place(x=0,y=200)
     C7.place(x=0,y=240)
+    C8.place(x=0,y=280)
+    C9.place(x=0,y=320)
     
 
 
     global fees_search
     def fees_search(e):
     
-        root.bell()
-        top = Toplevel()
-        # top.attributes('-fullscreen', True)
-        top.geometry("1400x700")
-        top.title("ZETA CORE")
-        top.configure(bg="lightpink")
-        photo = PhotoImage(file = r"ICONS\Zeta.png")
-        top.iconphoto(False, photo)
+        import tkinter as tk
+        from tkinter import ttk, simpledialog, messagebox
+        import mysql.connector as con
 
-        search_label=Label(top, text='Search : ', font=('Orator Std',16), fg='white', bg='lightpink')
-        search_label.place(x=100, y=20)
+        def execute_query_and_display(query):
+            try:
+                conn = con.connect(
+                    host="localhost",
+                    user="root",
+                    password="root",
+                    database=f"{DatabaseName}"
+                )
 
+                cursor = conn.cursor()
+                cursor.execute(query)
+                result = cursor.fetchall()
 
-        surname_label=Label(top,text="Surname :", font=('Orator Std',12, 'bold'), bg='lightpink')
-        surname_label.place(x=250, y=100)
-        surname_var=StringVar()
-        surname_entry=Entry(top, font=('Orator Std',10, 'bold'),textvariable=surname_var, width=18)
-        surname_entry.place(x=350, y=100)
-        
+                clear_table()
 
+                for row in result:
+                    table.insert('', 'end', values=row)
 
-        name_label=Label(top,text="Name :", font=('Orator Std',12, 'bold'), bg='lightpink')
-        name_label.place(x=550, y=100)
-        name_var=StringVar()
-        name_entry=Entry(top, font=('Orator Std',10, 'bold'),textvariable=name_var, width=18)
-        name_entry.place(x=630, y=100)
+                if not result:
+                    messagebox.showinfo("No Data Found", "No data found for the specified criteria.")
 
+            except con.Error as e:
+                messagebox.showerror("Error", f"Error: {e}")
 
-        gr_num_label=Label(top, text="GR no :",font=('Orator Std',12, 'bold'), bg='lightpink')
-        gr_num_label.place(x=200, y=150)
-        gr_num_label=Label(top, text=">=",font=('Orator Std',12, 'bold'), bg='lightpink')
-        gr_num_label.place(x=300, y=150)
-        gr_num_var=IntVar()
-        gr_num_entry=Entry(top,font=('Orator Std',10, 'bold'), textvariable=gr_num_var, width=15)
-        gr_num_entry.place(x=350, y=150)
+            finally:
+                if conn.is_connected():
+                    cursor.close()
+                    conn.close()
 
+        def clear_table():
+            for row in table.get_children():
+                table.delete(row)
 
-        gr_num_label2=Label(top, text="<=",font=('Orator Std',12, 'bold'), bg='lightpink')
-        gr_num_label2.place(x=580, y=150)
-        gr_num_var2=IntVar()
-        gr_num_entry2=Entry(top,font=('Orator Std',10, 'bold'), textvariable=gr_num_var2, width=15)
-        gr_num_entry2.place(x=630, y=150)
+        def save_data():
+            gr_no_value = gr_no_var.get()
+            left_std_value = left_std_var.get()
+            left_div_value = left_div_var.get()
+            left_name_value = left_name_entry.get()
+            left_father_name_value = left_father_name_entry.get()
+            left_surname_value = left_surname_entry.get()
+            left_aai_value = int(left_aai_var.get())
+            rte_value = int(rte_var.get())
+            active_value=int(active_var.get())
 
+            query = """
+            SELECT academic_detail.gr_no, academic_detail.curr_std, academic_detail.division, academic_detail.name, gr_details.father,
+            gr_details.surname, academic_detail.aai1, gr_details.RTE,academic_detail.active1
+            FROM academic_detail
+            JOIN gr_details ON academic_detail.gr_no = gr_details.GR_NO
+            """
 
+            where_clauses = []
 
-
-
-
-        
-
-
-        tree_frame=Frame(top, width=1000)
-        tree_frame.place(x=100, y=200)
-
-        scrollbary = Scrollbar(tree_frame, orient=VERTICAL)    
-        scrollbary.pack(side=RIGHT, fill=Y)
-
-        style = ttk.Style()
-        style.configure("Treeview", foreground="black")
-
-
-
-
-        treeview = ttk.Treeview(tree_frame, yscrollcommand=scrollbary.set,columns=("GR No", "Name", "Surname","Standard", "Division", "Roll No"), show='headings', height=22)  
-        treeview.pack(fill=X)
-        scrollbary.config(command=treeview.yview())
-
-        treeview.heading("GR No", text="GR No")
-        treeview.heading("Name", text="Name")
-        treeview.heading("Surname", text="Surname")
-        treeview.heading("Standard", text="Standard")
-        treeview.heading("Division", text="Division")
-        treeview.heading("Roll No", text="Roll No")
-
-        cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.division,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no")
-        data = cur.fetchall()
-        
-        for i in range(len(data)):
-            treeview.insert(parent='', iid=i, index='end',text='', values=data[i])
-        
-        
-        
-        # def treeview_insert():
-        #     cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.division,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.name like {}% and gr_details.surname like {}% and academic_detail.curr_std like {}%".format(name_var.get(),surname_var.get(),gr_num_var.get()))
-        #     data = cur.fetchall()
+            if gr_no_value:
+                where_clauses.append(f"academic_detail.gr_no = {gr_no_value}")
             
-        #     for i in range(len(data)):
-        #         treeview.insert(parent='', iid=i, index='end',text='', values=data[i])
+            if left_std_value:
+                if left_std_value == "-":
+                    where_clauses.append("academic_detail.curr_std LIKE '%'")
+                else:
+                    where_clauses.append(f"academic_detail.curr_std = '{left_std_value}'")
+            
+            if left_div_value:
+                if left_div_value == "-":
+                    where_clauses.append("academic_detail.division LIKE '%'")
+                else:
+                    where_clauses.append(f"academic_detail.division = '{left_div_value}'")
 
-        def fees_search1(e):
-            # print(gr_num_entry.get())
-            # print(gr_num_entry2.get())
-            if(name_entry.get() == '' or surname_entry.get() == ''):
-                cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.division,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no >= {} and gr_details.gr_no <= {}".format(gr_num_entry.get(),gr_num_entry2.get()))
-                treeview.delete(*treeview.get_children())
-                data = cur.fetchall()
-            else:
-                cur.execute("select gr_details.gr_no,gr_details.name,gr_details.surname,academic_detail.curr_std,academic_detail.division,academic_detail.roll_no from gr_details,academic_detail where gr_details.gr_no=academic_detail.gr_no and gr_details.gr_no >= {} and gr_details.gr_no <= {} and gr_details.name like '{}%' and gr_details.surname like '{}%'".format(gr_num_entry.get(),gr_num_entry2.get(),name_entry.get(),surname_entry.get()))
+            if left_name_value:
+                where_clauses.append(f"academic_detail.name LIKE '{left_name_value}%'")
 
-                treeview.delete(*treeview.get_children())
-                data = cur.fetchall()
+            if left_father_name_value:
+                where_clauses.append(f"gr_details.father LIKE '{left_father_name_value}%'")
+
+            if left_surname_value:
+                where_clauses.append(f"gr_details.surname LIKE '{left_surname_value}%'")
+
+            if left_aai_value:
+                where_clauses.append(f"academic_detail.aai1 = 1")
+
+            if rte_var.get():
+                where_clauses.append(f"gr_details.RTE = 1")
+
+            if left_active_var.get():
+                where_clauses.append(f"academic_detail.active1 = 1")
+
+                
+            if where_clauses:
+                query += " WHERE " + " AND ".join(where_clauses)
+
+            execute_query_and_display(query)
+
+
+        def on_table_select(event):
+            try:
+                selected_item = table.selection()
+                if selected_item:
+                    std = table.item(selected_item, 'values')[1]
+                    div = table.item(selected_item, 'values')[2]
+                    right_std_var.set(std)
+                    right_div_var.set(div)
+            except Exception as e:
+                # Handle the exception silently
+                pass
+
+
+        def select_all_items():
+            item_ids = table.get_children()
+            for item_id in item_ids:
+                table.selection_add(item_id)
+
+
+        def save_data1():
+            password = simpledialog.askstring("1234", "Enter password:", show='*')
+            if password != "1234":
+                messagebox.showerror("Error", "Incorrect password.")
+                return
+            
+            conn = con.connect(
+                    host="localhost",
+                    user="root",
+                    password="root",
+                    database=f"{DatabaseName}"
+                )
+                
+            cursor = conn.cursor()
+            selected_items = table.selection()
+
+            for selected_item in selected_items:
+                gr_no = table.item(selected_item, 'values' )[0]
+                print(gr_no)
+
+                if (right_std_var.get() == '-'):
+                    cursor.execute("SELECT curr_std FROM academic_detail WHERE gr_no = %s", (gr_no,))
+                    result1 = cursor.fetchone()
+                    std = result1[0] if result1 else None
+
+                else:
+                    std = right_std_var.get()
+                
+                
+                if (right_div_var.get() == '-'):
+                    cursor.execute("SELECT division FROM academic_detail WHERE gr_no = %s", (gr_no,))
+                    result = cursor.fetchone()
+                    div = result[0] if result else None 
+
+                else:
+                    div = right_div_var.get()       
+                
+                
+                active = int(active_var.get())
+
+                update_query = """
+                UPDATE academic_detail
+                SET curr_std = %s, division = %s, active1 = %s
+                WHERE gr_no = %s
+                """
+                update_data = (std, div, active,gr_no)
+                cursor.execute(update_query, update_data)
+                conn.commit()
+
+            messagebox.showinfo("Update", "Selected records updated successfully.")
+        def on_double_click(event):
+            selected_item = table.selection()
+            if selected_item:
+                gr_no = table.item(selected_item, 'values')[0]
+                # Use the GR No value as needed, for example, print it
+                # print("Selected GR No:", gr_no)
+                gr_no_var.set(gr_no)
+                fees_insert("",gr_no)
+                root.destroy()
+            # gr_no_value = gr_no_var.get()
+            # print("FEES INSERT GR :",gr_no_value)
+            # fees_insert("",gr_no_value)
+
+
+        root = tk.Tk()
+        root.title("Student Information")
+        root.configure(bg="lightpink")
+
+        left_frame = tk.Frame(root, bg="lightpink")
+        left_frame.grid(row=0, column=0, padx=10, pady=10,sticky='w')
+
+        gr_no_label = tk.Label(left_frame, text="GR_No:", bg="lightpink", font=("Arial", 13))
+        gr_no_label.grid(row=0, column=0, padx=5, pady=5, sticky=tk.E)
+
+        gr_no_var = tk.StringVar()
+        gr_no_entry = tk.Entry(left_frame, textvariable=gr_no_var, font=("Arial", 13))
+        gr_no_entry.grid(row=0, column=1, padx=10, pady=10)
+        # Bind the double-click event to the Entry widget
+        gr_no_entry.bind("<Double-Button-1>", on_double_click)
+
+        left_std_label = tk.Label(left_frame, text="Standard:", bg="lightpink", font=("Arial", 13))
+        left_std_label.grid(row=1, column=0, padx=10, pady=10, sticky=tk.E)
+
+        std_options = ["-", "NUR", "JR.KG", "SR.KG", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "12 COMM", "12 SCI", "11 COMM", "11 SCI"]  
         
-            for i in range(len(data)):
-                treeview.insert(parent='', iid=i, index='end',text='', values=data[i])
-        surname_entry.bind("<Return>",fees_search1)
-        name_entry.bind("<Return>",fees_search1)
-        gr_num_entry.bind("<Return>",fees_search1)
-        gr_num_entry2.bind("<Return>",fees_search1)
-        
+        left_std_var = tk.StringVar()
+        left_std_dropdown = tk.OptionMenu(left_frame, left_std_var, *std_options)
+        left_std_dropdown.config(font=("Arial", 13))
+        left_std_dropdown.grid(row=1, column=1, padx=10, pady=10,sticky=tk.W)
 
-        search_btn=Button(top, text="Search",font=('Orator STD',10, 'bold'), width=10,command=fees_search1)
-        search_btn.place(x=1000, y=150)
-        top.mainloop()
+        left_div_label = tk.Label(left_frame, text="Division:", bg="lightpink", font=("Arial", 13))
+        left_div_label.grid(row=1, column=2, padx=10, pady=10, sticky=tk.W)
+
+        div_options = ["-", "A", "B", "C", "D"]  
+        left_div_var = tk.StringVar()
+        left_div_var.set(div_options[0])  
+        left_div_dropdown = tk.OptionMenu(left_frame, left_div_var, *div_options)
+        left_div_dropdown.config(font=("Arial", 13))
+        left_div_dropdown.grid(row=1, column=3, padx=10, pady=10,sticky=tk.W)
+
+        right_year_label = tk.Label(left_frame, text="Year:", bg="lightpink", font=("Arial", 13))
+        right_year_label.grid(row=1, column=4, padx=10, pady=10)
+
+        year_options = ["-", "2022", "2023", "2024"]  
+        year_div_var = tk.StringVar()
+        year_div_var.set(year_options[0])  
+        year_div_dropdown = tk.OptionMenu(left_frame, year_div_var, *year_options)
+        year_div_dropdown.config(font=("Arial", 13))
+        year_div_dropdown.grid(row=1, column=5, padx=10, pady=10,sticky=tk.W)
+
+        left_name_label = tk.Label(left_frame, text="Name:", bg="lightpink", font=("Arial", 13))
+        left_name_label.grid(row=0, column=2, padx=10, pady=10, sticky=tk.E)
+
+        left_name_entry = tk.Entry(left_frame, font=("Arial", 13))
+        left_name_entry.grid(row=0, column=3, padx=10, pady=10)
+
+        left_father_name_label = tk.Label(left_frame, text="Father Name:", bg="lightpink", font=("Arial", 13))
+        left_father_name_label.grid(row=0, column=4, padx=10, pady=10, sticky=tk.E)
+
+        left_father_name_entry = tk.Entry(left_frame, font=("Arial", 13))
+        left_father_name_entry.grid(row=0, column=5, padx=10, pady=10)
+
+        left_surname_label = tk.Label(left_frame, text="Surname:", bg="lightpink", font=("Arial", 13))
+        left_surname_label.grid(row=0, column=6, padx=10, pady=10, sticky=tk.E)
+
+        left_surname_entry = tk.Entry(left_frame, font=("Arial", 13))
+        left_surname_entry.grid(row=0, column=7, padx=10, pady=10)
+
+        def update_aai_var():
+            left_aai_var.set(not left_aai_var.get())
+
+        left_aai_var = tk.IntVar()
+        left_aai_checkbox = tk.Checkbutton(left_frame, text="AAI", variable=left_aai_var, bg="lightpink", font=("Arial", 13), command=update_aai_var)
+        left_aai_checkbox.grid(row=1, column=6, padx=10, pady=10, sticky=tk.W)
+
+        def update_rte_var():
+            rte_var.set(not rte_var.get())
+
+        rte_var = tk.IntVar()
+        rte_checkbox = tk.Checkbutton(left_frame, text="RTE", variable=rte_var, bg="lightpink", font=("Arial", 13), command=update_rte_var)
+        rte_checkbox.grid(row=1, column=7, padx=10, pady=10, sticky=tk.W)
+
+
+        def update_active_var():
+            left_active_var.set(not left_active_var.get())
+
+        left_active_var = tk.BooleanVar()
+        left_active_checkbox = tk.Checkbutton(left_frame, text="Active", variable=left_active_var, bg="lightpink", font=("Arial", 13), command=update_active_var)
+        left_active_checkbox.grid(row=1, column=8, padx=10, pady=10, sticky=tk.W)
+
+
+
+        right_frame = tk.LabelFrame(root, text="Changes", bg="lightpink", padx=10, pady=10,font=("Arial", 10))
+        right_frame.grid(row=1, column=0, padx=10, pady=10,sticky='w')
+
+        right_frame.config(borderwidth=1, relief="solid",highlightbackground="grey", highlightcolor="grey")
+
+        tk.Label(right_frame,text="", bg="lightpink",font=("Arial", 18),width = 10).grid(row=0,column=7, columnspan=1, padx=10, pady=10,sticky='e')
+
+        active_var = tk.BooleanVar()
+        active_checkbox = tk.Checkbutton(right_frame, text="Active", variable=active_var, bg="lightpink", font=("Arial", 13))
+        active_checkbox.grid(row=0, column=4, padx=10, pady=10, sticky=tk.W)
+
+
+        right_std_label = tk.Label(right_frame, text="Standard:",  font=("Arial", 13))
+        right_std_label.grid(row=0, column=0)
+
+        root.bind('<Return>', lambda event: save_data())
+        save_button = tk.Button(right_frame, text="Search", command=save_data, font=("Arial", 13))
+        save_button.grid(row=0, column=8, columnspan=1, padx=10, pady=10,sticky='e')
+
+        def update_right_std(*args):
+            right_std_var.set(left_std_var.get())
+
+
+        left_std_var.set(std_options[0])
+        left_std_var.trace_add("write", update_right_std)
+
+        std_options = ["-", "NUR", "JR.KG", "SR.KG", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "12 COMM", "12 SCI", "11 COMM", "11 SCI"]  
+        right_std_var = tk.StringVar()
+        right_std_var.set(std_options[0])  
+        right_std_dropdown = tk.OptionMenu(right_frame, right_std_var, *std_options)
+        right_std_dropdown.config(font=("Arial", 13))
+        right_std_dropdown.grid(row=0, column=1, padx=10, pady=10)
+
+
+        right_div_label = tk.Label(right_frame, text="Division:", bg="lightpink", font=("Arial", 13))
+        right_div_label.grid(row=0, column=2, padx=10, pady=10, sticky=tk.E)
+
+        div_options = ["-", "A", "B", "C", "D"]  
+        right_div_var = tk.StringVar()
+        right_div_var.set(div_options[0])  
+        right_div_dropdown = tk.OptionMenu(right_frame, right_div_var, *div_options)
+        right_div_dropdown.config(font=("Arial", 13))
+        right_div_dropdown.grid(row=0, column=3, padx=10, pady=10)
+
+        right_year_label1 = tk.Label(right_frame, text="Year:", bg="lightpink", font=("Arial", 13))
+        right_year_label1.grid(row=0, column=5, padx=10, pady=10)
+
+        year_options1 = ["-", "2022", "2023", "2024"]  
+        year_div_var1 = tk.StringVar()
+        year_div_var1.set(year_options1[0])  
+        year_div_dropdown1 = tk.OptionMenu(right_frame, year_div_var1, *year_options1)
+        year_div_dropdown1.config(font=("Arial", 13))
+        year_div_dropdown1.grid(row=0, column=6, padx=10, pady=10,sticky=tk.W)
+
+
+        columns = ("GR_No", "Std", "Div", "Name", "FatherName", "Surname", "AAI","RTE","Active")
+        table = ttk.Treeview(root, columns=columns, show="headings", height=20)
+
+        for col in columns:
+            table.heading(col, text=col)
+
+        for col in columns:
+            table.column(col, width=80)
+
+        table.grid(row=4, column=0, columnspan=3, padx=5, pady=5, sticky="nsew")
+        table.bind("<Double-Button-1>", on_double_click)
+
+        style = ttk.Style(root)
+        style.configure("LightPink.Treeview", background="lightpink", font=("Arial", 18))
+
+
+
+        # table_h_scrollbar = ttk.Scrollbar(table, orient="horizontal", command=table.xview)
+        # table.configure(yscrollcommand=table_h_scrollbar.set)
+        # table_h_scrollbar.pack(fill='x', side='bottom')
+
+        # table_scrollbar = ttk.Scrollbar(table, orient="vertical", command=table.yview)
+        # table.configure(yscrollcommand=table_scrollbar.set)
+        # table_scrollbar.pack(fill='y', side='right')
+
+        left_choose_var = tk.BooleanVar()
+        table.tag_configure("Checkbox", background="lightpink")
+
+        def toggle_checkbox(row_id):
+            left_choose_var.set(not left_choose_var.get())
+            selected_items = table.selection()
+            if selected_items:
+                for selected_item in selected_items:
+                    table.item(selected_item, values=(table.item(selected_item, 'values')[0], table.item(selected_item, 'values')[1],
+                                                    table.item(selected_item, 'values')[2], table.item(selected_item, 'values')[3],
+                                                    table.item(selected_item, 'values')[4], table.item(selected_item, 'values')[5],
+                                                    left_choose_var.get()))
+
+        table.tag_bind("Checkbox", '<ButtonRelease-1>', lambda event: toggle_checkbox(table.identify_row(event.y)))
+
+        table.bind("<<TreeviewSelect>>", on_table_select)
+
+        select_all_button = tk.Button(right_frame, text="Select All", command=select_all_items, font=("Arial", 13))
+        select_all_button.grid(row=0, column=9, columnspan=1, padx=10, pady=10,sticky='e')
+
+        clear_button = tk.Button(right_frame, text="Clear Data", command=clear_table, font=("Arial", 13))
+        clear_button.grid(row=0, column=10, padx=10, pady=10,sticky='e')
+
+        save_button = tk.Button(right_frame, text="Save", command=save_data1, font=("Arial", 13))
+        save_button.grid(row=0, column=11, columnspan=2, padx=10, pady=10,sticky='e')
+
+        def select_all_items():
+            item_ids = table.get_children()
+            for item_id in item_ids:
+                table.selection_add(item_id)
+
+        def clear_data():
+            table.delete(*table.get_children())
+
+        root.mainloop()
     
 
     
@@ -2629,7 +3616,7 @@ def FEES_FUNCTION():
             def create_table(self):
                 # Connect to the MySQL database (replace the parameters with your database details)
                 self.db = mysql.connector.connect(
-                host="localhost",user="root",password="root",database="airport_school_new"
+                host="localhost",user="root",password="root",database=DatabaseName
                 )
 
                 # Create a cursor object to execute SQL queries
@@ -2712,43 +3699,44 @@ def FEES_FUNCTION():
                         
                         self.db.commit()
 
-
-                    if self.updated_rows:
-                        for updated_row in self.updated_rows:
-                            select_query = f"SELECT {self.get_column_name(0)} FROM {self.table_name} WHERE {self.get_column_name(0)} = %s"
-                            self.cursor.execute(select_query, (self.entry_widgets[(updated_row-1, 0)].get(),))
-                            updated_data = self.cursor.fetchone()
-                            self.updated_rows.pop()
-
-
-                        select_target_query = f"SELECT curr_std FROM academic_detail "
-                        self.cursor.execute(select_target_query)
-                        target_comparison_data = self.cursor.fetchall()
-                
+                    selected_query1 = f"SELECT * FROM {self.table_name}"
+                    self.cursor.execute(selected_query1)
+                    fees_data = self.cursor.fetchall()
                     
-                        up = tuple(updated_data[0].split(", "))
-                
-                    
-                    
-                    
-
-
-                
-                    select_query2=f"SELECT * FROM std_fees WHERE STD= %s"
-                    self.cursor.execute(select_query2,up)
-                    data_to_be_transfered=self.cursor.fetchone()
+                    selected_query2 = f"SELECT curr_std,gr_no FROM academic_detail where left1=0"
+                    self.cursor.execute(selected_query2)
+                    std_data = self.cursor.fetchall()
+                    try: 
+                        query1 = "UPDATE PENDING_FEE_DETAIL SET ADMISSION_FEE=%s, ICARD=%s, APR_JUN_TUTION = %s, APR_JUN_ATITVITY = %s, LATE_FEES = %s, JUL_SEP_TUTION = %s, JUL_SEP_ACTIVITY = %s, OCT_DEC_TUTION = %s, OCT_DEC_ACTIVITY = %s, JAN_MAR_TUTION = %s, JAN_MAR_ACTIVITY = %s, OTHERS = %s,TERM1=%s,TERM2=%s WHERE GR_NO = %s"
+                        for i in fees_data:
+                            # print(i)
+                            for j in std_data:
             
-                    
+                                if i[0] == j[0]:
+                                    self.cursor.execute(query1, (i[1],i[2],i[3],i[4],i[5],i[6],i[7],i[8],i[9],i[10],i[11],i[12],i[13],i[14],j[1]))
+                                    self.db.commit()
+                                    # print("Updated Successfully GR NO : ",j[1]," STD : ",j[0])
+                    except Exception as e:
+                        print("Error in updating pending fee detail : ",e)
+                    else:
+                        print("All Updated Successfully")
 
-                    
+                    selected_query3 = f"SELECT gr_details.gr_no FROM gr_details,academic_detail where rte=1 and left1=0 and gr_details.gr_no=academic_detail.gr_no"
+                    self.cursor.execute(selected_query3)
+                    std_data = self.cursor.fetchall()
+                    try: 
+                        query1 = "UPDATE PENDING_FEE_DETAIL SET ADMISSION_FEE=%s, ICARD=%s, APR_JUN_TUTION = %s, APR_JUN_ATITVITY = %s, LATE_FEES = %s, JUL_SEP_TUTION = %s, JUL_SEP_ACTIVITY = %s, OCT_DEC_TUTION = %s, OCT_DEC_ACTIVITY = %s, JAN_MAR_TUTION = %s, JAN_MAR_ACTIVITY = %s, OTHERS = %s, TERM1=%s, TERM2=%s WHERE GR_NO = %s"
+                        for j in std_data:
+                                self.cursor.execute(query1, (0,0,0,0,0,0,0,0,0,0,0,0,0,0,j[0]))
+                                self.db.commit()
+                                # print("Updated Successfully RTE GR NO : ", j[0])
+                    except Exception as e:
+                        print("Error in updating pending fee detail : ",e)
+                    else:
+                        print("All Updated Successfully")
 
-                    for i in target_comparison_data:
-                
-                        if(i==up):
-                            select_query3 = ("UPDATE pending_fee_detail SET ADMISSION_FEE = %s, ICARD = %s, APR_JUN_TUTION = %s, APR_JUN_ATITVITY = %s, LATE_FEES = %s, JUL_SEP_TUTION = %s, JUL_SEP_ACTIVITY = %s, OCT_DEC_TUTION = %s, OCT_DEC_ACTIVITY = %s, JAN_MAR_TUTION = %s, JAN_MAR_ACTIVITY = %s, OTHERS = %s")
-                            values = (data_to_be_transfered[1], data_to_be_transfered[2], data_to_be_transfered[3],data_to_be_transfered[4], data_to_be_transfered[5], data_to_be_transfered[6],data_to_be_transfered[7], data_to_be_transfered[8], data_to_be_transfered[9],data_to_be_transfered[10], data_to_be_transfered[11], data_to_be_transfered[12] )
-                            self.cursor.execute(select_query3, values)
-                            self.db.commit()         
+
+
                 except mysql.connector.Error as e:
                     messagebox.showerror("Error", f"Error updating data: {e}")
                 else:
@@ -2772,7 +3760,7 @@ def FEES_FUNCTION():
         
 
     SEARCH_BTN=Button(MAIN_FRAME,text="STDWISE FEES\n CHANGE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 10),command=stdwise_fee_change)
-    SEARCH_BTN.place(x=1000,y=370)
+    SEARCH_BTN.place(x=1000,y=530)
 
     
 
@@ -2891,7 +3879,7 @@ def FEES_FUNCTION():
     
     def fees_save():
         root.bell()
-        try:
+        try: 
             fee_lst=[]
             fee_lst.append(FEES_RECEIPTNO_ENTRY.get())#1
             fee_lst.append(FEES_DEPT_ENTRY.get())#2
@@ -2916,11 +3904,10 @@ def FEES_FUNCTION():
             fee_lst.append(CheckVar5.get())#21
             fee_lst.append(CheckVar6.get())#22
             fee_lst.append(CheckVar7.get())#23
-        except:
-            messagebox.showerror("Error","Please fill all the details")
-        try:
-            cur.execute("insert into tran_details values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",fee_lst)
-            cur.execute("insert into fee_tran values({},0,0,0,0,0,0,0)".format(FEES_RECEIPTNO_ENTRY.get()))
+            fee_lst.append(CheckVar8.get())#24
+            fee_lst.append(CheckVar9.get())#25
+            cur.execute("insert into tran_details values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",fee_lst)
+            cur.execute("insert into fee_tran values({},0,0,0,0,0,0,0,0,0)".format(FEES_RECEIPTNO_ENTRY.get()))
 
             if (CheckVar1.get() == 0):
                 cur.execute("update gr_check set c1=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
@@ -2996,24 +3983,26 @@ def FEES_FUNCTION():
                     cur.execute("update fee_tran set c7=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
                     cur.execute("update pending_fee_detail set ICARD=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
                     cur.execute("update fee_details set c7='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-            # if(CheckVar8.get() == 0):
-            #     cur.execute("update gr_check set c8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
-            # else:
-            #     cur.execute("select c8 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
-            #     data = cur.fetchall()
-            #     if(int(data[0][0]) == 0):
-            #         cur.execute("update gr_check set c8=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
-            #         cur.execute("update fee_tran set c8=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
-            #         cur.execute("update pending_fee_detail set LATE_FEES=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
-            #         cur.execute("update fee_details set c8='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
-            mydb.commit()
-            messagebox.showinfo("Success","Data Saved Successfully")
-        except:
-            messagebox.showerror("Error","Data not saved")
-
-
-
-        try:
+            if(CheckVar8.get() == 0):
+                cur.execute("update gr_check set c8=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+            else:
+                cur.execute("select c8 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+                data = cur.fetchall()
+                if(int(data[0][0]) == 0):
+                    cur.execute("update gr_check set c8=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_tran set c8=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set TERM1=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_details set c8='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
+            if(CheckVar9.get() == 0):
+                cur.execute("update gr_check set c9=0 where gr_no={}".format(FEES_GR_ENTRY.get()))
+            else:
+                cur.execute("select c9 from gr_check where gr_no={}".format(FEES_GR_ENTRY.get()))
+                data = cur.fetchall()
+                if(int(data[0][0]) == 0):
+                    cur.execute("update gr_check set c9=1 where gr_no={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_tran set c9=1 where RECEIPT_NO={}".format(FEES_RECEIPTNO_ENTRY.get()))
+                    cur.execute("update pending_fee_detail set TERM2=0 WHERE GR_NO={}".format(FEES_GR_ENTRY.get()))
+                    cur.execute("update fee_details set c9='{}' where gr_no={}".format(FEES_CHEQUENUMBER_ENTRY.get(),FEES_GR_ENTRY.get()))
             def number_to_word(number):
                 def get_word(n):
                     words={ 0:"", 1:"One", 2:"Two", 3:"Three", 4:"Four", 5:"Five", 6:"Six", 7:"Seven", 8:"Eight", 9:"Nine", 10:"Ten", 11:"Eleven", 12:"Twelve", 13:"Thirteen", 14:"Fourteen", 15:"Fifteen", 16:"Sixteen", 17:"Seventeen", 18:"Eighteen", 19:"Nineteen", 20:"Twenty", 30:"Thirty", 40:"Forty", 50:"Fifty", 60:"Sixty", 70:"Seventy", 80:"Eighty", 90:"Ninty" }
@@ -3167,6 +4156,11 @@ def FEES_FUNCTION():
 
                 p=435
                 q=460
+                
+                for i in range(len(FEES_NAME_PAID)):
+                    if FEES_NAME_PAID[i] == "OTHERS":
+                            FEES_NAME_PAID[i] = "TERM 1 FEES"
+
                 c.drawString(x,y,str(FEES_NAME_PAID[0]))
                 c.drawString(p,q,str(FEES_AMT_PAID[0]))
                 print(FEES_NAME_PAID)
@@ -3347,23 +4341,24 @@ def FEES_FUNCTION():
                 os.startfile(my_path)
                 
             fees_print()
-            
-
-        except Exception as e:
-            messagebox.showerror("Error","Error in saving data : "+str(e))
-            
-        FEES_REPORT_FUNCTION()
-        BACKUP_FUNCTION()
-        
-        FEES_FUNCTION()
+            FEES_REPORT_FUNCTION(DatabaseName)
+            BACKUP_FUNCTION(DatabaseName)
+            mydb.commit()
+        except:
+            mydb.rollback()
+            messagebox.showerror("Error","Please Check the Details")
+        FEES_FUNCTION(DatabaseName)
 
 
 
     def fees_generate():
         GR_VALUE = FEES_GR_ENTRY.get()
-        cur.execute("select curr_std,division from academic_detail where gr_no={}".format(GR_VALUE))
+        cur.execute("select curr_std,division,left1 from academic_detail where gr_no={}".format(GR_VALUE))
         data1 = cur.fetchall()
         trv.delete(*trv.get_children())
+        if data1[0][-1] == 1:
+            messagebox.showerror("Error","Student is Left")
+            FEES_FUNCTION(DatabaseName)
         cur.execute("select * from gr_check where gr_no={}".format(GR_VALUE))
         gr_checks = cur.fetchall()
         cur.execute("select * from pending_fee_detail where gr_no={}".format(GR_VALUE))
@@ -3374,7 +4369,7 @@ def FEES_FUNCTION():
             cur.execute("select * from exmp_fees where std='{}'".format(data1[0][0]))
             exmp_data = cur.fetchall()
         else:
-            exmp_data = [[data1[0][0],0,0,0,0,0,0,0,0,0,0,0,0]]
+            exmp_data = [[data1[0][0],0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
         if (CheckVar1.get() == 1):
             if(gr_checks[0][1] == 1):
                 pass
@@ -3432,6 +4427,16 @@ def FEES_FUNCTION():
                 pass
             else:
                 trv.insert(parent='',index="end",text='',value=("ICARD",pending_data[0][2],exmp_data[0][2],pending_data[0][2]-exmp_data[0][2]))
+        if (CheckVar8.get() == 1):
+            if(gr_checks[0][8] == 1):
+                pass
+            else:
+                trv.insert(parent='',index="end",text='',value=("TERM 1",pending_data[0][13],exmp_data[0][13],pending_data[0][13]-exmp_data[0][13]))   
+        if (CheckVar9.get() == 1):
+            if(gr_checks[0][9] == 1):
+                pass
+            else:
+                trv.insert(parent='',index="end",text='',value=("TERM 2",pending_data[0][14],exmp_data[0][14],pending_data[0][14]-exmp_data[0][14]))
         if (len(trv.get_children()) != 0):
             total = 0
             for l in trv.get_children():
@@ -3454,8 +4459,13 @@ def FEES_FUNCTION():
         
         SAVE_BTN["state"]=ACTIVE
 
-    def fees_insert(e):
-        GR_VALUE = FEES_GR_ENTRY.get()
+    def fees_insert(e,feesInsertGR=0):
+        if feesInsertGR==0:
+            GR_VALUE = FEES_GR_ENTRY.get()
+        else:
+            GR_VALUE = feesInsertGR
+            FEES_GR_ENTRY.delete(0,END)
+            FEES_GR_ENTRY.insert(0,GR_VALUE)
         cur.execute("select name,father,surname from gr_details where gr_no={}".format(GR_VALUE))
         data = cur.fetchall()
         full_name = data[0][0] +" "+ data[0][1] +" "+ data[0][2]
@@ -3523,6 +4533,18 @@ def FEES_FUNCTION():
         else:
             C7.select()
             C7.config(state=DISABLED)
+        if(gr_checks[0][8] == 0):
+            C8.deselect()
+            C8.config(state=ACTIVE)
+        else:
+            C8.select()
+            C8.config(state=DISABLED)
+        if(gr_checks[0][9] == 0):
+            C9.deselect()
+            C9.config(state=ACTIVE)
+        else:
+            C9.select()
+            C9.config(state=DISABLED)
         mydb.commit()
     FEES_GR_ENTRY.bind('<Return>',fees_insert)
 
@@ -3542,7 +4564,7 @@ def FEES_FUNCTION():
                     host="localhost",
                     user="root",
                     password="root",
-                    database="airport_school_new"
+                    database=DatabaseName
                 )
 
 
@@ -3748,7 +4770,7 @@ def FEES_FUNCTION():
                     host="localhost",
                     user="root",
                     password="root",
-                    database="airport_school_new"
+                    database=DatabaseName
                 )
                 
             cursor = conn.cursor()
@@ -3816,14 +4838,14 @@ def FEES_FUNCTION():
     
 
     GENERATE_BTN=Button(MAIN_FRAME,text="GENERATE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 10),command=fees_generate)
-    GENERATE_BTN.place(x=810,y=440)
+    GENERATE_BTN.place(x=810,y=600)
     
     SHOW_BTN=Button(MAIN_FRAME,text="CHANGE STD",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 10),command=show_fee_details_func)
-    SHOW_BTN.place(x=810,y=370)
+    SHOW_BTN.place(x=810,y=530)
 
 
     SAVE_BTN=Button(MAIN_FRAME,text="SAVE",height=3,width=20,bg="lightgrey",activebackground='lightgrey',font=('Arial', 10),command=fees_save)
-    SAVE_BTN.place(x=1000,y=440)
+    SAVE_BTN.place(x=1000,y=600)
     SAVE_BTN["state"]=DISABLED
 
 
@@ -3836,7 +4858,9 @@ def FEES_FUNCTION():
 
 
 
-def FEES_EDIT_FUNCTION():
+def FEES_EDIT_FUNCTION(DatabaseName):
+    mydb = con.connect(host="localhost",user="root",password="root",database=DatabaseName, autocommit=False)
+    cur = mydb.cursor()
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
     for widget in MAIN_FRAME.winfo_children():
@@ -4159,7 +5183,9 @@ def FEES_EDIT_FUNCTION():
 
 
 global FEES_REPORT_FUNCTION
-def FEES_REPORT_FUNCTION():
+def FEES_REPORT_FUNCTION(DatabaseName):
+    mydb = con.connect(host="localhost",user="root",password="root",database=DatabaseName, autocommit=False)
+    cur = mydb.cursor()
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
     for widget in MAIN_FRAME.winfo_children():
@@ -4181,36 +5207,36 @@ def FEES_REPORT_FUNCTION():
     wrt = csv.writer(f2)
     wrt.writerow(["CLASS","DIVISION","TOTAL"])
     cur.execute('''SELECT curr_std, division, COUNT(gr_no) AS total
-FROM academic_detail
-WHERE active1 = 1
-GROUP BY curr_std, division
-ORDER BY
-  CASE curr_std
-    WHEN 'NUR' THEN 1
-    WHEN 'JR.KG' THEN 2
-    WHEN 'SR.KG' THEN 3
-    WHEN '1' THEN 4
-    WHEN '2' THEN 5
-    WHEN '3' THEN 6
-    WHEN '4' THEN 7
-    WHEN '5' THEN 8
-    WHEN '6' THEN 9
-    WHEN '7' THEN 10
-    WHEN '8' THEN 11
-    WHEN '9' THEN 12
-    WHEN '10' THEN 13
-    WHEN '11 COMM' THEN 14
-    WHEN '11 SCI' THEN 15
-    WHEN '12 COMM' THEN 16
-    WHEN '12 SCI' THEN 17
-  END,
-  CASE division
-    WHEN 'A' THEN 1
-    WHEN 'B' THEN 2
-    WHEN 'C' THEN 3
-    WHEN 'D' THEN 4
-  END
-''')
+        FROM academic_detail
+        WHERE active1 = 1
+        GROUP BY curr_std, division
+        ORDER BY
+        CASE curr_std
+            WHEN 'NUR' THEN 1
+            WHEN 'JR.KG' THEN 2
+            WHEN 'SR.KG' THEN 3
+            WHEN '1' THEN 4
+            WHEN '2' THEN 5
+            WHEN '3' THEN 6
+            WHEN '4' THEN 7
+            WHEN '5' THEN 8
+            WHEN '6' THEN 9
+            WHEN '7' THEN 10
+            WHEN '8' THEN 11
+            WHEN '9' THEN 12
+            WHEN '10' THEN 13
+            WHEN '11 COMM' THEN 14
+            WHEN '11 SCI' THEN 15
+            WHEN '12 COMM' THEN 16
+            WHEN '12 SCI' THEN 17
+        END,
+        CASE division
+            WHEN 'A' THEN 1
+            WHEN 'B' THEN 2
+            WHEN 'C' THEN 3
+            WHEN 'D' THEN 4
+        END
+        ''')
     data_report = cur.fetchall()
     for i in data_report:
         wrt.writerow(i)
@@ -4218,14 +5244,22 @@ ORDER BY
 
     f3 = open(r"REPORTS\male_female.csv", 'w', newline="\n")
     wrt = csv.writer(f3)
-    wrt.writerow(["CLASS", "DIVISION", "MALE", "FEMALE"])
+    wrt.writerow(["CLASS", "DIVISION", "MALE", "FEMALE", "TOTAL", "GEN", "SC", "ST", "OBC", "OTHERS"])
 
     cur.execute('''
         SELECT ad.curr_std, ad.division AS class,
             SUM(CASE WHEN gd.SEX = 'Male' THEN 1 ELSE 0 END) AS male_count,
-            SUM(CASE WHEN gd.SEX = 'Female' THEN 1 ELSE 0 END) AS female_count
+            SUM(CASE WHEN gd.SEX = 'Female' THEN 1 ELSE 0 END) AS female_count,
+            COUNT(ad.gr_no) AS total,
+            SUM(CASE WHEN gd.category = 'GEN' THEN 1 ELSE 0 END) AS gen_count,
+            SUM(CASE WHEN gd.category = 'SC' THEN 1 ELSE 0 END) AS sc_count,
+            SUM(CASE WHEN gd.category = 'ST' THEN 1 ELSE 0 END) AS st_count,
+            SUM(CASE WHEN gd.category = 'OBC' THEN 1 ELSE 0 END) AS obc_count,
+            SUM(CASE WHEN gd.category NOT IN ('GEN', 'OBC', 'SC', 'ST') THEN 1 ELSE 0 END) AS others_count
+            
         FROM academic_detail AS ad
         JOIN gr_details AS gd ON ad.gr_no = gd.GR_NO
+        where ad.active1 = 1
         GROUP BY ad.division, ad.curr_std
         ORDER BY
         CASE ad.curr_std
@@ -4271,15 +5305,215 @@ ORDER BY
         wrt.writerow(i)
     f4.close()
 
-    f5 = open(r"REPORTS\new_admission.csv",'w',newline="\n")
+    f5 = open(r"REPORTS\new_admission_{}.csv".format(current_date),'w',newline="\n")
     wrt = csv.writer(f5)
-    wrt.writerow(["GR NO","NAME","FATHER","SURNAME","CURR STD","DIVISION"])
-    cur.execute("select gr_details.gr_no,gr_details.name,gr_details.father,gr_details.surname,academic_detail.curr_std,academic_detail.division from gr_details,academic_detail where gr_details.gr_no>4575 and gr_details.gr_no=academic_detail.gr_no and academic_detail.active1=1")
+    wrt.writerow(["GR NO","NAME","FATHER","SURNAME","CURR STD","DIVISION","DATE OF ADMISSION","GENDER","CATEGORY"])
+    cur.execute('''SELECT gd.GR_NO,
+       gd.NAME,
+       gd.FATHER,
+       gd.SURNAME,
+       ad.curr_std AS 'CURR STD',
+       ad.division AS 'DIVISION',
+       ad.add_date AS 'DATE OF ADMISSION',
+        gd.sex AS 'GENDER',
+        gd.category AS 'CATEGORY'
+FROM gr_details AS gd
+JOIN academic_detail AS ad ON gd.GR_NO = ad.gr_no
+WHERE ad.add_year = YEAR(CURDATE()) and ad.active1 = 1;
+''')
     data_report = cur.fetchall()    
     for i in data_report:
         wrt.writerow(i)
     f5.close()
 
+    F6 = open(r"REPORTS\NEW_ADMISSION_MALE_FEMALE.csv",'w',newline="\n")
+    wrt = csv.writer(F6)
+    wrt.writerow(["CLASS", "DIVISION", "MALE", "FEMALE", "TOTAL", "GEN", "SC", "ST", "OBC", "OTHERS"])
+    cur.execute('''
+        SELECT ad.curr_std, ad.division AS class,
+            SUM(CASE WHEN gd.SEX = 'Male' THEN 1 ELSE 0 END) AS male_count,
+            SUM(CASE WHEN gd.SEX = 'Female' THEN 1 ELSE 0 END) AS female_count,
+            COUNT(ad.gr_no) AS total,
+            SUM(CASE WHEN gd.category = 'GEN' THEN 1 ELSE 0 END) AS gen_count,
+            SUM(CASE WHEN gd.category = 'SC' THEN 1 ELSE 0 END) AS sc_count,
+            SUM(CASE WHEN gd.category = 'ST' THEN 1 ELSE 0 END) AS st_count,
+            SUM(CASE WHEN gd.category = 'OBC' THEN 1 ELSE 0 END) AS obc_count,
+            SUM(CASE WHEN gd.category NOT IN ('GEN', 'OBC', 'SC', 'ST') THEN 1 ELSE 0 END) AS others_count
+            
+        FROM academic_detail AS ad
+        JOIN gr_details AS gd ON ad.gr_no = gd.GR_NO
+        WHERE ad.add_year = YEAR(CURDATE()) and ad.active1 = 1
+        GROUP BY ad.division, ad.curr_std
+        ORDER BY
+        CASE ad.curr_std
+            WHEN 'NUR' THEN 1
+            WHEN 'JR.KG' THEN 2
+            WHEN 'SR.KG' THEN 3
+            WHEN '1' THEN 4
+            WHEN '2' THEN 5
+            WHEN '3' THEN 6
+            WHEN '4' THEN 7
+            WHEN '5' THEN 8
+            WHEN '6' THEN 9
+            WHEN '7' THEN 10
+            WHEN '8' THEN 11
+            WHEN '9' THEN 12
+            WHEN '10' THEN 13
+            WHEN '11 COMM' THEN 14
+            WHEN '11 SCI' THEN 15
+            WHEN '12 COMM' THEN 16
+            WHEN '12 SCI' THEN 17
+        END,
+        CASE ad.division
+            WHEN 'A' THEN 1
+            WHEN 'B' THEN 2
+            WHEN 'C' THEN 3
+            WHEN 'D' THEN 4
+        END;''')
+    data_report = cur.fetchall()    
+    for i in data_report:
+        wrt.writerow(i)
+    F6.close()
+
+    F7 = open(r"REPORTS\RTE_REPORT.csv",'w',newline="\n")
+    wrt = csv.writer(F7)
+    wrt.writerow(["GR NO","NAME","FATHER","SURNAME","CURR STD","DIVISION","GENDER","CATEGORY"])
+    cur.execute('''SELECT gd.GR_NO,
+         gd.NAME,
+            gd.FATHER,
+            gd.SURNAME,
+            ad.curr_std AS 'CURR STD',
+            ad.division AS 'DIVISION',
+            gd.sex as 'GENDER',
+            gd.category as 'CATEGORY'
+    FROM gr_details AS gd
+    JOIN academic_detail AS ad ON gd.GR_NO = ad.gr_no
+    WHERE ad.active1 = 1 and gd.rte=1
+                ORDER BY
+        CASE ad.curr_std
+            WHEN 'NUR' THEN 1
+            WHEN 'JR.KG' THEN 2
+            WHEN 'SR.KG' THEN 3
+            WHEN '1' THEN 4
+            WHEN '2' THEN 5
+            WHEN '3' THEN 6
+            WHEN '4' THEN 7
+            WHEN '5' THEN 8
+            WHEN '6' THEN 9
+            WHEN '7' THEN 10
+            WHEN '8' THEN 11
+            WHEN '9' THEN 12
+            WHEN '10' THEN 13
+            WHEN '11 COMM' THEN 14
+            WHEN '11 SCI' THEN 15
+            WHEN '12 COMM' THEN 16
+            WHEN '12 SCI' THEN 17
+        END,
+        CASE ad.division
+            WHEN 'A' THEN 1
+            WHEN 'B' THEN 2
+            WHEN 'C' THEN 3
+            WHEN 'D' THEN 4
+        END;''')
+    data_report = cur.fetchall()
+    for i in data_report:
+        wrt.writerow(i)
+    F7.close()
+
+    F8 = open(r"REPORTS\AAI_REPORT.csv",'w',newline="\n")
+    wrt = csv.writer(F8)
+    wrt.writerow(["GR NO","NAME","FATHER","SURNAME","CURR STD","DIVISION","GENDER","CATEGORY"])
+    cur.execute('''SELECT gd.GR_NO,
+            gd.NAME,
+            gd.FATHER,
+            gd.SURNAME,
+            ad.curr_std AS 'CURR STD',
+            ad.division AS 'DIVISION',
+            gd.sex as 'GENDER',
+            gd.category as 'CATEGORY'
+    FROM gr_details AS gd
+    JOIN academic_detail AS ad ON gd.GR_NO = ad.gr_no
+    WHERE ad.active1 = 1 and aai1=1
+                ORDER BY
+        CASE ad.curr_std
+            WHEN 'NUR' THEN 1
+            WHEN 'JR.KG' THEN 2
+            WHEN 'SR.KG' THEN 3
+            WHEN '1' THEN 4
+            WHEN '2' THEN 5
+            WHEN '3' THEN 6
+            WHEN '4' THEN 7
+            WHEN '5' THEN 8
+            WHEN '6' THEN 9
+            WHEN '7' THEN 10
+            WHEN '8' THEN 11
+            WHEN '9' THEN 12
+            WHEN '10' THEN 13
+            WHEN '11 COMM' THEN 14
+            WHEN '11 SCI' THEN 15
+            WHEN '12 COMM' THEN 16
+            WHEN '12 SCI' THEN 17
+        END,
+        CASE ad.division
+            WHEN 'A' THEN 1
+            WHEN 'B' THEN 2
+            WHEN 'C' THEN 3
+            WHEN 'D' THEN 4
+        END;''')
+    data_report = cur.fetchall()
+    for i in data_report:
+        wrt.writerow(i)
+    F8.close()
+
+    F9 = open(r"REPORTS\RTE_MALE_FEMALE.csv",'w',newline="\n")
+    wrt = csv.writer(F9)
+    wrt.writerow(["CLASS", "DIVISION", "MALE", "FEMALE", "TOTAL", "GEN", "SC", "ST", "OBC", "OTHERS"])
+    cur.execute('''
+            SELECT ad.curr_std, ad.division AS class,
+            SUM(CASE WHEN gd.SEX = 'Male' THEN 1 ELSE 0 END) AS male_count,
+            SUM(CASE WHEN gd.SEX = 'Female' THEN 1 ELSE 0 END) AS female_count,
+            COUNT(ad.gr_no) AS total,
+            SUM(CASE WHEN gd.category = 'GEN' THEN 1 ELSE 0 END) AS gen_count,
+            SUM(CASE WHEN gd.category = 'SC' THEN 1 ELSE 0 END) AS sc_count,
+            SUM(CASE WHEN gd.category = 'ST' THEN 1 ELSE 0 END) AS st_count,
+            SUM(CASE WHEN gd.category = 'OBC' THEN 1 ELSE 0 END) AS obc_count,
+            SUM(CASE WHEN gd.category NOT IN ('GEN', 'OBC', 'SC', 'ST') THEN 1 ELSE 0 END) AS others_count  
+        FROM academic_detail AS ad
+        JOIN gr_details AS gd ON ad.gr_no = gd.GR_NO
+        WHERE gd.rte=1 and ad.active1 = 1
+        GROUP BY ad.division, ad.curr_std
+        ORDER BY
+        CASE ad.curr_std
+            WHEN 'NUR' THEN 1
+            WHEN 'JR.KG' THEN 2
+            WHEN 'SR.KG' THEN 3
+            WHEN '1' THEN 4
+            WHEN '2' THEN 5
+            WHEN '3' THEN 6
+            WHEN '4' THEN 7
+            WHEN '5' THEN 8
+            WHEN '6' THEN 9
+            WHEN '7' THEN 10
+            WHEN '8' THEN 11
+            WHEN '9' THEN 12
+            WHEN '10' THEN 13
+            WHEN '11 COMM' THEN 14
+            WHEN '11 SCI' THEN 15
+            WHEN '12 COMM' THEN 16
+            WHEN '12 SCI' THEN 17
+        END,
+        CASE ad.division
+            WHEN 'A' THEN 1
+            WHEN 'B' THEN 2
+            WHEN 'C' THEN 3
+            WHEN 'D' THEN 4
+        END;''')
+    data_report = cur.fetchall()
+    for i in data_report:
+        wrt.writerow(i)
+    F9.close()
+
+            
 
 
 
@@ -4289,7 +5523,11 @@ ORDER BY
 
 
 
-def LIBRARY_FUNCTION():
+
+
+def LIBRARY_FUNCTION(DatabaseName):
+    mydb = con.connect(host="localhost",user="root",password="root",database=DatabaseName, autocommit=False)
+    cur = mydb.cursor()
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
     for widget in MAIN_FRAME.winfo_children():
@@ -4310,7 +5548,9 @@ def LIBRARY_FUNCTION():
 
 
 
-def CERTIFICATES_FUNCTION():
+def CERTIFICATES_FUNCTION(DatabaseName):
+    mydb = con.connect(host="localhost",user="root",password="root",database=DatabaseName, autocommit=False)
+    cur = mydb.cursor()
     for widget in MENU_FRAME2.winfo_children():
         widget.destroy()
     for widget in MAIN_FRAME.winfo_children():
@@ -4714,7 +5954,9 @@ def CERTIFICATES_FUNCTION():
 
 
 global BACKUP_FUNCTION
-def BACKUP_FUNCTION():
+def BACKUP_FUNCTION(DatabaseName):
+    mydb = con.connect(host="localhost",user="root",password="root",database=DatabaseName, autocommit=False)
+    cur = mydb.cursor()
     f1 = open(r"BACKUP\academic_detail.csv","w", newline="\n")
     writer1 = csv.writer(f1)
     cur.execute("select * from academic_detail")
@@ -4834,7 +6076,7 @@ def BACKUP_FUNCTION():
     writer1.writerow(headings)
     writer1.writerows(data)
     f11.close()
-BACKUP_FUNCTION()
+
 
 
 
@@ -4845,12 +6087,6 @@ BACKUP_FUNCTION()
 
 
 def ABOUTUS_FUNCTION():
-    # text_Q1="School Details"
-    # myobj = gTTS(text=text_Q1, slow=False)
-    # myobj.save(r"AUDIOS\schooldetails.mp3")
-    #pygame.mixer.init()
-    #pygame.mixer.music.load(r"AUDIOS\schooldetails.mp3")
-    #pygame.mixer.music.play(loops=0)
     root1=Toplevel()
     root1.title("ZETA CORE")
     photo = PhotoImage(file = r"ICONS\Zeta.png")
@@ -5017,50 +6253,136 @@ def EXIT_FUNCTION():
 
 
 
+yearsdb = con.connect(host='localhost', user='root', password='root', database='academic_years')
+yearscur = yearsdb.cursor()
 
+# Calculate screen width and height
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
+# Define the proportions for the frames
+menu_frame_height_percent = 0.1  # 10% of screen height
+menu_frame_width_percent = 0.99  # 99% of screen width
+
+menu_frame2_height_percent = 0.83  # 80% of screen height
+menu_frame2_width_percent = 0.1   # 10% of screen width
+
+main_frame_height_percent = 0.75  # 75% of screen height
+main_frame_width_percent = 0.8    # 80% of screen width
+
+# Define gap size as a percentage of screen width and height
+gap_percent_width = 0.01  # 0.5% of screen width
+gap_percent_height = 0.01  # 1% of screen height
+
+# Calculate gap sizes
+gap_width = screen_width * gap_percent_width
+gap_height = screen_height * gap_percent_height
+
+# Define frame positions
+menu_frame_x = 0
+menu_frame_y = 0
+
+menu_frame2_x = 0
+menu_frame2_y = menu_frame_height_percent * screen_height
+
+main_frame_x = (1 - main_frame_width_percent) / 2 * screen_width + gap_width * 2
+main_frame_y = (1 - main_frame_height_percent) / 2 * screen_height + gap_height
 
 
 #---------------------------------------------------------------------------------------------------------
 
 
-MENU_FRAME=Frame(root,relief=RIDGE,bg="lightgrey",height=100,width=1370,borderwidth=5)
-MENU_FRAME.place(x=0,y=0)
+
+MENU_FRAME = Frame(root, relief=RIDGE, bg="lightgrey", 
+                      height=screen_height * menu_frame_height_percent, 
+                      width=screen_width * menu_frame_width_percent, 
+                      borderwidth=5)
+MENU_FRAME.place(x=menu_frame_x, y=menu_frame_y)
+#---------------------------------------------------------------------------------------------------------
+
+MENU_FRAME2 = Frame(root, relief=RIDGE, bg="lightgrey", 
+                       height=screen_height * menu_frame2_height_percent, 
+                       width=screen_width * menu_frame2_width_percent, 
+                       borderwidth=1)
+MENU_FRAME2.place(x=menu_frame2_x, y=menu_frame2_y)
 
 #---------------------------------------------------------------------------------------------------------
 
-MENU_FRAME2=Frame(root,relief=RIDGE,bg="lightgrey",height=605,width=100,borderwidth=1)
-MENU_FRAME2.place(x=0,y=100)
 
 
-#---------------------------------------------------------------------------------------------------------
-
-
-MAIN_FRAME=Frame(root,relief=RIDGE,bg="white",height=520,width=1180,borderwidth=4) 
-MAIN_FRAME.place(x=150,y=150)
+MAIN_FRAME = Frame(root, relief=RIDGE, bg="white", 
+                      height=screen_height * main_frame_height_percent, 
+                      width=screen_width * main_frame_width_percent, 
+                      borderwidth=4)
+MAIN_FRAME.place(x=main_frame_x, y=main_frame_y)
 
 #---------------------------------------------------------------------------------------------------------
 
+def update_database_name(event):    
+    global databaseyear
+    yearscur.execute("select * from academic_years")
+    years = yearscur.fetchall()
+    for i in years:
+        if int(academic_year_dropdown.get()) == i[0]:
+            databaseyear = i[1] 
+            break
+    GR_FUNCTION(databaseyear)
+
+yearscur.execute("select year from academic_years order by year")
+years = yearscur.fetchall()
+academic_years = [i[0] for i in years]
+academic_year_dropdown = ttk.Combobox(MENU_FRAME, values=academic_years, width=15)
+academic_year_dropdown.place(x=1260, y=60)
+academic_year_dropdown.current(0)
+academic_year_dropdown.bind("<<ComboboxSelected>>", update_database_name)
+
+def change_database():
+    password = simpledialog.askstring("Password", "Enter Password", show='*')
+    if password == "root":
+        createdb = con.connect(host="localhost", password="root", user="root")
+        cur = createdb.cursor()
+        cur.execute("create database airport_school_{}".format(int(datetime.date.year)))
+        createdb.commit()
+        createdb.close()
+
+        currentyeardb = con.connect(host='localhost',password="root", user="root", database="airport_school_{}".format(int(datetime.date.year)))
+        cur = currentyeardb.cursor()
+        
 
 
+        
+
+        global databaseyear
+        datetime.date = datetime.datetime.now()
+        changedb = con.connect(host='localhost',password='root',user='root',database='academic_years')
+        cur = changedb.cursor()
+        cur.execute("insert into academic_years (year,database_name) values({},'{}')".format(int(datetime.date.year),"airport_school_"+str(datetime.date.year)))
+        changedb.commit()
+        changedb.close()
+
+change_year_button = Button(MENU_FRAME,text="Change Year", bg="lightgrey", command=change_database)
+change_year_button.place(x=1260,y=30)
 
 image_gr= Image.open(r"ICONS\gr.png")
 image_gr= image_gr.resize((55,55))
 img_gr= ImageTk.PhotoImage(image_gr)
-GR_BTN=Button(MENU_FRAME,image = img_gr,bg='lightgrey',compound=TOP,text="GR",command=GR_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
-GR_BTN.place(x=160,y=0)
+GR_BTN=Button(MENU_FRAME,image=img_gr, bg='lightgrey', compound=TOP, text="GR", command=lambda: GR_FUNCTION(databaseyear), padx=2, pady=2, activebackground='lightgrey', relief=FLAT)
+GR_BTN.place(x=160, y=0)
+
+
 
 
 image_fees= Image.open(r"ICONS\fees.png")
 image_fees= image_fees.resize((55,55))
 img_fees= ImageTk.PhotoImage(image_fees)
-FEES_BTN=Button(MENU_FRAME,image = img_fees,bg='lightgrey',compound=TOP,text="FEES",command=FEES_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
+FEES_BTN=Button(MENU_FRAME,image = img_fees,bg='lightgrey',compound=TOP,text="FEES",command=lambda: FEES_FUNCTION(databaseyear),padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
 FEES_BTN.place(x=260,y=0) 
 
 
 image_fees_edit= Image.open(r"ICONS\edity1.png")
 image_fees_edit= image_fees_edit.resize((55,55))
 img_fees_edit= ImageTk.PhotoImage(image_fees_edit)
-FEES_EDIT_BTN=Button(MENU_FRAME,image = img_fees_edit,bg='lightgrey',compound=TOP,text="FEES EDIT",command=FEES_EDIT_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
+FEES_EDIT_BTN=Button(MENU_FRAME,image = img_fees_edit,bg='lightgrey',compound=TOP,text="FEES EDIT",command=lambda: FEES_EDIT_FUNCTION(databaseyear),padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
 FEES_EDIT_BTN.place(x=360,y=0) 
 
 
@@ -5068,7 +6390,7 @@ FEES_EDIT_BTN.place(x=360,y=0)
 image_fees_report= Image.open(r"ICONS\fee_report.png")
 image_fees_report= image_fees_report.resize((55,55))
 img_fees_report= ImageTk.PhotoImage(image_fees_report)
-FEES_REPORT_BTN=Button(MENU_FRAME,image = img_fees_report,bg='lightgrey',compound=TOP,text="FEES REPORT",command=FEES_REPORT_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
+FEES_REPORT_BTN=Button(MENU_FRAME,image = img_fees_report,bg='lightgrey',compound=TOP,text="FEES REPORT",command=lambda: FEES_REPORT_FUNCTION(databaseyear),padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
 FEES_REPORT_BTN.place(x=450,y=0) 
 
 
@@ -5076,7 +6398,7 @@ FEES_REPORT_BTN.place(x=450,y=0)
 image_library= Image.open(r"ICONS\Library.png")
 image_library= image_library.resize((55,55))
 img_library= ImageTk.PhotoImage(image_library)
-LIBRARY_BTN=Button(MENU_FRAME,image = img_library,bg='lightgrey',compound=TOP,text="LIBRARY",command=LIBRARY_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
+LIBRARY_BTN=Button(MENU_FRAME,image = img_library,bg='lightgrey',compound=TOP,text="LIBRARY",command=lambda: LIBRARY_FUNCTION(databaseyear),padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
 LIBRARY_BTN.place(x=550,y=0)
 
 
@@ -5084,7 +6406,7 @@ LIBRARY_BTN.place(x=550,y=0)
 image_certificate= Image.open(r"ICONS\certificate.png")
 image_certificate= image_certificate.resize((55,55))
 img_certificate= ImageTk.PhotoImage(image_certificate)
-CERTIFICATES_BTN=Button(MENU_FRAME,image = img_certificate,bg='lightgrey',compound=TOP,text="CERTIFICATES",command=CERTIFICATES_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
+CERTIFICATES_BTN=Button(MENU_FRAME,image = img_certificate,bg='lightgrey',compound=TOP,text="CERTIFICATES",command=lambda: CERTIFICATES_FUNCTION(databaseyear),padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
 CERTIFICATES_BTN.place(x=640,y=0)
 
 
@@ -5092,7 +6414,7 @@ CERTIFICATES_BTN.place(x=640,y=0)
 image_backup= Image.open(r"ICONS\backup.png")
 image_backup= image_backup.resize((55,55))
 img_backup= ImageTk.PhotoImage(image_backup)
-BACKUP_BTN=Button(MENU_FRAME,image = img_backup,bg='lightgrey',compound=TOP,text="BACKUP",command=BACKUP_FUNCTION,padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
+BACKUP_BTN=Button(MENU_FRAME,image = img_backup,bg='lightgrey',compound=TOP,text="BACKUP",command=lambda: BACKUP_FUNCTION(databaseyear),padx=2,pady=2,activebackground='lightgrey',relief=FLAT)
 BACKUP_BTN.place(x=740,y=0)
 
 
@@ -5129,10 +6451,10 @@ label_date_now = Label(MENU_FRAME,text="Current Date",bg='light grey',fg='#151B5
 label_date_now.place(x=1110, y=60)
 
 TIMElbl=Label(MENU_FRAME,text="Time : ",bg='light grey',fg='#151B54',font=("Copperplate Gothic Bold",10))
-TIMElbl.place(x=1210, y=60)
+TIMElbl.place(x=1050, y=30)
 
 label_time_now = Label(MENU_FRAME,text="Current Time",bg='lightgrey',fg='#151B54',font=("Copperplate Gothic Bold",10))
-label_time_now.place(x=1260, y=60)
+label_time_now.place(x=1110, y=30)
 
 def y():
     current_date=datetime.datetime.today().strftime('%d-%m-%y')
